@@ -72,12 +72,6 @@ public class PMS {
 	private static final String NOCONSOLE = "noconsole";
 	private static final String PROFILES = "profiles";
 
-	/**
-	 * @deprecated The version has moved to the resources/project.properties file. Use {@link #getVersion()} instead. 
-	 */
-	@Deprecated
-	public static String VERSION;
-
 	public static final String AVS_SEPARATOR = "\1";
 
 	// (innot): The logger used for all logging.
