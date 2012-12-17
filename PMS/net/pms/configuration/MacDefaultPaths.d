@@ -2,7 +2,7 @@ module net.pms.configuration.MacDefaultPaths;
 
 import net.pms.util.PropertiesUtil;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
+import org.apache.commons.lang.StringUtils : isNotBlank;
 
 class MacDefaultPaths : ProgramPaths {
 	override
@@ -12,27 +12,27 @@ class MacDefaultPaths : ProgramPaths {
 
 	override
 	public String getFfmpegPath() {
-		return getBinariesPath() + "osx/ffmpeg";
+		return getBinariesPath() ~ "osx/ffmpeg";
 	}
 
 	override
 	public String getFlacPath() {
-		return getBinariesPath() + "osx/flac";
+		return getBinariesPath() ~ "osx/flac";
 	}
 
 	override
 	public String getMencoderPath() {
-		return getBinariesPath() + "osx/mencoder";
+		return getBinariesPath() ~ "osx/mencoder";
 	}
 
 	override
 	public String getMplayerPath() {
-		return getBinariesPath() + "osx/mplayer";
+		return getBinariesPath() ~ "osx/mplayer";
 	}
 
 	override
 	public String getTsmuxerPath() {
-		return getBinariesPath() + "osx/tsMuxeR";
+		return getBinariesPath() ~ "osx/tsMuxeR";
 	}
 
 	override
@@ -42,12 +42,12 @@ class MacDefaultPaths : ProgramPaths {
 
 	override
 	public String getDCRaw() {
-		return getBinariesPath() + "osx/dcraw";
+		return getBinariesPath() ~ "osx/dcraw";
 	}
 	
 	override
 	public String getIMConvertPath() {
-		return getBinariesPath() + "osx/convert";
+		return getBinariesPath() ~ "osx/convert";
 	}
 
 	/**
@@ -64,7 +64,7 @@ class MacDefaultPaths : ProgramPaths {
 			if (path.endsWith("/")) {
 				return path;
 			} else {
-				return path + "/";
+				return path ~ "/";
 			}
 		} else {
 			return "";

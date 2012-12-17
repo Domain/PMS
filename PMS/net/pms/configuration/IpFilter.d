@@ -39,8 +39,8 @@ import java.util.regex.Pattern;
  */
 public class IpFilter {
 
-	private final static String IP_FILTER_RULE_CHAR = "0123456789-.* ";
-	private final static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
+	private const static String IP_FILTER_RULE_CHAR = "0123456789-.* ";
+	private const static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
 	private static final Logger LOGGER = LoggerFactory.getLogger(IpFilter.class);
 
 	interface Predicate {
@@ -121,11 +121,11 @@ public class IpFilter {
 
 		}
 
-		List<ByteRule> rules;
+		List/*<ByteRule>*/ rules;
 
 		public IpPredicate(String[] tags) {
-			this.rules = new ArrayList<ByteRule>(tags.length);
-			for (String s : tags) {
+			this.rules = new ArrayList/*<ByteRule>*/(tags.length);
+			foreach (String s ; tags) {
 				s = s.trim();
 				rules.add(parseTag(s));
 			}
@@ -164,7 +164,7 @@ public class IpFilter {
 				}
 			}
 
-			throw new IllegalArgumentException("Tag is not understood:" + s);
+			throw new IllegalArgumentException("Tag is not understood:" ~ s);
 
 		}
 
@@ -199,8 +199,8 @@ public class IpFilter {
 	}
 
 	String rawFilter;
-	List<Predicate> matchers = new ArrayList<Predicate>();
-	Set<String> logged = new HashSet<String>();
+	List/*<Predicate>*/ matchers = new ArrayList/*<Predicate>*/();
+	Set/*<String>*/ logged = new HashSet/*<String>*/();
 
 	public IpFilter() {
 	}
@@ -233,12 +233,12 @@ public class IpFilter {
 
 	override
 	public String toString() {
-		return "IpFilter:" + getNormalizedFilter();
+		return "IpFilter:" ~ getNormalizedFilter();
 	}
 
 	public String getNormalizedFilter() {
 		StringBuilder b = new StringBuilder();
-		for (Predicate r : matchers) {
+		foreach (Predicate r ; matchers) {
 			if (b.length() > 0) {
 				b.append(',');
 			}
@@ -252,20 +252,20 @@ public class IpFilter {
 		bool log = isFirstDecision(addr);
 		if (matchers.size() == 0) {
 			if (log) {
-				LOGGER.info("No IP filter specified, access granted to " + addr);
+				LOGGER.info("No IP filter specified, access granted to " ~ addr);
 			}
 			return true;
 		}
-		for (Predicate p : matchers) {
+		foreach (Predicate p ; matchers) {
 			if (p.match(addr)) {
 				if (log) {
-					LOGGER.info("Access granted to " + addr + " by rule: " + p);
+					LOGGER.info("Access granted to " ~ addr ~ " by rule: " ~ p);
 				}
 				return true;
 			}
 		}
 		if (log) {
-			LOGGER.info("Access denied to " + addr);
+			LOGGER.info("Access denied to " ~ addr);
 		}
 		return false;
 	}
@@ -295,9 +295,9 @@ public class IpFilter {
 
 	private static void eq(String name, Object obj, Object obj2) {
 		if (obj !is null && obj.equals(obj2)) {
-			LOGGER.debug("EQ: " + name + '=' + obj);
+			LOGGER.debug("EQ: " ~ name ~ '=' ~ obj);
 		} else {
-			throw new RuntimeException(name + " expected : '" + obj + "' <> actual : '" + obj2 + "'");
+			throw new RuntimeException(name ~ " expected : '" ~ obj ~ "' <> actual : '" ~ obj2 ~ "'");
 		}
 	}
 

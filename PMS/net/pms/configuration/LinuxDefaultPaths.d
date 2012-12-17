@@ -4,10 +4,10 @@ import net.pms.util.PropertiesUtil;
 
 import java.io.File;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
+import org.apache.commons.lang.StringUtils : isNotBlank;
 
 class LinuxDefaultPaths : ProgramPaths {
-    private final String BINARIES_SEARCH_PATH = getBinariesSearchPath();
+    private const String BINARIES_SEARCH_PATH = getBinariesSearchPath();
 
 	override
 	public String getEac3toPath() {
