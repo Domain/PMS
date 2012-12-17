@@ -577,7 +577,6 @@
      <File path="net\pms\util\ProcessUtil.d" />
      <File path="net\pms\util\PropertiesUtil.d" />
      <File path="net\pms\util\StringUtil.d" />
-     <File path="net\pms\util\StringUtils.d" />
      <File path="net\pms\util\SystemErrWrapper.d" />
      <File path="net\pms\util\TaskRunner.d" />
      <File path="net\pms\util\UriRetriever.d" />
@@ -594,6 +593,15 @@
     </Folder>
     <File path="net\pms\Messages.d" />
     <File path="net\pms\PMS.d" />
+   </Folder>
+  </Folder>
+  <Folder name="org">
+   <Folder name="apache">
+    <Folder name="commons">
+     <Folder name="lang">
+      <File path="org\apache\commons\lang\StringUtils.d" />
+     </Folder>
+    </Folder>
    </Folder>
   </Folder>
   <File path="main.d" />

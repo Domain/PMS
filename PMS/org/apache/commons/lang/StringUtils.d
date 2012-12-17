@@ -1,4 +1,4 @@
-module net.pms.util.StringUtils;
+module org.apache.commons.lang.StringUtils;
 
 import std.string;
 
