@@ -1,7 +1,6 @@
 module net.pms.configuration.Build;
 
-import com.sun.jna.Platform;
-import org.apache.commons.lang.StringUtils;
+import net.pms.util.StringUtils;
 
 // a one-stop class for values and methods specific to custom PMS builds
 public class Build {
@@ -9,18 +8,18 @@ public class Build {
 	 * Repository where to locate the file. Note: using "raw.github.com"
 	 * to access the raw file. 
 	 */
-	private static final String REPO = "https://raw.github.com/ps3mediaserver/ps3mediaserver";
+	private static const String REPO = "https://raw.github.com/ps3mediaserver/ps3mediaserver";
 
 	/**
 	 * The URL of the properties file used by the {@link AutoUpdater} to announce PMS updates.
 	 * Can be null/empty if not used. Not used if IS_UPDATABLE is set to false.
 	 */
-	private static final String UPDATE_SERVER_URL = REPO + "/master/src/main/external-resources/update/latest_version.properties";
+	private static const String UPDATE_SERVER_URL = REPO ~ "/master/src/main/external-resources/update/latest_version.properties";
 
 	/**
 	 * If false, manual and automatic update checks are unconditionally disabled.
 	 */
-	private static final bool IS_UPDATABLE = true;
+	private static const bool IS_UPDATABLE = true;
 
 	/**
 	 * the name of the subdirectory under which PMS config files are stored for this build.
@@ -50,7 +49,7 @@ public class Build {
 	 * @return The profile directory name
 	 */
 
-	private static final String PROFILE_DIRECTORY_NAME = "PMS";
+	private static const String PROFILE_DIRECTORY_NAME = "PMS";
 
 	/**
 	 * Determines whether or not this PMS build can be updated to a more

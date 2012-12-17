@@ -577,6 +577,7 @@
      <File path="net\pms\util\ProcessUtil.d" />
      <File path="net\pms\util\PropertiesUtil.d" />
      <File path="net\pms\util\StringUtil.d" />
+     <File path="net\pms\util\StringUtils.d" />
      <File path="net\pms\util\SystemErrWrapper.d" />
      <File path="net\pms\util\TaskRunner.d" />
      <File path="net\pms\util\UriRetriever.d" />
