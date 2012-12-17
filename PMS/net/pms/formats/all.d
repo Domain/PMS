@@ -1,0 +1,20 @@
+module net.pms.formats.all;
+
+public import net.pms.formats.AudioAsVideo;
+public import net.pms.formats.DVRMS;
+public import net.pms.formats.FLAC;
+public import net.pms.formats.Format;
+public import net.pms.formats.FormatFactory;
+public import net.pms.formats.GIF;
+public import net.pms.formats.ISO;
+public import net.pms.formats.JPG;
+public import net.pms.formats.M4A;
+public import net.pms.formats.MKV;
+public import net.pms.formats.MP3;
+public import net.pms.formats.MPG;
+public import net.pms.formats.OGG;
+public import net.pms.formats.PNG;
+public import net.pms.formats.RAW;
+public import net.pms.formats.TIF;
+public import net.pms.formats.WAV;
+public import net.pms.formats.WEB;

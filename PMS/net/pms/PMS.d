@@ -19,7 +19,6 @@
 
 module net.pms.PMS;
 
-import com.sun.jna.Platform;
 import net.pms.configuration.Build;
 import net.pms.configuration.PmsConfiguration;
 import net.pms.configuration.RendererConfiguration;
@@ -47,14 +46,7 @@ import net.pms.util.ProcessUtil;
 import net.pms.util.PropertiesUtil;
 import net.pms.util.SystemErrWrapper;
 import net.pms.util.TaskRunner;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.event.ConfigurationEvent;
-import org.apache.commons.configuration.event.ConfigurationListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -66,16 +58,16 @@ import java.util.Map.Entry;
 import java.util.logging.LogManager;
 
 public class PMS {
-	private static final String SCROLLBARS = "scrollbars";
-	private static final String NATIVELOOK = "nativelook";
-	private static final String CONSOLE = "console";
-	private static final String NOCONSOLE = "noconsole";
-	private static final String PROFILES = "profiles";
+	private static const String SCROLLBARS = "scrollbars";
+	private static const String NATIVELOOK = "nativelook";
+	private static const String CONSOLE = "console";
+	private static const String NOCONSOLE = "noconsole";
+	private static const String PROFILES = "profiles";
 
-	public static final String AVS_SEPARATOR = "\1";
+	public static const String AVS_SEPARATOR = "\1";
 
 	// (innot): The logger used for all logging.
-	private static final Logger LOGGER = LoggerFactory.getLogger(PMS.class);
+	private static const Logger LOGGER = LoggerFactory.getLogger(PMS.class);
 
 	// TODO(tcox):  This shouldn't be static
 	private static PmsConfiguration configuration;
@@ -112,21 +104,9 @@ public class PMS {
 	private static PMS instance = null;
 
 	/**
-	 * @deprecated This field is not used and will be removed in the future. 
-	 */
-	@Deprecated
-	public final static SimpleDateFormat sdfDate = new SimpleDateFormat("HH:mm:ss.SSS", Locale.US);
-
-	/**
-	 * @deprecated This field is not used and will be removed in the future. 
-	 */
-	@Deprecated
-	public final static SimpleDateFormat sdfHour = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
-
-	/**
 	 * Array of {@link net.pms.configuration.RendererConfiguration} that have been found by PMS.
 	 */
-	private final ArrayList<RendererConfiguration> foundRenderers = new ArrayList<RendererConfiguration>();
+	private const ArrayList<RendererConfiguration> foundRenderers = new ArrayList<RendererConfiguration>();
 
 	/**Adds a {@link net.pms.configuration.RendererConfiguration} to the list of media renderers found. The list is being used, for
 	 * example, to give the user a graphical representation of the found media renderers.
@@ -204,7 +184,7 @@ public class PMS {
 			if (workDir !is null) {
 				pb.directory(workDir);
 			}
-			final Process process = pb.start();
+			const Process process = pb.start();
 
 			OutputTextConsumer stderrConsumer = new OutputTextConsumer(process.getErrorStream(), false);
 			stderrConsumer.start();
@@ -254,7 +234,7 @@ public class PMS {
 	 * @see System#err
 	 */
 	@SuppressWarnings("unused")
-	private final PrintStream stderr = System.err;
+	private const PrintStream stderr = System.err;
 
 	/**Main resource database that supports search capabilities. Also known as media cache.
 	 * @see net.pms.dlna.DLNAMediaDatabase
@@ -437,7 +417,7 @@ public class PMS {
 		// a static block in Player doesn't work (i.e. is called too late).
 		// this must always be called *after* the plugins have loaded.
 		// here's as good a place as any
-		Player.initializeFinalizeTranscoderArgsListeners();
+		Player.initializeconstizeTranscoderArgsListeners();
 
 		// Initialize a player factory to register all players
 		PlayerFactory.initialize(configuration);

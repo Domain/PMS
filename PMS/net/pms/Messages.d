@@ -26,9 +26,9 @@ import java.util.ResourceBundle;
  * PMS. It is based on {@link ResourceBundle}.
  */
 public class Messages {
-	private static final String BUNDLE_NAME = "resources.i18n.messages";
+	private static const String BUNDLE_NAME = "resources.i18n.messages";
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private static const ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
 	private Messages() {
 	}
@@ -48,7 +48,7 @@ public class Messages {
 		try {
 			return RESOURCE_BUNDLE.getString(key);
 		} catch (MissingResourceException e) {
-			return '!' + key + '!';
+			return '!' ~ key ~ '!';
 		}
 	}
 }
