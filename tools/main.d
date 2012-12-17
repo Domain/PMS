@@ -3,32 +3,22 @@ module main;
 import std.stdio;
 import std.getopt;
 import std.file;
+import std.path;
 import std.exception;
 import std.array;
-
-string getFilename(string fullname)
-{
-	auto index = fullname.length;
-	while (fullname[index-1] != '\\')
-	{
-		--index;
-	}
-	return fullname[index..$-2];
-}
 
 void generateFile(string dir, string prefix)
 {
 	enforce(dir.isDir());
 	chdir(dir);
-	auto path = dir.replace(prefix, "");
+	auto path = relativePath(dir, prefix);
 	path = path.replace("\\", ".");
-	path = path[1..$];
 	auto files = appender!string();
-	foreach (string name; dirEntries(dir, SpanMode.shallow)) 
+	foreach (entry; dirEntries(dir, SpanMode.shallow)) 
 	{ 
-		if (name.isFile() && name[$-2..$] == ".d")
+		if (entry.isFile() && entry.name.extension() == ".d")
 		{
-			auto filename = getFilename(name);
+			auto filename = baseName(entry.name, ".d");
 
 			if (filename != "all")
 				files.put("public import " ~ path ~ "." ~ filename ~";\n");
@@ -58,11 +48,11 @@ int main(string[] argv)
 		r = true;
 	}
 
-	foreach (string name; dirEntries(dir, SpanMode.depth)) 
+	foreach (entry; dirEntries(dir, SpanMode.depth)) 
 	{ 
-		if (name.isDir())
+		if (entry.isDir())
 		{
-			generateFile(name, dir);
+			generateFile(entry.name, dir);
 		}
 	}
 	return 0;

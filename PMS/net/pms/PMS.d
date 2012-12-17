@@ -33,7 +33,7 @@ import net.pms.formats.Format;
 import net.pms.formats.FormatFactory;
 import net.pms.gui.DummyFrame;
 import net.pms.gui.IFrame;
-import net.pms.io.*;
+import net.pms.io.all;
 import net.pms.logging.LoggingConfigFileLoader;
 import net.pms.network.HTTPServer;
 import net.pms.network.ProxyServer;
@@ -53,7 +53,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.BindException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.all;
 import java.util.Map.Entry;
 import java.util.logging.LogManager;
 
@@ -106,7 +106,7 @@ public class PMS {
 	/**
 	 * Array of {@link net.pms.configuration.RendererConfiguration} that have been found by PMS.
 	 */
-	private const ArrayList<RendererConfiguration> foundRenderers = new ArrayList<RendererConfiguration>();
+	private const ArrayList/*<RendererConfiguration>*/ foundRenderers = new ArrayList/*<RendererConfiguration>*/();
 
 	/**Adds a {@link net.pms.configuration.RendererConfiguration} to the list of media renderers found. The list is being used, for
 	 * example, to give the user a graphical representation of the found media renderers.
@@ -136,7 +136,7 @@ public class PMS {
 		return proxyServer;
 	}
 
-	public ArrayList<Process> currentProcesses = new ArrayList<Process>();
+	public ArrayList/*<Process>*/ currentProcesses = new ArrayList/*<Process>*/();
 
 	private PMS() {
 	}
@@ -176,8 +176,8 @@ public class PMS {
 	 * @return Returns true if the command exited as expected
 	 * @throws Exception TODO: Check which exceptions to use
 	 */
-	private bool checkProcessExistence(String name, bool error, File workDir, String... params) throws Exception {
-		LOGGER.debug("launching: " + params[0]);
+	private bool checkProcessExistence(String name, bool error, File workDir, String[] params) {
+		LOGGER.debug("launching: " ~ params[0]);
 
 		try {
 			ProcessBuilder pb = new ProcessBuilder(params);
@@ -233,7 +233,6 @@ public class PMS {
 	/**
 	 * @see System#err
 	 */
-	@SuppressWarnings("unused")
 	private const PrintStream stderr = System.err;
 
 	/**Main resource database that supports search capabilities. Also known as media cache.
@@ -266,7 +265,7 @@ public class PMS {
 	 * not be set to listen on the UPnP port.
 	 * @throws Exception
 	 */
-	private bool init() throws Exception {
+	private bool init() {
 		AutoUpdater autoUpdater = null;
 
 		// Temporary fix for backwards compatibility
@@ -299,7 +298,7 @@ public class PMS {
 		frame.setStatusCode(0, Messages.getString("PMS.130"), "connect_no-220.png");
 		proxy = -1;
 
-        LOGGER.info("Starting " + PropertiesUtil.getProjectProperties().get("project.name") + " " + getVersion());
+        LOGGER.info("Starting " ~ PropertiesUtil.getProjectProperties().get("project.name") ~ " " ~ getVersion());
         LOGGER.info("by shagrath / 2008-2012");
         LOGGER.info("http://ps3mediaserver.org");
         LOGGER.info("https://github.com/ps3mediaserver/ps3mediaserver");
@@ -309,28 +308,28 @@ public class PMS {
 		String commitTime = PropertiesUtil.getProjectProperties().get("git.commit.time");
 		String shortCommitId = commitId.substring(0,  9);
 
-		LOGGER.info("Build: " + shortCommitId + " (" + commitTime + ")");
+		LOGGER.info("Build: " ~ shortCommitId ~ " (" ~ commitTime ~ ")");
 
 		// Log system properties
 		logSystemInfo();
 
 		String cwd = new File("").getAbsolutePath();
-		LOGGER.info("Working directory: " + cwd);
+		LOGGER.info("Working directory: " ~ cwd);
 
-		LOGGER.info("Temp directory: " + configuration.getTempFolder());
-		LOGGER.info("Logging config file: " + LoggingConfigFileLoader.getConfigFilePath());
+		LOGGER.info("Temp directory: " ~ configuration.getTempFolder());
+		LOGGER.info("Logging config file: " ~ LoggingConfigFileLoader.getConfigFilePath());
 
-		HashMap<String, String> lfps = LoggingConfigFileLoader.getLogFilePaths();
+		HashMap/*<String, String>*/ lfps = LoggingConfigFileLoader.getLogFilePaths();
 
 		// debug.log filename(s) and path(s)
 		if (lfps !is null && lfps.size() > 0) {
 			if (lfps.size() == 1) {
-				Entry<String, String> entry = lfps.entrySet().iterator().next();
+				Entry/*<String, String>*/ entry = lfps.entrySet().iterator().next();
 				LOGGER.info(String.format("%s: %s", entry.getKey(), entry.getValue()));
 			} else {
 				LOGGER.info("Logging to multiple files:");
-				Iterator<Entry<String, String>> logsIterator = lfps.entrySet().iterator();
-				Entry<String, String> entry;
+				Iterator/*<Entry<String, String>>*/ logsIterator = lfps.entrySet().iterator();
+				Entry/*<String, String>*/ entry;
 				while (logsIterator.hasNext()) {
 					entry = logsIterator.next();
 					LOGGER.info(String.format("%s: %s", entry.getKey(), entry.getValue()));
@@ -340,9 +339,9 @@ public class PMS {
 
 		LOGGER.info("");
 
-		LOGGER.info("Profile directory: " + configuration.getProfileDirectory());
+		LOGGER.info("Profile directory: " ~ configuration.getProfileDirectory());
 		String profilePath = configuration.getProfilePath();
-		LOGGER.info("Profile path: " + profilePath);
+		LOGGER.info("Profile path: " ~ profilePath);
 
 		File profileFile = new File(profilePath);
 
@@ -351,12 +350,12 @@ public class PMS {
 				FileUtil.isFileReadable(profileFile) ? "r" : "-",
 				FileUtil.isFileWritable(profileFile) ? "w" : "-"
 			);
-			LOGGER.info("Profile permissions: " + permissions);
+			LOGGER.info("Profile permissions: " ~ permissions);
 		} else {
 			LOGGER.info("Profile permissions: no such file");
 		}
 
-		LOGGER.info("Profile name: " + configuration.getProfileName());
+		LOGGER.info("Profile name: " ~ configuration.getProfileName());
 		LOGGER.info("");
 
 		RendererConfiguration.loadRendererConfigurations(configuration);
@@ -370,7 +369,7 @@ public class PMS {
 
 		// check the existence of Vsfilter.dll
 		if (registry.isAvis() && registry.getAvsPluginsDir() !is null) {
-			LOGGER.info("Found AviSynth plugins dir: " + registry.getAvsPluginsDir().getAbsolutePath());
+			LOGGER.info("Found AviSynth plugins dir: " ~ registry.getAvsPluginsDir().getAbsolutePath());
 			File vsFilterdll = new File(registry.getAvsPluginsDir(), "VSFilter.dll");
 			if (!vsFilterdll.exists()) {
 				LOGGER.info("VSFilter.dll is not in the AviSynth plugins directory. This can cause problems when trying to play subtitled videos with AviSynth");
@@ -378,7 +377,7 @@ public class PMS {
 		}
 
 		if (registry.getVlcv() !is null && registry.getVlcp() !is null) {
-			LOGGER.info("Found VideoLAN version " + registry.getVlcv() + " at: " + registry.getVlcp());
+			LOGGER.info("Found VideoLAN version " ~ registry.getVlcv() ~ " at: " ~ registry.getVlcp());
 		}
 
 		//check if Kerio is installed
@@ -433,7 +432,7 @@ public class PMS {
 		try {
 			binding = server.start();
 		} catch (BindException b) {
-			LOGGER.info("FATAL ERROR: Unable to bind on port: " + configuration.getServerPort() + ", because: " + b.getMessage());
+			LOGGER.info("FATAL ERROR: Unable to bind on port: " ~ configuration.getServerPort() ~ ", because: " ~ b.getMessage());
 			LOGGER.info("Maybe another process is running or the hostname is wrong.");
 		}
 
@@ -457,7 +456,7 @@ public class PMS {
 		}
 
 		if (proxy > 0) {
-			LOGGER.info("Starting HTTP Proxy Server on port: " + proxy);
+			LOGGER.info("Starting HTTP Proxy Server on port: " ~ proxy);
 			proxyServer = new ProxyServer(proxy);
 		}
 
@@ -465,7 +464,7 @@ public class PMS {
 		if (configuration.getUseCache()) {
 			initializeDatabase(); // XXX: this must be done *before* new MediaLibrary -> new MediaLibraryFolder
 			mediaLibrary = new MediaLibrary();
-			LOGGER.info("A tiny cache admin interface is available at: http://" + server.getHost() + ":" + server.getPort() + "/console/home");
+			LOGGER.info("A tiny cache admin interface is available at: http://" ~ server.getHost() ~ ":" ~ server.getPort() ~ "/console/home");
 		}
 
 		// XXX: this must be called:
@@ -490,7 +489,7 @@ public class PMS {
 						try {
 							p.exitValue();
 						} catch (IllegalThreadStateException ise) {
-							LOGGER.trace("Forcing shutdown of process: " + p);
+							LOGGER.trace("Forcing shutdown of process: " ~ p);
 							ProcessUtil.destroy(p);
 						}
 					}
@@ -571,7 +570,7 @@ public class PMS {
 		if (folders is null || folders.length() == 0) {
 			return null;
 		}
-		ArrayList<File> directories = new ArrayList<File>();
+		ArrayList/*<File>*/ directories = new ArrayList/*<File>*/();
 		String[] foldersArray = folders.split(",");
 		for (String folder : foldersArray) {
 			// unescape embedded commas. note: backslashing isn't safe as it conflicts with
@@ -579,15 +578,15 @@ public class PMS {
 			// http://ps3mediaserver.org/forum/viewtopic.php?f=14&t=8883&start=250#p43520
 			folder = folder.replaceAll("&comma;", ",");
 			if (log) {
-				LOGGER.info("Checking shared folder: " + folder);
+				LOGGER.info("Checking shared folder: " ~ folder);
 			}
 			File file = new File(folder);
 			if (file.exists()) {
 				if (!file.isDirectory()) {
-					LOGGER.warn("The file " + folder + " is not a directory! Please remove it from your Shared folders list on the Navigation/Share Settings tab");
+					LOGGER.warn("The file " ~ folder ~ " is not a directory! Please remove it from your Shared folders list on the Navigation/Share Settings tab");
 				}
 			} else {
-				LOGGER.warn("The directory " + folder + " does not exist. Please remove it from your Shared folders list on the Navigation/Share Settings tab");
+				LOGGER.warn("The directory " ~ folder ~ " does not exist. Please remove it from your Shared folders list on the Navigation/Share Settings tab");
 			}
 
 			// add the file even if there are problems so that the user can update the shared folders as required.
@@ -627,57 +626,10 @@ public class PMS {
 					UPNPHelper.sendAlive();
 					frame.setReloadable(false);
 				} catch (IOException e) {
-					LOGGER.error("error during restart :" +e.getMessage(), e);
+					LOGGER.error("error during restart :" ~ e.getMessage(), e);
 				}
 			}
 		});
-	}
-
-	// Cannot remove these methods because of backwards compatibility;
-	// none of the PMS code uses it, but some plugins still do.
-	
-	/**
-	 * @deprecated Use the SLF4J logging API instead.
-	 * Adds a message to the debug stream, or {@link System#out} in case the
-	 * debug stream has not been set up yet.
-	 * @param msg {@link String} to be added to the debug stream.
-	 */
-	@Deprecated
-	public static void debug(String msg) {
-		LOGGER.trace(msg);
-	}
-
-	/**
-	 * @deprecated Use the SLF4J logging API instead.
-	 * Adds a message to the info stream.
-	 * @param msg {@link String} to be added to the info stream.
-	 */
-	@Deprecated
-	public static void info(String msg) {
-		LOGGER.debug(msg);
-	}
-
-	/**
-	 * @deprecated Use the SLF4J logging API instead.
-	 * Adds a message to the minimal stream. This stream is also
-	 * shown in the Trace tab.
-	 * @param msg {@link String} to be added to the minimal stream.
-	 */
-	@Deprecated
-	public static void minimal(String msg) {
-		LOGGER.info(msg);
-	}
-
-	/**
-	 * @deprecated Use the SLF4J logging API instead.
-	 * Adds a message to the error stream. This is usually called by
-	 * statements that are in a try/catch block.
-	 * @param msg {@link String} to be added to the error stream
-	 * @param t {@link Throwable} comes from an {@link Exception} 
-	 */
-	@Deprecated
-	public static void error(String msg, Throwable t) {
-		LOGGER.error(msg, t);
 	}
 
 	/**
@@ -759,91 +711,6 @@ public class PMS {
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link net.pms.formats.FormatFactory#getAssociatedExtension(String)}
-	 * instead.
-	 *
-	 * @param filename
-	 * @return The format.
-	 */
-	@Deprecated
-	public Format getAssociatedExtension(String filename) {
-		return FormatFactory.getAssociatedExtension(filename);
-	}
-
-	public static void main(String args[]) throws IOException, ConfigurationException {
-		bool displayProfileChooser = false;
-		bool headless = true;
-
-		if (args.length > 0) {
-			for (int a = 0; a < args.length; a++) {
-				if (args[a].equals(CONSOLE)) {
-					System.setProperty(CONSOLE, Boolean.toString(true));
-				} else if (args[a].equals(NATIVELOOK)) {
-					System.setProperty(NATIVELOOK, Boolean.toString(true));
-				} else if (args[a].equals(SCROLLBARS)) {
-					System.setProperty(SCROLLBARS, Boolean.toString(true));
-				} else if (args[a].equals(NOCONSOLE)) {
-					System.setProperty(NOCONSOLE, Boolean.toString(true));
-				} else if (args[a].equals(PROFILES)) {
-					displayProfileChooser = true;
-				}
-			}
-		}
-
-		try {
-			Toolkit.getDefaultToolkit();
-
-			if (GraphicsEnvironment.isHeadless()) {
-				if (System.getProperty(NOCONSOLE) is null) {
-					System.setProperty(CONSOLE, Boolean.toString(true));
-				}
-			} else {
-				headless = false;
-			}
-		} catch (Throwable t) {
-			System.err.println("Toolkit error: " + t.getClass().getName() + ": " + t.getMessage());
-
-			if (System.getProperty(NOCONSOLE) is null) {
-				System.setProperty(CONSOLE, Boolean.toString(true));
-			}
-		}
-
-		if (!headless && displayProfileChooser) {
-			ProfileChooser.display();
-		}
-
-		try {
-			setConfiguration(new PmsConfiguration());
-
-			assert getConfiguration() !is null;
-
-			// Load the (optional) logback config file. This has to be called after 'new PmsConfiguration'
-			// as the logging starts immediately and some filters need the PmsConfiguration.
-			LoggingConfigFileLoader.load();
-
-			// create the PMS instance returned by get()
-			createInstance(); 
-		} catch (Throwable t) {
-			String errorMessage = String.format(
-				"Configuration error: %s: %s",
-				t.getClass().getName(),
-				t.getMessage()
-			);
-
-			System.err.println(errorMessage);
-
-			if (!headless && instance !is null) {
-				JOptionPane.showMessageDialog(
-					((JFrame) (SwingUtilities.getWindowAncestor((Component) instance.getFrame()))),
-					errorMessage,
-					Messages.getString("PMS.42"),
-					JOptionPane.ERROR_MESSAGE
-				);
-			}
-		}
-	}
-
 	public HTTPServer getServer() {
 		return server;
 	}
@@ -853,7 +720,7 @@ public class PMS {
 	 *
 	 * @return The list of formats. 
 	 */
-	public ArrayList<Format> getExtensions() {
+	public ArrayList/*<Format>*/ getExtensions() {
 		return FormatFactory.getExtensions();
 	}
 
@@ -911,10 +778,10 @@ public class PMS {
 	private void logSystemInfo() {
 		long memoryInMB = Runtime.getRuntime().maxMemory() / 1048576;
 
-		LOGGER.info("Java: " + System.getProperty("java.version") + "-" + System.getProperty("java.vendor"));
-		LOGGER.info("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.arch") + " " + System.getProperty("os.version"));
-		LOGGER.info("Encoding: " + System.getProperty("file.encoding"));
-		LOGGER.info("Memory: " + memoryInMB + " " + Messages.getString("StatusTab.12"));
+		LOGGER.info("Java: " ~ System.getProperty("java.version") ~ "-" ~ System.getProperty("java.vendor"));
+		LOGGER.info("OS: " ~ System.getProperty("os.name") ~ " " ~ System.getProperty("os.arch") ~ " " ~ System.getProperty("os.version"));
+		LOGGER.info("Encoding: " ~ System.getProperty("file.encoding"));
+		LOGGER.info("Memory: " ~ memoryInMB ~ " " ~ Messages.getString("StatusTab.12"));
 		LOGGER.info("");
 
 		if (Platform.isMac()) {
