@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 class WindowsRegistryProgramPaths : ProgramPaths {
-	private static final Logger logger = LoggerFactory.getLogger(WindowsRegistryProgramPaths.class);
-	private final ProgramPaths defaults;
+	private static immutable Logger logger = LoggerFactory.getLogger(WindowsRegistryProgramPaths.class);
+	private immutable ProgramPaths defaults;
 
-	WindowsRegistryProgramPaths(ProgramPaths defaults) {
+	this(ProgramPaths defaults) {
 		this.defaults = defaults;
 	}
 
@@ -52,7 +52,7 @@ class WindowsRegistryProgramPaths : ProgramPaths {
 			String vlc = registry.getVlcp();
 			String version = registry.getVlcv();
 			if (new File(vlc).exists() && version !is null) {
-				logger.debug("Found VLC version " + version + " in Windows Registry: " + vlc);
+				logger.debug("Found VLC version " ~ version ~ " in Windows Registry: " ~ vlc);
 				return vlc;
 			}
 		}

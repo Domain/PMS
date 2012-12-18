@@ -1738,7 +1738,7 @@ public class PmsConfiguration {
 	 * Parallels: "tap,vmnet,vnic".
 	 * @return The string of network interface names to skip.
 	 */
-	public List<String> getSkipNetworkInterfaces() {
+	public List/*<String>*/ getSkipNetworkInterfaces() {
 		return getStringList(KEY_SKIP_NETWORK_INTERFACES, "tap,vmnet,vnic");
 	}
 
@@ -1790,8 +1790,8 @@ public class PmsConfiguration {
 		configuration.setProperty(KEY_ENGINES, listToString(enginesAsList));
 	}
 
-	public List<String> getEnginesAsList(SystemUtils registry) {
-		List<String> engines = stringToList(
+	public List/*<String>*/ getEnginesAsList(SystemUtils registry) {
+		List/*<String>*/ engines = stringToList(
 			// an empty string means: disable all engines
 			// http://www.ps3mediaserver.org/forum/viewtopic.php?f=6&t=15416
 			ConfigurationUtil.getPossiblyBlankConfigurationString(
@@ -1805,23 +1805,23 @@ public class PmsConfiguration {
 		return engines;
 	}
 
-	private static String listToString(List<String> enginesAsList) {
+	private static String listToString(List/*<String>*/ enginesAsList) {
 		return StringUtils.join(enginesAsList, LIST_SEPARATOR);
 	}
 
-	private static List<String> stringToList(String input) {
-		List<String> output = new ArrayList<String>();
+	private static List/*<String>*/ stringToList(String input) {
+		List/*<String>*/ output = new ArrayList/*<String>*/();
 		Collections.addAll(output, StringUtils.split(input, LIST_SEPARATOR));
 		return output;
 	}
 
 	// TODO: Get this out of here
-	private static List<String> hackAvs(SystemUtils registry, List<String> input) {
-		List<String> toBeRemoved = new ArrayList<String>();
-		for (String engineId : input) {
+	private static List/*<String>*/ hackAvs(SystemUtils registry, List/*<String>*/ input) {
+		List/*<String>*/ toBeRemoved = new ArrayList/*<String>*/();
+		foreach (String engineId ; input) {
 			if (engineId.startsWith("avs") && !registry.isAvis() && Platform.isWindows()) {
 				if (!avsHackLogged) {
-					LOGGER.info("AviSynth is not installed. You cannot use " + engineId + " as a transcoding engine.");
+					LOGGER.info("AviSynth is not installed. You cannot use " ~ engineId ~ " as a transcoding engine.");
 					avsHackLogged = true;
 				}
 
@@ -1829,15 +1829,15 @@ public class PmsConfiguration {
 			}
 		}
 
-		List<String> output = new ArrayList<String>();
+		List/*<String>*/ output = new ArrayList/*<String>*/();
 		output.addAll(input);
 		output.removeAll(toBeRemoved);
 		return output;
 	}
 
-	public void save() throws ConfigurationException {
+	public void save() {
 		configuration.save();
-		LOGGER.info("Configuration saved to: " + PROFILE_PATH);
+		LOGGER.info("Configuration saved to: " ~ PROFILE_PATH);
 	}
 
 	public String getFolders() {

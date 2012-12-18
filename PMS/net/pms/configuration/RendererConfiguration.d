@@ -29,77 +29,77 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class RendererConfiguration {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RendererConfiguration.class);
-	private static ArrayList<RendererConfiguration> rendererConfs;
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(RendererConfiguration.class);
+	private static ArrayList/*<RendererConfiguration>*/ rendererConfs;
 	private static PmsConfiguration pmsConfiguration;
 	private static RendererConfiguration defaultConf;
-	private static Map<InetAddress, RendererConfiguration> addressAssociation = new HashMap<InetAddress, RendererConfiguration>();
+	private static Map/*<InetAddress, RendererConfiguration>*/ addressAssociation = new HashMap/*<InetAddress, RendererConfiguration>*/();
 
 	private RootFolder rootFolder;
-	private final PropertiesConfiguration configuration;
+	private immutable PropertiesConfiguration configuration;
 	private FormatConfiguration formatConfiguration;
 	private int rank;
-	private final Map<String, String> mimes;
-	private final Map<String, String> DLNAPN;
+	private immutable Map/*<String, String>*/ mimes;
+	private immutable Map/*<String, String>*/ DLNAPN;
 
 	// property values
-	private static final String DEPRECATED_MPEGPSAC3 = "MPEGAC3"; // XXX deprecated: old name with missing container
-	private static final String EXCLUSIVE = "exclusive";
-	private static final String LPCM = "LPCM";
-	private static final String MP3 = "MP3";
-	private static final String MPEGPSAC3 = "MPEGPSAC3";
-	private static final String MPEGTSAC3 = "MPEGTSAC3";
-	private static final String WAV = "WAV";
-	private static final String WMV = "WMV";
+	private static const String DEPRECATED_MPEGPSAC3 = "MPEGAC3"; // XXX deprecated: old name with missing container
+	private static const String EXCLUSIVE = "exclusive";
+	private static const String LPCM = "LPCM";
+	private static const String MP3 = "MP3";
+	private static const String MPEGPSAC3 = "MPEGPSAC3";
+	private static const String MPEGTSAC3 = "MPEGTSAC3";
+	private static const String WAV = "WAV";
+	private static const String WMV = "WMV";
 
 	// property names
-	private static final String AUDIO = "Audio";
-	private static final String AUTO_EXIF_ROTATE = "AutoExifRotate";
-	private static final String BYTE_TO_TIMESEEK_REWIND_SECONDS = "ByteToTimeseekRewindSeconds"; // Ditlew
-	private static final String CBR_VIDEO_BITRATE = "CBRVideoBitrate"; // Ditlew
-	private static final String CHUNKED_TRANSFER = "ChunkedTransfer";
-	private static final String CUSTOM_MENCODER_OPTIONS = "CustomMencoderOptions";
-	private static final String CUSTOM_MENCODER_QUALITY_SETTINGS = "CustomMencoderQualitySettings";
-	private static final String DEFAULT_VBV_BUFSIZE = "DefaultVBVBufSize";
-	private static final String DLNA_LOCALIZATION_REQUIRED = "DLNALocalizationRequired";
-	private static final String DLNA_ORGPN_USE = "DLNAOrgPN";
-	private static final String DLNA_PN_CHANGES = "DLNAProfileChanges";
-	private static final String DLNA_TREE_HACK = "CreateDLNATreeFaster";
-	private static final String FORCE_JPG_THUMBNAILS = "ForceJPGThumbnails"; // Sony devices require JPG thumbnails
-	private static final String H264_L41_LIMITED = "H264Level41Limited";
-	private static final String IMAGE = "Image";
-	private static final String LONG_FILE_NAME_FORMAT = "LongFileNameFormat";
-	private static final String MAX_VIDEO_BITRATE = "MaxVideoBitrateMbps";
-	private static final String MAX_VIDEO_HEIGHT = "MaxVideoHeight";
-	private static final String MAX_VIDEO_WIDTH = "MaxVideoWidth";
-	private static final String MEDIAPARSERV2 = "MediaInfo";
-	private static final String MEDIAPARSERV2_THUMB = "MediaParserV2_ThumbnailGeneration";
-	private static final String MIME_TYPES_CHANGES = "MimeTypesChanges";
-	private static final String MUX_DTS_TO_MPEG = "MuxDTSToMpeg";
-	private static final String MUX_H264_WITH_MPEGTS = "MuxH264ToMpegTS";
-	private static final String MUX_LPCM_TO_MPEG = "MuxLPCMToMpeg";
-	private static final String RENDERER_ICON = "RendererIcon";
-	private static final String RENDERER_NAME = "RendererName";
-	private static final String SEEK_BY_TIME = "SeekByTime";
-	private static final String SHORT_FILE_NAME_FORMAT = "ShortFileNameFormat";
-	private static final String SHOW_AUDIO_METADATA = "ShowAudioMetadata";
-	private static final String SHOW_DVD_TITLE_DURATION = "ShowDVDTitleDuration"; // Ditlew
-	private static final String SHOW_SUB_METADATA = "ShowSubMetadata";
-	private static final String STREAM_EXT = "StreamExtensions";
-	private static final String SUBTITLE_HTTP_HEADER = "SubtitleHttpHeader";
-	private static final String SUPPORTED = "Supported";
-	private static final String TRANSCODE_AUDIO_441KHZ = "TranscodeAudioTo441kHz";
-	private static final String TRANSCODE_AUDIO = "TranscodeAudio";
-	private static final String TRANSCODED_SIZE = "TranscodedVideoFileSize";
-	private static final String TRANSCODE_EXT = "TranscodeExtensions";
-	private static final String TRANSCODE_FAST_START = "TranscodeFastStart";
-	private static final String TRANSCODE_VIDEO = "TranscodeVideo";
-	private static final String USER_AGENT_ADDITIONAL_HEADER = "UserAgentAdditionalHeader";
-	private static final String USER_AGENT_ADDITIONAL_SEARCH = "UserAgentAdditionalHeaderSearch";
-	private static final String USER_AGENT = "UserAgentSearch";
-	private static final String USE_SAME_EXTENSION = "UseSameExtension";
-	private static final String VIDEO = "Video";
-	private static final String WRAP_DTS_INTO_PCM = "WrapDTSIntoPCM";
+	private static const String AUDIO = "Audio";
+	private static const String AUTO_EXIF_ROTATE = "AutoExifRotate";
+	private static const String BYTE_TO_TIMESEEK_REWIND_SECONDS = "ByteToTimeseekRewindSeconds"; // Ditlew
+	private static const String CBR_VIDEO_BITRATE = "CBRVideoBitrate"; // Ditlew
+	private static const String CHUNKED_TRANSFER = "ChunkedTransfer";
+	private static const String CUSTOM_MENCODER_OPTIONS = "CustomMencoderOptions";
+	private static const String CUSTOM_MENCODER_QUALITY_SETTINGS = "CustomMencoderQualitySettings";
+	private static const String DEFAULT_VBV_BUFSIZE = "DefaultVBVBufSize";
+	private static const String DLNA_LOCALIZATION_REQUIRED = "DLNALocalizationRequired";
+	private static const String DLNA_ORGPN_USE = "DLNAOrgPN";
+	private static const String DLNA_PN_CHANGES = "DLNAProfileChanges";
+	private static const String DLNA_TREE_HACK = "CreateDLNATreeFaster";
+	private static const String FORCE_JPG_THUMBNAILS = "ForceJPGThumbnails"; // Sony devices require JPG thumbnails
+	private static const String H264_L41_LIMITED = "H264Level41Limited";
+	private static const String IMAGE = "Image";
+	private static const String LONG_FILE_NAME_FORMAT = "LongFileNameFormat";
+	private static const String MAX_VIDEO_BITRATE = "MaxVideoBitrateMbps";
+	private static const String MAX_VIDEO_HEIGHT = "MaxVideoHeight";
+	private static const String MAX_VIDEO_WIDTH = "MaxVideoWidth";
+	private static const String MEDIAPARSERV2 = "MediaInfo";
+	private static const String MEDIAPARSERV2_THUMB = "MediaParserV2_ThumbnailGeneration";
+	private static const String MIME_TYPES_CHANGES = "MimeTypesChanges";
+	private static const String MUX_DTS_TO_MPEG = "MuxDTSToMpeg";
+	private static const String MUX_H264_WITH_MPEGTS = "MuxH264ToMpegTS";
+	private static const String MUX_LPCM_TO_MPEG = "MuxLPCMToMpeg";
+	private static const String RENDERER_ICON = "RendererIcon";
+	private static const String RENDERER_NAME = "RendererName";
+	private static const String SEEK_BY_TIME = "SeekByTime";
+	private static const String SHORT_FILE_NAME_FORMAT = "ShortFileNameFormat";
+	private static const String SHOW_AUDIO_METADATA = "ShowAudioMetadata";
+	private static const String SHOW_DVD_TITLE_DURATION = "ShowDVDTitleDuration"; // Ditlew
+	private static const String SHOW_SUB_METADATA = "ShowSubMetadata";
+	private static const String STREAM_EXT = "StreamExtensions";
+	private static const String SUBTITLE_HTTP_HEADER = "SubtitleHttpHeader";
+	private static const String SUPPORTED = "Supported";
+	private static const String TRANSCODE_AUDIO_441KHZ = "TranscodeAudioTo441kHz";
+	private static const String TRANSCODE_AUDIO = "TranscodeAudio";
+	private static const String TRANSCODED_SIZE = "TranscodedVideoFileSize";
+	private static const String TRANSCODE_EXT = "TranscodeExtensions";
+	private static const String TRANSCODE_FAST_START = "TranscodeFastStart";
+	private static const String TRANSCODE_VIDEO = "TranscodeVideo";
+	private static const String USER_AGENT_ADDITIONAL_HEADER = "UserAgentAdditionalHeader";
+	private static const String USER_AGENT_ADDITIONAL_SEARCH = "UserAgentAdditionalHeaderSearch";
+	private static const String USER_AGENT = "UserAgentSearch";
+	private static const String USE_SAME_EXTENSION = "UseSameExtension";
+	private static const String VIDEO = "Video";
+	private static const String WRAP_DTS_INTO_PCM = "WrapDTSIntoPCM";
 
 	public static RendererConfiguration getDefaultConf() {
 		return defaultConf;
@@ -112,30 +112,30 @@ public class RendererConfiguration {
 	 */
 	public static void loadRendererConfigurations(PmsConfiguration pmsConf) {
 		pmsConfiguration = pmsConf;
-		rendererConfs = new ArrayList<RendererConfiguration>();
+		rendererConfs = new ArrayList/*<RendererConfiguration>*/();
 
 		try {
 			defaultConf = new RendererConfiguration();
 		} catch (ConfigurationException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 
 		File renderersDir = getRenderersDir();
 
 		if (renderersDir !is null) {
-			LOGGER.info("Loading renderer configurations from " + renderersDir.getAbsolutePath());
+			LOGGER.info("Loading renderer configurations from " ~ renderersDir.getAbsolutePath());
 
 			File[] confs = renderersDir.listFiles();
 			int rank = 1;
-			for (File f : confs) {
+			foreach (File f ; confs) {
 				if (f.getName().endsWith(".conf")) {
 					try {
-						LOGGER.info("Loading configuration file: " + f.getName());
+						LOGGER.info("Loading configuration file: " ~ f.getName());
 						RendererConfiguration r = new RendererConfiguration(f);
 						r.rank = rank++;
 						rendererConfs.add(r);
 					} catch (ConfigurationException ce) {
-						LOGGER.info("Error in loading configuration of: " + f.getAbsolutePath());
+						LOGGER.info("Error in loading configuration of: " ~ f.getAbsolutePath());
 					}
 
 				}
@@ -162,14 +162,14 @@ public class RendererConfiguration {
 	 *
 	 * @return The list of all configurations.
 	 */
-	public static ArrayList<RendererConfiguration> getAllRendererConfigurations() {
+	public static ArrayList/*<RendererConfiguration>*/ getAllRendererConfigurations() {
 		return rendererConfs;
 	}
 
 	protected static File getRenderersDir() {
-		final String[] pathList = PropertiesUtil.getProjectProperties().get("project.renderers.dir").split(",");
+		const String[] pathList = PropertiesUtil.getProjectProperties().get("project.renderers.dir").split(",");
 
-		for (String path : pathList) {
+		foreach (String path ; pathList) {
 			if (path.trim().length() > 0) {
 				File file = new File(path.trim());
 
@@ -177,7 +177,7 @@ public class RendererConfiguration {
 					if (file.canRead()) {
 						return file;
 					} else {
-						LOGGER.warn("Can't read directory: {}", file.getAbsolutePath());
+						LOGGER.warn("Can't read directory: " ~ file.getAbsolutePath());
 					}
 				}
 			}
@@ -187,7 +187,7 @@ public class RendererConfiguration {
 	}
 
 	public static void resetAllRenderers() {
-		for (RendererConfiguration rc : rendererConfs) {
+		foreach (RendererConfiguration rc ; rendererConfs) {
 			rc.rootFolder = null;
 		}
 	}
@@ -230,11 +230,11 @@ public class RendererConfiguration {
 	public static RendererConfiguration getRendererConfigurationByUA(String userAgentString) {
 		if (pmsConfiguration.isRendererForceDefault()) {
 			// Force default renderer
-			LOGGER.trace("Forcing renderer match to \"" + defaultConf.getRendererName() + "\"");
+			LOGGER.trace("Forcing renderer match to \"" ~ defaultConf.getRendererName() ~ "\"");
 			return manageRendererMatch(defaultConf);
 		} else {
 			// Try to find a match
-			for (RendererConfiguration r : rendererConfs) {
+			foreach (RendererConfiguration r ; rendererConfs) {
 				if (r.matchUserAgent(userAgentString)) {
 					return manageRendererMatch(r);
 				}
@@ -252,7 +252,7 @@ public class RendererConfiguration {
 			// all other requests from the same IP address will be recognized based on
 			// that association. Headers will be ignored and unfortunately they happen
 			// to be the only way to get here.
-			LOGGER.info("Another renderer like " + r.getRendererName() + " was found!");
+			LOGGER.info("Another renderer like " ~ r.getRendererName() ~ " was found!");
 		}
 
 		return r;
@@ -272,11 +272,11 @@ public class RendererConfiguration {
 	public static RendererConfiguration getRendererConfigurationByUAAHH(String header) {
 		if (pmsConfiguration.isRendererForceDefault()) {
 			// Force default renderer
-			LOGGER.trace("Forcing renderer match to \"" + defaultConf.getRendererName() + "\"");
+			LOGGER.trace("Forcing renderer match to \"" ~ defaultConf.getRendererName() ~ "\"");
 			return manageRendererMatch(defaultConf);
 		} else {
 			// Try to find a match
-			for (RendererConfiguration r : rendererConfs) {
+			foreach (RendererConfiguration r ; rendererConfs) {
 				if (StringUtils.isNotBlank(r.getUserAgentAdditionalHttpHeader()) && header.startsWith(r.getUserAgentAdditionalHttpHeader())) {
 					String value = header.substring(header.indexOf(":", r.getUserAgentAdditionalHttpHeader().length()) + 1);
 					if (r.matchAdditionalUserAgent(value)) {
@@ -301,7 +301,7 @@ public class RendererConfiguration {
 	 * @since 1.50.1
 	 */
 	public static RendererConfiguration getRendererConfigurationByName(String name) {
-		for (RendererConfiguration conf : rendererConfs) {
+		foreach (RendererConfiguration conf ; rendererConfs) {
 			if (conf.getRendererName().toLowerCase().contains(name.toLowerCase())) {
 				return conf;
 			}
@@ -357,13 +357,13 @@ public class RendererConfiguration {
 		return getBoolean(SHOW_DVD_TITLE_DURATION, false);
 	}
 
-	private RendererConfiguration() throws ConfigurationException {
+	private this() {
 		this(null);
 	}
 
-	public RendererConfiguration(File f) throws ConfigurationException {
+	public this(File f) {
 		configuration = new PropertiesConfiguration();
-		configuration.setListDelimiter((char) 0);
+		configuration.setListDelimiter(cast(char) 0);
 
 		if (f !is null) {
 			configuration.load(f);
@@ -387,11 +387,11 @@ public class RendererConfiguration {
 			}
 		}
 
-		DLNAPN = new HashMap<String, String>();
+		DLNAPN = new HashMap/*<String, String>*/();
 		String DLNAPNchanges = getString(DLNA_PN_CHANGES, null);
 
 		if (DLNAPNchanges !is null) {
-			LOGGER.trace("Config DLNAPNchanges: " + DLNAPNchanges);
+			LOGGER.trace("Config DLNAPNchanges: " ~ DLNAPNchanges);
 		}
 
 		if (StringUtils.isNotBlank(DLNAPNchanges)) {
@@ -516,9 +516,9 @@ public class RendererConfiguration {
 
 				if (mimetype !is null) {
 					if (isTranscodeAudioTo441()) {
-						mimetype += ";rate=44100;channels=2";
+						mimetype ~= ";rate=44100;channels=2";
 					} else {
-						mimetype += ";rate=48000;channels=2";
+						mimetype ~= ";rate=48000;channels=2";
 					}
 				}
 
@@ -562,9 +562,9 @@ public class RendererConfiguration {
 					: HTTPResource.AUDIO_LPCM_TYPEMIME;
 
 				if (isTranscodeAudioTo441()) {
-					mimetype += ";rate=44100;channels=2";
+					mimetype ~= ";rate=44100;channels=2";
 				} else {
-					mimetype += ";rate=48000;channels=2";
+					mimetype ~= ";rate=48000;channels=2";
 				}
 			}
 
@@ -707,7 +707,7 @@ public class RendererConfiguration {
 		String s = getString(USE_SAME_EXTENSION, null);
 
 		if (s !is null) {
-			s = file + "." + s;
+			s = file ~ "." ~ s;
 		} else {
 			s = file;
 		}
