@@ -21,7 +21,7 @@ module net.pms.dlna.WebVideoStream;
 import net.pms.formats.Format;
 
 public class WebVideoStream : WebStream {
-	public WebVideoStream(String fluxName, String URL, String thumbURL) {
+	public this(String fluxName, String URL, String thumbURL) {
 		super(fluxName, URL, thumbURL, Format.VIDEO);
 	}
 }

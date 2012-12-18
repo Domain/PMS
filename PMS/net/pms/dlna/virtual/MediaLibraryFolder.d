@@ -1,25 +1,25 @@
 module net.pms.dlna.virtual.MediaLibraryFolder;
 
 import net.pms.PMS;
-import net.pms.dlna.*;
+import net.pms.dlna.all;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class MediaLibraryFolder : VirtualFolder {
-	public static final int FILES = 0;
-	public static final int TEXTS = 1;
-	public static final int PLAYLISTS = 2;
-	public static final int ISOS = 3;
+	public static const int FILES = 0;
+	public static const int TEXTS = 1;
+	public static const int PLAYLISTS = 2;
+	public static const int ISOS = 3;
 	private String sqls[];
 	private int expectedOutputs[];
 	private DLNAMediaDatabase database;
 
-	public MediaLibraryFolder(String name, String sql, int expectedOutput) {
+	public this(String name, String sql, int expectedOutput) {
 		this(name, new String[]{sql}, new int[]{expectedOutput});
 	}
 
-	public MediaLibraryFolder(String name, String sql[], int expectedOutput[]) {
+	public this(String name, String sql[], int expectedOutput[]) {
 		super(name, null);
 		this.sqls = sql;
 		this.expectedOutputs = expectedOutput;
@@ -37,32 +37,32 @@ public class MediaLibraryFolder : VirtualFolder {
 			if (sql !is null) {
 				sql = transformSQL(sql);
 				if (expectedOutput == FILES) {
-					ArrayList<File> list = database.getFiles(sql);
+					ArrayList/*<File>*/ list = database.getFiles(sql);
 					if (list !is null) {
-						for (File f : list) {
+						foreach (File f ; list) {
 							addChild(new RealFile(f));
 						}
 					}
 				} else if (expectedOutput == PLAYLISTS) {
-					ArrayList<File> list = database.getFiles(sql);
+					ArrayList/*<File>*/ list = database.getFiles(sql);
 					if (list !is null) {
-						for (File f : list) {
+						foreach (File f ; list) {
 							addChild(new PlaylistFolder(f));
 						}
 					}
 				} else if (expectedOutput == ISOS) {
-					ArrayList<File> list = database.getFiles(sql);
+					ArrayList/*<File>*/ list = database.getFiles(sql);
 					if (list !is null) {
-						for (File f : list) {
+						foreach (File f ; list) {
 							addChild(new DVDISOFile(f));
 						}
 					}
 				} else if (expectedOutput == TEXTS) {
-					ArrayList<String> list = database.getStrings(sql);
+					ArrayList/*<String>*/ list = database.getStrings(sql);
 					if (list !is null) {
-						for (String s : list) {
-							String sqls2[] = new String[sqls.length - 1];
-							int expectedOutputs2[] = new int[expectedOutputs.length - 1];
+						foreach (String s ; list) {
+							String[] sqls2 = new String[sqls.length - 1];
+							int[] expectedOutputs2 = new int[expectedOutputs.length - 1];
 							System.arraycopy(sqls, 1, sqls2, 0, sqls2.length);
 							System.arraycopy(expectedOutputs, 1, expectedOutputs2, 0, expectedOutputs2.length);
 							addChild(new MediaLibraryFolder(s, sqls2, expectedOutputs2));
@@ -111,8 +111,8 @@ public class MediaLibraryFolder : VirtualFolder {
 
 	override
 	public void doRefreshChildren() {
-		ArrayList<File> list = null;
-		ArrayList<String> strings = null;
+		ArrayList/*<File>*/ list = null;
+		ArrayList/*<String>*/ strings = null;
 		int expectedOutput = 0;
 		if (sqls.length > 0) {
 			String sql = sqls[0];
@@ -126,15 +126,15 @@ public class MediaLibraryFolder : VirtualFolder {
 				}
 			}
 		}
-		ArrayList<File> addedFiles = new ArrayList<File>();
-		ArrayList<String> addedString = new ArrayList<String>();
-		ArrayList<DLNAResource> removedFiles = new ArrayList<DLNAResource>();
-		ArrayList<DLNAResource> removedString = new ArrayList<DLNAResource>();
+		ArrayList/*<File>*/ addedFiles = new ArrayList/*<File>*/();
+		ArrayList/*<String>*/ addedString = new ArrayList/*<String>*/();
+		ArrayList/*<DLNAResource>*/ removedFiles = new ArrayList/*<DLNAResource>*/();
+		ArrayList/*<DLNAResource>*/ removedString = new ArrayList/*<DLNAResource>*/();
 		int i = 0;
 		if (list !is null) {
-			for (File f : list) {
+			foreach (File f ; list) {
 				bool present = false;
-				for (DLNAResource d : getChildren()) {
+				foreach (DLNAResource d ; getChildren()) {
 					if (i == 0 && (!(d instanceof VirtualFolder) || (d instanceof MediaLibraryFolder))) {
 						removedFiles.add(d);
 					}
@@ -154,9 +154,9 @@ public class MediaLibraryFolder : VirtualFolder {
 		}
 		i = 0;
 		if (strings !is null) {
-			for (String f : strings) {
+			foreach (String f ; strings) {
 				bool present = false;
-				for (DLNAResource d : getChildren()) {
+				foreach (DLNAResource d ; getChildren()) {
 					if (i == 0 && (!(d instanceof VirtualFolder) || (d instanceof MediaLibraryFolder))) {
 						removedString.add(d);
 					}
@@ -173,13 +173,13 @@ public class MediaLibraryFolder : VirtualFolder {
 			}
 		}
 
-		for (DLNAResource f : removedFiles) {
+		foreach (DLNAResource f ; removedFiles) {
 			getChildren().remove(f);
 		}
-		for (DLNAResource s : removedString) {
+		foreach (DLNAResource s ; removedString) {
 			getChildren().remove(s);
 		}
-		for (File f : addedFiles) {
+		foreach (File f ; addedFiles) {
 			if (expectedOutput == FILES) {
 				addChild(new RealFile(f));
 			} else if (expectedOutput == PLAYLISTS) {
@@ -188,10 +188,10 @@ public class MediaLibraryFolder : VirtualFolder {
 				addChild(new DVDISOFile(f));
 			}
 		}
-		for (String f : addedString) {
+		foreach (String f ; addedString) {
 			if (expectedOutput == TEXTS) {
-				String sqls2[] = new String[sqls.length - 1];
-				int expectedOutputs2[] = new int[expectedOutputs.length - 1];
+				String[] sqls2 = new String[sqls.length - 1];
+				int[] expectedOutputs2 = new int[expectedOutputs.length - 1];
 				System.arraycopy(sqls, 1, sqls2, 0, sqls2.length);
 				System.arraycopy(expectedOutputs, 1, expectedOutputs2, 0, expectedOutputs2.length);
 				addChild(new MediaLibraryFolder(f, sqls2, expectedOutputs2));

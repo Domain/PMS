@@ -21,7 +21,7 @@ module net.pms.dlna.virtual.TranscodeVirtualFolder;
 import net.pms.PMS;
 
 public class TranscodeVirtualFolder : VirtualFolder {
-	public TranscodeVirtualFolder(String thumbnailIcon) { // XXX thumbnailIcon is always null
+	public this(String thumbnailIcon) { // XXX thumbnailIcon is always null
 		super(PMS.getConfiguration().getTranscodeFolderName(), thumbnailIcon);
 	}
 }

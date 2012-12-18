@@ -17,7 +17,7 @@ public class MediaLibrary : VirtualFolder {
 		return albumFolder;
 	}
 
-	public MediaLibrary() {
+	public this() {
 		super(Messages.getString("PMS.2"), null);
 		init();
 	}

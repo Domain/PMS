@@ -40,19 +40,19 @@ import org.slf4j.LoggerFactory;
 import xmlwise.Plist;
 import xmlwise.XmlParseException;
 
-import java.io.*;
-import java.net.*;
+import java.io.all;
+import java.net.all;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 public class RootFolder : DLNAResource {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RootFolder.class);
-	private final PmsConfiguration configuration = PMS.getConfiguration();
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(RootFolder.class);
+	private immutable PmsConfiguration configuration = PMS.getConfiguration();
 	private bool running;
 
-	public RootFolder() {
+	public this() {
 		setIndexId(0);
 	}
 
@@ -92,11 +92,11 @@ public class RootFolder : DLNAResource {
 			return;
 		}
 
-		for (DLNAResource r : getConfiguredFolders()) {
+		foreach (DLNAResource r ; getConfiguredFolders()) {
 			addChild(r);
 		}
 
-		for (DLNAResource r : getVirtualFolders()) {
+		foreach (DLNAResource r ; getVirtualFolders()) {
 			addChild(r);
 		}
 
@@ -133,7 +133,7 @@ public class RootFolder : DLNAResource {
 			}
 		}
 
-		for (DLNAResource r : getAdditionalFoldersAtRoot()) {
+		foreach (DLNAResource r ; getAdditionalFoldersAtRoot()) {
 			addChild(r);
 		}
 
@@ -195,17 +195,17 @@ public class RootFolder : DLNAResource {
 
 	private synchronized void scan(DLNAResource resource) {
 		if (isRunning()) {
-			for (DLNAResource child : resource.getChildren()) {
+			foreach (DLNAResource child ; resource.getChildren()) {
 				if (isRunning() && child.allowScan()) {
 					child.setDefaultRenderer(resource.getDefaultRenderer());
 					String trace = null;
 
 					if (child instanceof RealFile) {
-						trace = Messages.getString("DLNAMediaDatabase.4") + " " + child.getName();
+						trace = Messages.getString("DLNAMediaDatabase.4") ~ " " ~ child.getName();
 					}
 
 					if (trace !is null) {
-						LOGGER.debug(trace);
+						LOGGER._debug(trace);
 						PMS.get().getFrame().setStatusLine(trace);
 					}
 
@@ -233,27 +233,27 @@ public class RootFolder : DLNAResource {
 		}
 	}
 
-	private List<RealFile> getConfiguredFolders() {
-		List<RealFile> res = new ArrayList<RealFile>();
+	private List/*<RealFile>*/ getConfiguredFolders() {
+		List/*<RealFile>*/ res = new ArrayList/*<RealFile>*/();
 		File[] files = PMS.get().getFoldersConf();
 
 		if (files is null || files.length == 0) {
 			files = File.listRoots();
 		}
 
-		for (File f : files) {
+		foreach (File f ; files) {
 			res.add(new RealFile(f));
 		}
 
 		return res;
 	}
 
-	private List<DLNAResource> getVirtualFolders() {
-		List<DLNAResource> res = new ArrayList<DLNAResource>();
-		List<MapFileConfiguration> mapFileConfs = MapFileConfiguration.parse(configuration.getVirtualFolders());
+	private List/*<DLNAResource>*/ getVirtualFolders() {
+		List/*<DLNAResource>*/ res = new ArrayList/*<DLNAResource>*/();
+		List/*<MapFileConfiguration>*/ mapFileConfs = MapFileConfiguration.parse(configuration.getVirtualFolders());
 
 		if (mapFileConfs !is null) {
-			for (MapFileConfiguration f : mapFileConfs) {
+			foreach (MapFileConfiguration f ; mapFileConfs) {
 				res.add(new MapFile(f));
 			}
 		}
@@ -318,16 +318,16 @@ public class RootFolder : DLNAResource {
 							}
 						} catch (ArrayIndexOutOfBoundsException e) {
 							// catch exception here and go with parsing
-							LOGGER.info("Error at line " + br.getLineNumber() + " of WEB.conf: " + e.getMessage());
-							LOGGER.debug(null, e);
+							LOGGER.info("Error at line " ~ br.getLineNumber() ~ " of WEB.conf: " ~ e.getMessage());
+							LOGGER._debug(null, e);
 						}
 					}
 				}
 
 				br.close();
 			} catch (IOException e) {
-				LOGGER.info("Unexpected error in WEB.conf" + e.getMessage());
-				LOGGER.debug(null, e);
+				LOGGER.info("Unexpected error in WEB.conf" ~ e.getMessage());
+				LOGGER._debug(null, e);
 			}
 		}
 	}
@@ -385,15 +385,15 @@ public class RootFolder : DLNAResource {
 		VirtualFolder iPhotoVirtualFolder = null;
 
 		if (Platform.isMac()) {
-			LOGGER.debug("Adding iPhoto folder");
+			LOGGER._debug("Adding iPhoto folder");
 			InputStream inputStream = null;
 
 			try {
 				// This command will show the XML files for recently opened iPhoto databases
 				Process process = Runtime.getRuntime().exec("defaults read com.apple.iApps iPhotoRecentDatabases");
 				inputStream = process.getInputStream();
-				List<String> lines = IOUtils.readLines(inputStream);
-				LOGGER.debug("iPhotoRecentDatabases: {}", lines);
+				List/*<String>*/ lines = IOUtils.readLines(inputStream);
+				LOGGER._debug("iPhotoRecentDatabases: %s", lines);
 
 				if (lines.size() >= 2) {
 					// we want the 2nd line
@@ -408,30 +408,30 @@ public class RootFolder : DLNAResource {
 					URI uri = new URI(line);
 					URL url = uri.toURL();
 					File file = FileUtils.toFile(url);
-					LOGGER.debug("Resolved URL to file: {} -> {}", url, file.getAbsolutePath());
+					LOGGER._debug("Resolved URL to file: %s -> %s", url, file.getAbsolutePath());
 
 					// Load the properties XML file.
-					Map<String, Object> iPhotoLib = Plist.load(file);
+					Map/*<String, Object>*/ iPhotoLib = Plist.load(file);
 
 					// The list of all photos
-					Map<?, ?> photoList = (Map<?, ?>) iPhotoLib.get("Master Image List");
+					Map/*<?, ?>*/ photoList = cast(Map/*<?, ?>*/) iPhotoLib.get("Master Image List");
 
 					// The list of events (rolls)
-					List<Map<?, ?>> listOfRolls = (List<Map<?, ?>>) iPhotoLib.get("List of Rolls");
+					List/*<Map<?, ?>>*/ listOfRolls = cast(List/*<Map<?, ?>>*/) iPhotoLib.get("List of Rolls");
 
 					iPhotoVirtualFolder = new VirtualFolder("iPhoto Library", null);
 
-					for (Map<?, ?> roll : listOfRolls) {
+					foreach (Map/*<?, ?>*/ roll ; listOfRolls) {
 						Object rollName = roll.get("RollName");
 
 						if (rollName !is null) {
 							VirtualFolder virtualFolder = new VirtualFolder(rollName.toString(), null);
 
 							// List of photos in an event (roll)
-							List<?> rollPhotos = (List<?>) roll.get("KeyList");
+							List/*<?>*/ rollPhotos = cast(List/*<?>*/) roll.get("KeyList");
 
-							for (Object photo : rollPhotos) {
-								Map<?, ?> photoProperties = (Map<?, ?>) photoList.get(photo);
+							foreach (Object photo ; rollPhotos) {
+								Map/*<?, ?>*/ photoProperties = cast(Map/*<?, ?>*/) photoList.get(photo);
 
 								if (photoProperties !is null) {
 									Object imagePath = photoProperties.get("ImagePath");
@@ -476,12 +476,12 @@ public class RootFolder : DLNAResource {
 
 			try {
 				process = Runtime.getRuntime().exec("defaults read com.apple.iApps ApertureLibraries");
-				BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				BufferedReader _in = new BufferedReader(new InputStreamReader(process.getInputStream()));
 				// Every line entry is one aperture library. We want all of them as a dlna folder.
 				String line = null;
 				res = new VirtualFolder("Aperture libraries", null);
 
-				while ((line = in.readLine()) !is null) {
+				while ((line = _in.readLine()) !is null) {
 					if (line.startsWith("(") || line.startsWith(")")) {
 						continue;
 					}
@@ -495,7 +495,7 @@ public class RootFolder : DLNAResource {
 					}
 				}
 
-				in.close();
+				_in.close();
 			} catch (Exception e) {
 				LOGGER.error("Something went wrong with the aperture library scan: ", e);
 			} finally {
@@ -507,7 +507,7 @@ public class RootFolder : DLNAResource {
 						process.waitFor();
 					} catch (InterruptedException e) {
 						// Can this thread be interrupted? don't think so or, and even when.. what will happen?
-						LOGGER.warn("Interrupted while waiting for stream for process" + e.getMessage());
+						LOGGER.warn("Interrupted while waiting for stream for process" ~ e.getMessage());
 					}
 
 					try {
@@ -538,16 +538,16 @@ public class RootFolder : DLNAResource {
 		VirtualFolder res = null;
 
 		if (url !is null) {
-			Map<String, Object> iPhotoLib;
+			Map/*<String, Object>*/ iPhotoLib;
 			// every project is a album, too
-			List<?> listOfAlbums;
-			Map<?, ?> album;
-			Map<?, ?> photoList;
+			List/*<?>*/ listOfAlbums;
+			Map/*<?, ?>*/ album;
+			Map/*<?, ?>*/ photoList;
 
 			URI tURI = new URI(url);
 			iPhotoLib = Plist.load(URLDecoder.decode(tURI.toURL().getFile(), System.getProperty("file.encoding"))); // loads the (nested) properties.
-			photoList = (Map<?, ?>) iPhotoLib.get("Master Image List"); // the list of photos
-			final Object mediaPath = iPhotoLib.get("Archive Path");
+			photoList = cast(Map/*<?, ?>*/) iPhotoLib.get("Master Image List"); // the list of photos
+			immutable Object mediaPath = iPhotoLib.get("Archive Path");
 			String mediaName;
 
 			if (mediaPath !is null) {
@@ -562,12 +562,12 @@ public class RootFolder : DLNAResource {
 				mediaName = "unknown library";
 			}
 
-			LOGGER.info("Going to parse aperture library: " + mediaName);
+			LOGGER.info("Going to parse aperture library: " ~ mediaName);
 			res  = new VirtualFolder(mediaName, null);
-			listOfAlbums = (List<?>) iPhotoLib.get("List of Albums"); // the list of events (rolls)
+			listOfAlbums = cast(List/*<?>*/) iPhotoLib.get("List of Albums"); // the list of events (rolls)
 
-			for (Object item : listOfAlbums) {
-				album = (Map<?, ?>) item;
+			foreach (Object item ; listOfAlbums) {
+				album = cast(Map/*<?, ?>*/) item;
 
 				if (album.get("Parent") is null) {
 					VirtualFolder vAlbum = createApertureAlbum(photoList, album, listOfAlbums);
@@ -582,20 +582,20 @@ public class RootFolder : DLNAResource {
 
 
 	private VirtualFolder createApertureAlbum(
-		Map<?, ?> photoList,
-		Map<?, ?> album, List<?> listOfAlbums
+		Map/*<?, ?>*/ photoList,
+		Map/*<?, ?>*/ album, List/*<?>*/ listOfAlbums
 	) {
 
-		List<?> albumPhotos;
-		int albumId = (Integer)album.get("AlbumId");
+		List/*<?>*/ albumPhotos;
+		int albumId = cast(Integer)album.get("AlbumId");
 		VirtualFolder vAlbum = new VirtualFolder(album.get("AlbumName").toString(), null);
 
-		for (Object item : listOfAlbums) {
-			Map<?, ?> sub = (Map<?, ?>) item;
+		foreach (Object item ; listOfAlbums) {
+			Map/*<?, ?>*/ sub = cast(Map/*<?, ?>*/) item;
 
 			if (sub.get("Parent") !is null) {
 				// recursive album creation
-				int parent = (Integer)sub.get("Parent");
+				int parent = cast(Integer)sub.get("Parent");
 
 				if (parent == albumId) {
 					VirtualFolder subAlbum = createApertureAlbum(photoList, sub, listOfAlbums);
@@ -604,7 +604,7 @@ public class RootFolder : DLNAResource {
 			}
 		}
 
-		albumPhotos = (List<?>) album.get("KeyList");
+		albumPhotos = cast(List/*<?>*/) album.get("KeyList");
 
 		if (albumPhotos is null) {
 			return vAlbum;
@@ -612,8 +612,8 @@ public class RootFolder : DLNAResource {
 
 		bool firstPhoto = true;
 
-		for (Object photoKey : albumPhotos) {
-			Map<?, ? > photo = (Map<?, ?>) photoList.get(photoKey);
+		foreach (Object photoKey ; albumPhotos) {
+			Map/*<?, ? >*/ photo = cast(Map/*<?, ?>*/) photoList.get(photoKey);
 
 			if (firstPhoto) {
 				Object x = photoList.get("ThumbPath");
@@ -663,23 +663,23 @@ public class RootFolder : DLNAResource {
 			}
 		} else if (Platform.isWindows()) {
 			Process process = Runtime.getRuntime().exec("reg query \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"My Music\"");
-			BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			BufferedReader _in = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String location = null;
 
-			while ((line = in.readLine()) !is null) {
-				final String LOOK_FOR = "REG_SZ";
+			while ((line = _in.readLine()) !is null) {
+				const String LOOK_FOR = "REG_SZ";
 				if (line.contains(LOOK_FOR)) {
 					location = line.substring(line.indexOf(LOOK_FOR) + LOOK_FOR.length()).trim();
 				}
 			}
 
-			if (in !is null) {
-				in.close();
+			if (_in !is null) {
+				_in.close();
 			}
 
 			if (location !is null) {
 				// add the iTunes folder to the end
-				location = location + "\\iTunes\\iTunes Music Library.xml";
+				location = location ~ "\\iTunes\\iTunes Music Library.xml";
 				iTunesFile = location;
 			} else {
 				LOGGER.info("Could not find the My Music folder");
@@ -707,31 +707,31 @@ public class RootFolder : DLNAResource {
 		DLNAResource res = null;
 
 		if (Platform.isMac() || Platform.isWindows()) {
-			Map<String, Object> iTunesLib;
-			List<?> Playlists;
-			Map<?, ?> Playlist;
-			Map<?, ?> Tracks;
-			Map<?, ?> track;
-			List<?> PlaylistTracks;
+			Map/*<String, Object>*/ iTunesLib;
+			List/*<?>*/ Playlists;
+			Map/*<?, ?>*/ Playlist;
+			Map/*<?, ?>*/ Tracks;
+			Map/*<?, ?>*/ track;
+			List/*<?>*/ PlaylistTracks;
 
 			try {
 				String iTunesFile = getiTunesFile();
 
 				if (iTunesFile !is null && (new File(iTunesFile)).exists()) {
 					iTunesLib = Plist.load(URLDecoder.decode(iTunesFile, System.getProperty("file.encoding"))); // loads the (nested) properties.
-					Tracks = (Map<?, ?>) iTunesLib.get("Tracks"); // the list of tracks
-					Playlists = (List<?>) iTunesLib.get("Playlists"); // the list of Playlists
+					Tracks = cast(Map/*<?, ?>*/) iTunesLib.get("Tracks"); // the list of tracks
+					Playlists = cast(List/*<?>*/) iTunesLib.get("Playlists"); // the list of Playlists
 					res = new VirtualFolder("iTunes Library", null);
 
-					for (Object item : Playlists) {
-						Playlist = (Map<?, ?>) item;
+					foreach (Object item ; Playlists) {
+						Playlist = cast(Map/*<?, ?>*/) item;
 						VirtualFolder pf = new VirtualFolder(Playlist.get("Name").toString(), null);
-						PlaylistTracks = (List<?>) Playlist.get("Playlist Items"); // list of tracks in a playlist
+						PlaylistTracks = cast(List/*<?>*/) Playlist.get("Playlist Items"); // list of tracks in a playlist
 
 						if (PlaylistTracks !is null) {
-							for (Object t : PlaylistTracks) {
-								Map<?, ?> td = (Map<?, ?>) t;
-								track = (Map<?, ?>) Tracks.get(td.get("Track ID").toString());
+							foreach (Object t ; PlaylistTracks) {
+								Map/*<?, ?>*/ td = cast(Map/*<?, ?>*/) t;
+								track = cast(Map/*<?, ?>*/) Tracks.get(td.get("Track ID").toString());
 
 								if (
 									track !is null &&
@@ -872,20 +872,20 @@ public class RootFolder : DLNAResource {
 	 * Returns as many folders as plugins providing root folders are loaded into
 	 * memory (need to implement AdditionalFolder(s)AtRoot)
 	 */
-	private List<DLNAResource> getAdditionalFoldersAtRoot() {
-		List<DLNAResource> res = new ArrayList<DLNAResource>();
+	private List/*<DLNAResource>*/ getAdditionalFoldersAtRoot() {
+		List/*<DLNAResource>*/ res = new ArrayList/*<DLNAResource>*/();
 
 		for (ExternalListener listener : ExternalFactory.getExternalListeners()) {
-			if (listener instanceof AdditionalFolderAtRoot) {
-				AdditionalFolderAtRoot afar = (AdditionalFolderAtRoot) listener;
+			if (cast(AdditionalFolderAtRoot)listener !is null) {
+				AdditionalFolderAtRoot afar = cast(AdditionalFolderAtRoot) listener;
 
 				try {
 					res.add(afar.getChild());
 				} catch (Throwable t) {
 					LOGGER.error(String.format("Failed to append AdditionalFolderAtRoot with name=%s, class=%s", afar.name(), afar.getClass()), t);
 				}
-			} else if (listener instanceof AdditionalFoldersAtRoot) {
-				java.util.Iterator<DLNAResource> folders = ((AdditionalFoldersAtRoot) listener).getChildren();
+			} else if (cast(AdditionalFoldersAtRoot)listener !is null) {
+				java.util.Iterator/*<DLNAResource>*/ folders = (cast(AdditionalFoldersAtRoot) listener).getChildren();
 
 				while (folders.hasNext()) {
 					DLNAResource resource = folders.next();
@@ -904,6 +904,6 @@ public class RootFolder : DLNAResource {
 
 	override
 	public String toString() {
-		return "RootFolder[" + getChildren() + "]";
+		return "RootFolder[" ~ getChildren() ~ "]";
 	}
 }

@@ -31,19 +31,19 @@ import java.io.InputStream;
 import java.util.List;
 
 public class RarredFile : DLNAResource {
-	private static final Logger logger = LoggerFactory.getLogger(RarredFile.class);
+	private static immutable Logger logger = LoggerFactory.getLogger(RarredFile.class);
 	private File f;
 	private Archive rarFile;
 
-	public RarredFile(File f) {
+	public this(File f) {
 		this.f = f;
 		setLastModified(f.lastModified());
 
 		try {
 			rarFile = new Archive(f);
-			List<FileHeader> headers = rarFile.getFileHeaders();
+			List/*<FileHeader>*/ headers = rarFile.getFileHeaders();
 
-			for (FileHeader fh : headers) {
+			foreach (FileHeader fh ; headers) {
 				// if (fh.getFullUnpackSize() < MAX_ARCHIVE_ENTRY_SIZE && fh.getFullPackSize() < MAX_ARCHIVE_ENTRY_SIZE)
 				addChild(new RarredEntry(fh.getFileNameString(), f, fh.getFileNameString(), fh.getFullUnpackSize()));
 			}
@@ -56,7 +56,7 @@ public class RarredFile : DLNAResource {
 		}
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return new FileInputStream(f);
 	}
 
@@ -90,7 +90,7 @@ public class RarredFile : DLNAResource {
 		try {
 			t = f.exists() && !rarFile.isEncrypted();
 		} catch (Throwable th) {
-			logger.debug("Caught exception", th);
+			logger._debug("Caught exception", th);
 		}
 
 		return t;

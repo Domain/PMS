@@ -27,18 +27,18 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.ArrayList;
 
 public class RealFile : MapFile {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RealFile.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(RealFile.class);
 
-	public RealFile(File file) {
+	public this(File file) {
 		getConf().getFiles().add(file);
 		setLastModified(file.lastModified());
 	}
 
-	public RealFile(File file, String name) {
+	public this(File file, String name) {
 		getConf().getFiles().add(file);
 		getConf().setName(name);
 		setLastModified(file.lastModified());
@@ -71,9 +71,9 @@ public class RealFile : MapFile {
 				valid = false;
 
 				if (getMedia().isEncrypted()) {
-					LOGGER.info("The file {} is encrypted. It will be hidden", file.getAbsolutePath());
+					LOGGER.info("The file %s is encrypted. It will be hidden", file.getAbsolutePath());
 				} else {
-					LOGGER.info("The file {} was badly parsed. It will be hidden", file.getAbsolutePath());
+					LOGGER.info("The file %s was badly parsed. It will be hidden", file.getAbsolutePath());
 				}
 			}
 
@@ -91,7 +91,7 @@ public class RealFile : MapFile {
 		try {
 			return new FileInputStream(getFile());
 		} catch (FileNotFoundException e) {
-			LOGGER.debug("File not found: {}", getFile().getAbsolutePath());
+			LOGGER._debug("File not found: %s", getFile().getAbsolutePath());
 		}
 
 		return null;
@@ -128,7 +128,7 @@ public class RealFile : MapFile {
 				}
 
 				if (name !is null && name.length() > 0) {
-					name = file.getAbsolutePath().substring(0, 1) + ":\\ [" + name + "]";
+					name = file.getAbsolutePath().substring(0, 1) ~ ":\\ [" ~ name ~ "]";
 				} else {
 					name = file.getAbsolutePath().substring(0, 1);
 				}
@@ -165,14 +165,14 @@ public class RealFile : MapFile {
 			input.setFile(file);
 			String fileName = file.getAbsolutePath();
 			if (getSplitTrack() > 0) {
-				fileName += "#SplitTrack" + getSplitTrack();
+				fileName ~= "#SplitTrack" ~ getSplitTrack();
 			}
 			
 			if (PMS.getConfiguration().getUseCache()) {
 				DLNAMediaDatabase database = PMS.get().getDatabase();
 
 				if (database !is null) {
-					ArrayList<DLNAMediaInfo> medias = database.getData(fileName, file.lastModified());
+					ArrayList/*<DLNAMediaInfo>*/ medias = database.getData(fileName, file.lastModified());
 
 					if (medias !is null && medias.size() == 1) {
 						setMedia(medias.get(0));
@@ -214,12 +214,12 @@ public class RealFile : MapFile {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		File file = getFile();
 		File cachedThumbnail = null;
 
-		if (getParent() !is null && getParent() instanceof RealFile) {
-			cachedThumbnail = ((RealFile) getParent()).getPotentialCover();
+		if (getParent() !is null && cast(RealFile)getParent() !is null) {
+			cachedThumbnail = (cast(RealFile) getParent()).getPotentialCover();
 			File thumbFolder = null;
 			bool alternativeCheck = false;
 
@@ -296,7 +296,7 @@ public class RealFile : MapFile {
 		if (getMedia() !is null && getMedia().getThumb() !is null) {
 			return super.getThumbnailURL();
 		} else if (getType() == Format.AUDIO) {
-			if (getParent() !is null && getParent() instanceof RealFile && ((RealFile) getParent()).getPotentialCover() !is null) {
+			if (getParent() !is null && cast(RealFile)getParent() !is null && (cast(RealFile) getParent()).getPotentialCover() !is null) {
 				return super.getThumbnailURL();
 			}
 			return null;

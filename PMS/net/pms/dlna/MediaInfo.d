@@ -27,19 +27,19 @@
 
 module net.pms.dlna.MediaInfo;
 
-import com.sun.jna.*;
+import com.sun.jna.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
-import static java.util.Collections.singletonMap;
+import java.util.Collections.singletonMap;
 
 public class MediaInfo {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MediaInfo.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(MediaInfo.class);
 	static String libraryName;
 
-	static {
+	static this() {
 		if (Platform.isWindows() && Platform.is64Bit()) {
 			libraryName = "mediainfo64";
 		} else {
@@ -53,14 +53,14 @@ public class MediaInfo {
 				// If we do not, the system will look for dependencies, but only in the library path.
 				NativeLibrary.getInstance("zen");
 			} catch (LinkageError e) {
-				LOGGER.warn("Error loading libzen: " + e.getMessage());
+				LOGGER.warn("Error loading libzen: " ~ e.getMessage());
 			}
 		}
 	}
 
 	// Internal stuff
 	interface MediaInfoDLL_Internal : Library {
-		MediaInfoDLL_Internal INSTANCE = (MediaInfoDLL_Internal) Native.loadLibrary(
+		MediaInfoDLL_Internal INSTANCE = cast(MediaInfoDLL_Internal) Native.loadLibrary(
 			libraryName,
 			MediaInfoDLL_Internal.class,
 			singletonMap(OPTION_FUNCTION_MAPPER, new FunctionMapper() {
@@ -68,7 +68,7 @@ public class MediaInfo {
 			override
 			public String getFunctionName(NativeLibrary lib, Method method) {
 				// e.g. MediaInfo_New(), MediaInfo_Open() ...
-				return "MediaInfo_" + method.getName();
+				return "MediaInfo_" ~ method.getName();
 			}
 		}));
 
@@ -105,7 +105,7 @@ public class MediaInfo {
 		Text,
 		Chapters,
 		Image,
-		Menu;
+		Menu
 	}
 
 	// Enums
@@ -145,18 +145,18 @@ public class MediaInfo {
 		/**
 		 * Domain of this piece of information.
 		 */
-		Domain;
+		Domain
 	}
 
 	// Constructor/Destructor
-	public MediaInfo() {
+	public this() {
 		try {
 			LOGGER.info("Loading MediaInfo library");
 			Handle = MediaInfoDLL_Internal.INSTANCE.New();
-			LOGGER.info("Loaded " + Option_Static("Info_Version"));
+			LOGGER.info("Loaded " ~ Option_Static("Info_Version"));
 		} catch (Throwable e) {
 			if (e !is null) {
-				LOGGER.info("Error loading MediaInfo library: " + e.getMessage());
+				LOGGER.info("Error loading MediaInfo library: " ~ e.getMessage());
 			}
 
 			if (!Platform.isWindows() && !Platform.isMac()) {
@@ -180,8 +180,7 @@ public class MediaInfo {
 		Handle = null;
 	}
 
-	override
-	protected void finalize() throws Throwable {
+	public ~this() {
 		if (Handle !is null) {
 			dispose();
 		}

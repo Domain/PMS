@@ -32,8 +32,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class RarredEntry : DLNAResource : IPushOutput {
-	private static final Logger logger = LoggerFactory.getLogger(RarredEntry.class);
+public class RarredEntry : DLNAResource , IPushOutput {
+	private static immutable Logger logger = LoggerFactory.getLogger(RarredEntry.class);
 	private String name;
 	private File file;
 	private String fileHeaderName;
@@ -48,14 +48,14 @@ public class RarredEntry : DLNAResource : IPushOutput {
 		return super.getThumbnailURL();
 	}
 
-	public RarredEntry(String name, File file, String fileHeaderName, long length) {
+	public this(String name, File file, String fileHeaderName, long length) {
 		this.fileHeaderName = fileHeaderName;
 		this.name = name;
 		this.file = file;
 		this.length = length;
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 
@@ -83,7 +83,7 @@ public class RarredEntry : DLNAResource : IPushOutput {
 
 	override
 	public String getSystemName() {
-		return FileUtil.getFileNameWithoutExtension(file.getAbsolutePath()) + "." + FileUtil.getExtension(name);
+		return FileUtil.getFileNameWithoutExtension(file.getAbsolutePath()) ~ "." ~ FileUtil.getExtension(name);
 	}
 
 	override
@@ -99,7 +99,7 @@ public class RarredEntry : DLNAResource : IPushOutput {
 	}
 
 	override
-	public void push(final OutputStream out) throws IOException {
+	public void push(immutable OutputStream _out) {
 		Runnable r = new Runnable() {
 
 			public void run() {
@@ -107,30 +107,30 @@ public class RarredEntry : DLNAResource : IPushOutput {
 				try {
 					rarFile = new Archive(file);
 					FileHeader header = null;
-					for (FileHeader fh : rarFile.getFileHeaders()) {
+					foreach (FileHeader fh ; rarFile.getFileHeaders()) {
 						if (fh.getFileNameString().equals(fileHeaderName)) {
 							header = fh;
 							break;
 						}
 					}
 					if (header !is null) {
-						logger.trace("Starting the extraction of " + header.getFileNameString());
-						rarFile.extractFile(header, out);
+						logger.trace("Starting the extraction of " ~ header.getFileNameString());
+						rarFile.extractFile(header, _out);
 					}
 				} catch (Exception e) {
-					logger.debug("Unpack error, maybe it's normal, as backend can be terminated: " + e.getMessage());
+					logger._debug("Unpack error, maybe it's normal, as backend can be terminated: " ~ e.getMessage());
 				} finally {
 					try {
 						rarFile.close();
-						out.close();
+						_out.close();
 					} catch (IOException e) {
-						logger.debug("Caught exception", e);
+						logger._debug("Caught exception", e);
 					}
 				}
 			}
 		};
 
-		new Thread(r, "Rar Extractor").start();
+		(new Thread(r, "Rar Extractor")).start();
 	}
 
 	override
@@ -160,7 +160,7 @@ public class RarredEntry : DLNAResource : IPushOutput {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		if (getMedia() !is null && getMedia().getThumb() !is null) {
 			return getMedia().getThumbnailInputStream();
 		} else {

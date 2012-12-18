@@ -24,4 +24,12 @@ public class Platform {
 		else
 			return false;
 	}
+
+	public static bool is64Bit()
+	{
+		version(X86_64)
+			return true;
+		else
+			return false;
+	}
 }

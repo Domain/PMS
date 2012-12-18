@@ -50,7 +50,7 @@ public abstract class VirtualVideoAction : DLNAResource {
 	 * @param enabled If true, a green tick mark is shown as thumbnail. If false, a red cross is shown. This initial value
 	 * is usually changed via the {@link #enable()} function.
 	 */
-	public VirtualVideoAction(String name, bool enabled) {
+	public this(String name, bool enabled) {
 		this.name = name;
 		thumbnailContentType = HTTPResource.PNG_TYPEMIME;
 		thumbnailIconOK = "images/apply-256.png";
@@ -64,7 +64,7 @@ public abstract class VirtualVideoAction : DLNAResource {
 		// This is needed by Format.isCompatible()
 		DLNAMediaInfo mediaInfo = new DLNAMediaInfo();
 		mediaInfo.setContainer("mpegps");
-		ArrayList<DLNAMediaAudio> audioCodes = new ArrayList<DLNAMediaAudio>();
+		ArrayList/*<DLNAMediaAudio>*/ audioCodes = new ArrayList/*<DLNAMediaAudio>*/();
 		mediaInfo.setAudioTracksList(audioCodes);
 		mediaInfo.setMimeType("video/mpeg");
 		mediaInfo.setCodecV("mpeg2");
@@ -93,7 +93,7 @@ public abstract class VirtualVideoAction : DLNAResource {
 	 * @see net.pms.dlna.DLNAResource#getInputStream()
 	 */
 	override
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		if (timer1 == -1) {
 			timer1 = System.currentTimeMillis();
 		} else if (System.currentTimeMillis() - timer1 < 2000) {

@@ -39,7 +39,7 @@ public class VirtualFolder : DLNAResource {
 	 *        path. Use null if none is available or desired.
 	 * @see #addChild(DLNAResource)
 	 */
-	public VirtualFolder(String name, String thumbnailIcon) {
+	public this(String name, String thumbnailIcon) {
 		this.name = name;
 		this.thumbnailIcon = thumbnailIcon;
 		if (thumbnailIcon !is null && thumbnailIcon.toLowerCase().endsWith(".png")) {
@@ -54,7 +54,7 @@ public class VirtualFolder : DLNAResource {
 	 * @see net.pms.dlna.DLNAResource#getInputStream()
 	 */
 	override
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 

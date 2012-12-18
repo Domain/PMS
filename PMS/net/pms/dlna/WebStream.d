@@ -57,7 +57,7 @@ public class WebStream : DLNAResource {
 	deprecated
 	protected String thumbURL;
 
-	public WebStream(String fluxName, String url, String thumbURL, int type) {
+	public this(String fluxName, String url, String thumbURL, int type) {
 		super(type);
 
 		try {
@@ -80,7 +80,7 @@ public class WebStream : DLNAResource {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		if (getThumbURL() !is null) {
 			return downloadAndSend(getThumbURL(), true);
 		} else {

@@ -22,7 +22,7 @@ import net.pms.formats.Format;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -30,17 +30,17 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 public class ZippedFile : DLNAResource {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ZippedFile.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(ZippedFile.class);
 	private File file;
 	private ZipFile zip;
 
-	public ZippedFile(File file) {
+	public this(File file) {
 		this.file = file;
 		setLastModified(file.lastModified());
 
 		try {
 			zip = new ZipFile(file);
-			Enumeration<? : ZipEntry> enm = zip.entries();
+			Enumeration/*<? : ZipEntry>*/ enm = zip.entries();
 
 			while (enm.hasMoreElements()) {
 				ZipEntry ze = enm.nextElement();

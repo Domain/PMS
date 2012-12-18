@@ -36,14 +36,14 @@ public abstract class Range : Cloneable {
 		return new Range.Time(timeseek, timeRangeEnd);
 	}
 
-	public static class Time : Range : Cloneable {
+	public static class Time : Range , Cloneable {
 		private Double start;
 		private Double end;
 
-		public Time() {
+		public this() {
 		}
 
-		public Time(Double start, Double end) {
+		public this(Double start, Double end) {
 			this.start = start;
 			this.end = end;
 		}
@@ -76,7 +76,7 @@ public abstract class Range : Cloneable {
 				if (this.start > amount) {
 					this.start = this.start - amount;
 				} else {
-					this.start = 0d;
+					this.start = 0;
 				}
 			}
 		}
@@ -102,7 +102,7 @@ public abstract class Range : Cloneable {
 
 		override
 		public void limit(Range range) {
-			limitTime((Time) range);
+			limitTime(cast(Time) range);
 		}
 
 		override
@@ -134,7 +134,7 @@ public abstract class Range : Cloneable {
 		 */
 		override
 		public String toString() {
-			return "TimeRange [start=" + start + ", end=" + end + "]";
+			return "TimeRange [start=" ~ start ~ ", end=" ~ end ~ "]";
 		}
 
 		override
@@ -162,21 +162,21 @@ public abstract class Range : Cloneable {
 		}
 	}
 
-	public static class Byte : Range : Cloneable {
+	public static class Byte : Range , Cloneable {
 		private Long start;
 		private Long end;
 
-		public Byte() {
+		public this() {
 		}
 
-		public Byte(Long start, Long end) {
+		public this(Long start, Long end) {
 			this.start = start;
 			this.end = end;
 		}
 
 		override
 		public void limit(Range range) {
-			limitTime((Byte) range);
+			limitTime(cast(Byte) range);
 		}
 
 		override
@@ -238,7 +238,7 @@ public abstract class Range : Cloneable {
 		 */
 		override
 		public String toString() {
-			return "ByteRange [start=" + start + ", end=" + end + "]";
+			return "ByteRange [start=" ~ start ~ ", end=" ~ end ~ "]";
 		}
 
 		override
