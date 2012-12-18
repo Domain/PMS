@@ -42,19 +42,19 @@ public class WebStream : DLNAResource {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String url;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String fluxName;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String thumbURL;
 
 	public WebStream(String fluxName, String url, String thumbURL, int type) {
@@ -105,7 +105,7 @@ public class WebStream : DLNAResource {
 	}
 
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}

@@ -61,7 +61,7 @@ public class Track {
 	/**
 	 * @deprecated Use {@link #getBitsPerSample()}
 	 */
-	@Deprecated
+	deprecated
 	public int getBitspersample() {
 		return getBitsPerSample();
 	}
@@ -73,7 +73,7 @@ public class Track {
 	/**
 	 * @deprecated Use {@link #setBitsPerSample(int)}
 	 */
-	@Deprecated
+	deprecated
 	public void setBitspersample(int bitsPerSample) {
 		setBitsPerSample(bitsPerSample);
 	}
@@ -85,7 +85,7 @@ public class Track {
 	/**
 	 * @deprecated Use {@link #getNbAudio()}
 	 */
-	@Deprecated
+	deprecated
 	public int getNbaudio() {
 		return getNbAudio();
 	}
@@ -97,7 +97,7 @@ public class Track {
 	/**
 	 * @deprecated Use {@link #setNbAudio(int)}
 	 */
-	@Deprecated
+	deprecated
 	public void setNbaudio(int nbAudio) {
 		setNbAudio(nbAudio);
 	}

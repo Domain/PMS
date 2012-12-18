@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class OutputParams {
-	@Deprecated
+	deprecated
 	public File outputFile; // XXX no longer used
 
 	public File workDir;

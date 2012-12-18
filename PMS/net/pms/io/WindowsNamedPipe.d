@@ -50,7 +50,7 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 	 *
 	 * This field will be made private in a future version.
 	 */
-	@Deprecated
+	deprecated
 	public static bool loop = true;
 
 	/**
@@ -151,7 +151,7 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 	 * @param value The value to set.
 	 */
 	// XXX this can be handled in a shutdown hook
-	@Deprecated
+	deprecated
 	public static void setLoop(bool value) {
 		loop = value;
 	}

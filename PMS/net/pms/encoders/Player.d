@@ -65,7 +65,7 @@ public abstract class Player {
 	// FIXME this is an implementation detail (and not a very good one).
 	// it's entirely up to engines how they construct their command lines.
 	// need to get rid of this
-	@Deprecated
+	deprecated
 	public abstract String[] args();
 
 	public abstract String mimeType();
@@ -118,7 +118,7 @@ public abstract class Player {
 	}
 
 	// no need to pass Player as a parameter: it's the invocant
-	@Deprecated
+	deprecated
 	protected String[] finalizeTranscoderArgs(
 		Player player,
 		String filename,

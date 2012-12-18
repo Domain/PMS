@@ -79,7 +79,7 @@ public class FFMpegDVRMSRemux : Player {
 		return Format.VIDEO;
 	}
 
-	@Deprecated
+	deprecated
 	protected String[] getDefaultArgs() {
 		return new String[] {
 			"-vcodec", "copy",
@@ -94,7 +94,7 @@ public class FFMpegDVRMSRemux : Player {
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public String[] args() {
 		return getDefaultArgs();
 
@@ -121,7 +121,7 @@ public class FFMpegDVRMSRemux : Player {
 	}
 
 	// pointless redirection of launchTranscode
-	@Deprecated
+	deprecated
 	protected ProcessWrapperImpl getFFMpegTranscode(
 		String fileName,
 		DLNAResource dlna,

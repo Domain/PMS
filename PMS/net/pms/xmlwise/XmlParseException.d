@@ -7,7 +7,7 @@ module net.pms.xmlwise.XmlParseException;
  * 
  * @author Christoffer Lerno
  */
-@Deprecated
+deprecated
 public class XmlParseException : Exception {
 	private static final long serialVersionUID = -3246260520113823143L;
 

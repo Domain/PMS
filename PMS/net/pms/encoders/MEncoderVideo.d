@@ -120,10 +120,10 @@ public class MEncoderVideo : Player {
 	// protected fields should be private. And at least two
 	// shouldn't be fields
 
-	@Deprecated
+	deprecated
 	protected bool dvd;
 
-	@Deprecated
+	deprecated
 	protected String overriddenMainArgs[];
 
 	protected bool dtsRemux;

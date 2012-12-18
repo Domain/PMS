@@ -100,37 +100,37 @@ public class DLNAMediaInfo : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int bitrate;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int width;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int height;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public long size;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String codecV;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String frameRate;
 
 	private String frameRateMode;
@@ -138,25 +138,25 @@ public class DLNAMediaInfo : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String aspect;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public byte thumb[];
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String mimeType;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int bitsPerPixel;
 
 	private List<DLNAMediaAudio> audioTracks = new ArrayList<DLNAMediaAudio>();
@@ -165,56 +165,56 @@ public class DLNAMediaInfo : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String model;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int exposure;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int orientation;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int iso;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String muxingMode;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String muxingModeAudio;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String container;
 
 	/**
 	 * @deprecated Use {@link #getH264AnnexB()} and {@link #setH264AnnexB(byte[])} to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public byte[] h264_annexB;
 
 	/**
 	 * Not stored in database.
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool mediaparsed;
 
 	/**
@@ -222,25 +222,25 @@ public class DLNAMediaInfo : Cloneable {
 	 * from the main parsing process.
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool thumbready;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int dvdtrack;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool secondaryFormatValid = true;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool parsing = false;
 
 	private bool ffmpeg_failure;
@@ -251,7 +251,7 @@ public class DLNAMediaInfo : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool encrypted;
 
 	public bool isMuxable(RendererConfiguration mediaRenderer) {
@@ -1559,7 +1559,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @return the audioTracks
 	 * @deprecated use getAudioTracksList() instead
 	 */
-	@Deprecated
+	deprecated
 	public ArrayList<DLNAMediaAudio> getAudioCodes() {
 		if (audioTracks instanceof ArrayList) {
 			return (ArrayList<DLNAMediaAudio>) audioTracks;
@@ -1580,7 +1580,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @param audioTracks the audioTracks to set
 	 * @deprecated use setAudioTracksList(ArrayList<DLNAMediaAudio> audioTracks) instead
 	 */
-	@Deprecated
+	deprecated
 	public void setAudioCodes(List<DLNAMediaAudio> audioTracks) {
 		setAudioTracksList(audioTracks);
 	}
@@ -1597,7 +1597,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @return the subtitleTracks
 	 * @deprecated use getSubtitleTracksList() instead
 	 */
-	@Deprecated
+	deprecated
 	public ArrayList<DLNAMediaSubtitle> getSubtitlesCodes() {
 		if (subtitleTracks instanceof ArrayList) {
 			return (ArrayList<DLNAMediaSubtitle>) subtitleTracks;
@@ -1618,7 +1618,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @param subtitleTracks the subtitleTracks to set
 	 * @deprecated use setSubtitleTracksList(ArrayList<DLNAMediaSubtitle> subtitleTracks) instead
 	 */
-	@Deprecated
+	deprecated
 	public void setSubtitlesCodes(List<DLNAMediaSubtitle> subtitleTracks) {
 		setSubtitleTracksList(subtitleTracks);
 	}

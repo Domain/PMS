@@ -86,7 +86,7 @@ public class ZippedFile : DLNAResource {
 	}
 
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}

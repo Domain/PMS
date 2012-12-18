@@ -17,7 +17,7 @@ import java.io.StringReader;
  *
  * @author Christoffer Lerno
  */
-@Deprecated
+deprecated
 public class Xmlwise {
 	private Xmlwise() {
 	}

@@ -48,13 +48,13 @@ public class MapFile : DLNAResource {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public File potentialCover;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected MapFileConfiguration conf;
 
 	private static final Collator collator;

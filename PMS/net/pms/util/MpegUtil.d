@@ -88,7 +88,7 @@ public class MpegUtil {
 	 * @return position in stream (in bytes).
 	 * @throws IOException
 	 */
-	@Deprecated
+	deprecated
 	public static long getPossitionForTimeInMpeg(File f, int timeS) throws IOException {
 	    return getPositionForTimeInMpeg(f, timeS);
 	}

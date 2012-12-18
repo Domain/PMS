@@ -47,7 +47,7 @@ public class FFMpegAudio : FFMpegVideo {
 	private final PmsConfiguration configuration;
 
 	// should be private
-	@Deprecated
+	deprecated
 	JCheckBox noresample;
 
 	public FFMpegAudio(PmsConfiguration configuration) {
@@ -115,7 +115,7 @@ public class FFMpegAudio : FFMpegVideo {
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public String[] args() {
 		// unused: kept for backwards compatibility
 		return new String[] { "-f", "s16be", "-ar", "48000" };

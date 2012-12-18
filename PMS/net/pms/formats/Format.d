@@ -118,7 +118,7 @@ public abstract class Format : Cloneable {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	public abstract bool ps3compatible();
 	
 	/**

@@ -37,7 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.all;
 
 /**
  * Container for all configurable PMS settings. Settings are typically defined by three things:
@@ -47,158 +47,158 @@ import java.util.*;
  * file.
  */
 public class PmsConfiguration {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PmsConfiguration.class);
-	private static final int DEFAULT_PROXY_SERVER_PORT = -1;
-	private static final int DEFAULT_SERVER_PORT = 5001;
+	private static const Logger LOGGER = LoggerFactory.getLogger(PmsConfiguration.class);
+	private static const int DEFAULT_PROXY_SERVER_PORT = -1;
+	private static const int DEFAULT_SERVER_PORT = 5001;
 
 	// MEncoder has a hardwired maximum of 8 threads for -lavcopts and -lavdopts:
 	// https://code.google.com/p/ps3mediaserver/issues/detail?id=517
-	private static final int MENCODER_MAX_THREADS = 8;
+	private static const int MENCODER_MAX_THREADS = 8;
 
 	// TODO: Get this out of here
 	private static bool avsHackLogged = false;
 
-	private static final String KEY_ALTERNATE_SUBS_FOLDER = "alternate_subs_folder";
-	private static final String KEY_ALTERNATE_THUMB_FOLDER = "alternate_thumb_folder";
-	private static final String KEY_APERTURE_ENABLED = "aperture";
-	private static final String KEY_AUDIO_BITRATE = "audiobitrate";
-	private static final String KEY_AUDIO_CHANNEL_COUNT = "audiochannels";
-	private static final String KEY_AUDIO_RESAMPLE = "audio_resample";
-	private static final String KEY_AUDIO_THUMBNAILS_METHOD = "audio_thumbnails_method";
-	private static final String KEY_AUTOLOAD_SUBTITLES = "autoloadsrt"; // TODO (breaking change): rename to e.g. autoload_subtitles or autoload_external_subtitles
-	private static final String KEY_AUTO_UPDATE = "auto_update";
-	private static final String KEY_AVISYNTH_CONVERT_FPS = "avisynth_convertfps";
-	private static final String KEY_AVISYNTH_SCRIPT = "avisynth_script";
-	private static final String KEY_BUFFER_MAX = "buffer_max"; // FIXME what is this? if it should be kept, it needs to be a) documented and b) renamed (breaking change)
-	private static final String KEY_BUFFER_TYPE = "buffertype"; // FIXME deprecated: unused
-	private static final String KEY_CHAPTER_INTERVAL = "chapter_interval";
-	private static final String KEY_CHAPTER_SUPPORT = "chapter_support";
-	private static final String KEY_CHARSET_ENCODING = "charsetencoding";
-	private static final String KEY_CODEC_SPEC_SCRIPT = "codec_spec_script";
-	private static final String KEY_DISABLE_FAKESIZE = "disable_fakesize";
-	private static final String KEY_DVDISO_THUMBNAILS = "dvd_isos_thumbnails";
-	private static final String KEY_EMBED_DTS_IN_PCM = "embed_dts_in_pcm";
-	private static final String KEY_ENGINES = "engines";
-	private static final String KEY_FFMPEG_ALTERNATIVE_PATH = "alternativeffmpegpath"; // deprecated: FFMpegDVRMSRemux will be removed and DVR-MS will be transcoded
-	private static final String KEY_FFMPEG_VIDEO_CUSTOM_OPTIONS = "ffmpeg_video_custom_options";
-	private static final String KEY_FIX_25FPS_AV_MISMATCH = "fix_25fps_av_mismatch";
-	private static final String KEY_FORCETRANSCODE = "forcetranscode";
-	private static final String KEY_HIDE_EMPTY_FOLDERS = "hide_empty_folders";
-	private static final String KEY_HIDE_ENGINENAMES = "hide_enginenames";
-	private static final String KEY_HIDE_EXTENSIONS = "hide_extensions";
-	private static final String KEY_HIDE_MEDIA_LIBRARY_FOLDER = "hide_media_library_folder";
-	private static final String KEY_HIDE_TRANSCODE_FOLDER = "hide_transcode_folder";
-	private static final String KEY_HIDE_VIDEO_SETTINGS = "hidevideosettings";
-	private static final String KEY_HTTP_ENGINE_V2 = "http_engine_v2";
-	private static final String KEY_IMAGE_THUMBNAILS_ENABLED = "image_thumbnails";
-	private static final String KEY_IPHOTO_ENABLED = "iphoto";
-	private static final String KEY_IP_FILTER = "ip_filter";
-	private static final String KEY_ITUNES_ENABLED = "itunes";
-	private static final String KEY_LANGUAGE = "language";
-	private static final String KEY_MAX_AUDIO_BUFFER = "maxaudiobuffer";
-	private static final String KEY_MAX_BITRATE = "maximumbitrate";
-	private static final String KEY_MAX_MEMORY_BUFFER_SIZE = "maxvideobuffer";
-	private static final String KEY_MENCODER_AC3_FIXED = "mencoder_ac3_fixed";
-	private static final String KEY_MENCODER_ASS = "mencoder_ass";
-	private static final String KEY_MENCODER_ASS_DEFAULTSTYLE = "mencoder_ass_defaultstyle";
-	private static final String KEY_MENCODER_ASS_MARGIN = "mencoder_ass_margin";
-	private static final String KEY_MENCODER_ASS_OUTLINE = "mencoder_ass_outline";
-	private static final String KEY_MENCODER_ASS_SCALE = "mencoder_ass_scale";
-	private static final String KEY_MENCODER_ASS_SHADOW = "mencoder_ass_shadow";
-	private static final String KEY_MENCODER_AUDIO_LANGS = "mencoder_audiolangs";
-	private static final String KEY_MENCODER_AUDIO_SUB_LANGS = "mencoder_audiosublangs";
-	private static final String KEY_MENCODER_CUSTOM_OPTIONS = "mencoder_decode"; // TODO (breaking change): should be renamed to mencoder_video_custom_options
-	private static final String KEY_MENCODER_DISABLE_SUBS = "mencoder_disablesubs";
-	private static final String KEY_MENCODER_FONT = "mencoder_font";
-	private static final String KEY_MENCODER_FONT_CONFIG = "mencoder_fontconfig";
-	private static final String KEY_MENCODER_FORCED_SUB_LANG = "forced_sub_lang";
-	private static final String KEY_MENCODER_FORCED_SUB_TAGS = "forced_sub_tags";
-	private static final String KEY_MENCODER_FORCE_FPS = "mencoder_forcefps";
-	private static final String KEY_MENCODER_INTELLIGENT_SYNC = "mencoder_intelligent_sync";
-	private static final String KEY_MENCODER_MAIN_SETTINGS = "mencoder_encode";
-	private static final String KEY_MENCODER_MAX_THREADS = "mencoder_max_threads";
-	private static final String KEY_MENCODER_MT = "mencoder_mt";
-	private static final String KEY_MENCODER_NOASS_BLUR = "mencoder_noass_blur";
-	private static final String KEY_MENCODER_NOASS_OUTLINE = "mencoder_noass_outline";
-	private static final String KEY_MENCODER_NOASS_SCALE = "mencoder_noass_scale";
-	private static final String KEY_MENCODER_NOASS_SUBPOS = "mencoder_noass_subpos";
-	private static final String KEY_MENCODER_NO_OUT_OF_SYNC = "mencoder_nooutofsync";
-	private static final String KEY_MENCODER_OVERSCAN_COMPENSATION_HEIGHT = "mencoder_overscan_compensation_height";
-	private static final String KEY_MENCODER_OVERSCAN_COMPENSATION_WIDTH = "mencoder_overscan_compensation_width";
-	private static final String KEY_MENCODER_REMUX_AC3 = "mencoder_remux_ac3";
-	private static final String KEY_MENCODER_REMUX_MPEG2 = "mencoder_remux_mpeg2";
-	private static final String KEY_MENCODER_SCALER = "mencoder_scaler";
-	private static final String KEY_MENCODER_SCALEX = "mencoder_scalex";
-	private static final String KEY_MENCODER_SCALEY = "mencoder_scaley";
-	private static final String KEY_MENCODER_SUB_CP = "mencoder_subcp";
-	private static final String KEY_MENCODER_SUB_FRIBIDI = "mencoder_subfribidi";
-	private static final String KEY_MENCODER_SUB_LANGS = "mencoder_sublangs";
-	private static final String KEY_MENCODER_USE_PCM = "mencoder_usepcm";
-	private static final String KEY_MENCODER_USE_PCM_FOR_HQ_AUDIO_ONLY = "mencoder_usepcm_for_hq_audio_only";
-	private static final String KEY_MENCODER_VOBSUB_SUBTITLE_QUALITY = "mencoder_vobsub_subtitle_quality";
-	private static final String KEY_MENCODER_YADIF = "mencoder_yadif";
-	private static final String KEY_MINIMIZED = "minimized";
-	private static final String KEY_MIN_MEMORY_BUFFER_SIZE = "minvideobuffer";
-	private static final String KEY_MIN_STREAM_BUFFER = "minwebbuffer";
-	private static final String KEY_MUX_ALLAUDIOTRACKS = "tsmuxer_mux_all_audiotracks";
-	private static final String KEY_NETWORK_INTERFACE = "network_interface";
-	private static final String KEY_NOTRANSCODE = "notranscode";
-	private static final String KEY_NUMBER_OF_CPU_CORES = "nbcores";
-	private static final String KEY_OPEN_ARCHIVES = "enable_archive_browsing";
-	private static final String KEY_OVERSCAN = "mencoder_overscan";
-	private static final String KEY_PLUGIN_DIRECTORY = "plugins";
-	private static final String KEY_PREVENTS_SLEEP = "prevents_sleep_mode";
-	private static final String KEY_PROFILE_NAME = "name";
-	private static final String KEY_PROXY_SERVER_PORT = "proxy";
-	private static final String KEY_RENDERER_DEFAULT = "renderer_default";
-	private static final String KEY_RENDERER_FORCE_DEFAULT = "renderer_force_default";
-	private static final String KEY_SERVER_HOSTNAME = "hostname";
-	private static final String KEY_SERVER_PORT = "port";
-	private static final String KEY_SHARES = "shares";
-	private static final String KEY_SKIP_LOOP_FILTER_ENABLED = "skiploopfilter";
-	private static final String KEY_SKIP_NETWORK_INTERFACES = "skip_network_interfaces";
-	private static final String KEY_SORT_METHOD = "key_sort_method";
-	private static final String KEY_SUBS_COLOR = "subs_color";
-	private static final String KEY_TEMP_FOLDER_PATH = "temp";
-	private static final String KEY_THUMBNAIL_GENERATION_ENABLED = "thumbnails"; // TODO (breaking change): should be renamed to e.g. generate_thumbnails
-	private static final String KEY_THUMBNAIL_SEEK_POS = "thumbnail_seek_pos";
-	private static final String KEY_TRANSCODE_BLOCKS_MULTIPLE_CONNECTIONS = "transcode_block_multiple_connections";
-	private static final String KEY_TRANSCODE_FOLDER_NAME = "transcode_folder_name";
-	private static final String KEY_TRANSCODE_KEEP_FIRST_CONNECTION = "transcode_keep_first_connection";
-	private static final String KEY_TSMUXER_FORCEFPS = "tsmuxer_forcefps";
-	private static final String KEY_TSMUXER_PREREMIX_AC3 = "tsmuxer_preremix_ac3";
-	private static final String KEY_TURBO_MODE_ENABLED = "turbomode";
-	private static final String KEY_UPNP_PORT = "upnp_port";
-	private static final String KEY_USE_CACHE = "usecache";
-	private static final String KEY_USE_MPLAYER_FOR_THUMBS = "use_mplayer_for_video_thumbs";
-	private static final String KEY_UUID = "uuid";
-	private static final String KEY_VIDEOTRANSCODE_START_DELAY = "key_videotranscode_start_delay";
-	private static final String KEY_VIRTUAL_FOLDERS = "vfolders";
+	private static const String KEY_ALTERNATE_SUBS_FOLDER = "alternate_subs_folder";
+	private static const String KEY_ALTERNATE_THUMB_FOLDER = "alternate_thumb_folder";
+	private static const String KEY_APERTURE_ENABLED = "aperture";
+	private static const String KEY_AUDIO_BITRATE = "audiobitrate";
+	private static const String KEY_AUDIO_CHANNEL_COUNT = "audiochannels";
+	private static const String KEY_AUDIO_RESAMPLE = "audio_resample";
+	private static const String KEY_AUDIO_THUMBNAILS_METHOD = "audio_thumbnails_method";
+	private static const String KEY_AUTOLOAD_SUBTITLES = "autoloadsrt"; // TODO (breaking change): rename to e.g. autoload_subtitles or autoload_external_subtitles
+	private static const String KEY_AUTO_UPDATE = "auto_update";
+	private static const String KEY_AVISYNTH_CONVERT_FPS = "avisynth_convertfps";
+	private static const String KEY_AVISYNTH_SCRIPT = "avisynth_script";
+	private static const String KEY_BUFFER_MAX = "buffer_max"; // FIXME what is this? if it should be kept, it needs to be a) documented and b) renamed (breaking change)
+	private static const String KEY_BUFFER_TYPE = "buffertype"; // FIXME deprecated: unused
+	private static const String KEY_CHAPTER_INTERVAL = "chapter_interval";
+	private static const String KEY_CHAPTER_SUPPORT = "chapter_support";
+	private static const String KEY_CHARSET_ENCODING = "charsetencoding";
+	private static const String KEY_CODEC_SPEC_SCRIPT = "codec_spec_script";
+	private static const String KEY_DISABLE_FAKESIZE = "disable_fakesize";
+	private static const String KEY_DVDISO_THUMBNAILS = "dvd_isos_thumbnails";
+	private static const String KEY_EMBED_DTS_IN_PCM = "embed_dts_in_pcm";
+	private static const String KEY_ENGINES = "engines";
+	private static const String KEY_FFMPEG_ALTERNATIVE_PATH = "alternativeffmpegpath"; // deprecated: FFMpegDVRMSRemux will be removed and DVR-MS will be transcoded
+	private static const String KEY_FFMPEG_VIDEO_CUSTOM_OPTIONS = "ffmpeg_video_custom_options";
+	private static const String KEY_FIX_25FPS_AV_MISMATCH = "fix_25fps_av_mismatch";
+	private static const String KEY_FORCETRANSCODE = "forcetranscode";
+	private static const String KEY_HIDE_EMPTY_FOLDERS = "hide_empty_folders";
+	private static const String KEY_HIDE_ENGINENAMES = "hide_enginenames";
+	private static const String KEY_HIDE_EXTENSIONS = "hide_extensions";
+	private static const String KEY_HIDE_MEDIA_LIBRARY_FOLDER = "hide_media_library_folder";
+	private static const String KEY_HIDE_TRANSCODE_FOLDER = "hide_transcode_folder";
+	private static const String KEY_HIDE_VIDEO_SETTINGS = "hidevideosettings";
+	private static const String KEY_HTTP_ENGINE_V2 = "http_engine_v2";
+	private static const String KEY_IMAGE_THUMBNAILS_ENABLED = "image_thumbnails";
+	private static const String KEY_IPHOTO_ENABLED = "iphoto";
+	private static const String KEY_IP_FILTER = "ip_filter";
+	private static const String KEY_ITUNES_ENABLED = "itunes";
+	private static const String KEY_LANGUAGE = "language";
+	private static const String KEY_MAX_AUDIO_BUFFER = "maxaudiobuffer";
+	private static const String KEY_MAX_BITRATE = "maximumbitrate";
+	private static const String KEY_MAX_MEMORY_BUFFER_SIZE = "maxvideobuffer";
+	private static const String KEY_MENCODER_AC3_FIXED = "mencoder_ac3_fixed";
+	private static const String KEY_MENCODER_ASS = "mencoder_ass";
+	private static const String KEY_MENCODER_ASS_DEFAULTSTYLE = "mencoder_ass_defaultstyle";
+	private static const String KEY_MENCODER_ASS_MARGIN = "mencoder_ass_margin";
+	private static const String KEY_MENCODER_ASS_OUTLINE = "mencoder_ass_outline";
+	private static const String KEY_MENCODER_ASS_SCALE = "mencoder_ass_scale";
+	private static const String KEY_MENCODER_ASS_SHADOW = "mencoder_ass_shadow";
+	private static const String KEY_MENCODER_AUDIO_LANGS = "mencoder_audiolangs";
+	private static const String KEY_MENCODER_AUDIO_SUB_LANGS = "mencoder_audiosublangs";
+	private static const String KEY_MENCODER_CUSTOM_OPTIONS = "mencoder_decode"; // TODO (breaking change): should be renamed to mencoder_video_custom_options
+	private static const String KEY_MENCODER_DISABLE_SUBS = "mencoder_disablesubs";
+	private static const String KEY_MENCODER_FONT = "mencoder_font";
+	private static const String KEY_MENCODER_FONT_CONFIG = "mencoder_fontconfig";
+	private static const String KEY_MENCODER_FORCED_SUB_LANG = "forced_sub_lang";
+	private static const String KEY_MENCODER_FORCED_SUB_TAGS = "forced_sub_tags";
+	private static const String KEY_MENCODER_FORCE_FPS = "mencoder_forcefps";
+	private static const String KEY_MENCODER_INTELLIGENT_SYNC = "mencoder_intelligent_sync";
+	private static const String KEY_MENCODER_MAIN_SETTINGS = "mencoder_encode";
+	private static const String KEY_MENCODER_MAX_THREADS = "mencoder_max_threads";
+	private static const String KEY_MENCODER_MT = "mencoder_mt";
+	private static const String KEY_MENCODER_NOASS_BLUR = "mencoder_noass_blur";
+	private static const String KEY_MENCODER_NOASS_OUTLINE = "mencoder_noass_outline";
+	private static const String KEY_MENCODER_NOASS_SCALE = "mencoder_noass_scale";
+	private static const String KEY_MENCODER_NOASS_SUBPOS = "mencoder_noass_subpos";
+	private static const String KEY_MENCODER_NO_OUT_OF_SYNC = "mencoder_nooutofsync";
+	private static const String KEY_MENCODER_OVERSCAN_COMPENSATION_HEIGHT = "mencoder_overscan_compensation_height";
+	private static const String KEY_MENCODER_OVERSCAN_COMPENSATION_WIDTH = "mencoder_overscan_compensation_width";
+	private static const String KEY_MENCODER_REMUX_AC3 = "mencoder_remux_ac3";
+	private static const String KEY_MENCODER_REMUX_MPEG2 = "mencoder_remux_mpeg2";
+	private static const String KEY_MENCODER_SCALER = "mencoder_scaler";
+	private static const String KEY_MENCODER_SCALEX = "mencoder_scalex";
+	private static const String KEY_MENCODER_SCALEY = "mencoder_scaley";
+	private static const String KEY_MENCODER_SUB_CP = "mencoder_subcp";
+	private static const String KEY_MENCODER_SUB_FRIBIDI = "mencoder_subfribidi";
+	private static const String KEY_MENCODER_SUB_LANGS = "mencoder_sublangs";
+	private static const String KEY_MENCODER_USE_PCM = "mencoder_usepcm";
+	private static const String KEY_MENCODER_USE_PCM_FOR_HQ_AUDIO_ONLY = "mencoder_usepcm_for_hq_audio_only";
+	private static const String KEY_MENCODER_VOBSUB_SUBTITLE_QUALITY = "mencoder_vobsub_subtitle_quality";
+	private static const String KEY_MENCODER_YADIF = "mencoder_yadif";
+	private static const String KEY_MINIMIZED = "minimized";
+	private static const String KEY_MIN_MEMORY_BUFFER_SIZE = "minvideobuffer";
+	private static const String KEY_MIN_STREAM_BUFFER = "minwebbuffer";
+	private static const String KEY_MUX_ALLAUDIOTRACKS = "tsmuxer_mux_all_audiotracks";
+	private static const String KEY_NETWORK_INTERFACE = "network_interface";
+	private static const String KEY_NOTRANSCODE = "notranscode";
+	private static const String KEY_NUMBER_OF_CPU_CORES = "nbcores";
+	private static const String KEY_OPEN_ARCHIVES = "enable_archive_browsing";
+	private static const String KEY_OVERSCAN = "mencoder_overscan";
+	private static const String KEY_PLUGIN_DIRECTORY = "plugins";
+	private static const String KEY_PREVENTS_SLEEP = "prevents_sleep_mode";
+	private static const String KEY_PROFILE_NAME = "name";
+	private static const String KEY_PROXY_SERVER_PORT = "proxy";
+	private static const String KEY_RENDERER_DEFAULT = "renderer_default";
+	private static const String KEY_RENDERER_FORCE_DEFAULT = "renderer_force_default";
+	private static const String KEY_SERVER_HOSTNAME = "hostname";
+	private static const String KEY_SERVER_PORT = "port";
+	private static const String KEY_SHARES = "shares";
+	private static const String KEY_SKIP_LOOP_FILTER_ENABLED = "skiploopfilter";
+	private static const String KEY_SKIP_NETWORK_INTERFACES = "skip_network_interfaces";
+	private static const String KEY_SORT_METHOD = "key_sort_method";
+	private static const String KEY_SUBS_COLOR = "subs_color";
+	private static const String KEY_TEMP_FOLDER_PATH = "temp";
+	private static const String KEY_THUMBNAIL_GENERATION_ENABLED = "thumbnails"; // TODO (breaking change): should be renamed to e.g. generate_thumbnails
+	private static const String KEY_THUMBNAIL_SEEK_POS = "thumbnail_seek_pos";
+	private static const String KEY_TRANSCODE_BLOCKS_MULTIPLE_CONNECTIONS = "transcode_block_multiple_connections";
+	private static const String KEY_TRANSCODE_FOLDER_NAME = "transcode_folder_name";
+	private static const String KEY_TRANSCODE_KEEP_FIRST_CONNECTION = "transcode_keep_first_connection";
+	private static const String KEY_TSMUXER_FORCEFPS = "tsmuxer_forcefps";
+	private static const String KEY_TSMUXER_PREREMIX_AC3 = "tsmuxer_preremix_ac3";
+	private static const String KEY_TURBO_MODE_ENABLED = "turbomode";
+	private static const String KEY_UPNP_PORT = "upnp_port";
+	private static const String KEY_USE_CACHE = "usecache";
+	private static const String KEY_USE_MPLAYER_FOR_THUMBS = "use_mplayer_for_video_thumbs";
+	private static const String KEY_UUID = "uuid";
+	private static const String KEY_VIDEOTRANSCODE_START_DELAY = "key_videotranscode_start_delay";
+	private static const String KEY_VIRTUAL_FOLDERS = "vfolders";
 
 	// the name of the subdirectory under which PMS config files are stored for this build (default: PMS).
 	// see Build for more details
-	private static final String PROFILE_DIRECTORY_NAME = Build.getProfileDirectoryName();
+	private static const String PROFILE_DIRECTORY_NAME = Build.getProfileDirectoryName();
 
 	// the default profile name displayed on the renderer
 	private static String HOSTNAME;
 
 	private static String DEFAULT_AVI_SYNTH_SCRIPT;
-	private static final String BUFFER_TYPE_FILE = "file"; // deprecated: unused
-	private static final int MAX_MAX_MEMORY_DEFAULT_SIZE = 600;
-	private static final int BUFFER_MEMORY_FACTOR = 368;
+	private static const String BUFFER_TYPE_FILE = "file"; // deprecated: unused
+	private static const int MAX_MAX_MEMORY_DEFAULT_SIZE = 600;
+	private static const int BUFFER_MEMORY_FACTOR = 368;
 	private static int MAX_MAX_MEMORY_BUFFER_SIZE = MAX_MAX_MEMORY_DEFAULT_SIZE;
-	private static final char LIST_SEPARATOR = ',';
-	private static final String KEY_FOLDERS = "folders";
-	private final PropertiesConfiguration configuration;
-	private final TempFolder tempFolder;
-	private final ProgramPathDisabler programPaths;
+	private static const char LIST_SEPARATOR = ',';
+	private static const String KEY_FOLDERS = "folders";
+	private immutable PropertiesConfiguration configuration;
+	private immutable TempFolder tempFolder;
+	private immutable ProgramPathDisabler programPaths;
 
-	private final IpFilter filter = new IpFilter();
+	private const IpFilter filter = new IpFilter();
 
 	/**
 	 * The set of the keys defining when the HTTP server has to restarted due to a configuration change
 	 */
-	public static final Set<String> NEED_RELOAD_FLAGS = new HashSet<String>(
+	public static immutable Set/*<String>*/ NEED_RELOAD_FLAGS = new HashSet<String>(
 		Arrays.asList(
 			KEY_ALTERNATE_THUMB_FOLDER,
 			KEY_NETWORK_INTERFACE,
@@ -270,15 +270,15 @@ public class PmsConfiguration {
 			PMS_PROFILE = folder/dev.conf     # profile dir = folder
 			PMS_PROFILE = /path/to/some.file  # profile dir = /path/to/
 	 */
-	private static final String DEFAULT_PROFILE_FILENAME = "PMS.conf";
-	private static final String ENV_PROFILE_PATH = "PMS_PROFILE";
-	private static final String PROFILE_DIRECTORY; // path to directory containing PMS config files
-	private static final String PROFILE_PATH; // abs path to profile file e.g. /path/to/PMS.conf
-    private static final String SKEL_PROFILE_PATH ; // abs path to skel (default) profile file e.g. /etc/skel/.config/ps3mediaserver/PMS.conf
+	private static const String DEFAULT_PROFILE_FILENAME = "PMS.conf";
+	private static const String ENV_PROFILE_PATH = "PMS_PROFILE";
+	private static immutable String PROFILE_DIRECTORY; // path to directory containing PMS config files
+	private static immutable String PROFILE_PATH; // abs path to profile file e.g. /path/to/PMS.conf
+    private static immutable String SKEL_PROFILE_PATH ; // abs path to skel (default) profile file e.g. /etc/skel/.config/ps3mediaserver/PMS.conf
                                                     // "project.skelprofile.dir" project property
-	private static final String PROPERTY_PROFILE_PATH = "pms.profile.path";
+	private static const String PROPERTY_PROFILE_PATH = "pms.profile.path";
 
-	static {
+	static this {
         // first try the system property, typically set via the profile chooser
 		String profile = System.getProperty(PROPERTY_PROFILE_PATH);
 
@@ -295,7 +295,7 @@ public class PmsConfiguration {
 
 			if (f.isDirectory()) {
 				PROFILE_DIRECTORY = FilenameUtils.normalize(f.getAbsolutePath());
-				PROFILE_PATH = FilenameUtils.normalize(new File(f, DEFAULT_PROFILE_FILENAME).getAbsolutePath());
+				PROFILE_PATH = FilenameUtils.normalize((new File(f, DEFAULT_PROFILE_FILENAME)).getAbsolutePath());
 			} else { // doesn't exist or is a file (i.e. not a directory)
 				PROFILE_PATH = FilenameUtils.normalize(f.getAbsolutePath());
 				PROFILE_DIRECTORY = FilenameUtils.normalize(f.getParentFile().getAbsolutePath());
@@ -353,7 +353,7 @@ public class PmsConfiguration {
 	 * @throws org.apache.commons.configuration.ConfigurationException
 	 * @throws java.io.IOException
 	 */
-	public PmsConfiguration() throws ConfigurationException, IOException {
+	public this() {
 		this(true);
 	}
 
@@ -366,9 +366,9 @@ public class PmsConfiguration {
 	 * @throws org.apache.commons.configuration.ConfigurationException
 	 * @throws java.io.IOException
 	 */
-	public PmsConfiguration(bool loadFile) throws ConfigurationException, IOException {
+	public this(bool loadFile) {
 		configuration = new PropertiesConfiguration();
-		configuration.setListDelimiter((char) 0);
+		configuration.setListDelimiter(cast(char) 0);
 
 		if (loadFile) {
 			File pmsConfFile = new File(PROFILE_PATH);
@@ -377,7 +377,7 @@ public class PmsConfiguration {
 				if (FileUtil.isFileReadable(pmsConfFile)) {
 					configuration.load(PROFILE_PATH);
 				} else {
-					LOGGER.warn("Can't load {}", PROFILE_PATH);
+					LOGGER.warn("Can't load " ~ PROFILE_PATH);
 				}
 			} else if (SKEL_PROFILE_PATH !is null) {
                 File pmsSkelConfFile = new File(SKEL_PROFILE_PATH);
@@ -386,9 +386,9 @@ public class PmsConfiguration {
 					if (FileUtil.isFileReadable(pmsSkelConfFile)) {
 						// load defaults from skel file, save them later to PROFILE_PATH
 						configuration.load(pmsSkelConfFile);
-						LOGGER.info("Default configuration loaded from " + SKEL_PROFILE_PATH);
+						LOGGER.info("Default configuration loaded from " ~ SKEL_PROFILE_PATH);
 					} else {
-						LOGGER.warn("Can't load {}", SKEL_PROFILE_PATH);
+						LOGGER.warn("Can't load " ~ SKEL_PROFILE_PATH);
 					}
 				}
             }
@@ -402,17 +402,17 @@ public class PmsConfiguration {
 
 		// Set DEFAULT_AVI_SYNTH_SCRIPT according to language
 		DEFAULT_AVI_SYNTH_SCRIPT =
-			Messages.getString("MEncoderAviSynth.4") +
-			Messages.getString("MEncoderAviSynth.5") +
-			Messages.getString("MEncoderAviSynth.6") +
-			Messages.getString("MEncoderAviSynth.7") +
-			Messages.getString("MEncoderAviSynth.8") +
-			Messages.getString("MEncoderAviSynth.10") +
+			Messages.getString("MEncoderAviSynth.4") ~
+			Messages.getString("MEncoderAviSynth.5") ~
+			Messages.getString("MEncoderAviSynth.6") ~
+			Messages.getString("MEncoderAviSynth.7") ~
+			Messages.getString("MEncoderAviSynth.8") ~
+			Messages.getString("MEncoderAviSynth.10") ~
 			Messages.getString("MEncoderAviSynth.11");
 
 		long usableMemory = (Runtime.getRuntime().maxMemory() / 1048576) - BUFFER_MEMORY_FACTOR;
 		if (usableMemory > MAX_MAX_MEMORY_DEFAULT_SIZE) {
-			MAX_MAX_MEMORY_BUFFER_SIZE = (int) usableMemory;
+			MAX_MAX_MEMORY_BUFFER_SIZE = cast(int) usableMemory;
 		}
 	}
 
@@ -425,10 +425,10 @@ public class PmsConfiguration {
 		return new ProgramPathDisabler(
 			new ConfigurationProgramPaths(configuration,
 			new WindowsRegistryProgramPaths(
-			new PlatformSpecificDefaultPathsFactory().get())));
+			(new PlatformSpecificDefaultPathsFactory()).get())));
 	}
 
-	public File getTempFolder() throws IOException {
+	public File getTempFolder() {
 		return tempFolder.getTempFolder();
 	}
 
@@ -644,12 +644,12 @@ public class PmsConfiguration {
 	 *            returned as <code>{ "gnu", "gnat", "moo" }</code>.
 	 * @return The list of value strings configured for the key.
 	 */
-	private List<String> getStringList(String key, String def) {
+	private List/*<String>*/ getStringList(String key, String def) {
 		String value = getString(key, def);
 		if (value !is null) {
 			String[] arr = value.split(",");
-			List<String> result = new ArrayList<String>(arr.length);
-			for (String str : arr) {
+			List/*<String>*/ result = new ArrayList/*<String>*/(arr.length);
+			foreach (String str ; arr) {
 				if (str.trim().length() > 0) {
 					result.add(str.trim());
 				}
@@ -1118,7 +1118,7 @@ public class PmsConfiguration {
 	 * Returns custom commandline options to pass on to MEncoder.
 	 * @return The custom options string.
 	 */
-	@Deprecated
+	deprecated
 	public String getMencoderDecode() {
 		return getMencoderCustomOptions();
 	}
@@ -1137,7 +1137,7 @@ public class PmsConfiguration {
 	 * Sets custom commandline options to pass on to MEncoder.
 	 * @param value The custom options string.
 	 */
-	@Deprecated
+	deprecated
 	public void setMencoderDecode(String value) {
 		setMencoderCustomOptions(value);
 	}
@@ -1383,7 +1383,7 @@ public class PmsConfiguration {
 	 *
 	 * @return bool indicating whether thumbnail generation is enabled.
 	 */
-	@Deprecated
+	deprecated
 	public bool getThumbnailsEnabled() {
 		return isThumbnailGenerationEnabled();
 	}
@@ -1407,7 +1407,7 @@ public class PmsConfiguration {
 	 *
 	 * @return bool indicating whether thumbnail generation is enabled.
 	 */
-	@Deprecated
+	deprecated
 	public void setThumbnailsEnabled(bool value) {
 		setThumbnailGenerationEnabled(value);
 	}
@@ -1472,7 +1472,7 @@ public class PmsConfiguration {
 	/**
 	 * @deprecated This method is not used anywhere.
 	 */
-	@Deprecated
+	deprecated
 	public bool isTurboModeEnabled() {
 		return getBoolean(KEY_TURBO_MODE_ENABLED, false);
 	}
@@ -1480,7 +1480,7 @@ public class PmsConfiguration {
 	/**
 	 * @deprecated This method is not used anywhere.
 	 */
-	@Deprecated
+	deprecated
 	public void setTurboModeEnabled(bool value) {
 		configuration.setProperty(KEY_TURBO_MODE_ENABLED, value);
 	}
@@ -1508,7 +1508,7 @@ public class PmsConfiguration {
 	/**
 	 * @deprecated use {@link #isAutoloadSubtitles()} instead.
 	 */
-	@Deprecated
+	deprecated
 	public bool getUseSubtitles() {
 		return isAutoloadSubtitles();
 	}
@@ -1528,7 +1528,7 @@ public class PmsConfiguration {
 	/**
 	 * @deprecated use {@link #setAutoloadSubtitles(bool)} instead.
 	 */
-	@Deprecated
+	deprecated
 	public void setUseSubtitles(bool value) {
 		setAutoloadSubtitles(value);
 	}
@@ -1661,7 +1661,7 @@ public class PmsConfiguration {
 		return getInt(KEY_MIN_STREAM_BUFFER, 1);
 	}
 
-	@Deprecated
+	deprecated
 	public bool isFileBuffer() {
 		String bufferType = getString(KEY_BUFFER_TYPE, "");
 		return bufferType.equals(BUFFER_TYPE_FILE);
@@ -1715,12 +1715,12 @@ public class PmsConfiguration {
 		configuration.setProperty(KEY_MENCODER_INTELLIGENT_SYNC, value);
 	}
 
-	@Deprecated
+	deprecated
 	public String getFfmpegAlternativePath() {
 		return getString(KEY_FFMPEG_ALTERNATIVE_PATH, null);
 	}
 
-	@Deprecated
+	deprecated
 	public void setFfmpegAlternativePath(String value) {
 		configuration.setProperty(KEY_FFMPEG_ALTERNATIVE_PATH, value);
 	}
@@ -2013,7 +2013,7 @@ public class PmsConfiguration {
 	/**
 	 * @deprecated automatic switching to tsMuxeR from other transcoding engines is disabled.
 	 */
-	@Deprecated
+	deprecated
 	public void setMencoderMuxWhenCompatible(bool value) {
 		// noop
 	}
@@ -2021,7 +2021,7 @@ public class PmsConfiguration {
 	/**
 	 * @deprecated automatic switching to tsMuxeR from other transcoding engines is disabled.
 	 */
-	@Deprecated
+	deprecated
 	public bool isMencoderMuxWhenCompatible() {
 		return false;
 	}
@@ -2099,7 +2099,7 @@ public class PmsConfiguration {
 		return getBoolean(PmsConfiguration.KEY_HIDE_EMPTY_FOLDERS, false);
 	}
 
-	public void setHideEmptyFolders(final bool value) {
+	public void setHideEmptyFolders(const bool value) {
 		this.configuration.setProperty(PmsConfiguration.KEY_HIDE_EMPTY_FOLDERS, value);
 	}
 
@@ -2107,7 +2107,7 @@ public class PmsConfiguration {
 		return getBoolean(PmsConfiguration.KEY_HIDE_MEDIA_LIBRARY_FOLDER, false);
 	}
 
-	public void setHideMediaLibraryFolder(final bool value) {
+	public void setHideMediaLibraryFolder(const bool value) {
 		this.configuration.setProperty(PmsConfiguration.KEY_HIDE_MEDIA_LIBRARY_FOLDER, value);
 	}
 
@@ -2304,7 +2304,7 @@ public class PmsConfiguration {
 	}
 
 	// FIXME this is undocumented and misnamed
-	@Deprecated
+	deprecated
 	public bool initBufferMax() {
 		return getBoolean(KEY_BUFFER_MAX, false);
 	}

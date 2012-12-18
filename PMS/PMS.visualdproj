@@ -187,6 +187,13 @@
   <filesToClean>*.obj;*.cmd;*.build;*.json;*.dep</filesToClean>
  </Config>
  <Folder name="PMS">
+  <Folder name="com">
+   <Folder name="sun">
+    <Folder name="jna">
+     <File path="com\sun\jna\Platform.d" />
+    </Folder>
+   </Folder>
+  </Folder>
   <Folder name="java">
    <Folder name="beans">
     <File path="java\beans\all.d" />
@@ -598,6 +605,9 @@
   <Folder name="org">
    <Folder name="apache">
     <Folder name="commons">
+     <Folder name="io">
+      <File path="org\apache\commons\io\FilenameUtils.d" />
+     </Folder>
      <Folder name="lang">
       <File path="org\apache\commons\lang\StringUtils.d" />
      </Folder>

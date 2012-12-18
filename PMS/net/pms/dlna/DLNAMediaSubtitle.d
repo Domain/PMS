@@ -76,7 +76,7 @@ public class DLNAMediaSubtitle : DLNAMediaLang : Cloneable {
 	/**
 	 * @deprecated charset is autodetected for text subtitles after setExternalFile()
 	 */
-	@Deprecated
+	deprecated
 	public void checkUnicode() {
 	}
 
@@ -119,7 +119,7 @@ public class DLNAMediaSubtitle : DLNAMediaLang : Cloneable {
 	/**
 	 * @deprecated use FileUtil.convertFileFromUtf16ToUtf8() for UTF-16 -> UTF-8 conversion.
 	 */
-	@Deprecated
+	deprecated
 	public File getPlayableExternalFile() {
 		return getExternalFile();
 	}

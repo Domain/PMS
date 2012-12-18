@@ -75,32 +75,32 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	/**
 	 * @deprecated This field will be removed. Use {@link net.pms.configuration.PmsConfiguration#getTranscodeFolderName()} instead.
 	 */
-	@Deprecated
+	deprecated
 	protected static final String TRANSCODE_FOLDER = Messages.getString("TranscodeVirtualFolder.0"); // localized #--TRANSCODE--#
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected int specificType;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected String id;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected DLNAResource parent;
 
 	/**
 	 * @deprecated This field will be removed. Use {@link #getFormat()} and
 	 * {@link #setFormat(Format)} instead.
 	 */
-	@Deprecated
+	deprecated
 	protected Format ext;
 
 	/**
@@ -111,27 +111,27 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected DLNAMediaInfo media;
 
 	/**
 	 * @deprecated Use {@link #getMediaAudio()} and {@link
 	 * #setMediaAudio(DLNAMediaAudio)} to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected DLNAMediaAudio media_audio;
 
 	/**
 	 * @deprecated Use {@link #getMediaSubtitle()} and {@link
 	 * #setMediaSubtitle(DLNAMediaSubtitle)} to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected DLNAMediaSubtitle media_subtitle;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected long lastmodified; // TODO make private and rename lastmodified -> lastModified
 
 	/**
@@ -143,7 +143,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected bool discovered = false;
 
 	private ProcessWrapper externalProcess;
@@ -151,25 +151,25 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected bool srtFile;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected int updateId = 1;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	public static int systemUpdateId = 1;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected bool noName;
 
 	private int nametruncate;
@@ -181,26 +181,26 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 *
 	 * The time range for the file containing the start and end time in seconds.
 	 */
-	@Deprecated
+	deprecated
 	protected Range.Time splitRange = new Range.Time();
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected int splitTrack;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected String fakeParentId;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
 	// Ditlew - needs this in one of the derived classes
-	@Deprecated
+	deprecated
 	protected RendererConfiguration defaultRenderer;
 
 	private String dlnaspec;
@@ -208,13 +208,13 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected bool avisynth;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
 	 */
-	@Deprecated
+	deprecated
 	protected bool skipTranscode = false;
 
 	private bool allChildrenAreFolders = true;
@@ -225,7 +225,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 *
 	 * List of children objects associated with this DLNAResource. This is only valid when the DLNAResource is of the container type.
 	 */
-	@Deprecated
+	deprecated
 	protected List<DLNAResource> children;
 
 	/**
@@ -234,7 +234,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * The numerical ID (1-based index) assigned to the last child of this folder. The next child is assigned this ID + 1.
 	 */
 	// FIXME should be lastChildId
-	@Deprecated
+	deprecated
 	protected int lastChildrenId = 0; // XXX make private and rename lastChildrenId -> lastChildId
 
 	/**
@@ -242,7 +242,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 *
 	 * The last time refresh was called.
 	 */
-	@Deprecated
+	deprecated
 	protected long lastRefreshTime;
 
 	/**
@@ -1245,7 +1245,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	}
 
 	// this shouldn't be public
-	@Deprecated
+	deprecated
 	public String getFlags() {
 		return getDlnaOrgOpFlags();
 	}
@@ -2056,7 +2056,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 *
 	 * @return The format of this resource.
 	 */
-	@Deprecated
+	deprecated
 	public Format getExt() {
 		return getFormat();
 	}
@@ -2066,7 +2066,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 *
 	 * @param format The format to set.
 	 */
-	@Deprecated
+	deprecated
 	protected void setExt(Format format) {
 		setFormat(format);
 	}
@@ -2147,7 +2147,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 *
 	 * @return The timestamp.
 	 */
-	@Deprecated
+	deprecated
 	public long getLastmodified() {
 		return getLastModified();
 	}
@@ -2170,7 +2170,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * @param lastModified The timestamp to set.
 	 * @since 1.50.0
 	 */
-	@Deprecated
+	deprecated
 	protected void setLastmodified(long lastModified) {
 		setLastModified(lastModified);
 	}
@@ -2437,7 +2437,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	/**
 	 * @deprecated use {@link #getLastChildId()} instead.
 	 */
-	@Deprecated
+	deprecated
 	protected int getLastChildrenId() {
 		return getLastChildId();
 	}

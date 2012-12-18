@@ -54,7 +54,7 @@ public class FileUtil {
 	/**
 	 * @deprecated Use {@link #getFileNameWithNewExtension(File, File, String)}.
 	 */
-	@Deprecated
+	deprecated
 	public static File getFileNameWitNewExtension(File parent, File f, String ext) {
 		return getFileNameWithNewExtension(parent, f, ext);
 	}
@@ -72,7 +72,7 @@ public class FileUtil {
 	/**
 	 * @deprecated Use {@link #getFileNameWithAddedExtension(File, File, String)}.
 	 */
-	@Deprecated
+	deprecated
 	public static File getFileNameWitAddedExtension(File parent, File file, String ext) {
 		return getFileNameWithAddedExtension(parent, file, ext);
 	}
@@ -100,13 +100,13 @@ public class FileUtil {
 	}
 
 	// FIXME rename e.g. isSubtitleExists, isSubtitlesExist...
-	@Deprecated
+	deprecated
 	public static bool doesSubtitlesExists(File file, DLNAMediaInfo media) {
 		return doesSubtitlesExists(file, media, true);
 	}
 
 	// FIXME rename e.g. isSubtitleExists...
-	@Deprecated
+	deprecated
 	public static bool doesSubtitlesExists(File file, DLNAMediaInfo media, bool usecache) {
 		bool found = browseFolderForSubtitles(file.getParentFile(), file, media, usecache);
 		String alternate = PMS.getConfiguration().getAlternateSubsFolder();

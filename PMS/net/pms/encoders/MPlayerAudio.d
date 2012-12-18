@@ -43,13 +43,13 @@ import java.util.Arrays;
 
 // this does nothing that isn't done by the ffmpeg audio engine
 // and, indeed, it delegates to ffmpeg for MP3 transcodes
-@Deprecated
+deprecated
 public class MPlayerAudio : Player {
 	public static final String ID = "mplayeraudio";
 	private final PmsConfiguration configuration;
 
 	// XXX should be private
-	@Deprecated
+	deprecated
 	JCheckBox noresample;
 
 	public MPlayerAudio(PmsConfiguration configuration) {

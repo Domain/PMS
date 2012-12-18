@@ -38,7 +38,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int bitsperSample;
 
 
@@ -47,73 +47,73 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String sampleFrequency;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int nrAudioChannels;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String codecA;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String album;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String artist;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String songname;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String genre;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int year;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int track;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int delay;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String flavor;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String muxingModeAudio;
 
 	/**
@@ -348,7 +348,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated Use getAudioProperties().getNumberOfChannels() instead
 	 */
-	@Deprecated
+	deprecated
 	public int getNrAudioChannels() {
 		return audioProperties.getNumberOfChannels();
 	}
@@ -360,7 +360,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated Use getAudioProperties().setNumberOfChannels(int numberOfChannels) instead
 	 */
-	@Deprecated
+	deprecated
 	public void setNrAudioChannels(int numberOfChannels) {
 		this.nrAudioChannels = numberOfChannels;
 		audioProperties.setNumberOfChannels(numberOfChannels);
@@ -513,7 +513,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated Use getAudioProperties().getAudioDelay() instead
 	 */
-	@Deprecated
+	deprecated
 	public int getDelay() {
 		return audioProperties.getAudioDelay();
 	}
@@ -525,7 +525,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated  Use getAudioProperties().setAudioDelay(int audioDelay) instead
 	 */
-	@Deprecated
+	deprecated
 	public void setDelay(int audioDelay) {
 		this.delay = audioDelay;
 		audioProperties.setAudioDelay(audioDelay);

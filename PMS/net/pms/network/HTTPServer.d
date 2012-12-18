@@ -51,7 +51,7 @@ public class HTTPServer : Runnable {
 	private ChannelGroup group;
 
 	// XXX not used
-	@Deprecated
+	deprecated
 	public InetAddress getIafinal() {
 		return iafinal;
 	}
@@ -61,7 +61,7 @@ public class HTTPServer : Runnable {
 	}
 
 	// use getNetworkInterface()
-	@Deprecated
+	deprecated
 	public NetworkInterface getNi() {
 		return getNetworkInterface();
 	}

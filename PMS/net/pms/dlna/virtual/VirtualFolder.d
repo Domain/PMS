@@ -89,7 +89,7 @@ public class VirtualFolder : DLNAResource {
 	 * @return Zero
 	 */
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}

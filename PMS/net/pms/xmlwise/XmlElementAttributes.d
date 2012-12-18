@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Christoffer Lerno
  */
 @SuppressWarnings({"serial"})
-@Deprecated
+deprecated
 public class XmlElementAttributes : HashMap<String, String> {
 	/**
 	 * Creates an empty element attribute map.

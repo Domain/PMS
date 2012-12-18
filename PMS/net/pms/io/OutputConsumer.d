@@ -35,7 +35,7 @@ public abstract class OutputConsumer : Thread {
 		this.inputStream = inputStream;
 	}
 
-	@Deprecated
+	deprecated
 	public void destroy() {
 		IOUtils.closeQuietly(inputStream);
 	}

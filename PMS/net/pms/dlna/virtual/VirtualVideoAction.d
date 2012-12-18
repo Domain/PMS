@@ -147,7 +147,7 @@ public abstract class VirtualVideoAction : DLNAResource {
 	}
 
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}

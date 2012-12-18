@@ -51,7 +51,7 @@ public class ISO : MPG {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	public bool ps3compatible() {
 		return false;
 	}

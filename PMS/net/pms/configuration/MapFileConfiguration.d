@@ -27,8 +27,8 @@ public class MapFileConfiguration {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MapFileConfiguration.class);
 	private String name;
 	private String thumbnailIcon;
-	private List<MapFileConfiguration> children;
-	private List<File> files;
+	private List/*<MapFileConfiguration>*/ children;
+	private List/*<File>*/ files;
 
 	public String getName() {
 		return name;
@@ -38,11 +38,11 @@ public class MapFileConfiguration {
 		return thumbnailIcon;
 	}
 
-	public List<MapFileConfiguration> getChildren() {
+	public List/*<MapFileConfiguration>*/ getChildren() {
 		return children;
 	}
 
-	public List<File> getFiles() {
+	public List/*<File>*/ getFiles() {
 		return files;
 	}
 
@@ -54,16 +54,16 @@ public class MapFileConfiguration {
 		thumbnailIcon = t;
 	}
 
-	public void setFiles(List<File> f) {
+	public void setFiles(List/*<File>*/ f) {
 		files = f;
 	}
 
 	public MapFileConfiguration() {
 		children = new ArrayList<MapFileConfiguration>();
-		files = new ArrayList<File>();
+		files = new ArrayList/*<File>*/();
 	}
 
-	public static List<MapFileConfiguration> parse(String conf) {
+	public static List/*<MapFileConfiguration>*/ parse(String conf) {
 		if (conf !is null && conf.startsWith("@")) {
 			File file = new File(conf.substring(1));
 			conf = null;
@@ -75,7 +75,7 @@ public class MapFileConfiguration {
 					return null;
 				}
 			} else {
-				LOGGER.warn("Can't read file: {}", file.getAbsolutePath());
+				LOGGER.warn("Can't read file: " ~ file.getAbsolutePath());
 			}
 		}
 
@@ -86,8 +86,8 @@ public class MapFileConfiguration {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(File.class, new FileSerializer());
 		Gson gson = gsonBuilder.create();
-		Type listType = (new TypeToken<ArrayList<MapFileConfiguration>>() { }).getType();
-		List<MapFileConfiguration> out = gson.fromJson(conf, listType);
+		Type listType = (new TypeToken/*<ArrayList<MapFileConfiguration>>*/() { }).getType();
+		List/*<MapFileConfiguration>*/ out = gson.fromJson(conf, listType);
 		return out;
 	}
 }

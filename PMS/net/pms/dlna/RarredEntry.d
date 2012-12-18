@@ -76,7 +76,7 @@ public class RarredEntry : DLNAResource : IPushOutput {
 	}
 
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}

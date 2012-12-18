@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class PMSUtil {
 	private static final Logger logger = LoggerFactory.getLogger(PMSUtil.class);
 
-	@Deprecated
+	deprecated
 	public static <T> T[] copyOf(T[] original, int newLength) {
 		logger.info("deprecated PMSUtil.copyOf called");
 		return Arrays.copyOf(original, newLength);
@@ -23,19 +23,19 @@ public class PMSUtil {
 	 * @param uri URI string to open externally.
 	 * @deprecated call SystemUtils.browseURI
 	 */
-	@Deprecated
+	deprecated
 	public static void browseURI(String uri) {
 		logger.info("deprecated PMSUtil.browseURI called");
 		PMS.get().getRegistry().browseURI(uri);
 	}
 
-	@Deprecated
+	deprecated
 	public static void addSystemTray(final LooksFrame frame) {
 		logger.info("deprecated PMSUtil.addSystemTray called");
 		PMS.get().getRegistry().addSystemTray(frame);
 	}
 
-	@Deprecated
+	deprecated
 	public static bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException {
 		logger.info("deprecated PMSUtil.isNetworkInterfaceLoopback called");
 		return PMS.get().getRegistry().isNetworkInterfaceLoopback(ni);
@@ -50,7 +50,7 @@ public class PMSUtil {
 	 *             This won't happen on Mac OS, since the NetworkInterface is
 	 *             only used to get a name.
 	 */
-	@Deprecated
+	deprecated
 	public static byte[] getHardwareAddress(NetworkInterface ni) throws SocketException {
 		logger.info("deprecated PMSUtil.getHardwareAddress called");
 		return PMS.get().getRegistry().getHardwareAddress(ni);

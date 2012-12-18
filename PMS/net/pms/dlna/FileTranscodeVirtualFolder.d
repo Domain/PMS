@@ -85,7 +85,7 @@ public class FileTranscodeVirtualFolder : VirtualFolder {
 	}
 
 	// FIXME unused
-	@Deprecated
+	deprecated
 	public FileTranscodeVirtualFolder(String name, String thumbnailIcon, bool copy) {
 		super(name, thumbnailIcon);
 	}

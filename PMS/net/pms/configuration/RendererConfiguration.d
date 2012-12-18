@@ -319,12 +319,12 @@ public class RendererConfiguration {
 	}
 
 	// FIXME These 'is' methods should disappear. Use feature detection instead.
-	@Deprecated
+	deprecated
 	public bool isXBOX() {
 		return getRendererName().toUpperCase().contains("XBOX");
 	}
 
-	@Deprecated
+	deprecated
 	public bool isXBMC() {
 		return getRendererName().toUpperCase().contains("XBMC");
 	}
@@ -337,7 +337,7 @@ public class RendererConfiguration {
 		return getRendererName().toUpperCase().contains("BRAVIA");
 	}
 
-	@Deprecated
+	deprecated
 	public bool isFDSSDP() {
 		return getRendererName().toUpperCase().contains("FDSSDP");
 	}
@@ -821,7 +821,7 @@ public class RendererConfiguration {
 	 *
 	 * @return The bitrate.
 	 */
-	@Deprecated
+	deprecated
 	// TODO this should return an integer and the units should be bits-per-second
 	public String getMaxVideoBitrate() {
 		return getString(MAX_VIDEO_BITRATE, null);

@@ -236,7 +236,7 @@ public final class PlayerFactory {
 	 * @return The player if a match could be found, <code>null</code>
 	 *         otherwise.
 	 */
-	@Deprecated
+	deprecated
 	public static Player getPlayer(final Class<? : Player> profileClass,
 			final Format ext) {
 
@@ -292,7 +292,7 @@ public final class PlayerFactory {
 	 * @return The list of players that match. If no players match, an empty
 	 *         list is returned.
 	 */
-	@Deprecated
+	deprecated
 	public static ArrayList<Player> getPlayers(
 			final ArrayList<Class<? : Player>> profileClasses,
 			final int type) {
@@ -345,7 +345,7 @@ public final class PlayerFactory {
 	 * @param resource The resource to match
 	 * @return The list of players if a match could be found, null otherwise.
 	 */
-	@Deprecated
+	deprecated
 	public static ArrayList<Player> getEnabledPlayers(final DLNAResource resource) {
 		return getPlayers(resource);
 	}

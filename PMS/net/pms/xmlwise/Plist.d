@@ -49,7 +49,7 @@ import java.util.*;
  *
  * @author Christoffer Lerno
  */
-@Deprecated
+deprecated
 public final class Plist {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Plist.class);
 

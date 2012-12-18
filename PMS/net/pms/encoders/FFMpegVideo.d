@@ -72,7 +72,7 @@ public class FFMpegVideo : Player {
 	private static final String DEFAULT_QSCALE = "3";
 
 	// FIXME we have an id() accessor for this; no need for the field to be public
-	@Deprecated
+	deprecated
 	public static final String ID = "ffmpegvideo";
 
 	/**
@@ -222,7 +222,7 @@ public class FFMpegVideo : Player {
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public bool avisynth() {
 		return false;
 	}
@@ -238,7 +238,7 @@ public class FFMpegVideo : Player {
 	}
 
 	// unused; return this array for backwards-compatibility
-	@Deprecated
+	deprecated
 	protected String[] getDefaultArgs() {
 		return new String[] {
 			"-vcodec",
@@ -251,7 +251,7 @@ public class FFMpegVideo : Player {
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public String[] args() {
 		return getDefaultArgs(); // unused; return this array for for backwards compatibility
 	}
@@ -269,7 +269,7 @@ public class FFMpegVideo : Player {
 	}
 
 	// XXX hardwired to false and not referenced anywhere else in the codebase
-	@Deprecated
+	deprecated
 	public bool mplayer() {
 		return false;
 	}
@@ -297,7 +297,7 @@ public class FFMpegVideo : Player {
 	// XXX pointless redirection of launchTranscode
 	// TODO remove this method and move its body into launchTranscode
 	// TODO call setAudioAndSubs to populate params with audio track/subtitles metadata
-	@Deprecated
+	deprecated
 	protected ProcessWrapperImpl getFFMpegTranscode(
 		String fileName,
 		DLNAResource dlna,

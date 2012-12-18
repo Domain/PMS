@@ -92,7 +92,7 @@ public enum SubtitleType {
 	/**
 	 * @deprecated use getSubtitleTypeByFileExtension(String fileExtension) instead
 	 */
-	@Deprecated
+	deprecated
 	public static SubtitleType getSubtitleTypeByFileExtension(String fileExtension) {
 		return valueOfFileExtension(fileExtension);
 	}
@@ -111,7 +111,7 @@ public enum SubtitleType {
 	/**
 	 * @deprecated use SubtitleType valueOfLibMediaInfoCodec(String codec) instead
 	 */
-	@Deprecated
+	deprecated
 	public static SubtitleType getSubtitleTypeByLibMediaInfoCodec(String codec) {
 		return valueOfLibMediaInfoCodec(codec);
 	}

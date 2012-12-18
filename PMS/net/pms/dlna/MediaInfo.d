@@ -96,7 +96,7 @@ public class MediaInfo {
 	}
 	private Pointer Handle;
 
-	@Deprecated
+	deprecated
 	// FIXME rename StreamType
 	public enum StreamKind {
 		General,
@@ -109,7 +109,7 @@ public class MediaInfo {
 	}
 
 	// Enums
-	@Deprecated
+	deprecated
 	// FIXME rename InfoType
 	public enum InfoKind {
 		/**

@@ -43,7 +43,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 	private final PmsConfiguration configuration;
 
 	// FIXME we have an id() accessor for this; no need for the field to be public
-	@Deprecated
+	deprecated
 	public static final String ID = "ffmpegwebvideo";
 
 	override
@@ -182,7 +182,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 	}
 
 	// TODO remove this when it's removed from Player
-	@Deprecated
+	deprecated
 	override
 	public String[] args() {
 		return null;
