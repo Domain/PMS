@@ -31,7 +31,7 @@ import org.apache.commons.lang.StringUtils;
  * removed.
  */
 public class DLNAMediaLang {
-	public static final String UND = "und";
+	public static const String UND = "und";
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.

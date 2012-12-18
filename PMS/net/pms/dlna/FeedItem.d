@@ -40,7 +40,7 @@ public class FeedItem : DLNAResource {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		return downloadAndSend(thumbURL, true);
 	}
 	private String title;
@@ -48,7 +48,7 @@ public class FeedItem : DLNAResource {
 	private String thumbURL;
 	private long length;
 
-	public FeedItem(String title, String itemURL, String thumbURL, DLNAMediaInfo media, int type) {
+	public this(String title, String itemURL, String thumbURL, DLNAMediaInfo media, int type) {
 		super(type);
 		this.title = title;
 		this.itemURL = itemURL;
@@ -56,7 +56,7 @@ public class FeedItem : DLNAResource {
 		this.setMedia(media);
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		InputStream i = downloadAndSend(itemURL, true);
 		if (i !is null) {
 			length = i.available();

@@ -13,11 +13,11 @@ import java.io.File;
 import java.util.StringTokenizer;
 
 public class LibMediaInfoParser {
-	private static final Logger LOGGER = LoggerFactory.getLogger(LibMediaInfoParser.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(LibMediaInfoParser.class);
 	private static MediaInfo MI;
 	private static Base64 base64;
 
-	static {
+	static this() {
 		MI = new MediaInfo();
 
 		if (MI.isValid()) {
@@ -36,7 +36,7 @@ public class LibMediaInfoParser {
 		try {
 			MI.finalize();
 		} catch (Throwable e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 	}
 
@@ -177,25 +177,25 @@ public class LibMediaInfoParser {
 								try {
 									currentAudioTrack.setYear(Integer.parseInt(value));
 								} catch (NumberFormatException nfe) {
-									LOGGER.debug("Could not parse year \"" + value + "\"");
+									LOGGER._debug("Could not parse year \"" ~ value ~ "\"");
 								}
 							} else if (key.equals("Track/Position") && streamType == MediaInfo.StreamKind.General) {
 								try {
 									currentAudioTrack.setTrack(Integer.parseInt(value));
 								} catch (NumberFormatException nfe) {
-									LOGGER.debug("Could not parse track \"" + value + "\"");
+									LOGGER._debug("Could not parse track \"" ~ value ~ "\"");
 								}
 							} else if (key.equals("Resolution") && streamType == MediaInfo.StreamKind.Audio) {
 								try {
 									currentAudioTrack.setBitsperSample(Integer.parseInt(value));
 								} catch (NumberFormatException nfe) {
-									LOGGER.debug("Could not parse bits per sample \"" + value + "\"");
+									LOGGER._debug("Could not parse bits per sample \"" ~ value ~ "\"");
 								}
 							} else if (key.equals("Video_Delay") && streamType == MediaInfo.StreamKind.Audio) {
 								try {
 									currentAudioTrack.getAudioProperties().setAudioDelay(value);
 								} catch (NumberFormatException nfe) {
-									LOGGER.debug("Could not parse delay \"" + value + "\"");
+									LOGGER._debug("Could not parse delay \"" ~ value ~ "\"");
 								}
 							}
 						}

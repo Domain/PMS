@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CueFolder : DLNAResource {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CueFolder.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(CueFolder.class);
 	private File playlistfile;
 
 	public File getPlaylistfile() {
@@ -25,13 +25,13 @@ public class CueFolder : DLNAResource {
 	}
 	private bool valid = true;
 
-	public CueFolder(File f) {
+	public this(File f) {
 		playlistfile = f;
 		setLastModified(playlistfile.lastModified());
 	}
 
 	override
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 
@@ -67,19 +67,19 @@ public class CueFolder : DLNAResource {
 			try {
 				sheet = CueParser.parse(playlistfile);
 			} catch (IOException e) {
-				LOGGER.info("Error in parsing cue: " + e.getMessage());
+				LOGGER.info("Error in parsing cue: " ~ e.getMessage());
 				return;
 			}
 
 			if (sheet !is null) {
-				List<FileData> files = sheet.getFileData();
+				List/*<FileData>*/ files = sheet.getFileData();
 				// only the first one
 				if (files.size() > 0) {
 					FileData f = files.get(0);
-					List<TrackData> tracks = f.getTrackData();
+					List/*<TrackData>*/ tracks = f.getTrackData();
 					Player defaultPlayer = null;
 					DLNAMediaInfo originalMedia = null;
-					ArrayList<DLNAResource> addedResources = new ArrayList<DLNAResource>();
+					ArrayList/*<DLNAResource>*/ addedResources = new ArrayList/*<DLNAResource>*/();
 					for (int i = 0; i < tracks.size(); i++) {
 						TrackData track = tracks.get(i);
 						if (i > 0) {
@@ -96,7 +96,7 @@ public class CueFolder : DLNAResource {
 							}
 							prec.getSplitRange().setEnd(end);
 							prec.getMedia().setDuration(prec.getSplitRange().getDuration());
-							LOGGER.debug("Track #" + i + " split range: " + prec.getSplitRange().getStartOrZero() + " - " + prec.getSplitRange().getDuration());
+							LOGGER._debug("Track #" ~ i ~ " split range: " ~ prec.getSplitRange().getStartOrZero() ~ " - " ~ prec.getSplitRange().getDuration());
 						}
 						Position start = track.getIndices().get(0).getPosition();
 						RealFile r = new RealFile(new File(playlistfile.getParentFile(), f.getFile()));
@@ -137,15 +137,15 @@ public class CueFolder : DLNAResource {
 
 						if (r.getMedia() !is null) {
 							try {
-								r.setMedia((DLNAMediaInfo) originalMedia.clone());
+								r.setMedia(cast(DLNAMediaInfo) originalMedia.clone());
 							} catch (CloneNotSupportedException e) {
-								LOGGER.info("Error in cloning media info: " + e.getMessage());
+								LOGGER.info("Error in cloning media info: " ~ e.getMessage());
 							}
 							if (r.getMedia() !is null && r.getMedia().getFirstAudioTrack() !is null) {
 								if (r.getFormat().isAudio()) {
 									r.getMedia().getFirstAudioTrack().setSongname(track.getTitle());
 								} else {
-									r.getMedia().getFirstAudioTrack().setSongname("Chapter #" + (i + 1));
+									r.getMedia().getFirstAudioTrack().setSongname("Chapter #" ~ (i + 1).toString());
 								}
 								r.getMedia().getFirstAudioTrack().setTrack(i + 1);
 								r.getMedia().setSize(-1);
@@ -169,7 +169,7 @@ public class CueFolder : DLNAResource {
 						DLNAResource prec = addedResources.get(addedResources.size() - 1);
 						prec.getSplitRange().setEnd(prec.getMedia().getDurationInSeconds());
 						prec.getMedia().setDuration(prec.getSplitRange().getDuration());
-						LOGGER.debug("Track #" + childrenNumber() + " split range: " + prec.getSplitRange().getStartOrZero() + " - " + prec.getSplitRange().getDuration());
+						LOGGER._debug("Track #" ~ childrenNumber() ~ " split range: " ~ prec.getSplitRange().getStartOrZero() ~ " - " ~ prec.getSplitRange().getDuration());
 					}
 
 					PMS.get().storeFileInCache(playlistfile, Format.PLAYLIST);
@@ -180,6 +180,6 @@ public class CueFolder : DLNAResource {
 	}
 
 	private double getTime(Position p) {
-		return p.getMinutes() * 60 + p.getSeconds() + ((double) p.getFrames() / 100);
+		return p.getMinutes() * 60 + p.getSeconds() + (cast(double) p.getFrames() / 100);
 	}
 }

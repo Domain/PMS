@@ -29,7 +29,7 @@ import java.io.File;
 import java.util.List;
 
 public class DVDISOFile : VirtualFolder {
-	public static final String PREFIX = "[DVD ISO] ";
+	public static const String PREFIX = "[DVD ISO] ";
 
 	override
 	public void resolve() {
@@ -38,7 +38,7 @@ public class DVDISOFile : VirtualFolder {
 		OutputParams params = new OutputParams(PMS.getConfiguration());
 		params.maxBufferSize = 1;
 		params.log = true;
-		final ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
+		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
 		Runnable r = new Runnable() {
 			public void run() {
 				try {
@@ -53,7 +53,7 @@ public class DVDISOFile : VirtualFolder {
 		pw.runInSameThread();
 		List<String> lines = pw.getOtherResults();
 		if (lines !is null) {
-			for (String line : lines) {
+			foreach (String line ; lines) {
 				if (line.startsWith("ID_DVD_TITLE_") && line.contains("_LENGTH")) {
 					int rank = Integer.parseInt(line.substring(13, line.indexOf("_LENGT")));
 					double duration = Double.parseDouble(line.substring(line.lastIndexOf("LENGTH=") + 7));
@@ -93,7 +93,7 @@ public class DVDISOFile : VirtualFolder {
 	public String getDisplayName() {
 		String s = super.getDisplayName();
 		if (f.getName().toUpperCase().equals("VIDEO_TS")) {
-			s += " {" + f.getParentFile().getName() + "}";
+			s ~= " {" ~ f.getParentFile().getName() ~ "}";
 		}
 		return s;
 	}

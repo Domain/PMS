@@ -24,7 +24,7 @@ import net.pms.configuration.FormatConfiguration;
 import net.pms.configuration.RendererConfiguration;
 import net.pms.dlna.virtual.TranscodeVirtualFolder;
 import net.pms.dlna.virtual.VirtualFolder;
-import net.pms.encoders.*;
+import net.pms.encoders.all;
 import net.pms.external.AdditionalResourceFolderListener;
 import net.pms.external.ExternalFactory;
 import net.pms.external.ExternalListener;
@@ -43,16 +43,16 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.all;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 
-import static net.pms.util.StringUtil.*;
+import net.pms.util.StringUtil : isBlank, isNotBlank, isEmpty, isNotEmpty;
 
 /**
  * Represents any item that can be browsed via the UPNP ContentDirectory service.
@@ -63,20 +63,20 @@ import static net.pms.util.StringUtil.*;
  * When everything has been changed to private, the deprecated note can be
  * removed.
  */
-public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
-	private final Map<String, Integer> requestIdToRefcount = new HashMap<String, Integer>();
-	private static final int STOP_PLAYING_DELAY = 4000;
-	private static final Logger LOGGER = LoggerFactory.getLogger(DLNAResource.class);
-	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
+	private immutable Map/*<String, Integer>*/ requestIdToRefcount = new HashMap/*<String, Integer>*/();
+	private static const int STOP_PLAYING_DELAY = 4000;
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(DLNAResource.class);
+	private static immutable SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
 
-	protected static final int MAX_ARCHIVE_ENTRY_SIZE = 10000000;
-	protected static final int MAX_ARCHIVE_SIZE_SEEK = 800000000;
+	protected static const int MAX_ARCHIVE_ENTRY_SIZE = 10000000;
+	protected static const int MAX_ARCHIVE_SIZE_SEEK = 800000000;
 
 	/**
 	 * @deprecated This field will be removed. Use {@link net.pms.configuration.PmsConfiguration#getTranscodeFolderName()} instead.
 	 */
 	deprecated
-	protected static final String TRANSCODE_FOLDER = Messages.getString("TranscodeVirtualFolder.0"); // localized #--TRANSCODE--#
+	protected static immutable String TRANSCODE_FOLDER = Messages.getString("TranscodeVirtualFolder.0"); // localized #--TRANSCODE--#
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
@@ -226,7 +226,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * List of children objects associated with this DLNAResource. This is only valid when the DLNAResource is of the container type.
 	 */
 	deprecated
-	protected List<DLNAResource> children;
+	protected List/*<DLNAResource>*/ children;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this field.
@@ -310,7 +310,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 		}
 
 		if (getParent() !is null) {
-			return getParent().getResourceId() + '$' + getId();
+			return getParent().getResourceId() ~ '$' ~ getId();
 		} else {
 			return getId();
 		}
@@ -359,7 +359,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	public abstract bool isFolder();
 
 	public String getDlnaContentFeatures() {
-		return (dlnaspec !is null ? (dlnaspec + ";") : "") + getDlnaOrgOpFlags() + ";DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000";
+		return (dlnaspec !is null ? (dlnaspec + ";") : "") ~ getDlnaOrgOpFlags() ~ ";DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000";
 	}
 
 	public DLNAResource getPrimaryResource() {
@@ -395,7 +395,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 
 	public DLNAResource() {
 		setSpecificType(Format.UNKNOWN);
-		setChildren(new ArrayList<DLNAResource>());
+		setChildren(new ArrayList/*<DLNAResource>*/());
 		setUpdateId(1);
 	}
 
@@ -413,7 +413,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * @see #getName()
 	 */
 	public DLNAResource searchByName(String name) {
-		for (DLNAResource child : getChildren()) {
+		foreach (DLNAResource child ; getChildren()) {
 			if (child.getName().equals(name)) {
 				return child;
 			}
@@ -445,7 +445,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	public void addChild(DLNAResource child) {
 		// child may be null (spotted - via rootFolder.addChild() - in a misbehaving plugin
 		if (child is null) {
-			LOGGER.error("Attempt to add a null child to " + getName(), new NullPointerException("Invalid DLNA resource"));
+			LOGGER.error("Attempt to add a null child to " ~ getName(), new NullPointerException("Invalid DLNA resource"));
 			return;
 		}
 
@@ -457,7 +457,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 
 		try {
 			if (child.isValid()) {
-				LOGGER.trace("Adding " + child.getName() + " / class: " + child.getClass().getName());
+				LOGGER.trace("Adding " ~ child.getName() ~ " / class: " ~ child.getClass().getName());
 
 				if (allChildrenAreFolders && !child.isFolder()) {
 					allChildrenAreFolders = false;
@@ -499,7 +499,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 					String name = getName();
 
 					for (Player p : PlayerFactory.getAllPlayers()) {
-						String end = "[" + p.id() + "]";
+						String end = "[" ~ p.id() ~ "]";
 
 						if (name.endsWith(end)) {
 							nametruncate = name.lastIndexOf(end);
@@ -553,7 +553,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 						// 4) The file has embedded or external subs and SkipTranscode is not enabled for this extension
 						if (forceTranscode || !isSkipTranscode() && (forceTranscodeV2 || isIncompatible || hasSubsToTranscode)) {
 							child.setPlayer(player);
-							LOGGER.trace("Switching " + child.getName() + " to player " + player.toString() + " for transcoding");
+							LOGGER.trace("Switching " ~ child.getName() ~ " to player " ~ player.toString() ~ " for transcoding");
 						}
 
 						// Should the child be added to the transcode folder?
@@ -568,13 +568,13 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 								newChild.setPlayer(player);
 								newChild.setMedia(child.getMedia());
 								fileTranscodeFolder.addChildInternal(newChild);
-								LOGGER.trace("Duplicate " + child.getName() + " with player: " + player.toString());
+								LOGGER.trace("Duplicate " ~ child.getName() ~ " with player: " ~ player.toString());
 
 								transcodeFolder.addChild(fileTranscodeFolder);
 							}
 						}
 
-						for (ExternalListener listener : ExternalFactory.getExternalListeners()) {
+						foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
 							if (listener instanceof AdditionalResourceFolderListener) {
 								try {
 									((AdditionalResourceFolderListener) listener).addAdditionalFolder(this, child);
@@ -610,7 +610,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 				}
 			}
 		} catch (Throwable t) {
-			LOGGER.error("Error adding child: {}", child.getName(), t);
+			LOGGER.error("Error adding child: %s", child.getName(), t);
 			child.setParent(null);
 			getChildren().remove(child);
 		}
@@ -637,9 +637,9 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 		}
 
 		// search for transcode folder
-		for (DLNAResource child : getChildren()) {
-			if (child instanceof TranscodeVirtualFolder) {
-				return (TranscodeVirtualFolder) child;
+		foreach (DLNAResource child ; getChildren()) {
+			if (cast(TranscodeVirtualFolder)child !is null ) {
+				return cast(TranscodeVirtualFolder) child;
 			}
 		}
 
@@ -662,7 +662,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	protected synchronized void addChildInternal(DLNAResource child) {
 		if (child.getInternalId() !is null) {
 			LOGGER.info(
-				"Node ({}) already has an ID ({}), which is overriden now. The previous parent node was: {}",
+				"Node (%s) already has an ID (%d), which is overriden now. The previous parent node was: %s",
 				new Object[] {
 					child.getClass().getName(),
 					child.getResourceId(),
@@ -690,8 +690,8 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * @return List of DLNAResource items.
 	 * @throws IOException
 	 */
-	public synchronized List<DLNAResource> getDLNAResources(String objectId, bool returnChildren, int start, int count, RendererConfiguration renderer) throws IOException {
-		ArrayList<DLNAResource> resources = new ArrayList<DLNAResource>();
+	public synchronized List/*<DLNAResource>*/ getDLNAResources(String objectId, bool returnChildren, int start, int count, RendererConfiguration renderer) {
+		ArrayList/*<DLNAResource>*/ resources = new ArrayList/*<DLNAResource>*/();
 		DLNAResource resource = search(objectId, count, renderer);
 
 		if (resource !is null) {
@@ -708,7 +708,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 				}
 
 				if (count > 0) {
-					ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(count);
+					ArrayBlockingQueue/*<Runnable>*/ queue = new ArrayBlockingQueue/*<Runnable>*/(count);
 
 					int parallel_thread_number = 3;
 					if (resource instanceof DVDISOFile) {
@@ -725,7 +725,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 
 					for (int i = start; i < start + count; i++) {
 						if (i < resource.getChildren().size()) {
-							final DLNAResource child = resource.getChildren().get(i);
+							immutable DLNAResource child = resource.getChildren().get(i);
 
 							if (child !is null) {
 								tpe.execute(child);
@@ -782,7 +782,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 			notifyRefresh();
 		} else {
 			// if forced, then call the old 'refreshChildren' method
-			LOGGER.trace("discover {} refresh forced: {}", getResourceId(), forced);
+			LOGGER.trace("discover %d refresh forced: %s", getResourceId(), forced);
 			if (forced) {
 				if (refreshChildren()) {
 					notifyRefresh();
@@ -826,7 +826,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 				} else {
 					discoverWithRenderer(renderer, count, false);
 
-					for (DLNAResource file : getChildren()) {
+					foreach (DLNAResource file ; getChildren()) {
 						DLNAResource found = file.search(indexPath[1], count, renderer);
 						if (found !is null) {
 							return found;
@@ -949,12 +949,12 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 
 		// Chapter virtual folder ignores formats and only displays the start time
 		if (getSplitRange().isEndLimitAvailable()) {
-			return ">> " + DLNAMediaInfo.getDurationString(getSplitRange().getStart());
+			return ">> " ~ DLNAMediaInfo.getDurationString(getSplitRange().getStart());
 		}
 
 		// Is this still relevant? The player name already contains "AviSynth"
 		if (isAvisynth()) {
-			return (getPlayer() !is null ? ("[" + getPlayer().name()) : "") + " + AviSynth]";
+			return (getPlayer() !is null ? ("[" ~ getPlayer().name()) : "") ~ " + AviSynth]";
 		}
 
 		String result;
@@ -1128,15 +1128,15 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 
 		if (aggressive) {
 			// Allow other characters between the token and the braces
-			result = result.replaceAll("\\([^\\(]*" + token + "[^\\)]*\\)", "");
-			result = result.replaceAll("\\[[^\\[]*" + token + "[^\\]]*\\]", "");
-			result = result.replaceAll("\\{[^\\{]*" + token + "[^\\}]*\\}", "");
-			result = result.replaceAll("<[^<]*" + token + "[^>]*>", "");
+			result = result.replaceAll("\\([^\\(]*" ~ token ~ "[^\\)]*\\)", "");
+			result = result.replaceAll("\\[[^\\[]*" ~ token ~ "[^\\]]*\\]", "");
+			result = result.replaceAll("\\{[^\\{]*" ~ token ~ "[^\\}]*\\}", "");
+			result = result.replaceAll("<[^<]*" ~ token ~ "[^>]*>", "");
 		} else {
 			// Braces have to be around the token
-			result = result.replaceAll("[\\(\\[<\\{]" + token + "[\\)\\]>\\}]", "");
+			result = result.replaceAll("[\\(\\[<\\{]" ~ token ~ "[\\)\\]>\\}]", "");
 		}
-		result = result.replaceAll("[-/,]\\s?" + token, "");
+		result = result.replaceAll("[-/,]\\s?" ~ token, "");
 		result = result.replaceAll(token, "");
 
 		// Collapse multiple spaces to a single space
@@ -1252,7 +1252,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 
 	// permit the renderer to seek by time, bytes or both
 	private String getDlnaOrgOpFlags() {
-		return "DLNA.ORG_OP=" + dlnaOrgOpFlags;
+		return "DLNA.ORG_OP=" ~ dlnaOrgOpFlags;
 	}
 
 	/**Returns an XML (DIDL) representation of the DLNA node. It gives a complete representation of the item, with as many tags as available.
@@ -1288,7 +1288,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 		addAttribute(sb, "restricted", "true");
 		endTag(sb);
 
-		final DLNAMediaAudio firstAudioTrack = getMedia() !is null ? getMedia().getFirstAudioTrack() : null;
+		immutable DLNAMediaAudio firstAudioTrack = getMedia() !is null ? getMedia().getFirstAudioTrack() : null;
 		if (firstAudioTrack !is null && StringUtils.isNotBlank(firstAudioTrack.getSongname())) {
 			addXMLTagAndAttribute(
 				sb,
@@ -1319,7 +1319,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 			}
 
 			if (firstAudioTrack.getTrack() > 0) {
-				addXMLTagAndAttribute(sb, "upnp:originalTrackNumber", "" + firstAudioTrack.getTrack());
+				addXMLTagAndAttribute(sb, "upnp:originalTrackNumber", "" ~ firstAudioTrack.getTrack());
 			}
 		}
 
@@ -1410,22 +1410,22 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 							if (mpegTsMux) {
 								dlnaspec = getMedia().isH264() && !VideoLanVideoStreaming.ID.equals(getPlayer().id()) && getMedia().isMuxable(mediaRenderer) ?
 									"DLNA.ORG_PN=AVC_TS_HD_24_AC3_ISO" :
-									"DLNA.ORG_PN=" + getMPEG_TS_SD_EU_ISOLocalizedValue(c);
+									"DLNA.ORG_PN=" ~ getMPEG_TS_SD_EU_ISOLocalizedValue(c);
 							} else {
-								dlnaspec = "DLNA.ORG_PN=" + getMPEG_PS_PALLocalizedValue(c);
+								dlnaspec = "DLNA.ORG_PN=" ~ getMPEG_PS_PALLocalizedValue(c);
 							}
 						} else if (getMedia() !is null) {
 							if (getMedia().isMpegTS()) {
-								dlnaspec = getMedia().isH264() ? "DLNA.ORG_PN=AVC_TS_HD_50_AC3" : "DLNA.ORG_PN=" + getMPEG_TS_SD_EULocalizedValue(c);
+								dlnaspec = getMedia().isH264() ? "DLNA.ORG_PN=AVC_TS_HD_50_AC3" : "DLNA.ORG_PN=" ~ getMPEG_TS_SD_EULocalizedValue(c);
 							} else {
-								dlnaspec = "DLNA.ORG_PN=" + getMPEG_PS_PALLocalizedValue(c);
+								dlnaspec = "DLNA.ORG_PN=" ~ getMPEG_PS_PALLocalizedValue(c);
 							}
 						} else {
-							dlnaspec = "DLNA.ORG_PN=" + getMPEG_PS_PALLocalizedValue(c);
+							dlnaspec = "DLNA.ORG_PN=" ~ getMPEG_PS_PALLocalizedValue(c);
 						}
 					} else if (mime.equals("video/vnd.dlna.mpeg-tts")) {
 						// patters - on Sony BDP m2ts clips aren't listed without this
-						dlnaspec = "DLNA.ORG_PN=" + getMPEG_TS_SD_EULocalizedValue(c);
+						dlnaspec = "DLNA.ORG_PN=" ~ getMPEG_TS_SD_EULocalizedValue(c);
 					} else if (mime.equals("image/jpeg")) {
 						dlnaspec = "DLNA.ORG_PN=JPEG_LRG";
 					} else if (mime.equals("audio/mpeg")) {
@@ -1436,14 +1436,14 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 				}
 
 				if (dlnaspec !is null) {
-					dlnaspec = "DLNA.ORG_PN=" + mediaRenderer.getDLNAPN(dlnaspec.substring(12));
+					dlnaspec = "DLNA.ORG_PN=" ~ mediaRenderer.getDLNAPN(dlnaspec.substring(12));
 				}
 
 				if (!mediaRenderer.isDLNAOrgPNUsed()) {
 					dlnaspec = null;
 				}
 
-				addAttribute(sb, "protocolInfo", "http-get:*:" + mime + ":" + (dlnaspec !is null ? (dlnaspec + ";") : "") + getDlnaOrgOpFlags());
+				addAttribute(sb, "protocolInfo", "http-get:*:" ~ mime ~ ":" ~ (dlnaspec !is null ? (dlnaspec ~ ";") : "") ~ getDlnaOrgOpFlags());
 
 				if (getFormat() !is null && getFormat().isVideo() && getMedia() !is null && getMedia().isMediaparsed()) {
 					if (getPlayer() is null && getMedia() !is null) {
@@ -1512,7 +1512,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 										// FIXME: Which exception could be thrown here?
 										defaultFrequency = firstAudioTrack.getSampleRate();
 									} catch (Exception e) {
-										LOGGER.debug("Caught exception", e);
+										LOGGER._debug("Caught exception", e);
 									}
 								}
 
@@ -1522,7 +1522,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 								}
 
 								int finalsize = (int) (getMedia().getDurationInSeconds() * defaultFrequency * 2 * na);
-								LOGGER.debug("Calculated size: " + finalsize);
+								LOGGER._debug("Calculated size: " ~ finalsize.toString());
 								addAttribute(sb, "size", finalsize);
 							}
 						}
@@ -1623,19 +1623,19 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * Plugin implementation. When this item is going to play, it will notify all the StartStopListener objects available.
 	 * @see StartStopListener
 	 */
-	public void startPlaying(final String rendererId) {
-		final String requestId = getRequestId(rendererId);
+	public void startPlaying(immutable String rendererId) {
+		immutable String requestId = getRequestId(rendererId);
 		synchronized (requestIdToRefcount) {
 			Integer temp = requestIdToRefcount.get(requestId);
 			if (temp is null) {
 				temp = 0;
 			}
 
-			final Integer refCount = temp;
+			immutable Integer refCount = temp;
 			requestIdToRefcount.put(requestId, refCount + 1);
 
 			if (refCount == 0) {
-				final DLNAResource self = this;
+				immutable DLNAResource self = this;
 				Runnable r = new Runnable() {
 					override
 					public void run() {
@@ -1654,13 +1654,13 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 										}
 									}
 								};
-								new Thread(fireStartStopEvent, "StartPlaying Event for " + listener.name()).start();
+								new Thread(fireStartStopEvent, "StartPlaying Event for " ~ listener.name()).start();
 							}
 						}
 					}
 				};
 
-				new Thread(r, "StartPlaying Event").start();
+				(new Thread(r, "StartPlaying Event")).start();
 			}
 		}
 	}
@@ -1670,9 +1670,9 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * objects available.
 	 * @see StartStopListener
 	 */
-	public void stopPlaying(final String rendererId) {
-		final DLNAResource self = this;
-		final String requestId = getRequestId(rendererId);
+	public void stopPlaying(immutable String rendererId) {
+		immutable DLNAResource self = this;
+		immutable String requestId = getRequestId(rendererId);
 		Runnable defer = new Runnable() {
 			override
 			public void run() {
@@ -1683,7 +1683,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 				}
 
 				synchronized (requestIdToRefcount) {
-					final Integer refCount = requestIdToRefcount.get(requestId);
+					immutable Integer refCount = requestIdToRefcount.get(requestId);
 					assert refCount !is null;
 					assert refCount > 0;
 					requestIdToRefcount.put(requestId, refCount - 1);
@@ -1692,7 +1692,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 						override
 						public void run() {
 							if (refCount == 1) {
-								LOGGER.info("renderer: {}, file: {}", rendererId, getSystemName());
+								LOGGER.info("renderer: %d, file: %s", rendererId, getSystemName());
 								PMS.get().getFrame().setStatusLine("");
 
 								for (final ExternalListener listener : ExternalFactory.getExternalListeners()) {
@@ -1704,24 +1704,24 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 												try {
 													((StartStopListener) listener).donePlaying(getMedia(), self);
 												} catch (Throwable t) {
-													LOGGER.error("Notification of donePlaying event failed for StartStopListener {}", listener.getClass(), t);
+													LOGGER.error("Notification of donePlaying event failed for StartStopListener %s", listener.getClass(), t);
 												}
 											}
 										};
 
-										new Thread(fireStartStopEvent, "StopPlaying Event for " + listener.name()).start();
+										(new Thread(fireStartStopEvent, "StopPlaying Event for " ~ listener.name())).start();
 									}
 								}
 							}
 						}
 					};
 
-					new Thread(r, "StopPlaying Event").start();
+					(new Thread(r, "StopPlaying Event")).start();
 				}
 			}
 		};
 
-		new Thread(defer, "StopPlaying Event Deferrer").start();
+		(new Thread(defer, "StopPlaying Event Deferrer")).start();
 	}
 
 	/**
@@ -1731,8 +1731,8 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * @return The inputstream
 	 * @throws IOException
 	 */
-	public InputStream getInputStream(Range range, RendererConfiguration mediarenderer) throws IOException {
-		LOGGER.trace("Asked stream chunk : " + range + " of " + getName() + " and player " + getPlayer());
+	public InputStream getInputStream(Range range, RendererConfiguration mediarenderer) {
+		LOGGER.trace("Asked stream chunk : " ~ range ~ " of " ~ getName() ~ " and player " ~ getPlayer());
 
 		// shagrath: small fix, regression on chapters
 		bool timeseek_auto = false;
@@ -1766,9 +1766,9 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 
 		if (getPlayer() is null) {
 			if (this instanceof IPushOutput) {
-				PipedOutputStream out = new PipedOutputStream();
-				InputStream fis = new PipedInputStream(out);
-				((IPushOutput) this).push(out);
+				PipedOutputStream _out = new PipedOutputStream();
+				InputStream fis = new PipedInputStream(_out);
+				((IPushOutput) this).push(_out);
 
 				if (fis !is null) {
 					if (low > 0) {
@@ -1816,12 +1816,12 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 			params.timeend = timeRange.getEndOrZero();
 			params.shift_scr = timeseek_auto;
 
-			if (this instanceof IPushOutput) {
-				params.stdin = (IPushOutput) this;
+			if (cast(IPushOutput)this !is null) {
+				params.stdin = cast(IPushOutput) this;
 			}
 
 			if (externalProcess is null || externalProcess.isDestroyed()) {
-				LOGGER.info("Starting transcode/remux of " + getName());
+				LOGGER.info("Starting transcode/remux of " ~ getName());
 
 				externalProcess = getPlayer().launchTranscode(
 					getSystemName(),
@@ -1831,7 +1831,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 				);
 
 				if (params.waitbeforestart > 0) {
-					LOGGER.trace("Sleeping for {} milliseconds", params.waitbeforestart);
+					LOGGER.trace("Sleeping for %d milliseconds", params.waitbeforestart);
 
 					try {
 						Thread.sleep(params.waitbeforestart);
@@ -1839,11 +1839,11 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 						LOGGER.error(null, e);
 					}
 
-					LOGGER.trace("Finished sleeping for " + params.waitbeforestart + " milliseconds");
+					LOGGER.trace("Finished sleeping for " ~ params.waitbeforestart ~ " milliseconds");
 				}
 			} else if (params.timeseek > 0 && getMedia() !is null && getMedia().isMediaparsed()
 					&& getMedia().getDurationInSeconds() > 0) {
-				LOGGER.debug("Requesting time seek: " + params.timeseek + " seconds");
+				LOGGER._debug("Requesting time seek: " ~ params.timeseek.toString() ~ " seconds");
 				params.minBufferSize = 1;
 
 				Runnable r = new Runnable() {
@@ -1853,7 +1853,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 					}
 				};
 
-				new Thread(r, "External Process Stopper").start();
+				(new Thread(r, "External Process Stopper")).start();
 
 				ProcessWrapper newExternalProcess = getPlayer().launchTranscode(
 					getSystemName(),
@@ -1879,12 +1879,12 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 				return null;
 			}
 
-			InputStream is = null;
+			InputStream fis = null;
 			int timer = 0;
-			while (is is null && timer < 10) {
-				is = externalProcess.getInputStream(low);
+			while (fis is null && timer < 10) {
+				fis = externalProcess.getInputStream(low);
 				timer++;
-				if (is is null) {
+				if (fis is null) {
 					LOGGER.trace("External input stream instance is null... sounds not good, waiting 500ms");
 					try {
 						Thread.sleep(500);
@@ -1896,7 +1896,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 			// not producing output after params.waitbeforestart milliseconds + 5 seconds
 			// this cleans up lingering MEncoder web video transcode processes that hang
 			// instead of exiting
-			if (is is null && externalProcess !is null && !externalProcess.isDestroyed()) {
+			if (fis is null && externalProcess !is null && !externalProcess.isDestroyed()) {
 				Runnable r = new Runnable() {
 					override
 					public void run() {
@@ -1905,10 +1905,10 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 					}
 				};
 
-				new Thread(r, "Hanging External Process Stopper").start();
+				(new Thread(r, "Hanging External Process Stopper")).start();
 			}
 
-			return is;
+			return fis;
 		}
 	}
 
@@ -1930,7 +1930,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	private InputStream wrap(InputStream input, long high, long low) {
 		if (input !is null && high > low) {
 			long bytes = (high - (low < 0 ? 0 : low)) + 1;
-			LOGGER.trace("Using size-limiting stream (" + bytes + " bytes)");
+			LOGGER.trace("Using size-limiting stream (" ~ bytes.toString() ~ " bytes)");
 			return new SizeLimitInputStream(input, bytes);
 		}
 		return input;
@@ -2010,7 +2010,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 */
 	override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [id=" + getId() + ", name=" + getName() + ", full path=" + getResourceId() + ", ext=" + getFormat() + ", discovered=" + isDiscovered() + "]";
+		return this.getClass().getSimpleName() ~ " [id=" ~ getId() ~ ", name=" ~ getName() ~ ", full path=" ~ getResourceId() ~ ", ext=" ~ getFormat() ~ ", discovered=" ~ isDiscovered() ~ "]";
 	}
 
 	/**
@@ -2430,7 +2430,7 @@ public abstract class DLNAResource : HTTPResource : Cloneable, Runnable {
 	 * @param children The list of children to set.
 	 * @since 1.50.0
 	 */
-	protected void setChildren(List<DLNAResource> children) {
+	protected void setChildren(List/*<DLNAResource>*/ children) {
 		this.children = children;
 	}
 

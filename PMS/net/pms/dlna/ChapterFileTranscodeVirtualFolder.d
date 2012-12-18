@@ -30,7 +30,7 @@ import net.pms.dlna.virtual.VirtualFolder;
  */
 public class ChapterFileTranscodeVirtualFolder : VirtualFolder {
 	private bool resolved;
-	private final int interval;
+	private immutable int interval;
 
 	/**
 	 * Constructor for a {@link ChapterFileTranscodeVirtualFolder}. The constructor
@@ -42,7 +42,7 @@ public class ChapterFileTranscodeVirtualFolder : VirtualFolder {
 	 * @param interval The interval (in minutes) at which a chapter marker will be
 	 * 			placed.
 	 */
-	public ChapterFileTranscodeVirtualFolder(String name, String thumbnailIcon, int interval) {
+	public this(String name, String thumbnailIcon, int interval) {
 		super(name, thumbnailIcon);
 		this.interval = interval;
 	}

@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DVDISOTitle : DLNAResource {
-	private static final Logger logger = LoggerFactory.getLogger(DVDISOTitle.class);
+	private static immutable Logger logger = LoggerFactory.getLogger(DVDISOTitle.class);
 	private File f;
 	private int title;
 	private long length;
@@ -52,7 +52,7 @@ public class DVDISOTitle : DLNAResource {
 			try {
 				params.workDir = PMS.getConfiguration().getTempFolder();
 			} catch (IOException e1) {
-				logger.debug("Caught exception", e1);
+				logger._debug("Caught exception", e1);
 			}
 			cmd[2] = "-frames";
 			cmd[3] = "2";
@@ -64,7 +64,7 @@ public class DVDISOTitle : DLNAResource {
 			cmd[10] = "jpeg:outdir=" + frameName;
 		}
 		params.log = true;
-		final ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
+		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
 		Runnable r = new Runnable() {
 
 			public void run() {
@@ -78,7 +78,7 @@ public class DVDISOTitle : DLNAResource {
 		Thread failsafe = new Thread(r, "DVD ISO Title Failsafe");
 		failsafe.start();
 		pw.runInSameThread();
-		List<String> lines = pw.getOtherResults();
+		List/*<String>*/ lines = pw.getOtherResults();
 
 		String duration = null;
 		int nbsectors = 0;
@@ -86,10 +86,10 @@ public class DVDISOTitle : DLNAResource {
 		String aspect = null;
 		String width = null;
 		String height = null;
-		ArrayList<DLNAMediaAudio> audio = new ArrayList<DLNAMediaAudio>();
-		ArrayList<DLNAMediaSubtitle> subs = new ArrayList<DLNAMediaSubtitle>();
+		ArrayList/*<DLNAMediaAudio>*/ audio = new ArrayList/*<DLNAMediaAudio>*/();
+		ArrayList/*<DLNAMediaSubtitle>*/ subs = new ArrayList/*<DLNAMediaSubtitle>*/();
 		if (lines !is null) {
-			for (String line : lines) {
+			foreach0 (String line ; lines) {
 				if (line.startsWith("DVD start=")) {
 					nbsectors = Integer.parseInt(line.substring(line.lastIndexOf("=") + 1).trim());
 				}
@@ -139,8 +139,8 @@ public class DVDISOTitle : DLNAResource {
 
 		if (PMS.getConfiguration().isDvdIsoThumbnails()) {
 			try {
-				String frameName = "" + this.hashCode();
-				frameName = PMS.getConfiguration().getTempFolder() + "/mplayer_thumbs/" + frameName + "00000001/0000000";
+				String frameName = "" ~ this.hashCode();
+				frameName = PMS.getConfiguration().getTempFolder() ~ "/mplayer_thumbs/" ~ frameName ~ "00000001/0000000";
 				frameName = frameName.replace(',', '_');
 				File jpg = new File(frameName + "2.jpg");
 
@@ -164,7 +164,7 @@ public class DVDISOTitle : DLNAResource {
 
 					// Try and retry
 					if (!jpg.getParentFile().delete() && !jpg.getParentFile().delete()) {
-						logger.debug("Failed to delete \"" + jpg.getParentFile().getAbsolutePath() + "\"");
+						logger._debug("Failed to delete \"" ~ jpg.getParentFile().getAbsolutePath() ~ "\"");
 					}
 				}
 
@@ -180,7 +180,7 @@ public class DVDISOTitle : DLNAResource {
 					}
 				}
 			} catch (IOException e) {
-				logger.trace("Error in DVD ISO thumbnail retrieval: " + e.getMessage());
+				logger.trace("Error in DVD ISO thumbnail retrieval: " ~ e.getMessage());
 			}
 		}
 
@@ -206,13 +206,13 @@ public class DVDISOTitle : DLNAResource {
 		try {
 			getMedia().setWidth(Integer.parseInt(width));
 		} catch (NumberFormatException nfe) {
-			logger.debug("Could not parse width \"" + width + "\"");
+			logger.debug("Could not parse width \"" ~ width.toString() ~ "\"");
 		}
 
 		try {
 			getMedia().setHeight(Integer.parseInt(height));
 		} catch (NumberFormatException nfe) {
-			logger.debug("Could not parse height \"" + height + "\"");
+			logger.debug("Could not parse height \"" ~ height.toString() ~ "\"");
 		}
 
 		getMedia().setMediaparsed(true);
@@ -237,7 +237,7 @@ public class DVDISOTitle : DLNAResource {
 
 	override
 	public String getName() {
-		return "Title " + title;
+		return "Title " ~ title;
 	}
 
 	override

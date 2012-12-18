@@ -94,7 +94,7 @@ public class Feed : DLNAResource {
 		try {
 			parse();
 		} catch (Exception e) {
-			logger.error("Error in parsing stream: " + url, e);
+			logger.error("Error in parsing stream: " ~ url, e);
 		}
 	}
 
@@ -104,38 +104,37 @@ public class Feed : DLNAResource {
 		setName(name);
 	}
 
-	@SuppressWarnings("unchecked")
-	public void parse() throws Exception {
+	public void parse() {
 		SyndFeedInput input = new SyndFeedInput();
 		byte b[] = downloadAndSendBinary(url);
 		if (b !is null) {
 			SyndFeed feed = input.build(new XmlReader(new ByteArrayInputStream(b)));
 			setName(feed.getTitle());
 			if (feed.getCategories() !is null && feed.getCategories().size() > 0) {
-				SyndCategory category = (SyndCategory) feed.getCategories().get(0);
+				SyndCategory category = cast(SyndCategory) feed.getCategories().get(0);
 				setTempCategory(category.getName());
 			}
-			List<SyndEntry> entries = feed.getEntries();
-			for (SyndEntry entry : entries) {
+			List/*<SyndEntry>*/ entries = feed.getEntries();
+			foreach (SyndEntry entry ; entries) {
 				setTempItemTitle(entry.getTitle());
 				setTempItemLink(entry.getLink());
 				setTempFeedLink(entry.getUri());
 				setTempItemThumbURL(null);
 
-				ArrayList<Element> elements = (ArrayList<Element>) entry.getForeignMarkup();
-				for (Element elt : elements) {
+				ArrayList/*<Element>*/ elements = cast(ArrayList/*<Element>*/) entry.getForeignMarkup();
+				foreach (Element elt ; elements) {
 					if ("group".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())) {
 						List<Content> subElts = elt.getContent();
-						for (Content subelt : subElts) {
-							if (subelt instanceof Element) {
-								parseElement((Element) subelt, false);
+						foreach (Content subelt ; subElts) {
+							if (cast(Element)subelt !is null ) {
+								parseElement(cast(Element) subelt, false);
 							}
 						}
 					}
 					parseElement(elt, true);
 				}
-				List<SyndEnclosure> enclosures = entry.getEnclosures();
-				for (SyndEnclosure enc : enclosures) {
+				List/*<SyndEnclosure>*/ enclosures = entry.getEnclosures();
+				foreach (SyndEnclosure enc ; enclosures) {
 					if (StringUtils.isNotBlank(enc.getUrl())) {
 						setTempItemLink(enc.getUrl());
 					}
@@ -146,16 +145,15 @@ public class Feed : DLNAResource {
 		setLastModified(System.currentTimeMillis());
 	}
 
-	@SuppressWarnings("unchecked")
 	private void parseElement(Element elt, bool parseLink) {
 		if ("content".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())) {
 			if (parseLink) {
 				setTempItemLink(elt.getAttribute("url").getValue());
 			}
-			List<Content> subElts = elt.getContent();
-			for (Content subelt : subElts) {
-				if (subelt instanceof Element) {
-					parseElement((Element) subelt, false);
+			List/*<Content>*/ subElts = elt.getContent();
+			foreach (Content subelt ; subElts) {
+				if (cast(Element)subelt !is null) {
+					parseElement(cast(Element) subelt, false);
 				}
 			}
 		}
@@ -169,7 +167,7 @@ public class Feed : DLNAResource {
 		}
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 
@@ -217,7 +215,7 @@ public class Feed : DLNAResource {
 			getChildren().clear();
 			parse();
 		} catch (Exception e) {
-			logger.error("Error in parsing stream: " + url, e);
+			logger.error("Error in parsing stream: " ~ url, e);
 		}
 	}
 

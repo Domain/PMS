@@ -31,8 +31,8 @@ import org.slf4j.LoggerFactory;
  * When everything has been changed to private, the deprecated note can be
  * removed.
  */
-public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DLNAMediaAudio.class);
+public class DLNAMediaAudio : DLNAMediaLang , Cloneable {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(DLNAMediaAudio.class);
 	private AudioProperties audioProperties = new AudioProperties();
 
 	/**
@@ -119,7 +119,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	/**
 	 * Constructor
 	 */
-	public DLNAMediaAudio() {
+	public this() {
 		setBitsperSample(16);
 	}
 
@@ -134,7 +134,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 			try {
 				sr = Integer.parseInt(getSampleFrequency());
 			} catch (NumberFormatException e) {
-				LOGGER.debug("Could not parse sample rate from \"" + getSampleFrequency() + "\"");
+				LOGGER._debug("Could not parse sample rate from \"" ~ getSampleFrequency() ~ "\"");
 			}
 		}
 		return sr;
@@ -273,11 +273,11 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @return The name.
 	 */
 	public String toString() {
-		return "Audio: " + getAudioCodec() + " / lang: " + getLang() + " / flavor: " + getFlavor() + " / ID: " + getId();
+		return "Audio: " ~ getAudioCodec() ~ " / lang: " ~ getLang() ~ " / flavor: " ~ getFlavor() ~ " / ID: " ~ getId();
 	}
 
 	override
-	protected Object clone() throws CloneNotSupportedException {
+	protected Object clone() {
 		return super.clone();
 	}
 
