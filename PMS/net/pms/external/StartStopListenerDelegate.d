@@ -5,19 +5,19 @@ import net.pms.dlna.DLNAResource;
 import net.pms.formats.Format;
 
 public class StartStopListenerDelegate {
-	private final String rendererId;
+	private String rendererId;
 	private DLNAResource dlna;
 	private bool started = false;
 	private bool stopped = false;
 
-	public StartStopListenerDelegate(String rendererId) {
+	public this(String rendererId) {
 		this.rendererId = rendererId;
 	}
 
 	// technically, these don't need to be synchronized as there should be
 	// one thread per request/response, but it doesn't hurt to enforce the contract
 	public synchronized void start(DLNAResource dlna) {
-		assert this.dlna is null;
+		assert(this.dlna is null);
 		this.dlna = dlna;
 		Format ext = dlna.getFormat();
 		// only trigger the start/stop events for audio and video

@@ -41,24 +41,24 @@ public class ExternalFactory {
 	/**
 	 * For logging messages.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalFactory.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(ExternalFactory.class);
 
 	/**
 	 * List of external listener class instances.
 	 */
-	private static List<ExternalListener> externalListeners = new ArrayList<ExternalListener>();
+	private static List/*<ExternalListener>*/ externalListeners = new ArrayList/*<ExternalListener>*/();
 
 	/**
 	 * List of external listener classes.
 	 */
-	private static List<Class<?>> externalListenerClasses = new ArrayList<Class<?>>();
+	private static List/*<Class<?>>*/ externalListenerClasses = new ArrayList/*<Class<?>>*/();
 
 	/**
 	 * Returns the list of external listener class instances.
 	 *
 	 * @return The instances.
 	 */
-	public static List<ExternalListener> getExternalListeners() {
+	public static List/*<ExternalListener>*/ getExternalListeners() {
 		return externalListeners;
 	}
 
@@ -95,26 +95,26 @@ public class ExternalFactory {
 	 */
 	public static void lookup() {
 		File pluginDirectory = new File(PMS.getConfiguration().getPluginDirectory());
-		LOGGER.info("Searching for plugins in " + pluginDirectory.getAbsolutePath());
+		LOGGER.info("Searching for plugins in " ~ pluginDirectory.getAbsolutePath());
 
 		if (!pluginDirectory.exists()) {
-			LOGGER.warn("Plugin directory doesn't exist: " + pluginDirectory);
+			LOGGER.warn("Plugin directory doesn't exist: " ~ pluginDirectory);
 			return;
 		}
 
 		if (!pluginDirectory.isDirectory()) {
-			LOGGER.warn("Plugin directory is not a directory: " + pluginDirectory);
+			LOGGER.warn("Plugin directory is not a directory: " ~ pluginDirectory);
 			return;
 		}
 
 		if (!pluginDirectory.canRead()) {
-			LOGGER.warn("Plugin directory is not readable: " + pluginDirectory);
+			LOGGER.warn("Plugin directory is not readable: " ~ pluginDirectory);
 			return;
 		}
 
 		// Find all .jar files in the plugin directory
 		File[] jarFiles = pluginDirectory.listFiles(
-			new FileFilter() {
+			new class() FileFilter {
 				public bool accept(File file) {
 					return file.isFile() && file.getName().toLowerCase().endsWith(".jar");
 				}
@@ -129,13 +129,13 @@ public class ExternalFactory {
 		}
 
 		// To load a .jar file the filename needs to converted to a file URL
-		List<URL> jarURLList = new ArrayList<URL>();
+		List/*<URL>*/ jarURLList = new ArrayList/*<URL>*/();
 
 		for (int i = 0; i < nJars; ++i) {
 			try {
 				jarURLList.add(jarFiles[i].toURI().toURL());
 			} catch (MalformedURLException e) {
-				LOGGER.error("Can't convert file path " + jarFiles[i] + " to URL", e);
+				LOGGER.error("Can't convert file path " ~ jarFiles[i] ~ " to URL", e);
 			}
 		}
 
@@ -145,7 +145,7 @@ public class ExternalFactory {
 		// Create a classloader to take care of loading the plugin classes from
 		// their URL.
 		URLClassLoader classLoader = new URLClassLoader(jarURLs);
-		Enumeration<URL> resources;
+		Enumeration/*<URL>*/ resources;
 
 		try {
 			// Each plugin .jar file has to contain a resource named "plugin"
@@ -162,16 +162,16 @@ public class ExternalFactory {
 			try {
 				// Determine the plugin main class name from the contents of
 				// the plugin file.
-				InputStreamReader in = new InputStreamReader(url.openStream());
+				InputStreamReader _in = new InputStreamReader(url.openStream());
 				char[] name = new char[512];
-				in.read(name);
-				in.close();
-				String pluginMainClassName = new String(name).trim();
+				_in.read(name);
+				_in.close();
+				String pluginMainClassName = (new String(name)).trim();
 
-				LOGGER.info("Found plugin: " + pluginMainClassName);
+				LOGGER.info("Found plugin: " ~ pluginMainClassName);
 
 				// Try to load the class based on the main class name
-				Class<?> clazz = classLoader.loadClass(pluginMainClassName);
+				Class/*<?>*/ clazz = classLoader.loadClass(pluginMainClassName);
 				registerListenerClass(clazz);
 			} catch (Exception e) {
 				LOGGER.error("Error loading plugin", e);
@@ -195,7 +195,7 @@ public class ExternalFactory {
 	 * {@link #instantiateLateListeners()}.
 	 */
 	private static void instantiateEarlyListeners() {
-		for (Class<?> clazz: externalListenerClasses) {
+		foreach (Class/*<?>*/ clazz; externalListenerClasses) {
 			// Skip the classes that should not be instantiated at this
 			// time but rather at a later time.
 			if (!AdditionalFolderAtRoot.class.isAssignableFrom(clazz) &&
@@ -219,7 +219,7 @@ public class ExternalFactory {
 	 * been instantiated by {@link #instantiateEarlyListeners()}.
 	 */
 	public static void instantiateLateListeners() {
-		for (Class<?> clazz: externalListenerClasses) {
+		foreach (Class/*<?>*/ clazz: externalListenerClasses) {
 			// Only AdditionalFolderAtRoot and AdditionalFoldersAtRoot
 			// classes have been skipped by lookup().
 			if (AdditionalFolderAtRoot.class.isAssignableFrom(clazz) ||
