@@ -613,6 +613,11 @@
      </Folder>
     </Folder>
    </Folder>
+   <Folder name="mozilla">
+    <Folder name="universalchardet">
+     <File path="org\mozilla\universalchardet\Constants.d" />
+    </Folder>
+   </Folder>
   </Folder>
   <File path="main.d" />
  </Folder>

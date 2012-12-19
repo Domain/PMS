@@ -20,4 +20,8 @@ public class StringUtils {
 	public static bool isEmpty(String input) {
 		return !isEmpty(input);
 	}
+	
+	public static String trim(String input) {
+		return input.strip();
+	}
 }

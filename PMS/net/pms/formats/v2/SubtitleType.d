@@ -18,10 +18,10 @@
  */
 module net.pms.formats.v2.SubtitleType;
 
-import java.util.*;
+import java.util.all;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.apache.commons.lang.StringUtils.trim;
+import org.apache.commons.lang.StringUtils : isBlank;
+import org.apache.commons.lang.StringUtils : trim;
 
 /**
  * Enum with possible types of subtitle tracks and methods for determining

@@ -34,10 +34,10 @@ public class AudioAsVideo : MKV {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 			if (engine.equals(TsMuxerAudio.ID)) {
 				a.add(TsMuxerAudio.class);
 			}
