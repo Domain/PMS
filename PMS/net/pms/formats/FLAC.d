@@ -15,7 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */package net.pms.formats;
+ */
+module net.pms.formats.FLAC;
 
 public class FLAC : OGG {
 	/**
@@ -36,6 +37,7 @@ public class FLAC : OGG {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "flac", "mlp", "fla" };
+		String[] id = [ "flac", "mlp", "fla" ];
+		return id;
 	}
 }

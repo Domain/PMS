@@ -46,10 +46,10 @@ public class WAV : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 			if (engine.equals(MPlayerAudio.ID)) {
 				a.add(MPlayerAudio.class);
 			} else if (engine.equals(FFMpegAudio.ID)) {
@@ -64,7 +64,8 @@ public class WAV : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "wav" };
+		String[] id = [ "wav" ];
+		return id;
 	}
 
 	/**

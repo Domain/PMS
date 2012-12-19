@@ -34,10 +34,10 @@ public class DVRMS : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 			/*if (engine.equals(MEncoderVideo.ID))
 			a.add(MEncoderVideo.class);*/
 			if (engine.equals(FFMpegDVRMSRemux.ID)) {

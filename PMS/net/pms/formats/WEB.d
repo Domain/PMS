@@ -56,11 +56,11 @@ public class WEB : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		if (type == AUDIO) {
 			PMS r = PMS.get();
-			for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+			foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 				if (engine.equals(MPlayerWebAudio.ID)) {
 					a.add(MPlayerWebAudio.class);
 				} else if (engine.equals(VideoLanAudioStreaming.ID)) {
@@ -69,7 +69,7 @@ public class WEB : Format {
 			}
 		} else {
 			PMS r = PMS.get();
-			for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+			foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 				if (engine.equals(FFMpegWebVideo.ID)) {
 					a.add(FFMpegWebVideo.class);
 				} else if (engine.equals(MEncoderWebVideo.ID)) {
@@ -91,7 +91,8 @@ public class WEB : Format {
 	override
 	// TODO remove screen - it's been tried numerous times (see forum) and it doesn't work
 	public String[] getId() {
-		return new String[] { "http", "mms", "mmsh", "mmst", "rtsp", "rtp", "udp", "screen" };
+		String[] id = [ "http", "mms", "mmsh", "mmst", "rtsp", "rtp", "udp", "screen" ];
+		return id;
 	}
 
 	override

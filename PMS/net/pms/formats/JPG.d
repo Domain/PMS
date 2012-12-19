@@ -40,7 +40,8 @@ public class JPG : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[]{"jpeg", "jpg", "jpe", "mpo"};
+		String[] id = ["jpeg", "jpg", "jpe", "mpo"];
+		return id;
 	}
 
 	/**
@@ -59,7 +60,7 @@ public class JPG : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		return null;
 	}
 

@@ -40,10 +40,10 @@ public class OGG : MP3 {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 			if (engine.equals(MPlayerAudio.ID)) {
 				a.add(MPlayerAudio.class);
 			} else if (engine.equals(FFMpegAudio.ID)) {
@@ -58,8 +58,9 @@ public class OGG : MP3 {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "dts", "mka", "ape", "ogg", "shn", "mpc", "ra",
-				"mp2", "wv", "oma", "aa3", "at3", "aif", "aiff" };
+		String[] id = [ "dts", "mka", "ape", "ogg", "shn", "mpc", "ra",
+				"mp2", "wv", "oma", "aa3", "at3", "aif", "aiff" ];
+		return id;
 	}
 
 	/**

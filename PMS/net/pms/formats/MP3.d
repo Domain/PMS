@@ -40,7 +40,8 @@ public class MP3 : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "mp3" };
+		String[] id = [ "mp3" ];
+		return id;
 	}
 
 	/**
@@ -59,7 +60,7 @@ public class MP3 : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		return null;
 	}
 

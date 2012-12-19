@@ -19,7 +19,7 @@
 module net.pms.formats.MPG;
 
 import net.pms.PMS;
-import net.pms.encoders.*;
+import net.pms.encoders.all;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class MPG : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		PMS r = PMS.get();
 		PMS r1 = PMS.get();
 		PMS r2 = PMS.get();
@@ -41,7 +41,7 @@ public class MPG : Format {
 		{
 			return null;
 		}
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r3 = PMS.get();
 		for (String engine : PMS.getConfiguration().getEnginesAsList(r3.getRegistry())) {
 			if (engine.equals(MEncoderVideo.ID)) {
@@ -73,9 +73,10 @@ public class MPG : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "mpg", "mpeg", "mpe", "mod", "tivo", "ty", "tmf",
+		String[] id = [ "mpg", "mpeg", "mpe", "mod", "tivo", "ty", "tmf",
 				"ts", "tp", "m2t", "m2ts", "m2p", "mts", "mp4", "m4v", "avi",
-				"wmv", "wm", "vob", "divx", "div", "vdr" };
+				"wmv", "wm", "vob", "divx", "div", "vdr" ];
+		return id;
 	}
 
 	/**

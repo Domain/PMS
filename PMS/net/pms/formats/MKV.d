@@ -46,10 +46,11 @@ public class MKV : MPG {
 	 * {@inheritDoc}
 	 */
 	public String[] getId() {
-		return new String[] {
+		String[] id = [
 			"mkv", "dv", "ty", "mov", "ogm", "ogv", "hdmov",
 			"hdm", "rmv", "rmvb", "rm", "asf", "evo", "asx", "flv", "m2v",
 			"3gp", "3g2", "webm"
-		};
+		];
+		return id;
 	}
 }

@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class RAW : JPG {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RAW.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(RAW.class);
 
 	/**
 	 * {@inheritDoc} 
@@ -31,8 +31,9 @@ public class RAW : JPG {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "arw", "cr2", "crw", "dng", "raf", "mrw", "nef",
-				"pef", "srf", "orf" };
+		String[] id = [ "arw", "cr2", "crw", "dng", "raf", "mrw", "nef",
+				"pef", "srf", "orf" ];
+		return id;
 	}
 
 	/**
@@ -51,9 +52,9 @@ public class RAW : JPG {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> profiles = new ArrayList<Class<? : Player>>();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry())) {
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ profiles = new ArrayList/*<Class<? : Player>>*/();
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry())) {
 			if (engine.equals(RAWThumbnailer.ID)) {
 				profiles.add(RAWThumbnailer.class);
 			}
