@@ -44,7 +44,7 @@ import java.util.List;
 
 public class FFMpegDVRMSRemux : Player {
 	private JTextField altffpath;
-	public static final String ID = "ffmpegdvrmsremux";
+	public static const String ID = "ffmpegdvrmsremux";
 
 	override
 	public int purpose() {
@@ -81,7 +81,7 @@ public class FFMpegDVRMSRemux : Player {
 
 	deprecated
 	protected String[] getDefaultArgs() {
-		return new String[] {
+		String[] args = [
 			"-vcodec", "copy",
 			"-acodec", "copy",
 			"-threads", "2",
@@ -90,7 +90,8 @@ public class FFMpegDVRMSRemux : Player {
 			"-qmin", "2",
 			"-f", "vob",
 			"-copyts"
-		};
+		];
+		return args;
 	}
 
 	override
@@ -116,7 +117,7 @@ public class FFMpegDVRMSRemux : Player {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		return getFFMpegTranscode(fileName, dlna, media, params);
 	}
 
@@ -127,10 +128,10 @@ public class FFMpegDVRMSRemux : Player {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		PmsConfiguration configuration = PMS.getConfiguration();
 		String ffmpegAlternativePath = configuration.getFfmpegAlternativePath();
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 
 		if (ffmpegAlternativePath !is null && ffmpegAlternativePath.length() > 0) {
 			cmdList.add(ffmpegAlternativePath);
@@ -146,7 +147,7 @@ public class FFMpegDVRMSRemux : Player {
 		cmdList.add("-i");
 		cmdList.add(fileName);
 
-		for (String arg : args()) {
+		foreach (String arg ; args()) {
 			cmdList.add(arg);
 		}
 
@@ -155,7 +156,7 @@ public class FFMpegDVRMSRemux : Player {
 			String[] customSettingsArray = StringUtils.split(customSettingsString);
 
 			if (customSettingsArray !is null) {
-				for (String option : customSettingsArray) {
+				foreach (String option ; customSettingsArray) {
 					cmdList.add(option);
 				}
 			}
@@ -197,7 +198,7 @@ public class FFMpegDVRMSRemux : Player {
 
 		builder.addLabel(Messages.getString("FFMpegDVRMSRemux.0"), cc.xy(1, 3));
 		altffpath = new JTextField(PMS.getConfiguration().getFfmpegAlternativePath());
-		altffpath.addKeyListener(new KeyListener() {
+		altffpath.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}

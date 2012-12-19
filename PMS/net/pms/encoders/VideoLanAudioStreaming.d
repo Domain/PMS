@@ -23,9 +23,9 @@ import net.pms.dlna.DLNAResource;
 import net.pms.formats.Format;
 
 public class VideoLanAudioStreaming : VideoLanVideoStreaming {
-	public static final String ID = "vlcaudio";
+	public static const String ID = "vlcaudio";
 
-	public VideoLanAudioStreaming(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		super(configuration);
 	}
 

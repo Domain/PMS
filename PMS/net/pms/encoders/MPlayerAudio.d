@@ -45,14 +45,14 @@ import java.util.Arrays;
 // and, indeed, it delegates to ffmpeg for MP3 transcodes
 deprecated
 public class MPlayerAudio : Player {
-	public static final String ID = "mplayeraudio";
-	private final PmsConfiguration configuration;
+	public static const String ID = "mplayeraudio";
+	private immutable PmsConfiguration configuration;
 
 	// XXX should be private
 	deprecated
 	JCheckBox noresample;
 
-	public MPlayerAudio(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -68,7 +68,8 @@ public class MPlayerAudio : Player {
 
 	override
 	public String[] args() {
-		return new String[]{};
+		String[] args = [];
+		return args;
 	}
 
 	override
@@ -82,8 +83,8 @@ public class MPlayerAudio : Player {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
-		if (!(this instanceof MPlayerWebAudio) && !(this instanceof MPlayerWebVideoDump)) {
+	) {
+		if (!(cast(MPlayerWebAudio)this !is null) && !(cast(MPlayerWebVideoDump)this !is null)) {
 			params.waitbeforestart = 2000;
 		}
 
@@ -95,7 +96,7 @@ public class MPlayerAudio : Player {
 		}
 
 		params.maxBufferSize = PMS.getConfiguration().getMaxAudioBuffer();
-		PipeProcess audioP = new PipeProcess("mplayer_aud" + System.currentTimeMillis());
+		PipeProcess audioP = new PipeProcess("mplayer_aud" ~ System.currentTimeMillis());
 
 		String mPlayerdefaultAudioArgs[] = new String[] {
 			PMS.getConfiguration().getMplayerPath(),
@@ -109,14 +110,14 @@ public class MPlayerAudio : Player {
 			"-vo",
 			"null",
 			"-ao",
-			"pcm:nowaveheader:fast:file=" + audioP.getInputPipe(),
+			"pcm:nowaveheader:fast:file=" ~ audioP.getInputPipe(),
 			"-quiet",
 			"-format",
 			"s16be"
 		};
 
 		if (params.mediaRenderer.isTranscodeToWAV()) {
-			mPlayerdefaultAudioArgs[11] = "pcm:waveheader:fast:file=" + audioP.getInputPipe();
+			mPlayerdefaultAudioArgs[11] = "pcm:waveheader:fast:file=" ~ audioP.getInputPipe();
 			mPlayerdefaultAudioArgs[13] = "-quiet";
 			mPlayerdefaultAudioArgs[14] = "-quiet";
 		}
@@ -135,11 +136,11 @@ public class MPlayerAudio : Player {
 		if (params.timeseek > 0 || params.timeend > 0) {
 			mPlayerdefaultAudioArgs = Arrays.copyOf(mPlayerdefaultAudioArgs, mPlayerdefaultAudioArgs.length + 4);
 			mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 4] = "-ss";
-			mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 3] = "" + params.timeseek;
+			mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 3] = "" ~ params.timeseek;
 
 			if (params.timeend > 0) {
 				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 2] = "-endpos";
-				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 1] = "" + params.timeend;
+				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 1] = "" ~ params.timeend;
 			} else {
 				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 2] = "-quiet";
 				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 1] = "-quiet";

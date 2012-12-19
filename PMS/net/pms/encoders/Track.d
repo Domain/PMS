@@ -27,7 +27,7 @@ public class Track {
 	private int nbAudio;
 	private byte[] bih;
 
-	public Track(String compressor, int scale, int rate, int sampleSize) {
+	public this(String compressor, int scale, int rate, int sampleSize) {
 		this.compressor = compressor;
 		this.scale = scale;
 		this.rate = rate;

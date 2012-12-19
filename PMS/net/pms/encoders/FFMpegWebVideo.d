@@ -39,12 +39,12 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class FFMpegWebVideo : FFMpegVideo {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FFMpegWebVideo.class);
-	private final PmsConfiguration configuration;
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(FFMpegWebVideo.class);
+	private immutable PmsConfiguration configuration;
 
 	// FIXME we have an id() accessor for this; no need for the field to be public
 	deprecated
-	public static final String ID = "ffmpegwebvideo";
+	public static const String ID = "ffmpegwebvideo";
 
 	override
 	public JComponent config() {
@@ -76,7 +76,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		params.minBufferSize = params.minFileSize;
 		params.secondread_minsize = 100000;
 		RendererConfiguration renderer = params.mediaRenderer;
@@ -101,11 +101,11 @@ public class FFMpegWebVideo : FFMpegVideo {
 
 		// XXX work around an ffmpeg bug: http://ffmpeg.org/trac/ffmpeg/ticket/998
 		if (fileName.startsWith("mms:")) {
-			fileName = "mmsh:" + fileName.substring(4);
+			fileName = "mmsh:" ~ fileName.substring(4);
 		}
 
 		// build the command line
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 
 		cmdList.add(executable());
 

@@ -37,7 +37,7 @@ import java.awt.event.KeyListener;
 import java.util.StringTokenizer;
 
 public class MEncoderAviSynth : MEncoderVideo {
-	public MEncoderAviSynth(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		super(configuration);
 	}
 
@@ -57,7 +57,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 
 
 		JComponent cmp = builder.addSeparator(Messages.getString("MEncoderAviSynth.2"), cc.xyw(2, 1, 1));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		convertfps = new JCheckBox(Messages.getString("MEncoderAviSynth.3"));
@@ -65,7 +65,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 		if (PMS.getConfiguration().getAvisynthConvertFps()) {
 			convertfps.setSelected(true);
 		}
-		convertfps.addItemListener(new ItemListener() {
+		convertfps.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				PMS.getConfiguration().setAvisynthConvertFps((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -87,7 +87,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 			i++;
 		}
 		textArea = new JTextArea(sb.toString());
-		textArea.addKeyListener(new KeyListener() {
+		textArea.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}

@@ -43,14 +43,14 @@ import java.util.List;
 import javax.swing.*;
 
 public class FFMpegAudio : FFMpegVideo {
-	public static final String ID = "ffmpegaudio";
-	private final PmsConfiguration configuration;
+	public static const String ID = "ffmpegaudio";
+	private immutable PmsConfiguration configuration;
 
 	// should be private
 	deprecated
 	JCheckBox noresample;
 
-	public FFMpegAudio(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 

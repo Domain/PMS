@@ -31,8 +31,8 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class MEncoderWebVideo : Player {
-	public static final String ID = "mencoderwebvideo";
-	private final PmsConfiguration configuration;
+	public static const String ID = "mencoderwebvideo";
+	private immutable PmsConfiguration configuration;
 
 	override
 	public JComponent config() {
@@ -62,7 +62,7 @@ public class MEncoderWebVideo : Player {
 	protected String[] getDefaultArgs() {
 		int nThreads = configuration.getMencoderMaxThreads();
 		String acodec = configuration.isMencoderAc3Fixed() ? "ac3_fixed" : "ac3";
-		return new String[]{
+		String[] args = [
 				"-msglevel", "all=2",
 				"-quiet",
 				"-prefer-ipv4",
@@ -71,13 +71,14 @@ public class MEncoderWebVideo : Player {
 				"-of", "lavf",
 				"-lavfopts", "format=dvd",
 				"-ovc", "lavc",
-				"-lavcopts", "vcodec=mpeg2video:vbitrate=4096:threads=" + nThreads + ":acodec=" + acodec + ":abitrate=128",
+				"-lavcopts", "vcodec=mpeg2video:vbitrate=4096:threads=" ~ nThreads ~ ":acodec=" ~ acodec ~ ":abitrate=128",
 				"-vf", "harddup",
 				"-ofps", "25"
-			};
+		];
+		return args;
 	}
 
-	public MEncoderWebVideo(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -86,11 +87,11 @@ public class MEncoderWebVideo : Player {
 		String fileName,
 		DLNAResource dlna,
 		DLNAMediaInfo media,
-		OutputParams params) throws IOException {
+		OutputParams params) {
 		params.minBufferSize = params.minFileSize;
 		params.secondread_minsize = 100000;
 
-		PipeProcess pipe = new PipeProcess("mencoder" + System.currentTimeMillis());
+		PipeProcess pipe = new PipeProcess("mencoder" ~ System.currentTimeMillis());
 		params.input_pipes[0] = pipe;
 
 		String cmdArray[] = new String[args().length + 4];

@@ -9,17 +9,17 @@ import net.pms.io.OutputParams;
 import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 
-import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class RAWThumbnailer : Player {
-	public final static String ID = "rawthumbs";
+	public const static String ID = "rawthumbs";
 
 	protected String[] getDefaultArgs() {
-		return new String[]{"-e", "-c"};
+		String[] args = ["-e", "-c"];
+		return args;
 	}
 
 	override
@@ -45,7 +45,7 @@ public class RAWThumbnailer : Player {
 
 	override
 	public ProcessWrapper launchTranscode(String fileName, DLNAResource dlna, DLNAMediaInfo media,
-		OutputParams params) throws IOException {
+		OutputParams params) {
 
 		params.waitbeforestart = 1;
 		params.minBufferSize = 1;

@@ -25,13 +25,12 @@ import net.pms.formats.Format;
 import net.pms.io.OutputParams;
 import net.pms.io.ProcessWrapper;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class MPlayerWebAudio : MPlayerAudio {
-	public static final String ID = "mplayerwebaudio";
+	public static const String ID = "mplayerwebaudio";
 
-	public MPlayerWebAudio(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		super(configuration);
 	}
 
@@ -52,7 +51,7 @@ public class MPlayerWebAudio : MPlayerAudio {
 
 	override
 	public ProcessWrapper launchTranscode(String fileName, DLNAResource dlna, DLNAMediaInfo media,
-		OutputParams params) throws IOException {
+		OutputParams params) {
 		params.minBufferSize = params.minFileSize;
 		params.secondread_minsize = 100000;
 		params.waitbeforestart = 8000;
