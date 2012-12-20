@@ -19,7 +19,7 @@ import java.io.StringReader;
  */
 deprecated
 public class Xmlwise {
-	private Xmlwise() {
+	private this() {
 	}
 
 	/**

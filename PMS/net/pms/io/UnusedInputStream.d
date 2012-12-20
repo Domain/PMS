@@ -30,7 +30,7 @@ public abstract class UnusedInputStream : InputStream {
 	private UnusedProcess processToTerminate;
 	private int timeout;
 
-	public UnusedInputStream(InputStream inputStream, UnusedProcess processToTerminate, int timeout) {
+	public this(InputStream inputStream, UnusedProcess processToTerminate, int timeout) {
 		this.inputStream = inputStream;
 		this.processToTerminate = processToTerminate;
 		this.timeout = timeout;

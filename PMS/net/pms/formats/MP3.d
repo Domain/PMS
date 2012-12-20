@@ -31,7 +31,7 @@ public class MP3 : Format {
 		return Identifier.MP3;
 	}
 
-	public MP3() {
+	public this() {
 		type = AUDIO;
 	}
 

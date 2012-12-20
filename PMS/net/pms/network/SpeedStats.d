@@ -74,7 +74,7 @@ public class SpeedStats {
 		InetAddress addr;
 		String rendererName;
 
-		public MeasureSpeed(InetAddress addr, String rendererName) {
+		public this(InetAddress addr, String rendererName) {
 			this.addr = addr;
 			this.rendererName = rendererName !is null ? rendererName : "Unknown";
 		}
@@ -179,7 +179,7 @@ public class SpeedStats {
 	static class CompletedFuture<X> : Future<X> {
 		X value;
 		
-		public CompletedFuture(X value) {
+		public this(X value) {
 			this.value = value;
 		}
 

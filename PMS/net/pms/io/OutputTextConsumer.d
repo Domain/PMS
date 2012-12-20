@@ -40,7 +40,7 @@ public class OutputTextConsumer : OutputConsumer {
 	private Object linesLock = new Object();
 	private bool log;
 
-	public OutputTextConsumer(InputStream inputStream, bool log) {
+	public this(InputStream inputStream, bool log) {
 		super(inputStream);
 		linesLock = new Object();
 		this.log = log;

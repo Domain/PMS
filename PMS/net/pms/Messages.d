@@ -30,7 +30,7 @@ public class Messages {
 
 	private static const ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-	private Messages() {
+	private this() {
 	}
 
 	/**

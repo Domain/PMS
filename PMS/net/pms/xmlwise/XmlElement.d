@@ -25,7 +25,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 *
 	 * @param element the document element to construct this object from.
 	 */
-	public XmlElement(Element element) {
+	public this(Element element) {
 		m_attributes = new XmlElementAttributes(element);
 		NodeList children = element.getChildNodes();
 		m_name = element.getNodeName();
@@ -48,7 +48,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @param name the name of the node.
 	 * @param value the inner text value of the node.
 	 */
-	public XmlElement(String name, String value) {
+	public this(String name, String value) {
 		m_attributes = new XmlElementAttributes();
 		m_name = name;
 		m_value = value;
@@ -59,7 +59,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 *
 	 * @param name the name of the node.
 	 */
-	public XmlElement(String name) {
+	public this(String name) {
 		m_attributes = new XmlElementAttributes();
 		m_name = name;
 		m_value = "";

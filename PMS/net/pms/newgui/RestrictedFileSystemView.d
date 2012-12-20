@@ -43,11 +43,11 @@ public class RestrictedFileSystemView : FileSystemView {
 	private static final String newFolderString = UIManager.getString("FileChooser.other.newFolder");
 	private File _defaultDirectory;
 
-	public RestrictedFileSystemView() {
+	public this() {
 		this(null);
 	}
 
-	public RestrictedFileSystemView(File defaultDirectory) {
+	public this(File defaultDirectory) {
 		_defaultDirectory = defaultDirectory;
 	}
 
@@ -346,11 +346,11 @@ public class RestrictedFileSystemView : FileSystemView {
 	static class FileSystemRoot : File {
 		private static final long serialVersionUID = -807847319198119832L;
 
-		public FileSystemRoot(File f) {
+		public this(File f) {
 			super(f, "");
 		}
 
-		public FileSystemRoot(String s) {
+		public this(String s) {
 			super(s);
 		}
 

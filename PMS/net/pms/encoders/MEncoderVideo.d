@@ -169,7 +169,7 @@ public class MEncoderVideo : Player {
 		return subs;
 	}
 
-	public MEncoderVideo(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 

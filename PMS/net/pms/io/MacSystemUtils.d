@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class MacSystemUtils : BasicSystemUtils {
 	private final static Logger LOGGER = LoggerFactory.getLogger(MacSystemUtils.class);
 
-	public MacSystemUtils() { }
+	public this() { }
 
 	override
 	public void browseURI(String uri) {

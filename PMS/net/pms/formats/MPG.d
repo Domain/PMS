@@ -64,7 +64,7 @@ public class MPG : Format {
 		return true;
 	}
 
-	public MPG() {
+	public this() {
 		type = VIDEO;
 	}
 

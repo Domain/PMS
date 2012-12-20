@@ -41,7 +41,7 @@ public class HttpServerPipelineFactory : ChannelPipelineFactory {
 	private static final Logger logger = LoggerFactory.getLogger(HttpServerPipelineFactory.class);
 	private ChannelGroup group;
 	
-	public HttpServerPipelineFactory(ChannelGroup group) {
+	public this(ChannelGroup group) {
 	    this.group = group;
 	}
 

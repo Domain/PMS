@@ -42,7 +42,7 @@ public class OutputBufferConsumer : OutputConsumer {
 	 */
 	private static final int PIPE_BUFFER_SIZE = 500000;
 
-	public OutputBufferConsumer(InputStream inputStream, OutputParams params) {
+	public this(InputStream inputStream, OutputParams params) {
 		super(inputStream);
 		outputBuffer = new BufferedOutputFileImpl(params);
 	}

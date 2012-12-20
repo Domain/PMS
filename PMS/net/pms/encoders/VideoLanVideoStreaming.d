@@ -36,7 +36,7 @@ public class VideoLanVideoStreaming : Player {
 	private immutable PmsConfiguration configuration;
 	public static const String ID = "vlcvideo";
 
-	public VideoLanVideoStreaming(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 

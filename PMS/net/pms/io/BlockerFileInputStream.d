@@ -35,7 +35,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 	private File file;
 	private bool firstRead;
 
-	public BlockerFileInputStream(ProcessWrapper pw, File file, double waitSize) {
+	public this(ProcessWrapper pw, File file, double waitSize) {
 		super(new FileInputStream(file), pw, 2000);
 		this.file = file;
 		this.waitSize = (long) (waitSize * 1048576);

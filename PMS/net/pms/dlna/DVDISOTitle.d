@@ -224,7 +224,7 @@ public class DVDISOTitle : DLNAResource {
 		return length;
 	}
 
-	public DVDISOTitle(File f, int title) {
+	public this(File f, int title) {
 		this.f = f;
 		this.title = title;
 		setLastModified(f.lastModified());

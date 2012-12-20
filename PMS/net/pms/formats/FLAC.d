@@ -27,7 +27,7 @@ public class FLAC : OGG {
 		return Identifier.FLAC;
 	}
 
-	public FLAC() {
+	public this() {
 		type = AUDIO;
 		secondaryFormat = new AudioAsVideo();
 	}

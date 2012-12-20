@@ -393,13 +393,13 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		}
 	}
 
-	public DLNAResource() {
+	public this() {
 		setSpecificType(Format.UNKNOWN);
 		setChildren(new ArrayList/*<DLNAResource>*/());
 		setUpdateId(1);
 	}
 
-	public DLNAResource(int specificType) {
+	public this(int specificType) {
 		this();
 		setSpecificType(specificType);
 	}

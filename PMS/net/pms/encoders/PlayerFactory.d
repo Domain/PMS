@@ -98,7 +98,7 @@ public final class PlayerFactory {
 	/**
 	 * This class is not meant to be instantiated.
 	 */
-	private PlayerFactory() {
+	private this() {
 	}
 
 	/**

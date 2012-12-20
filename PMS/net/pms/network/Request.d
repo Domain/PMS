@@ -136,7 +136,7 @@ public class Request : HTTPResource {
 		this.http10 = http10;
 	}
 
-	public Request(String method, String argument) {
+	public this(String method, String argument) {
 		this.method = method;
 		this.argument = argument;
 	}

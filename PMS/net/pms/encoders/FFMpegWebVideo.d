@@ -66,7 +66,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 		return false;
 	}
 
-	public FFMpegWebVideo(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 

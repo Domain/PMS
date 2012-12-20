@@ -23,7 +23,7 @@ class TempFolder {
 	/**
 	 * userSpecifiedFolder may be null
 	 */
-	public TempFolder(String userSpecifiedFolder) {
+	public this(String userSpecifiedFolder) {
 		this.userSpecifiedFolder = userSpecifiedFolder;
 	}
 

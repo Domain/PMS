@@ -311,7 +311,7 @@ public class DLNAMediaInfo : Cloneable {
 		}
 	}
 
-	public DLNAMediaInfo() {
+	public this() {
 		setThumbready(true); // this class manages thumbnails by default with the parser_v1 method
 	}
 

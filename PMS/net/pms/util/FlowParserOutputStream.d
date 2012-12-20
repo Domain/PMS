@@ -15,7 +15,7 @@ public abstract class FlowParserOutputStream : OutputStream {
 	protected int swapOrderBits;
 	protected byte[] swapRemainingByte;
 
-	public FlowParserOutputStream(OutputStream out, int maxbuffersize) {
+	public this(OutputStream out, int maxbuffersize) {
 		this.out = out;
 		buffer = ByteBuffer.allocate(maxbuffersize);
 		zerobuffer = new byte[15000];

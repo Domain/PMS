@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class ProcessWrapperLiteImpl : ProcessWrapper {
 	private Process p;
 
-	public ProcessWrapperLiteImpl(Process p) {
+	public this(Process p) {
 		this.p = p;
 	}
 

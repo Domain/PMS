@@ -98,7 +98,7 @@ public class Feed : DLNAResource {
 		}
 	}
 
-	public Feed(String name, String url, int type) {
+	public this(String name, String url, int type) {
 		super(type);
 		setUrl(url);
 		setName(name);

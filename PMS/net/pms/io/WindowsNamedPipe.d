@@ -156,7 +156,7 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 		loop = value;
 	}
 
-	public WindowsNamedPipe(String basename, bool forceReconnect, bool in, OutputParams params) {
+	public this(String basename, bool forceReconnect, bool in, OutputParams params) {
 		this.path = "\\\\.\\pipe\\" + basename;
 		this.in = in;
 		this.forceReconnect = forceReconnect;

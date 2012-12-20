@@ -66,7 +66,7 @@ public class HTTPServer : Runnable {
 		return getNetworkInterface();
 	}
 
-	public HTTPServer(int port) {
+	public this(int port) {
 		this.port = port;
 	}
 

@@ -186,7 +186,7 @@ public class RequestV2 : HTTPResource {
 	 * @param argument The {@link String} containing instructions for PMS. It contains a command,
 	 * 		a unique resource id and a resource name, all separated by slashes.
 	 */
-	public RequestV2(String method, String argument) {
+	public this(String method, String argument) {
 		this.method = method;
 		this.argument = argument;
 	}

@@ -32,7 +32,7 @@ public class Gob : Thread {
 	private static final Logger logger = LoggerFactory.getLogger(Gob.class);
 	BufferedReader in;
 
-	public Gob(InputStream in) {
+	public this(InputStream in) {
 		this.in = new BufferedReader(new InputStreamReader(in));
 	}
 

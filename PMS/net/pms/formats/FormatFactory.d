@@ -50,7 +50,7 @@ public final class FormatFactory {
 	/**
 	 * This class is not meant to be instantiated.
 	 */
-	private FormatFactory() {
+	private this() {
 	}
 
 	/**

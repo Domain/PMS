@@ -31,7 +31,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 *
 	 * @param element the element to read from.
 	 */
-	public XmlElementAttributes(Element element) {
+	public this(Element element) {
 		super(element.getAttributes().getLength());
 		NamedNodeMap map = element.getAttributes();
 		int attributesLength = map.getLength();

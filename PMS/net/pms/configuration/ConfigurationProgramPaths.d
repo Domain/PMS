@@ -16,7 +16,7 @@ class ConfigurationProgramPaths : ProgramPaths {
 	private final Configuration configuration;
 	private final ProgramPaths defaults;
 
-	public ConfigurationProgramPaths(Configuration configuration, ProgramPaths defaults) {
+	public this(Configuration configuration, ProgramPaths defaults) {
 		this.configuration = configuration;
 		this.defaults = defaults;
 	}

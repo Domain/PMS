@@ -36,7 +36,7 @@ public class WAV : Format {
 		return Identifier.WAV;
 	}
 
-	public WAV() {
+	public this() {
 		type = AUDIO;
 	}
 	

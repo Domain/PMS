@@ -213,7 +213,7 @@ public class WinUtils : BasicSystemUtils : SystemUtils {
 		return new String(chars, 0, i);
 	}
 
-	public WinUtils() {
+	public this() {
 		start();
 	}
 

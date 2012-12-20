@@ -36,7 +36,7 @@ import java.util.List;
 public class OutputTextLogger : OutputConsumer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OutputTextLogger.class);
 
-	public OutputTextLogger(InputStream inputStream) {
+	public this(InputStream inputStream) {
 		super(inputStream);
 	}
 

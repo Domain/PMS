@@ -80,7 +80,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 		 * @param key   the key
 		 * @param value the value
 		 */
-		public ComboBoxItemPair(final Object key, final Object value) {
+		public this(final Object key, final Object value) {
 			this.key = key;
 			this.value = value;
 		}
@@ -135,7 +135,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	/**
 	 * Creates a new keyed combobox model.
 	 */
-	public KeyedComboBoxModel() {
+	public this() {
 		data = new ArrayList<ComboBoxItemPair>();
 		listdatalistener = new ArrayList<ListDataListener>();
 	}
@@ -147,7 +147,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param keys   the keys
 	 * @param values the values
 	 */
-	public KeyedComboBoxModel(final Object[] keys, final Object[] values) {
+	public this(final Object[] keys, final Object[] values) {
 		this();
 		setData(keys, values);
 	}

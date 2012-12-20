@@ -28,7 +28,7 @@ import java.awt.*;
 public class TreeRenderer : DefaultTreeCellRenderer {
 	private static final long serialVersionUID = 8830634234336247114L;
 
-	public TreeRenderer() {
+	public this() {
 	}
 
 	public Component getTreeCellRendererComponent(

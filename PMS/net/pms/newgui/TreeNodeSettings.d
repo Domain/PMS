@@ -55,7 +55,7 @@ public class TreeNodeSettings : DefaultMutableTreeNode {
 		return p;
 	}
 
-	public TreeNodeSettings(String name, Player p, JComponent otherConfigPanel) {
+	public this(String name, Player p, JComponent otherConfigPanel) {
 		super(name);
 		this.p = p;
 		this.otherConfigPanel = otherConfigPanel;

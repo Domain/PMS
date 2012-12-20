@@ -243,7 +243,7 @@ public class FormatConfiguration {
 		}
 	}
 
-	public FormatConfiguration(List/*<?>*/ lines) {
+	public this(List/*<?>*/ lines) {
 		supportSpecs = new ArrayList/*<SupportSpec>*/();
 
 		foreach (Object line ; lines) {

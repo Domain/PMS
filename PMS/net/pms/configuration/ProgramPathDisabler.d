@@ -9,7 +9,7 @@ class ProgramPathDisabler : ProgramPaths {
 	private bool disableIMConvert = false;
 	private final ProgramPaths ifEnabled;
 
-	public ProgramPathDisabler(ProgramPaths ifEnabled) {
+	public this(ProgramPaths ifEnabled) {
 		this.ifEnabled = ifEnabled;
 	}
 

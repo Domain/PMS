@@ -6,7 +6,7 @@ public final class Version : Comparable<Version> {
 	private final static int MAX_ELEMENTS = 4;
 	private final int[] elements;
 
-	public Version(String versionString) {
+	public this(String versionString) {
 		if (versionString is null) {
 			throw new NullPointerException("Version string can not be null");
 		}

@@ -45,7 +45,7 @@ public class NetworkConfiguration {
 		InetAddress addr;
 		NetworkInterface iface;
 
-		public InterfaceAssociation(InetAddress addr, NetworkInterface iface, String parentName) {
+		public this(InetAddress addr, NetworkInterface iface, String parentName) {
 			super();
 			this.addr = addr;
 			this.iface = iface;
@@ -147,7 +147,7 @@ public class NetworkConfiguration {
 	 * Default constructor. However, this is a singleton class: use
 	 * {@link #getInstance()} to retrieve an instance.
 	 */
-	private NetworkConfiguration(Enumeration<NetworkInterface> networkInterfaces) {
+	private this(Enumeration<NetworkInterface> networkInterfaces) {
 		checkNetworkInterface(networkInterfaces, null);
 	}
 

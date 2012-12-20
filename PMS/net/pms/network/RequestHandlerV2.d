@@ -65,7 +65,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 		"User-Agent"
 	};
 	
-	public RequestHandlerV2(ChannelGroup group) {
+	public this(ChannelGroup group) {
 		this.group = group;
 	}
 

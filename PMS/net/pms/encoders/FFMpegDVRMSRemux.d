@@ -66,7 +66,7 @@ public class FFMpegDVRMSRemux : Player {
 		return false;
 	}
 
-	public FFMpegDVRMSRemux() {
+	public this() {
 	}
 
 	override

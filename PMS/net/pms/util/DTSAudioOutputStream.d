@@ -15,7 +15,7 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 	private OutputStream out;
 	private int padding;
 
-	public DTSAudioOutputStream(OutputStream out) {
+	public this(OutputStream out) {
 		super(out, 600000);
 		if (cast(PCMAudioOutputStream)out !is null) {
 			PCMAudioOutputStream pout = (PCMAudioOutputStream) out;

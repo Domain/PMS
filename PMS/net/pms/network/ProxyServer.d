@@ -29,7 +29,7 @@ public class ProxyServer : Thread {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProxyServer.class);
 	private int port;
 
-	public ProxyServer(int port) {
+	public this(int port) {
 		this.port = port;
 		start();
 	}

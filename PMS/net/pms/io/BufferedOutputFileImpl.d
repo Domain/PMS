@@ -169,7 +169,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 	 * @param params {@link net.pms.io.OutputParams} object that contains preferences for the buffers
 	 * 				dimensions and behavior.
 	 */
-	public BufferedOutputFileImpl(OutputParams params) {
+	public this(OutputParams params) {
 		this.minMemorySize = (int) (1048576 * params.minBufferSize);
 		this.maxMemorySize = (int) (1048576 * params.maxBufferSize);
 

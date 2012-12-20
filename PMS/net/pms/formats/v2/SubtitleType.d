@@ -131,7 +131,7 @@ public enum SubtitleType {
 		return fileExtensionToSubtitleTypeMap.keySet();
 	}
 
-	private SubtitleType(int index, String description, List<String> fileExtensions, List<String> libMediaInfoCodecs) {
+	private this(int index, String description, List<String> fileExtensions, List<String> libMediaInfoCodecs) {
 		this.index = index;
 		this.description = description;
 		this.fileExtensions = fileExtensions;

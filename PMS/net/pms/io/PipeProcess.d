@@ -31,7 +31,7 @@ public class PipeProcess {
 	private WindowsNamedPipe mk;
 	private bool forcereconnect;
 
-	public PipeProcess(String pipeName, OutputParams params, String... extras) {
+	public this(String pipeName, OutputParams params, String... extras) {
 		forcereconnect = false;
 		bool in = true;
 
@@ -54,7 +54,7 @@ public class PipeProcess {
 		}
 	}
 
-	public PipeProcess(String pipeName, String... extras) {
+	public this(String pipeName, String... extras) {
 		this(pipeName, null, extras);
 	}
 

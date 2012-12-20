@@ -58,7 +58,7 @@ public class MapFileConfiguration {
 		files = f;
 	}
 
-	public MapFileConfiguration() {
+	public this() {
 		children = new ArrayList<MapFileConfiguration>();
 		files = new ArrayList/*<File>*/();
 	}

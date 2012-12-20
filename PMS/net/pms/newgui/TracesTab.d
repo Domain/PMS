@@ -48,7 +48,7 @@ public class TracesTab {
 		private JPopupMenu popup;
 		private JComponent component;
 
-		public PopupTriggerMouseListener(JPopupMenu popup, JComponent component) {
+		public this(JPopupMenu popup, JComponent component) {
 			this.popup = popup;
 			this.component = component;
 		}

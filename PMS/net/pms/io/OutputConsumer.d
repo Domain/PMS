@@ -31,7 +31,7 @@ public abstract class OutputConsumer : Thread {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OutputConsumer.class);
 	protected InputStream inputStream;
 
-	public OutputConsumer(InputStream inputStream) {
+	public this(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
 

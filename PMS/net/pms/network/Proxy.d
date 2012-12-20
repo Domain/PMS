@@ -34,7 +34,7 @@ public class Proxy : Thread {
 	private PrintWriter toWeb;
 	private bool writeCache;
 
-	public Proxy(Socket s, bool writeCache) {
+	public this(Socket s, bool writeCache) {
 		socket = s;
 		fromBrowser = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		toBrowser = socket.getOutputStream();

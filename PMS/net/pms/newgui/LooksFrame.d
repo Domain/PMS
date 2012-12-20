@@ -148,7 +148,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 	 * Constructs a <code>DemoFrame</code>, configures the UI,
 	 * and builds the content.
 	 */
-	public LooksFrame(AutoUpdater autoUpdater, PmsConfiguration configuration) {
+	public this(AutoUpdater autoUpdater, PmsConfiguration configuration) {
 		this.autoUpdater = autoUpdater;
 		this.configuration = configuration;
 		assert this.configuration !is null;

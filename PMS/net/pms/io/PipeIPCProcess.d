@@ -44,7 +44,7 @@ public class PipeIPCProcess : Thread : ProcessWrapper {
 		this.modifier = modifier;
 	}
 
-	public PipeIPCProcess(String pipeName, String pipeNameOut, bool forcereconnect1, bool forcereconnect2) {
+	public this(String pipeName, String pipeNameOut, bool forcereconnect1, bool forcereconnect2) {
 		mkin = new PipeProcess(pipeName, forcereconnect1 ? "reconnect" : "dummy");
 		mkout = new PipeProcess(pipeNameOut, "out", forcereconnect2 ? "reconnect" : "dummy");
 	}

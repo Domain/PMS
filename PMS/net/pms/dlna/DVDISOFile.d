@@ -83,7 +83,7 @@ public class DVDISOFile : VirtualFolder {
 	}
 	private File f;
 
-	public DVDISOFile(File f) {
+	public this(File f) {
 		super(PREFIX + (f.isFile() ? f.getName() : "VIDEO_TS"), null);
 		this.f = f;
 		setLastModified(f.lastModified());

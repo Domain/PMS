@@ -7,7 +7,7 @@ import java.util.List;
 public class InternalJavaProcessImpl : ProcessWrapper {
 	private InputStream input;
 
-	public InternalJavaProcessImpl(InputStream input) {
+	public this(InputStream input) {
 		this.input = input;
 	}
 

@@ -57,15 +57,15 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 		return success;
 	}
 
-	public ProcessWrapperImpl(String cmdArray[], OutputParams params) {
+	public this(String cmdArray[], OutputParams params) {
 		this(cmdArray, params, false, false);
 	}
 
-	public ProcessWrapperImpl(String cmdArray[], OutputParams params, bool keepOutput) {
+	public this(String cmdArray[], OutputParams params, bool keepOutput) {
 		this(cmdArray, params, keepOutput, keepOutput);
 	}
 
-	public ProcessWrapperImpl(String cmdArray[], OutputParams params, bool keepStdout, bool keepStderr) {
+	public this(String cmdArray[], OutputParams params, bool keepStdout, bool keepStderr) {
 		super();
 
 		// Determine a suitable thread name for this process:

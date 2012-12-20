@@ -53,7 +53,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	private PipedOutputStream pipedOutputStream;
 	private PipedInputStream pipedInputStream;
 	
-	public UnbufferedOutputFile(OutputParams params) {
+	public this(OutputParams params) {
 		pipedOutputStream = new PipedOutputStream();
 		
 		try {

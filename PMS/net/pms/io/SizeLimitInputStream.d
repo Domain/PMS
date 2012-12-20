@@ -130,7 +130,7 @@ public class SizeLimitInputStream : InputStream {
 	 * 
 	 * @since ostermillerutils 1.04.00
 	 */
-	public SizeLimitInputStream(InputStream in, long maxBytesToRead) {
+	public this(InputStream in, long maxBytesToRead) {
 		this.in = in;
 		this.maxBytesToRead = maxBytesToRead;
 	}

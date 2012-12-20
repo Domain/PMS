@@ -138,7 +138,7 @@ public class PMS {
 
 	public ArrayList/*<Process>*/ currentProcesses = new ArrayList/*<Process>*/();
 
-	private PMS() {
+	private this() {
 	}
 
 	/**

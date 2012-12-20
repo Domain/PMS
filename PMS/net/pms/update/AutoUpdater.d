@@ -39,7 +39,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 	private int totalBytes = -1;
 	private bool downloadCancelled = false;
 
-	public AutoUpdater(String updateServerUrl, String currentVersion) {
+	public this(String updateServerUrl, String currentVersion) {
 		this.serverUrl = updateServerUrl; // may be null if updating is disabled
 		this.currentVersion = new Version(currentVersion);
 	}

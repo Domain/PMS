@@ -33,11 +33,11 @@ class ImagePanel : JPanel {
 	protected int originX;
 	protected int originY;
 
-	public ImagePanel() {
+	public this() {
 		this(null);
 	}
 
-	public ImagePanel(RenderedImage renderedimage) {
+	public this(RenderedImage renderedimage) {
 		source = null;
 		originX = 0;
 		originY = 0;

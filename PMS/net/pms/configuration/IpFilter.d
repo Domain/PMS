@@ -51,7 +51,7 @@ public class IpFilter {
 
 		String name;
 
-		public HostNamePredicate(String n) {
+		public this(String n) {
 			this.name = n.toLowerCase().trim();
 		}
 
@@ -72,7 +72,7 @@ public class IpFilter {
 			int min;
 			int max;
 
-			public ByteRule(int a, int b) {
+			public this(int a, int b) {
 				this.min = a;
 				this.max = b;
 
@@ -123,7 +123,7 @@ public class IpFilter {
 
 		List/*<ByteRule>*/ rules;
 
-		public IpPredicate(String[] tags) {
+		public this(String[] tags) {
 			this.rules = new ArrayList/*<ByteRule>*/(tags.length);
 			foreach (String s ; tags) {
 				s = s.trim();
@@ -202,10 +202,10 @@ public class IpFilter {
 	List/*<Predicate>*/ matchers = new ArrayList/*<Predicate>*/();
 	Set/*<String>*/ logged = new HashSet/*<String>*/();
 
-	public IpFilter() {
+	public this() {
 	}
 
-	public IpFilter(String f) {
+	public this(String f) {
 		setRawFilter(f);
 	}
 

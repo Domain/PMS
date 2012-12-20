@@ -61,7 +61,7 @@ public class OutputParams {
 	public bool avidemux;
 	public bool shift_scr;
 
-	public OutputParams(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		if (configuration !is null) {
 			waitbeforestart = configuration.getVideoTranscodeStartDelay() * 1000;
 		} else {

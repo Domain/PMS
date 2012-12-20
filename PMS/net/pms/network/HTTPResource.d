@@ -64,7 +64,7 @@ public class HTTPResource {
 	public static final String GIF_TYPEMIME = "image/gif";
 	public static final String BMP_TYPEMIME = "image/bmp";
 
-	public HTTPResource() { }
+	public this() { }
 
 	/**
 	 * Returns for a given item type the default MIME type associated. This is used in the HTTP transfers

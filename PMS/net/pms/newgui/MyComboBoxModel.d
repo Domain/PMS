@@ -23,11 +23,11 @@ import javax.swing.*;
 public class MyComboBoxModel : DefaultComboBoxModel {
 	private static final long serialVersionUID = -9094365556516842551L;
 
-	public MyComboBoxModel() {
+	public this() {
 		super();
 	}
 
-	public MyComboBoxModel(Object[] items) {
+	public this(Object[] items) {
 		super(items);
 	}
 

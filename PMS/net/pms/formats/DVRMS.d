@@ -52,7 +52,7 @@ public class DVRMS : Format {
 		return true;
 	}
 
-	public DVRMS() {
+	public this() {
 		type = VIDEO;
 	}
 

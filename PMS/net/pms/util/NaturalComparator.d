@@ -55,7 +55,7 @@ public final class NaturalComparator {
     /**
      * This is a utility class (static methods only), don't instantiate.
      */
-    private NaturalComparator() {
+    private this() {
     }
 
     /**

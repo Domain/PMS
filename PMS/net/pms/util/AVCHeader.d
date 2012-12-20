@@ -48,7 +48,7 @@ public class AVCHeader {
 	 *
 	 * @param buffer The byte buffer to parse.
 	 */
-	public AVCHeader(byte buffer[]) {
+	public this(byte buffer[]) {
 		this.buffer = buffer;
 		currentBit = 0;
 	}

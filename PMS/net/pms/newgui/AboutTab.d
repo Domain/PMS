@@ -123,7 +123,7 @@ public class AboutTab {
 		private final String name;
 		private final String link;
 
-		public LinkMouseListener(String n, String l) {
+		public this(String n, String l) {
 			name = n;
 			link = l;
 		}
