@@ -17,7 +17,7 @@ public class InternalJavaProcessImpl : ProcessWrapper {
 	}
 
 	override
-	public List<String> getResults() {
+	public List/*<String>*/ getResults() {
 		return null;
 	}
 

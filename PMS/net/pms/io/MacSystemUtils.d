@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MacSystemUtils : BasicSystemUtils {
-	private final static Logger LOGGER = LoggerFactory.getLogger(MacSystemUtils.class);
+	private immutable static Logger LOGGER = LoggerFactory.getLogger(MacSystemUtils.class);
 
 	public this() { }
 
@@ -23,7 +23,7 @@ public class MacSystemUtils : BasicSystemUtils {
 		try {
 			// On OS X, open the given URI with the "open" command.
 			// This will open HTTP URLs in the default browser.
-			Runtime.getRuntime().exec(new String[] { "open", uri });
+			Runtime.getRuntime().exec([ "open", uri ]);
 		} catch (IOException e) {
 			LOGGER.trace("Unable to open the given URI: {}", uri);
 		}
@@ -50,9 +50,9 @@ public class MacSystemUtils : BasicSystemUtils {
 		InputStream inputStream = null;
 
 		try {
-			Process process = Runtime.getRuntime().exec(new String[] { "ifconfig", ni.getName(), "ether" });
+			Process process = Runtime.getRuntime().exec([ "ifconfig", ni.getName(), "ether" ]);
 			inputStream = process.getInputStream();
-			List<String> lines = IOUtils.readLines(inputStream);
+			List/*<String>*/ lines = IOUtils.readLines(inputStream);
 			String aMacStr = null;
 			Pattern aMacPattern = Pattern.compile("\\s*ether\\s*([a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2})");
 
@@ -71,7 +71,7 @@ public class MacSystemUtils : BasicSystemUtils {
 
 				for (int i = 0; i < aComps.length; i++) {
 					String aComp = aComps[i];
-					aHardwareAddress[i] = (byte) Short.valueOf(aComp, 16).shortValue();
+					aHardwareAddress[i] = cast(byte) Short.valueOf(aComp, 16).shortValue();
 				}
 			}
 		} catch (IOException e) {

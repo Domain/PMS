@@ -5,6 +5,14 @@ Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "PMS", "PMS\PMS.visualdproj"
 EndProject
 Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "tools", "tools\tools.visualdproj", "{7DFCF5DE-EC93-448B-928E-FF0186927D12}"
 EndProject
+Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "java", "java\java.visualdproj", "{BCF18074-B869-4360-9756-AF4E4C4FB026}"
+EndProject
+Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "sun", "sun\sun.visualdproj", "{4CC59204-5A96-4914-8D11-2B43D56AE780}"
+EndProject
+Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "apache", "apache\apache.visualdproj", "{CCE50A78-FC1F-47F3-9D5C-2A0A98F88BEB}"
+EndProject
+Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "mozilla", "mozilla\mozilla.visualdproj", "{3B21C261-3AFB-4B70-A52F-F876855F6497}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -18,6 +26,22 @@ Global
 		{7DFCF5DE-EC93-448B-928E-FF0186927D12}.Debug|Win32.Build.0 = Debug|Win32
 		{7DFCF5DE-EC93-448B-928E-FF0186927D12}.Release|Win32.ActiveCfg = Release|Win32
 		{7DFCF5DE-EC93-448B-928E-FF0186927D12}.Release|Win32.Build.0 = Release|Win32
+		{BCF18074-B869-4360-9756-AF4E4C4FB026}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BCF18074-B869-4360-9756-AF4E4C4FB026}.Debug|Win32.Build.0 = Debug|Win32
+		{BCF18074-B869-4360-9756-AF4E4C4FB026}.Release|Win32.ActiveCfg = Release|Win32
+		{BCF18074-B869-4360-9756-AF4E4C4FB026}.Release|Win32.Build.0 = Release|Win32
+		{4CC59204-5A96-4914-8D11-2B43D56AE780}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4CC59204-5A96-4914-8D11-2B43D56AE780}.Debug|Win32.Build.0 = Debug|Win32
+		{4CC59204-5A96-4914-8D11-2B43D56AE780}.Release|Win32.ActiveCfg = Release|Win32
+		{4CC59204-5A96-4914-8D11-2B43D56AE780}.Release|Win32.Build.0 = Release|Win32
+		{CCE50A78-FC1F-47F3-9D5C-2A0A98F88BEB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CCE50A78-FC1F-47F3-9D5C-2A0A98F88BEB}.Debug|Win32.Build.0 = Debug|Win32
+		{CCE50A78-FC1F-47F3-9D5C-2A0A98F88BEB}.Release|Win32.ActiveCfg = Release|Win32
+		{CCE50A78-FC1F-47F3-9D5C-2A0A98F88BEB}.Release|Win32.Build.0 = Release|Win32
+		{3B21C261-3AFB-4B70-A52F-F876855F6497}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3B21C261-3AFB-4B70-A52F-F876855F6497}.Debug|Win32.Build.0 = Debug|Win32
+		{3B21C261-3AFB-4B70-A52F-F876855F6497}.Release|Win32.ActiveCfg = Release|Win32
+		{3B21C261-3AFB-4B70-A52F-F876855F6497}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

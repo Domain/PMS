@@ -6,6 +6,7 @@ import std.file;
 import std.path;
 import std.exception;
 import std.array;
+import std.regex;
 
 void generateFile(string dir, string prefix)
 {
@@ -33,26 +34,50 @@ void generateFile(string dir, string prefix)
 	}
 }
 
+string j2d(string filename)
+{
+	return null;
+}
+
+string[] test()
+{
+	return ["abc"];
+}
+
 int main(string[] argv)
 {
-	if (argv.length != 2 && argv.length != 3)
+	if (argv.length != 3)
 	{
-		writefln("Usage: %s <dir> [-r]", argv[0]);
+		writefln("Usage: %s <javadir> <ddir>", argv[0]);
 		return 1;
 	}
 
-	auto dir = argv[1];
-	auto r = false;
-	if (argv.length == 3 && argv[2] == "-r")
-	{
-		r = true;
+	auto jdir = argv[1];
+	auto ddir = argv[2];
+	auto t = test();
+
+	foreach (entry; dirEntries(jdir, SpanMode.depth)) 
+	{ 
+		if (entry.isFile())
+		{
+			auto src = File(entry.name, "r");
+			scope(exit) src.close;
+			auto content = appender!string();
+			foreach (line; src.byLine())
+			{
+				line = line.replace("@Deprecated", "deprecated");
+				line = line.replace("@Override", "override");
+				line = line.replace("Boolean", "bool");
+				content.put(line);
+			}
+		}
 	}
 
-	foreach (entry; dirEntries(dir, SpanMode.depth)) 
+	foreach (entry; dirEntries(ddir, SpanMode.depth)) 
 	{ 
 		if (entry.isDir())
 		{
-			generateFile(entry.name, dir);
+			generateFile(entry.name, ddir);
 		}
 	}
 	return 0;

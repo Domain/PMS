@@ -28,8 +28,8 @@ import java.io.IOException;
 deprecated
 // no longer used
 public class BlockerFileInputStream : UnusedInputStream {
-	private static final Logger logger = LoggerFactory.getLogger(BlockerFileInputStream.class);
-	private static final int CHECK_INTERVAL = 1000;
+	private static immutable Logger logger = LoggerFactory.getLogger(BlockerFileInputStream.class);
+	private static const int CHECK_INTERVAL = 1000;
 	private long readCount;
 	private long waitSize;
 	private File file;
@@ -56,7 +56,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 
 	private bool checkAvailability() {
 		if (readCount > file.length()) {
-			logger.debug("File " + file.getAbsolutePath() + " is not that long!: " + readCount);
+			logger._debug("File " ~ file.getAbsolutePath() ~ " is not that long!: " ~ readCount);
 			return false;
 		}
 		int c = 0;
@@ -64,7 +64,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 		long wait = firstRead ? waitSize : 100000;
 		while (writeCount - readCount <= wait && c < 15) {
 			if (c == 0) {
-				logger.trace("Suspend File Read: readCount=" + readCount + " / writeCount=" + writeCount);
+				logger.trace("Suspend File Read: readCount=" ~ readCount.toString() ~ " / writeCount=" ~ writeCount.toString());
 			}
 			c++;
 			try {
@@ -75,7 +75,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 		}
 
 		if (c > 0) {
-			logger.trace("Resume Read: readCount=" + readCount + " / writeCount=" + file.length());
+			logger.trace("Resume Read: readCount=" ~ readCount.toString() ~ " / writeCount=" ~ file.length().toString());
 		}
 		return true;
 	}
@@ -108,8 +108,8 @@ public class BlockerFileInputStream : UnusedInputStream {
 
 	override
 	public void unusedStreamSignal() {
-		if (!file.delete()) {
-			logger.debug("Failed to delete \"" + file.getAbsolutePath() + "\"");
+		if (!file._delete()) {
+			logger._debug("Failed to delete \"" ~ file.getAbsolutePath() ~ "\"");
 		}
 	}
 }

@@ -31,7 +31,7 @@ public class JPG : Format {
 		return Identifier.JPG;
 	}
 
-	public JPG() {
+	public this() {
 		type = IMAGE;
 	}
 

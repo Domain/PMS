@@ -156,7 +156,7 @@ public class BasicSystemUtils : SystemUtils {
 			popup.add(traceItem);
 			popup.add(defaultItem);
 
-			final TrayIcon trayIcon = new TrayIcon(trayIconImage, PropertiesUtil.getProjectProperties().get("project.name") + " " + PMS.getVersion(), popup);
+			immutable TrayIcon trayIcon = new TrayIcon(trayIconImage, PropertiesUtil.getProjectProperties().get("project.name") + " " + PMS.getVersion(), popup);
 
 			trayIcon.setImageAutoSize(true);
 			trayIcon.addActionListener(new class() ActionListener {
@@ -168,7 +168,7 @@ public class BasicSystemUtils : SystemUtils {
 			try {
 				tray.add(trayIcon);
 			} catch (AWTException e) {
-				logger.debug("Caught exception", e);
+				logger._debug("Caught exception", e);
 			}
 		}
 	}
@@ -198,8 +198,9 @@ public class BasicSystemUtils : SystemUtils {
 	 */
 	override
 	public String[] getPingCommand(String hostAddress, int count, int packetSize) {
-		return new String[] { "ping", /* count */"-c", Integer.toString(count), /* size */
-				"-s", Integer.toString(packetSize), hostAddress };
+		String[] cmd = [ "ping", /* count */"-c", Integer.toString(count), /* size */
+				"-s", Integer.toString(packetSize), hostAddress ];
+		return cmd;
 	}
 
 	/**
@@ -213,6 +214,6 @@ public class BasicSystemUtils : SystemUtils {
 		if (Platform.isMac()) {
 			icon = "icon-22.png";
 		}
-		return Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/images/" + icon));
+		return Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/images/" ~ icon));
 	}
 }

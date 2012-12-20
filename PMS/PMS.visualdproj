@@ -41,12 +41,12 @@
   <pic>0</pic>
   <cov>0</cov>
   <nofloat>0</nofloat>
-  <Dversion>2.043</Dversion>
+  <Dversion>2</Dversion>
   <ignoreUnsupportedPragmas>0</ignoreUnsupportedPragmas>
   <compiler>0</compiler>
   <otherDMD>0</otherDMD>
   <program>$(DMDInstallDir)windows\bin\dmd.exe</program>
-  <imppath />
+  <imppath>$(SolutionDir)\java $(SolutionDir)\apache $(SolutionDir)\mozilla $(SolutionDir)\sun</imppath>
   <fileImppath />
   <outdir>$(ConfigurationName)</outdir>
   <objdir>$(OutDir)</objdir>
@@ -187,167 +187,6 @@
   <filesToClean>*.obj;*.cmd;*.build;*.json;*.dep</filesToClean>
  </Config>
  <Folder name="PMS">
-  <Folder name="com">
-   <Folder name="sun">
-    <Folder name="jna">
-     <File path="com\sun\jna\Platform.d" />
-    </Folder>
-   </Folder>
-  </Folder>
-  <Folder name="java">
-   <Folder name="beans">
-    <File path="java\beans\all.d" />
-    <File path="java\beans\BeanDescriptor.d" />
-    <File path="java\beans\BeanInfo.d" />
-    <File path="java\beans\FeatureDescriptor.d" />
-    <File path="java\beans\IntrospectionException.d" />
-    <File path="java\beans\Introspector.d" />
-    <File path="java\beans\PropertyChangeEvent.d" />
-    <File path="java\beans\PropertyChangeListener.d" />
-    <File path="java\beans\PropertyChangeSupport.d" />
-    <File path="java\beans\PropertyDescriptor.d" />
-   </Folder>
-   <Folder name="io">
-    <File path="java\io\all.d" />
-    <File path="java\io\BufferedInputStream.d" />
-    <File path="java\io\BufferedReader.d" />
-    <File path="java\io\ByteArrayInputStream.d" />
-    <File path="java\io\ByteArrayOutputStream.d" />
-    <File path="java\io\File.d" />
-    <File path="java\io\FileInputStream.d" />
-    <File path="java\io\FileOutputStream.d" />
-    <File path="java\io\InputStream.d" />
-    <File path="java\io\OutputStream.d" />
-    <File path="java\io\PrintStream.d" />
-    <File path="java\io\PrintWriter.d" />
-    <File path="java\io\PushbackReader.d" />
-    <File path="java\io\Reader.d" />
-    <File path="java\io\StringReader.d" />
-    <File path="java\io\StringWriter.d" />
-    <File path="java\io\Writer.d" />
-   </Folder>
-   <Folder name="lang">
-    <Folder name="reflect">
-     <File path="java\lang\reflect\AccessibleObject.d" />
-     <File path="java\lang\reflect\all.d" />
-     <File path="java\lang\reflect\Array.d" />
-     <File path="java\lang\reflect\Constructor.d" />
-     <File path="java\lang\reflect\Field.d" />
-     <File path="java\lang\reflect\InvocationTargetException.d" />
-     <File path="java\lang\reflect\Method.d" />
-     <File path="java\lang\reflect\Package.d" />
-    </Folder>
-    <File path="java\lang\all.d" />
-    <File path="java\lang\Boolean.d" />
-    <File path="java\lang\Byte.d" />
-    <File path="java\lang\Character.d" />
-    <File path="java\lang\Class.d" />
-    <File path="java\lang\Double.d" />
-    <File path="java\lang\exceptions.d" />
-    <File path="java\lang\Float.d" />
-    <File path="java\lang\Integer.d" />
-    <File path="java\lang\interfaces.d" />
-    <File path="java\lang\Long.d" />
-    <File path="java\lang\Math.d" />
-    <File path="java\lang\Number.d" />
-    <File path="java\lang\Runnable.d" />
-    <File path="java\lang\Short.d" />
-    <File path="java\lang\String.d" />
-    <File path="java\lang\StringBuffer.d" />
-    <File path="java\lang\System.d" />
-    <File path="java\lang\Thread.d" />
-    <File path="java\lang\ThreadLocal.d" />
-    <File path="java\lang\util.d" />
-    <File path="java\lang\wrappers.d" />
-   </Folder>
-   <Folder name="math">
-    <File path="java\math\all.d" />
-    <File path="java\math\BigDecimal.d" />
-    <File path="java\math\BigInteger.d" />
-   </Folder>
-   <Folder name="net">
-    <File path="java\net\all.d" />
-    <File path="java\net\MalformedURLException.d" />
-    <File path="java\net\URL.d" />
-   </Folder>
-   <Folder name="nonstandard">
-    <File path="java\nonstandard\all.d" />
-    <File path="java\nonstandard\Locale.d" />
-    <File path="java\nonstandard\RuntimeTraits.d" />
-    <File path="java\nonstandard\SafeUtf.d" />
-    <File path="java\nonstandard\SharedLib.d" />
-    <File path="java\nonstandard\UnsafeUtf.d" />
-    <File path="java\nonstandard\UtfBase.d" />
-    <File path="java\nonstandard\WeakRef.d" />
-    <File path="java\nonstandard\XmlTranscode.d" />
-   </Folder>
-   <Folder name="text">
-    <File path="java\text\all.d" />
-    <File path="java\text\AttributedCharacterIterator.d" />
-    <File path="java\text\CharacterIterator.d" />
-    <File path="java\text\Collator.d" />
-    <File path="java\text\FieldPosition.d" />
-    <File path="java\text\Format.d" />
-    <File path="java\text\MessageFormat.d" />
-    <File path="java\text\NumberFormat.d" />
-    <File path="java\text\ParseException.d" />
-    <File path="java\text\ParsePosition.d" />
-   </Folder>
-   <Folder name="util">
-    <Folder name="regex">
-     <File path="java\util\regex\all.d" />
-     <File path="java\util\regex\Matcher.d" />
-     <File path="java\util\regex\Pattern.d" />
-     <File path="java\util\regex\PatternSyntaxException.d" />
-    </Folder>
-    <Folder name="zip">
-     <File path="java\util\zip\all.d" />
-     <File path="java\util\zip\DeflaterOutputStream.d" />
-     <File path="java\util\zip\InflaterInputStream.d" />
-    </Folder>
-    <File path="java\util\AbstractCollection.d" />
-    <File path="java\util\AbstractList.d" />
-    <File path="java\util\AbstractMap.d" />
-    <File path="java\util\AbstractSet.d" />
-    <File path="java\util\all.d" />
-    <File path="java\util\ArrayList.d" />
-    <File path="java\util\Arrays.d" />
-    <File path="java\util\Collection.d" />
-    <File path="java\util\Collections.d" />
-    <File path="java\util\Comparator.d" />
-    <File path="java\util\Currency.d" />
-    <File path="java\util\Date.d" />
-    <File path="java\util\Dictionary.d" />
-    <File path="java\util\Enumeration.d" />
-    <File path="java\util\EventListener.d" />
-    <File path="java\util\EventObject.d" />
-    <File path="java\util\HashMap.d" />
-    <File path="java\util\HashSet.d" />
-    <File path="java\util\Hashtable.d" />
-    <File path="java\util\IdentityHashMap.d" />
-    <File path="java\util\Iterator.d" />
-    <File path="java\util\LinkedHashMap.d" />
-    <File path="java\util\LinkedList.d" />
-    <File path="java\util\List.d" />
-    <File path="java\util\ListIterator.d" />
-    <File path="java\util\Locale.d" />
-    <File path="java\util\Map.d" />
-    <File path="java\util\MissingResourceException.d" />
-    <File path="java\util\Random.d" />
-    <File path="java\util\ResourceBundle.d" />
-    <File path="java\util\Set.d" />
-    <File path="java\util\SortedMap.d" />
-    <File path="java\util\SortedSet.d" />
-    <File path="java\util\Stack.d" />
-    <File path="java\util\StringTokenizer.d" />
-    <File path="java\util\Timer.d" />
-    <File path="java\util\TimerTask.d" />
-    <File path="java\util\TreeMap.d" />
-    <File path="java\util\TreeSet.d" />
-    <File path="java\util\Vector.d" />
-    <File path="java\util\WeakHashMap.d" />
-   </Folder>
-  </Folder>
   <Folder name="net">
    <Folder name="pms">
     <Folder name="configuration">
@@ -600,23 +439,6 @@
     </Folder>
     <File path="net\pms\Messages.d" />
     <File path="net\pms\PMS.d" />
-   </Folder>
-  </Folder>
-  <Folder name="org">
-   <Folder name="apache">
-    <Folder name="commons">
-     <Folder name="io">
-      <File path="org\apache\commons\io\FilenameUtils.d" />
-     </Folder>
-     <Folder name="lang">
-      <File path="org\apache\commons\lang\StringUtils.d" />
-     </Folder>
-    </Folder>
-   </Folder>
-   <Folder name="mozilla">
-    <Folder name="universalchardet">
-     <File path="org\mozilla\universalchardet\Constants.d" />
-    </Folder>
    </Folder>
   </Folder>
   <File path="main.d" />
