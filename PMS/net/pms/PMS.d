@@ -64,10 +64,16 @@ public class PMS {
 	private static const String NOCONSOLE = "noconsole";
 	private static const String PROFILES = "profiles";
 
+	/**
+	* @deprecated The version has moved to the resources/project.properties file. Use {@link #getVersion()} instead. 
+	*/
+	deprecated
+	public static String VERSION;
+
 	public static const String AVS_SEPARATOR = "\1";
 
 	// (innot): The logger used for all logging.
-	private static const Logger LOGGER = LoggerFactory.getLogger(PMS.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(PMS.class);
 
 	// TODO(tcox):  This shouldn't be static
 	private static PmsConfiguration configuration;
@@ -217,14 +223,14 @@ public class PMS {
 			int exit = process.exitValue();
 			if (exit != 0) {
 				if (error) {
-					LOGGER.info("[" + exit + "] Cannot launch " + name + " / Check the presence of " + params[0] + " ...");
+					LOGGER.info("[" ~ exit ~ "] Cannot launch " ~ name ~ " / Check the presence of " ~ params[0] ~ " ...");
 				}
 				return false;
 			}
 			return true;
 		} catch (Exception e) {
 			if (error) {
-				LOGGER.error("Cannot launch " + name + " / Check the presence of " + params[0] + " ...", e);
+				LOGGER.error("Cannot launch " ~ name ~ " / Check the presence of " ~ params[0] ~ " ...", e);
 			}
 			return false;
 		}
@@ -233,7 +239,7 @@ public class PMS {
 	/**
 	 * @see System#err
 	 */
-	private const PrintStream stderr = System.err;
+	private immutable PrintStream stderr = System.err;
 
 	/**Main resource database that supports search capabilities. Also known as media cache.
 	 * @see net.pms.dlna.DLNAMediaDatabase
@@ -313,7 +319,7 @@ public class PMS {
 		// Log system properties
 		logSystemInfo();
 
-		String cwd = new File("").getAbsolutePath();
+		String cwd = (new File("")).getAbsolutePath();
 		LOGGER.info("Working directory: " ~ cwd);
 
 		LOGGER.info("Temp directory: " ~ configuration.getTempFolder());
