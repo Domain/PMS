@@ -1979,7 +1979,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 	 * @return The InputStream
 	 * @throws IOException
 	 */
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		return getResourceInputStream("images/thumbnail-256.png");
 	}
 

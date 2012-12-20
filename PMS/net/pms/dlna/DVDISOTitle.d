@@ -231,7 +231,7 @@ public class DVDISOTitle : DLNAResource {
 	}
 
 	override
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 
@@ -271,7 +271,7 @@ public class DVDISOTitle : DLNAResource {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		File cachedThumbnail = null;
 		File thumbFolder = null;
 		bool alternativeCheck = false;

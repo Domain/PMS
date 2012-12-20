@@ -17,7 +17,7 @@ public class UriRetriever {
 	private static final int BUFFER_SIZE = 1024;
 	private HttpClient client = new HttpClient();
 
-	public byte[] get(String uri) throws IOException {
+	public byte[] get(String uri) {
 		HttpMethod method = new GetMethod(uri);
 		try {
 			int statusCode = client.executeMethod(method);
@@ -32,7 +32,7 @@ public class UriRetriever {
 		}
 	}
 
-	public byte[] getWithCallback(String uri, UriRetrieverCallback callback) throws IOException {
+	public byte[] getWithCallback(String uri, UriRetrieverCallback callback) {
 		HttpMethod getMethod = null;
 
 		try {
@@ -51,7 +51,7 @@ public class UriRetriever {
 		}
 	}
 
-	private HttpMethod startGetRequest(String uri, UriRetrieverCallback callback) throws HttpException, IOException {
+	private HttpMethod startGetRequest(String uri, UriRetrieverCallback callback) {
 		int statusCode = -1;
 		HttpMethod method = new GetMethod(uri);
 		configureMethod(method);
@@ -67,7 +67,7 @@ public class UriRetriever {
 		method.setFollowRedirects(true);
 	}
 
-	private static byte[] pullData(String uri, HttpMethod method, UriRetrieverCallback callback, int totalBytes) throws IOException {
+	private static byte[] pullData(String uri, HttpMethod method, UriRetrieverCallback callback, int totalBytes) {
 		int bytesWritten = 0;
 		InputStream input = method.getResponseBodyAsStream();
 		ByteArrayOutputStream output = new ByteArrayOutputStream(totalBytes);
@@ -83,7 +83,7 @@ public class UriRetriever {
 		return output.toByteArray();
 	}
 
-	private static void invokeCallback(String uri, UriRetrieverCallback callback, int totalBytes, int bytesWritten) throws IOException {
+	private static void invokeCallback(String uri, UriRetrieverCallback callback, int totalBytes, int bytesWritten) {
 		try {
 			callback.progressMade(uri, bytesWritten, totalBytes);
 		} catch (UriRetrieverCallback.CancelDownloadException e) {

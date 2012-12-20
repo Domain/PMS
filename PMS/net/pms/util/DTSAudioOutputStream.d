@@ -26,7 +26,7 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 	}
 
 	override
-	protected void afterChunkSend() throws IOException {
+	protected void afterChunkSend() {
 		padWithZeros(padding);
 	}
 
@@ -78,7 +78,7 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 	}
 
 	override
-	protected void beforeChunkSend() throws IOException {
+	protected void beforeChunkSend() {
 	}
 
 	public bool isDts() {

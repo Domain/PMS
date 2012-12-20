@@ -80,7 +80,7 @@ public class SpeedStats {
 		}
 
 		override
-		public Integer call() throws Exception {
+		public Integer call() {
 			try {
 				return doCall();
 			} catch (Exception e) {
@@ -89,7 +89,7 @@ public class SpeedStats {
 			}
 		}
 
-		private Integer doCall() throws Exception {
+		private Integer doCall() {
 			String ip = addr.getHostAddress();
 			logger.info("Checking IP: " + ip + " for " + rendererName);
 			// calling the canonical host name the first time is slow, so we call it in a separate thread
@@ -199,12 +199,12 @@ public class SpeedStats {
 		}
 
 		override
-		public X get() throws InterruptedException, ExecutionException {
+		public X get() {
 			return value;
 		}
 
 		override
-		public X get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+		public X get(long timeout, TimeUnit unit) {
 			return value;
 		}
 	}

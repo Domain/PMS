@@ -273,7 +273,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 		this.run();
 	}
 
-	public InputStream getInputStream(long seek) throws IOException {
+	public InputStream getInputStream(long seek) {
 		if (bo !is null) {
 			return bo.getInputStream(seek);
 		} else if (stdoutConsumer !is null && stdoutConsumer.getBuffer() !is null) {

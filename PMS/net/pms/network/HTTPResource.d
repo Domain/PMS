@@ -113,7 +113,7 @@ public class HTTPResource {
 	 * @throws IOException
 	 * @see #downloadAndSendBinary(String)
 	 */
-	protected static InputStream downloadAndSend(String u, bool saveOnDisk) throws IOException {
+	protected static InputStream downloadAndSend(String u, bool saveOnDisk) {
 		URL url = new URL(u);
 		File f = null;
 
@@ -147,7 +147,7 @@ public class HTTPResource {
 	 * @return byte array.
 	 * @throws IOException
 	 */
-	protected static byte[] downloadAndSendBinary(String u) throws IOException {
+	protected static byte[] downloadAndSendBinary(String u) {
 		return downloadAndSendBinary(u, false, null);
 	}
 
@@ -160,7 +160,7 @@ public class HTTPResource {
 	 * @return The byte array
 	 * @throws IOException
 	 */
-	protected static byte[] downloadAndSendBinary(String u, bool saveOnDisk, File f) throws IOException {
+	protected static byte[] downloadAndSendBinary(String u, bool saveOnDisk, File f) {
 		URL url = new URL(u);
 		
 		// The URL may contain user authentication information

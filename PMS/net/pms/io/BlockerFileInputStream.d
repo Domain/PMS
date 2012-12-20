@@ -35,7 +35,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 	private File file;
 	private bool firstRead;
 
-	public BlockerFileInputStream(ProcessWrapper pw, File file, double waitSize) throws IOException {
+	public BlockerFileInputStream(ProcessWrapper pw, File file, double waitSize) {
 		super(new FileInputStream(file), pw, 2000);
 		this.file = file;
 		this.waitSize = (long) (waitSize * 1048576);
@@ -43,7 +43,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 	}
 
 	override
-	public int read() throws IOException {
+	public int read() {
 		if (checkAvailability()) {
 			readCount++;
 			int r = super.read();
@@ -54,7 +54,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 		}
 	}
 
-	private bool checkAvailability() throws IOException {
+	private bool checkAvailability() {
 		if (readCount > file.length()) {
 			logger.debug("File " + file.getAbsolutePath() + " is not that long!: " + readCount);
 			return false;
@@ -80,22 +80,22 @@ public class BlockerFileInputStream : UnusedInputStream {
 		return true;
 	}
 
-	public int available() throws IOException {
+	public int available() {
 		return super.available();
 	}
 
-	public void close() throws IOException {
+	public void close() {
 		super.close();
 	}
 
-	public long skip(long n) throws IOException {
+	public long skip(long n) {
 		long l = super.skip(n);
 		readCount += l;
 		return l;
 	}
 
 	override
-	public int read(byte[] b, int off, int len) throws IOException {
+	public int read(byte[] b, int off, int len) {
 		if (checkAvailability()) {
 			int r = super.read(b, off, len);
 			firstRead = false;

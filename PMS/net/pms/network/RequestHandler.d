@@ -58,7 +58,7 @@ public class RequestHandler : Runnable {
 	};
 
 
-	public RequestHandler(Socket socket) throws IOException {
+	public RequestHandler(Socket socket) {
 		this.socket = socket;
 		this.output = socket.getOutputStream();
 		this.br = new BufferedReader(new InputStreamReader(socket.getInputStream()));

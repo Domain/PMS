@@ -387,7 +387,7 @@ public class DLNAMediaInfo : Cloneable {
 		return pw;
 	}
 
-	private ProcessWrapperImpl getMplayerThumbnail(InputFile media) throws IOException {
+	private ProcessWrapperImpl getMplayerThumbnail(InputFile media) {
 		String args[] = new String[14];
 		args[0] = PMS.getConfiguration().getMplayerPath();
 		args[1] = "-ss";

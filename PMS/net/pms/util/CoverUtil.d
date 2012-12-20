@@ -85,7 +85,7 @@ public class CoverUtil : HTTPResource {
 	 * @return The thumbnail image data or <code>null</code>.
 	 * @throws IOException Thrown when downloading the thumbnail fails.
 	 */
-	public synchronized byte[] getThumbnailFromArtistAlbum(int backend, String... info) throws IOException {
+	public synchronized byte[] getThumbnailFromArtistAlbum(int backend, String... info) {
 		if (info.length >= 2 && StringUtils.isNotBlank(info[0]) && StringUtils.isNotBlank(info[1])) {
 			String artist = URLEncoder.encode(info[0], "UTF-8");
 			String album = URLEncoder.encode(info[1], "UTF-8");

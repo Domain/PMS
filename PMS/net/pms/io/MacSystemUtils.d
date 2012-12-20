@@ -30,7 +30,7 @@ public class MacSystemUtils : BasicSystemUtils {
 	}
 
 	override
-	public bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException {
+	public bool isNetworkInterfaceLoopback(NetworkInterface ni) {
 		return false;
 	}
 
@@ -44,7 +44,7 @@ public class MacSystemUtils : BasicSystemUtils {
 	 *             only used to get a name.
 	 */
 	override
-	public byte[] getHardwareAddress(NetworkInterface ni) throws SocketException {
+	public byte[] getHardwareAddress(NetworkInterface ni) {
 		// On Mac OS X, fetch the hardware address from the command line tool "ifconfig".
 		byte[] aHardwareAddress = null;
 		InputStream inputStream = null;

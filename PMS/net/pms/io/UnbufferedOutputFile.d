@@ -68,7 +68,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * them. This object may no longer be used for writing bytes.
 	 */
 	override
-	public void close() throws IOException {
+	public void close() {
 		pipedInputStream.close();
 		pipedOutputStream.close();
 	}
@@ -93,7 +93,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @param len The number of bytes to write
 	 */
 	override
-	public void write(byte[] b, int off, int len) throws IOException {
+	public void write(byte[] b, int off, int len) {
 		pipedOutputStream.write(b, off, len);
 	}
 	
@@ -103,7 +103,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @param b The byte to write
 	 */
 	override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 		pipedOutputStream.write(b);
 	}
 
@@ -114,7 +114,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @param byteArray
 	 */
 	override
-	public void write(byte[] byteArray) throws IOException {
+	public void write(byte[] byteArray) {
 		pipedOutputStream.write(byteArray);
 	}
 	

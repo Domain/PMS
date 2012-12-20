@@ -116,16 +116,16 @@ public class PipeIPCProcess : Thread : ProcessWrapper {
 		mkout.deleteLater();
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return mkin.getInputStream();
 	}
 
-	public OutputStream getOutputStream() throws IOException {
+	public OutputStream getOutputStream() {
 		return mkout.getOutputStream();
 	}
 
 	override
-	public InputStream getInputStream(long seek) throws IOException {
+	public InputStream getInputStream(long seek) {
 		return null;
 	}
 

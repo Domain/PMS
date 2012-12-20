@@ -422,7 +422,7 @@ public class NetworkConfiguration {
 	 * @throws UnknownHostException
 	 *             If no IP address for the server name could be found.
 	 */
-	public NetworkInterface getNetworkInterfaceByServerName() throws SocketException, UnknownHostException {
+	public NetworkInterface getNetworkInterfaceByServerName() {
 		String hostname = PMS.getConfiguration().getServerHostname();
 
 		if (hostname !is null) {

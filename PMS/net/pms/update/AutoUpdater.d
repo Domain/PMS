@@ -58,7 +58,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void doPollServer() throws UpdateException {
+	private void doPollServer() {
 		assertNotInErrorState();
 
 		try {
@@ -104,7 +104,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void doGetUpdateFromNetwork() throws UpdateException {
+	private void doGetUpdateFromNetwork() {
 		assertNotInErrorState();
 		assertUpdateIsAvailable();
 
@@ -113,7 +113,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		setState(State.DOWNLOAD_FINISHED);
 	}
 
-	private void doRunUpdateAndExit() throws UpdateException {
+	private void doRunUpdateAndExit() {
 		synchronized (stateLock) {
 			if (state != State.DOWNLOAD_FINISHED) {
 				throw new UpdateException("Must download before run");
@@ -125,7 +125,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		System.exit(0);
 	}
 
-	private void launchExe() throws UpdateException {
+	private void launchExe() {
 		try {
 			File exe = new File(TARGET_FILENAME);
 			if (!exe.exists()) {
@@ -137,7 +137,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void assertUpdateIsAvailable() throws UpdateException {
+	private void assertUpdateIsAvailable() {
 		synchronized (stateLock) {
 			if (!serverProperties.isStateValid()) {
 				throw new UpdateException("Server error. Try again later.");
@@ -149,7 +149,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void assertNotInErrorState() throws UpdateException {
+	private void assertNotInErrorState() {
 		synchronized (stateLock) {
 			if (state == State.ERROR) {
 				throw new UpdateException("Update system must be reset after an error.");
@@ -182,7 +182,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		return Version.isPmsUpdatable(currentVersion, serverProperties.getLatestVersion());
 	}
 
-	private void downloadUpdate() throws UpdateException {
+	private void downloadUpdate() {
 		String downloadUrl = serverProperties.getDownloadUrl();
 
 		try {
@@ -193,7 +193,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void writeToDisk(byte[] download) throws IOException {
+	private void writeToDisk(byte[] download) {
 		File target = new File(TARGET_FILENAME);
 		InputStream downloadedFromNetwork = new ByteArrayInputStream(download);
 		FileOutputStream fileOnDisk = null;
@@ -217,12 +217,12 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void wrapException(String downloadUrl, String message, Throwable cause) throws UpdateException {
+	private void wrapException(String downloadUrl, String message, Throwable cause) {
 		throw new UpdateException("Error: " + message, cause);
 	}
 
 	override
-	public void progressMade(String uri, int bytesDownloaded, int totalBytes) throws CancelDownloadException {
+	public void progressMade(String uri, int bytesDownloaded, int totalBytes) {
 		synchronized (stateLock) {
 			this.bytesDownloaded = bytesDownloaded;
 			this.totalBytes = totalBytes;

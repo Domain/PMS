@@ -32,7 +32,7 @@ public class ProcessWrapperLiteImpl : ProcessWrapper {
 	}
 
 	override
-	public InputStream getInputStream(long seek) throws IOException {
+	public InputStream getInputStream(long seek) {
 		return null;
 	}
 

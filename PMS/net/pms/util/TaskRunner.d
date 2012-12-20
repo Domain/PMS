@@ -154,7 +154,7 @@ public class TaskRunner {
 	 * @throws InterruptedException
 	 * @see java.util.concurrent.ExecutorService#awaitTermination(long, java.util.concurrent.TimeUnit)
 	 */
-	public bool awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+	public bool awaitTermination(long timeout, TimeUnit unit) {
 		return executors.awaitTermination(timeout, unit);
 	}
 }

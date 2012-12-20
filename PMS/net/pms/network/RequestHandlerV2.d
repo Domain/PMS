@@ -71,7 +71,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 
 	override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
-		throws Exception {
+		{
 		RequestV2 request = null;
 		RendererConfiguration renderer = null;
 		String userAgentString = null;
@@ -312,7 +312,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 
 	override
 	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e)
-		throws Exception {
+		{
 		Channel ch = e.getChannel();
 		Throwable cause = e.getCause();
 		if (cast(TooLongFrameException)cause !is null) {
@@ -342,7 +342,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 
 	override
 	public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e)
-		throws Exception {
+		{
 		// as seen in http://www.jboss.org/netty/community.html#nabble-td2423020
 		super.channelOpen(ctx, e);
 		if (group !is null) {
@@ -351,7 +351,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 	}
 	/* Uncomment to see channel events in the trace logs
 	override
-	public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e) throws Exception {
+	public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e) {
 	// Log all channel events.
 	LOGGER.trace("Channel upstream event: " + e);
 	super.handleUpstream(ctx, e);

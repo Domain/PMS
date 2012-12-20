@@ -60,7 +60,7 @@ public class PCMAudioOutputStream : FlowParserOutputStream {
 	}
 
 	override
-	protected void afterChunkSend() throws IOException {
+	protected void afterChunkSend() {
 	}
 
 	override
@@ -69,7 +69,7 @@ public class PCMAudioOutputStream : FlowParserOutputStream {
 	}
 
 	override
-	protected void beforeChunkSend() throws IOException {
+	protected void beforeChunkSend() {
 		writePayload(payload);
 	}
 }

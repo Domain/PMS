@@ -45,7 +45,7 @@ public class HttpServerPipelineFactory : ChannelPipelineFactory {
 	    this.group = group;
 	}
 
-    public ChannelPipeline getPipeline() throws Exception {
+    public ChannelPipeline getPipeline() {
 		logger.trace("Creating new pipeline");
 		// Create a default pipeline implementation.
 		ChannelPipeline pipeline = pipeline();

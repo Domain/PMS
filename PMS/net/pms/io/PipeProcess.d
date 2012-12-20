@@ -107,14 +107,14 @@ public class PipeProcess {
 		}
 	}
 
-	public BufferedOutputFile getDirectBuffer() throws IOException {
+	public BufferedOutputFile getDirectBuffer() {
 		if (!PMS.get().isWindows()) {
 			return null;
 		}
 		return mk.getDirectBuffer();
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		if (!PMS.get().isWindows()) {
 			logger.trace("Opening file " + linuxPipeName + " for reading...");
 			RandomAccessFile raf = new RandomAccessFile(linuxPipeName, "r");
@@ -123,7 +123,7 @@ public class PipeProcess {
 		return mk.getReadable();
 	}
 
-	public OutputStream getOutputStream() throws IOException {
+	public OutputStream getOutputStream() {
 		if (!PMS.get().isWindows()) {
 			logger.trace("Opening file " + linuxPipeName + " for writing...");
 			RandomAccessFile raf = new RandomAccessFile(linuxPipeName, "rw");

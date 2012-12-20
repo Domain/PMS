@@ -139,7 +139,7 @@ public class SizeLimitInputStream : InputStream {
 	 * {@inheritDoc}
 	 */
 	override
-	public int read() throws IOException {
+	public int read() {
 		if (bytesRead >= maxBytesToRead) {
 			return -1;
 		}
@@ -155,7 +155,7 @@ public class SizeLimitInputStream : InputStream {
 	 * {@inheritDoc}
 	 */
 	override
-	public int read(byte[] b) throws IOException {
+	public int read(byte[] b) {
 		return this.read(b, 0, b.length);
 	}
 
@@ -163,7 +163,7 @@ public class SizeLimitInputStream : InputStream {
 	 * {@inheritDoc}
 	 */
 	override
-	public int read(byte[] b, int off, int len) throws IOException {
+	public int read(byte[] b, int off, int len) {
 		if (bytesRead >= maxBytesToRead) {
 			return -1;
 		}
@@ -181,7 +181,7 @@ public class SizeLimitInputStream : InputStream {
 	 * {@inheritDoc}
 	 */
 	override
-	public long skip(long n) throws IOException {
+	public long skip(long n) {
 		if (bytesRead >= maxBytesToRead) {
 			return -1;
 		}
@@ -196,7 +196,7 @@ public class SizeLimitInputStream : InputStream {
 	 * {@inheritDoc}
 	 */
 	override
-	public int available() throws IOException {
+	public int available() {
 		int available = in.available();
 		long bytesLeft = getBytesLeft();
 		if (available > bytesLeft) {
@@ -215,7 +215,7 @@ public class SizeLimitInputStream : InputStream {
 	 * @since ostermillerutils 1.04.00
 	 */
 	override
-	public void close() throws IOException {
+	public void close() {
 		in.close();
 	}
 
@@ -235,7 +235,7 @@ public class SizeLimitInputStream : InputStream {
 	 * {@inheritDoc}
 	 */
 	override
-	public void reset() throws IOException {
+	public void reset() {
 		if (in.markSupported() && bytesReadSinceMark <= markReadLimitBytes) {
 			bytesRead -= bytesReadSinceMark;
 			in.reset();

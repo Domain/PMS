@@ -230,7 +230,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 	}
 
 	override
-	public void close() throws IOException {
+	public void close() {
 		LOGGER.trace("EOF");
 		eof = true;
 	}
@@ -294,7 +294,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 	}
 
 	override
-	public void write(byte b[], int off, int len) throws IOException {
+	public void write(byte b[], int off, int len) {
 		if (debugOutput !is null) {
 			debugOutput.write(b, off, len);
 			debugOutput.flush();
@@ -399,7 +399,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 
 	
 	override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 		bool bb = b % 100000 == 0;
 		WaitBufferedInputStream input = getCurrentInputStream();
 		while (bb && ((input !is null && (writeCount - input.getReadCount() > bufferOverflowWarning)) || (input is null && writeCount == bufferOverflowWarning))) {

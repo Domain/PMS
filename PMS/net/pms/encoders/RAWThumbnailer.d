@@ -92,7 +92,7 @@ public class RAWThumbnailer : Player {
 		return Format.IMAGE;
 	}
 
-	public static byte[] getThumbnail(OutputParams params, String fileName) throws Exception {
+	public static byte[] getThumbnail(OutputParams params, String fileName) {
 		params.log = false;
 
 		String cmdArray[] = new String[4];

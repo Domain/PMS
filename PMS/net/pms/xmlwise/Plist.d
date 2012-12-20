@@ -100,7 +100,7 @@ public final class Plist {
 	 * @param filename the destination file to store the data to.
 	 * @throws IOException if there was an IO error saving the file.
 	 */
-	public static void store(Map<String, Object> data, String filename) throws IOException {
+	public static void store(Map<String, Object> data, String filename) {
 		store(data, new File(filename));
 	}
 
@@ -111,7 +111,7 @@ public final class Plist {
 	 * @param file the destination File to store the data to.
 	 * @throws IOException if there was an IO error saving the file.
 	 */
-	public static void store(Map<String, Object> data, File file) throws IOException {
+	public static void store(Map<String, Object> data, File file) {
 		FileOutputStream stream = null;
 		try {
 			stream = new FileOutputStream(file);
@@ -143,7 +143,7 @@ public final class Plist {
 	 * @return the resulting map as read from the plist data.
 	 * @throws XmlParseException if the plist could not be properly parsed.
 	 */
-	public static Map<String, Object> fromXml(String xml) throws XmlParseException {
+	public static Map<String, Object> fromXml(String xml) {
 		return PLIST.parse(Xmlwise.createXml(xml));
 	}
 
@@ -155,7 +155,7 @@ public final class Plist {
 	 * @throws XmlParseException if the plist could not be properly parsed.
 	 * @throws IOException if there was an issue reading the plist file.
 	 */
-	public static Map<String, Object> load(File file) throws XmlParseException, IOException {
+	public static Map<String, Object> load(File file) {
 		return PLIST.parse(Xmlwise.loadXml(file));
 	}
 
@@ -167,7 +167,7 @@ public final class Plist {
 	 * @throws XmlParseException if the plist could not be properly parsed.
 	 * @throws IOException if there was an issue reading the plist file.
 	 */
-	public static Map<String, Object> load(String filename) throws XmlParseException, IOException {
+	public static Map<String, Object> load(String filename) {
 		return load(new File(filename));
 	}
 
@@ -262,7 +262,7 @@ public final class Plist {
 	 * @return the resulting data tree structure.
 	 * @throws XmlParseException if there was any error parsing the xml.
 	 */
-	Map<String, Object> parse(XmlElement element) throws XmlParseException {
+	Map<String, Object> parse(XmlElement element) {
 		if (!"plist".equalsIgnoreCase(element.getName())) {
 			throw new XmlParseException("Expected plist top element, was: " + element.getName());
 		}
@@ -283,7 +283,7 @@ public final class Plist {
 	 * @return the resulting object.
 	 * @throws XmlParseException if there was some error in the xml.
 	 */
-	private Object parseElement(XmlElement element) throws XmlParseException {
+	private Object parseElement(XmlElement element) {
 		try {
 			return parseElementRaw(element);
 		} catch (Exception e) {
@@ -298,7 +298,7 @@ public final class Plist {
 	 * @return the resulting object.
 	 * @throws Exception if there was some error parsing the xml.
 	 */
-	private Object parseElementRaw(XmlElement element) throws Exception {
+	private Object parseElementRaw(XmlElement element) {
 		ElementType type = ElementType.valueOf(element.getName().toUpperCase());
 		switch (type) {
 			case INTEGER:
@@ -368,7 +368,7 @@ public final class Plist {
 	 * @return the dict deserialized as a map.
 	 * @throws Exception if there are any problems deserializing the map.
 	 */
-	private Map<String, Object> parseDict(List<XmlElement> elements) throws Exception {
+	private Map<String, Object> parseDict(List<XmlElement> elements) {
 		Iterator<XmlElement> element = elements.iterator();
 		HashMap<String, Object> dict = new HashMap<String, Object>();
 		while (element.hasNext()) {
@@ -389,7 +389,7 @@ public final class Plist {
 	 * @return the array deserialized as a list.
 	 * @throws Exception if there are any problems deserializing the list.
 	 */
-	private List<Object> parseArray(List<XmlElement> elements) throws Exception {
+	private List<Object> parseArray(List<XmlElement> elements) {
 		ArrayList<Object> list = new ArrayList<Object>(elements.size());
 		for (XmlElement element : elements) {
 			list.add(parseElementRaw(element));

@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class MpegUtil {
-	public static int getDurationFromMpeg(File f) throws IOException {
+	public static int getDurationFromMpeg(File f) {
 		RandomAccessFile raf = new RandomAccessFile(f, "r");
 		if (raf.length() >= 500000) {
 			Map<Integer, Integer> ptsStart = checkRange(raf, 0, 250000, false);
@@ -33,7 +33,7 @@ public class MpegUtil {
 	}
 
 	private static Map<Integer, Integer> checkRange(RandomAccessFile raf, long startingPos,
-		int range, bool end) throws IOException {
+		int range, bool end) {
 		Map<Integer, Integer> pts = new HashMap<Integer, Integer>();
 		byte buffer[] = new byte[range];
 		if (end) // statringPos not applicable for end==true
@@ -89,7 +89,7 @@ public class MpegUtil {
 	 * @throws IOException
 	 */
 	deprecated
-	public static long getPossitionForTimeInMpeg(File f, int timeS) throws IOException {
+	public static long getPossitionForTimeInMpeg(File f, int timeS) {
 	    return getPositionForTimeInMpeg(f, timeS);
 	}
 
@@ -100,7 +100,7 @@ public class MpegUtil {
 	 * @return position in stream (in bytes).
 	 * @throws IOException
 	 */
-	public static long getPositionForTimeInMpeg(File f, int timeS) throws IOException {
+	public static long getPositionForTimeInMpeg(File f, int timeS) {
 		RandomAccessFile raf = new RandomAccessFile(f, "r");
 		Map<Integer, Integer> ptsStart = checkRange(raf, 0, 250000, false);
 		long currentPos = 0;

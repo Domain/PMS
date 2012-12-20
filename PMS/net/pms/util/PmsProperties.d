@@ -15,7 +15,7 @@ public class PmsProperties {
 	private final Properties properties = new Properties();
 	private static final String ENCODING = "UTF-8";
 
-	public void loadFromByteArray(byte[] data) throws IOException {
+	public void loadFromByteArray(byte[] data) {
 		try {
 			String utf = new String(data, ENCODING);
 			StringReader reader = new StringReader(utf);
@@ -32,7 +32,7 @@ public class PmsProperties {
 	 * @param filename The properties file.
 	 * @throws IOException
 	 */
-	public void loadFromResourceFile(String filename) throws IOException {
+	public void loadFromResourceFile(String filename) {
 		InputStream inputStream = getClass().getResourceAsStream(filename);
 
 		try {

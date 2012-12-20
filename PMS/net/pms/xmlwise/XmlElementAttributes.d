@@ -47,7 +47,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 * @return the integer value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an int, or the attribute is missing.
 	 */
-	public int getInt(String attribute) throws XmlParseException {
+	public int getInt(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
 			throw new XmlParseException("Could not find attribute " + attribute);
@@ -66,7 +66,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 * @return the double value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an double, or the attribute is missing.
 	 */
-	public double getDouble(String attribute) throws XmlParseException {
+	public double getDouble(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
 			throw new XmlParseException("Could not find attribute " + attribute);
@@ -89,7 +89,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 * @return the bool value of the attribute.
 	 * @throws XmlParseException if the attribute value does match true or false as defined, or the attribute is missing.
 	 */
-	public bool getBoolean(String attribute) throws XmlParseException {
+	public bool getBoolean(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
 			throw new XmlParseException("Could not find attribute " + attribute);

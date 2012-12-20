@@ -363,7 +363,7 @@ public class RestrictedFileSystemView : FileSystemView {
 		}
 	}
 
-	public File createNewFolder(File containingDir) throws IOException {
+	public File createNewFolder(File containingDir) {
 		if (containingDir is null) {
 			throw new IOException("Containing directory is null:");
 		}

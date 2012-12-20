@@ -18,7 +18,7 @@ public class AutoUpdaterServerProperties {
 	private final PmsProperties properties = new PmsProperties();
 	private final OperatingSystem operatingSystem = new OperatingSystem();
 
-	public void loadFrom(byte[] data) throws IOException {
+	public void loadFrom(byte[] data) {
 		properties.clear();
 		properties.loadFromByteArray(data);
 	}

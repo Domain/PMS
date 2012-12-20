@@ -72,7 +72,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the sub element.
 	 * @throws XmlParseException if there are more than one of the sub element, or if no such element was found.
 	 */
-	public XmlElement getUnique(final String name) throws XmlParseException {
+	public XmlElement getUnique(final String name) {
 		LinkedList<XmlElement> matches = get(name);
 		if (matches.size() != 1) {
 			throw new XmlParseException("Unexpected number of elements of type " + name + " in element <" + getName() + ">");
@@ -87,7 +87,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the integer value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an int, or the attribute is missing.
 	 */
-	public int getIntAttribute(String attribute) throws XmlParseException {
+	public int getIntAttribute(String attribute) {
 		return getAttributes().getInt(attribute);
 	}
 
@@ -99,7 +99,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the integer value of the attribute or the default value if the attribute is missing.
 	 * @throws XmlParseException if we fail to parse this attribute as an int.
 	 */
-	public int getIntAttribute(String attribute, int defaultValue) throws XmlParseException {
+	public int getIntAttribute(String attribute, int defaultValue) {
 		return containsAttribute(attribute) ? getIntAttribute(attribute) : defaultValue;
 	}
 
@@ -110,7 +110,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the double value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an double, or the attribute is missing.
 	 */
-	public double getDoubleAttribute(String attribute) throws XmlParseException {
+	public double getDoubleAttribute(String attribute) {
 		return getAttributes().getDouble(attribute);
 	}
 
@@ -122,7 +122,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the double value of the attribute or the default value if the attribute is missing.
 	 * @throws XmlParseException if we fail to parse this attribute as an double.
 	 */
-	public double getDoubleAttribute(String attribute, double defaultValue) throws XmlParseException {
+	public double getDoubleAttribute(String attribute, double defaultValue) {
 		return containsAttribute(attribute) ? getDoubleAttribute(attribute) : defaultValue;
 	}
 
@@ -159,7 +159,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the bool value of the attribute.
 	 * @throws XmlParseException if the attribute value does match true or false as defined, or the attribute is missing.
 	 */
-	public bool getBoolAttribute(String attribute) throws XmlParseException {
+	public bool getBoolAttribute(String attribute) {
 		return getAttributes().getBoolean(attribute);
 	}
 
@@ -175,7 +175,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the bool value of the attribute or the default value if the attribute is missing.
 	 * @throws XmlParseException if the attribute value does match true or false as defined
 	 */
-	public bool getBoolAttribute(String attribute, bool defaultValue) throws XmlParseException {
+	public bool getBoolAttribute(String attribute, bool defaultValue) {
 		return containsAttribute(attribute) ? getBoolAttribute(attribute) : defaultValue;
 	}
 

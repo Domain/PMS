@@ -165,7 +165,7 @@ public class Request : HTTPResource {
 		return argument;
 	}
 
-	public void answer(OutputStream output, StartStopListenerDelegate startStopListenerDelegate) throws IOException {
+	public void answer(OutputStream output, StartStopListenerDelegate startStopListenerDelegate) {
 		this.output = output;
 
 		long CLoverride = -2; // 0 and above are valid Content-Length values, -1 means omit
@@ -730,7 +730,7 @@ public class Request : HTTPResource {
 		}
 	}
 
-	private void output(OutputStream output, String line) throws IOException {
+	private void output(OutputStream output, String line) {
 		output.write((line + CRLF).getBytes("UTF-8"));
 		LOGGER.trace("Wrote on socket: " + line);
 	}
@@ -741,7 +741,7 @@ public class Request : HTTPResource {
 	}
 
 	// VISTA tip ?: netsh interface tcp set global autotuninglevel=disabled
-	private int sendBytes(InputStream fis) throws IOException {
+	private int sendBytes(InputStream fis) {
 		byte[] buffer = new byte[32 * 1024];
 		int bytes = 0;
 		int sendBytes = 0;

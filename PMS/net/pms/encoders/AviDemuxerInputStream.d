@@ -56,7 +56,7 @@ public class AviDemuxerInputStream : InputStream {
 		super.close();
 	}
 
-	public this(InputStream fin, final OutputParams params, ArrayList<ProcessWrapper> at) throws IOException {
+	public this(InputStream fin, final OutputParams params, ArrayList<ProcessWrapper> at) {
 		stream = fin;
 		LOGGER.trace("Opening AVI Stream");
 		this.attachedProcesses = at;

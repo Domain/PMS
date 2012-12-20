@@ -39,7 +39,7 @@ class WaitBufferedInputStream : InputStream {
 		firstRead = true;
 	}
 
-	public int read() throws IOException {
+	public int read() {
 		int r = outputStream.read(firstRead, getReadCount());
 		if (r != -1) {
 			setReadCount(getReadCount() + 1);
@@ -49,7 +49,7 @@ class WaitBufferedInputStream : InputStream {
 	}
 
 	override
-	public int read(byte[] b, int off, int len) throws IOException {
+	public int read(byte[] b, int off, int len) {
 		int returned = outputStream.read(firstRead, getReadCount(), b, off, len);
 		if (returned != -1) {
 			setReadCount(getReadCount() + returned);
@@ -59,15 +59,15 @@ class WaitBufferedInputStream : InputStream {
 	}
 
 	override
-	public int read(byte[] b) throws IOException {
+	public int read(byte[] b) {
 		return read(b, 0, b.length);
 	}
 
-	public int available() throws IOException {
+	public int available() {
 		return (int) outputStream.getWriteCount();
 	}
 
-	public void close() throws IOException {
+	public void close() {
 		outputStream.removeInputStream(this);
 		outputStream.detachInputStream();
 	}

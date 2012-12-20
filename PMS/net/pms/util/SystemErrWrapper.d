@@ -12,7 +12,7 @@ public class SystemErrWrapper : OutputStream {
 	private byte line[] = new byte[5000];
 
 	override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 		if (b == 10) {
 			byte text[] = new byte[pos];
 			System.arraycopy(line, 0, text, 0, pos);

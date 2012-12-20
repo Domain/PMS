@@ -71,7 +71,7 @@ public class UPNPHelper {
 	 * @param st The search target string
 	 * @throws IOException
 	 */
-	private static void sendDiscover(String host, int port, String st) throws IOException {
+	private static void sendDiscover(String host, int port, String st) {
 		String usn = PMS.get().usn();
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
@@ -94,7 +94,7 @@ public class UPNPHelper {
 		sendReply(host, port, discovery);
 	}
 
-	private static void sendReply(String host, int port, String msg) throws IOException {
+	private static void sendReply(String host, int port, String msg) {
 		try {
 			DatagramSocket ssdpUniSock = new DatagramSocket();
 
@@ -109,7 +109,7 @@ public class UPNPHelper {
 		}
 	}
 
-	public static void sendAlive() throws IOException {
+	public static void sendAlive() {
 		logger.debug("Sending ALIVE...");
 
 		MulticastSocket ssdpSocket = getNewMulticastSocket();
@@ -123,7 +123,7 @@ public class UPNPHelper {
 		ssdpSocket = null;
 	}
 
-	private static MulticastSocket getNewMulticastSocket() throws IOException {
+	private static MulticastSocket getNewMulticastSocket() {
 		MulticastSocket ssdpSocket = new MulticastSocket();
 		ssdpSocket.setReuseAddress(true);
 		NetworkInterface ni = NetworkConfiguration.getInstance().getNetworkInterfaceByServerName();
@@ -152,7 +152,7 @@ public class UPNPHelper {
 		return ssdpSocket;
 	}
 
-	public static void sendByeBye() throws IOException {
+	public static void sendByeBye() {
 		logger.info("Sending BYEBYE...");
 		MulticastSocket ssdpSocket = getNewMulticastSocket();
 
@@ -174,7 +174,7 @@ public class UPNPHelper {
 		}
 	}
 
-	private static void sendMessage(DatagramSocket socket, String nt, String message) throws IOException {
+	private static void sendMessage(DatagramSocket socket, String nt, String message) {
 		String msg = buildMsg(nt, message);
 		Random rand = new Random();
 		//logger.trace( "Sending this SSDP packet: " + CRLF + msg);// StringUtils.replace(msg, CRLF, "<CRLF>"));
@@ -187,7 +187,7 @@ public class UPNPHelper {
 	}
 	private static int delay = 10000;
 
-	public static void listen() throws IOException {
+	public static void listen() {
 		Runnable rAlive = new class() Runnable {
 			public void run() {
 				while (true) {
@@ -324,7 +324,7 @@ public class UPNPHelper {
 		return sb.toString();
 	}
 
-	private static InetAddress getUPNPAddress() throws IOException {
+	private static InetAddress getUPNPAddress() {
 		return InetAddress.getByAddress(IPV4_UPNP_HOST, new byte[]{(byte) 239, (byte) 255, (byte) 255, (byte) 250});
 	}
 }

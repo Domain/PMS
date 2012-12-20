@@ -23,12 +23,12 @@ public abstract class FlowParserOutputStream : OutputStream {
 	}
 
 	override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 	}
 	public int count;
 
 	override
-	public void write(byte[] b, int off, int len) throws IOException {
+	public void write(byte[] b, int off, int len) {
 		if (swapOrderBits == 2) {
 			if (swapRemainingByte !is null && swapRemainingByte.length == 1) {
 				buffer.put(b[off]);
@@ -107,12 +107,12 @@ public abstract class FlowParserOutputStream : OutputStream {
 		}
 	}
 
-	protected void writePayload(byte payload[]) throws IOException {
+	protected void writePayload(byte payload[]) {
 		out.write(payload, 0, payload.length);
 	}
 	private byte zerobuffer[];
 
-	protected void padWithZeros(int numberOfZeros) throws IOException {
+	protected void padWithZeros(int numberOfZeros) {
 		if (numberOfZeros > 0) {
 			out.write(zerobuffer, 0, numberOfZeros);
 		}
@@ -125,7 +125,7 @@ public abstract class FlowParserOutputStream : OutputStream {
 	protected abstract void afterChunkSend() throws IOException;
 
 	override
-	public void close() throws IOException {
+	public void close() {
 		int finalPos = buffer.position();
 		if (finalPos > 0 && streamableByteNumber > finalPos) {
 			out.write(buffer.array(), 0, finalPos);

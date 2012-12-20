@@ -245,7 +245,7 @@ public class RequestV2 : HTTPResource {
 		MessageEvent e,
 		final bool close,
 		final StartStopListenerDelegate startStopListenerDelegate
-	) throws IOException {
+	) {
 		ChannelFuture future = null;
 		long CLoverride = -2; // 0 and above are valid Content-Length values, -1 means omit
 		StringBuilder response = new StringBuilder();

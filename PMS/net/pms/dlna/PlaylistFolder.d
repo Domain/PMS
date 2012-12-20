@@ -23,7 +23,7 @@ public class PlaylistFolder : DLNAResource {
 	}
 
 	override
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 

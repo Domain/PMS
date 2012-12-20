@@ -183,7 +183,7 @@ public class BasicSystemUtils : SystemUtils {
 	 *             only used to get a name.
 	 */
 	override
-	public byte[] getHardwareAddress(NetworkInterface ni) throws SocketException {
+	public byte[] getHardwareAddress(NetworkInterface ni) {
 		return ni.getHardwareAddress();
 	}
 

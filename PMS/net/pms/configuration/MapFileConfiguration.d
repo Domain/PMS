@@ -100,7 +100,6 @@ class FileSerializer : JsonSerializer<File>, JsonDeserializer<File> {
 	}
 
 	public File deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-		throws JsonParseException
 	{
 		File file = new File(json.getAsJsonPrimitive().getAsString());
 

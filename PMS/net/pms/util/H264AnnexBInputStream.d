@@ -22,12 +22,12 @@ public class H264AnnexBInputStream : InputStream {
 	}
 
 	override
-	public int read() throws IOException {
+	public int read() {
 		return -1;
 	}
 
 	override
-	public int read(byte[] b, int off, int len) throws IOException {
+	public int read(byte[] b, int off, int len) {
 		byte h[] = null;
 		bool insertHeader = false;
 
@@ -107,7 +107,7 @@ public class H264AnnexBInputStream : InputStream {
 		return off;
 	}
 
-	private byte[] getArray(int length) throws IOException {
+	private byte[] getArray(int length) {
 		if (length < 0) {
 			logger.trace("Negative array ?");
 			return null;
@@ -128,7 +128,7 @@ public class H264AnnexBInputStream : InputStream {
 	}
 
 	override
-	public void close() throws IOException {
+	public void close() {
 		super.close();
 		if (source !is null) {
 			source.close();

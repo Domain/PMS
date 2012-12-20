@@ -370,7 +370,7 @@ public class MapFile : DLNAResource {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		return this.getConf().getThumbnailIcon() !is null
 			? getResourceInputStream(this.getConf().getThumbnailIcon())
 			: super.getThumbnailInputStream();
@@ -392,7 +392,7 @@ public class MapFile : DLNAResource {
 	}
 
 	override
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 

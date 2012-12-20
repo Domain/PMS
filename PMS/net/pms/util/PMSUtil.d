@@ -36,7 +36,7 @@ public class PMSUtil {
 	}
 
 	deprecated
-	public static bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException {
+	public static bool isNetworkInterfaceLoopback(NetworkInterface ni) {
 		logger.info("deprecated PMSUtil.isNetworkInterfaceLoopback called");
 		return PMS.get().getRegistry().isNetworkInterfaceLoopback(ni);
 	}
@@ -51,7 +51,7 @@ public class PMSUtil {
 	 *             only used to get a name.
 	 */
 	deprecated
-	public static byte[] getHardwareAddress(NetworkInterface ni) throws SocketException {
+	public static byte[] getHardwareAddress(NetworkInterface ni) {
 		logger.info("deprecated PMSUtil.getHardwareAddress called");
 		return PMS.get().getRegistry().getHardwareAddress(ni);
 	}

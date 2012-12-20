@@ -534,7 +534,7 @@ public class RootFolder : DLNAResource {
 		return res;
 	}
 
-	private VirtualFolder createApertureDlnaLibrary(String url) throws UnsupportedEncodingException, MalformedURLException, XmlParseException, IOException, URISyntaxException {
+	private VirtualFolder createApertureDlnaLibrary(String url) {
 		VirtualFolder res = null;
 
 		if (url !is null) {
@@ -640,7 +640,7 @@ public class RootFolder : DLNAResource {
 	 * @return (String) Absolute path to the iTunes XML file.
 	 * @throws Exception
 	 */
-	private String getiTunesFile() throws Exception {
+	private String getiTunesFile() {
 		String line = null;
 		String iTunesFile = null;
 

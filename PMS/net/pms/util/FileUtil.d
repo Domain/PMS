@@ -245,7 +245,7 @@ public class FileUtil {
 	 * if not detected
 	 * @throws IOException
 	 */
-	public static String getFileCharset(File file) throws IOException {
+	public static String getFileCharset(File file) {
 		byte[] buf = new byte[4096];
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
 		final UniversalDetector universalDetector = new UniversalDetector(null);
@@ -275,7 +275,7 @@ public class FileUtil {
 	 * @return true if file is UTF-8 encoded with or without BOM, false otherwise.
 	 * @throws IOException
 	 */
-	public static bool isFileUTF8(File file) throws IOException {
+	public static bool isFileUTF8(File file) {
 		return isCharsetUTF8(getFileCharset(file));
 	}
 
@@ -294,7 +294,7 @@ public class FileUtil {
 	 * @return true if file is UTF-16 encoded LE or BE, false otherwise.
 	 * @throws IOException
 	 */
-	public static bool isFileUTF16(File file) throws IOException {
+	public static bool isFileUTF16(File file) {
 		return isCharsetUTF16(getFileCharset(file));
 	}
 
@@ -322,7 +322,7 @@ public class FileUtil {
 	 * @param outputFile UTF-8 file after conversion
 	 * @throws IOException
 	 */
-	public static void convertFileFromUtf16ToUtf8(File inputFile, File outputFile) throws IOException {
+	public static void convertFileFromUtf16ToUtf8(File inputFile, File outputFile) {
 		String charset;
 
 		if (inputFile is null || !inputFile.canRead()) {

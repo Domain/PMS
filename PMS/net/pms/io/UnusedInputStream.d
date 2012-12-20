@@ -37,11 +37,11 @@ public abstract class UnusedInputStream : InputStream {
 		processToTerminate.setReadyToStop(false);
 	}
 
-	public int available() throws IOException {
+	public int available() {
 		return inputStream.available();
 	}
 
-	public void close() throws IOException {
+	public void close() {
 		inputStream.close();
 		if (processToTerminate !is null) {
 			processToTerminate.setReadyToStop(true);
@@ -66,15 +66,15 @@ public abstract class UnusedInputStream : InputStream {
 		new Thread(checkEnd, "Process Reaper").start();
 	}
 
-	public int read() throws IOException {
+	public int read() {
 		return inputStream.read();
 	}
 
-	public int read(byte[] b, int off, int len) throws IOException {
+	public int read(byte[] b, int off, int len) {
 		return inputStream.read(b, off, len);
 	}
 
-	public long skip(long n) throws IOException {
+	public long skip(long n) {
 		return inputStream.skip(n);
 	}
 

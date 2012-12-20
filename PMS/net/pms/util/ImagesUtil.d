@@ -22,7 +22,7 @@ public class ImagesUtil {
 		return new ByteArrayInputStream(baos.toByteArray());
 	}
 
-	public static void auto(InputStream input, OutputStream output, int exifOrientation) throws IOException, LLJTranException {
+	public static void auto(InputStream input, OutputStream output, int exifOrientation) {
 		// convert sanselan exif orientation -> llj operation
 		int op = 0;
 		switch (exifOrientation) {

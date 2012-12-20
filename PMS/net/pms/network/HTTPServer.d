@@ -82,7 +82,7 @@ public class HTTPServer : Runnable {
 		return port;
 	}
 
-	public bool start() throws IOException {
+	public bool start() {
 		final PmsConfiguration configuration = PMS.getConfiguration();
 		hostname = configuration.getServerHostname();
 		InetSocketAddress address = null;
