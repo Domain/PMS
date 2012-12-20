@@ -104,7 +104,7 @@ class FileSerializer : JsonSerializer<File>, JsonDeserializer<File> {
 		File file = new File(json.getAsJsonPrimitive().getAsString());
 
 		if (!FileUtil.isDirectoryReadable(file)) {
-			LOGGER.warn("Can't read directory: {}", file.getAbsolutePath());
+			LOGGER.warn("Can't read directory: %s", file.getAbsolutePath());
 			return null;
 		} else {
 			return file;
