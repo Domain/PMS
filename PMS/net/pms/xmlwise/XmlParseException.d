@@ -9,7 +9,7 @@ module net.pms.xmlwise.XmlParseException;
  */
 deprecated
 public class XmlParseException : Exception {
-	private static final long serialVersionUID = -3246260520113823143L;
+	private static const long serialVersionUID = -3246260520113823143L;
 
 	public this(Throwable cause) {
 		super(cause);

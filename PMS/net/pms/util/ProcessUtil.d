@@ -13,9 +13,9 @@ import java.lang.reflect.Field;
 public class ProcessUtil {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger(ProcessUtil.class);
 	// how long to wait in milliseconds until a kill -TERM on Unix has been deemed to fail
-	private static final int TERM_TIMEOUT = 10000;
+	private static const int TERM_TIMEOUT = 10000;
 	// how long to wait in milliseconds until a kill -ALRM on Unix has been deemed to fail
-	private static final int ALRM_TIMEOUT = 2000;
+	private static const int ALRM_TIMEOUT = 2000;
 
 	// work around a Java bug
 	// see: http://kylecartmell.com/?p=9
@@ -41,7 +41,7 @@ public class ProcessUtil {
 				f.setAccessible(true);
 				pid = f.getInt(p);
 			} catch (Throwable e) {
-				logger._debug("Can't determine the Unix process ID: " + e.getMessage());
+				logger._debug("Can't determine the Unix process ID: " ~ e.getMessage());
 			}
 		}
 
@@ -80,9 +80,9 @@ public class ProcessUtil {
 	// send a Unix process the specified signal
 	public static bool kill(Integer pid, int signal) {
 		bool killed = false;
-		logger.warn("Sending kill -" + signal + " to the Unix process: " + pid);
+		logger.warn("Sending kill -" ~ signal.toString() ~ " to the Unix process: " ~ pid.toString());
 		try {
-			Process process = Runtime.getRuntime().exec("kill -" + signal + " " + pid);
+			Process process = Runtime.getRuntime().exec("kill -" ~ signal.toString() ~ " " ~ pid.toString());
 			// "Gob": a cryptic name for (e.g.) StreamGobbler - i.e. a stream
 			// consumer that reads and discards the stream
 			new Gob(process.getErrorStream()).start();
@@ -90,10 +90,10 @@ public class ProcessUtil {
 			int exit = waitFor(process);
 			if (exit == 0) {
 				killed = true;
-				logger._debug("Successfully sent kill -" + signal + " to the Unix process: " + pid);
+				logger._debug("Successfully sent kill -" ~ signal.toString() ~ " to the Unix process: " ~ pid.toString());
 			}
 		} catch (IOException e) {
-			logger.error("Error calling: kill -" + signal + " " + pid, e);
+			logger.error("Error calling: kill -" ~ signal.toString() ~ " " ~ pid.toString(), e);
 		}
 
 		return killed;
@@ -105,7 +105,7 @@ public class ProcessUtil {
 			final Integer pid = getProcessID(p);
 
 			if (pid !is null) { // Unix only
-				logger.trace("Killing the Unix process: " + pid);
+				logger.trace("Killing the Unix process: " ~ pid.toString());
 				Runnable r = new class() Runnable {
 					public void run() {
 						try {

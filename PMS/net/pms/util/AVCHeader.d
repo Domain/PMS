@@ -118,7 +118,7 @@ public class AVCHeader {
 			return (buffer[pos] & (1 << (7 - modulo))) >> (7 - modulo);
 		} else {
 			if (!parseFailed) {
-				LOGGER.error("Cannot parse AVC header, buffer length is " + buffer.length);
+				LOGGER.error("Cannot parse AVC header, buffer length is " ~ buffer.length.toString());
 
 				// Do not log consecutive errors.
 				parseFailed = true;

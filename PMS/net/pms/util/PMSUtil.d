@@ -13,7 +13,7 @@ public class PMSUtil {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger(PMSUtil.class);
 
 	deprecated
-	public static <T> T[] copyOf(T[] original, int newLength) {
+	public static T[] copyOf(T)(T[] original, int newLength) {
 		logger.info("deprecated PMSUtil.copyOf called");
 		return Arrays.copyOf(original, newLength);
 	}
@@ -30,7 +30,7 @@ public class PMSUtil {
 	}
 
 	deprecated
-	public static void addSystemTray(final LooksFrame frame) {
+	public static void addSystemTray(immutable LooksFrame frame) {
 		logger.info("deprecated PMSUtil.addSystemTray called");
 		PMS.get().getRegistry().addSystemTray(frame);
 	}

@@ -17,13 +17,12 @@ import java.util.Map;
  *
  * @author Christoffer Lerno
  */
-@SuppressWarnings({"serial"})
 deprecated
-public class XmlElementAttributes : HashMap<String, String> {
+public class XmlElementAttributes : HashMap/*<String, String>*/ {
 	/**
 	 * Creates an empty element attribute map.
 	 */
-	XmlElementAttributes() {
+	this() {
 	}
 
 	/**
@@ -50,12 +49,12 @@ public class XmlElementAttributes : HashMap<String, String> {
 	public int getInt(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
-			throw new XmlParseException("Could not find attribute " + attribute);
+			throw new XmlParseException("Could not find attribute " ~ attribute);
 		}
 		try {
 			return Integer.parseInt(value);
 		} catch (NumberFormatException e) {
-			throw new XmlParseException("Failed to parse int attribute " + attribute, e);
+			throw new XmlParseException("Failed to parse int attribute " ~ attribute, e);
 		}
 	}
 
@@ -69,12 +68,12 @@ public class XmlElementAttributes : HashMap<String, String> {
 	public double getDouble(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
-			throw new XmlParseException("Could not find attribute " + attribute);
+			throw new XmlParseException("Could not find attribute " ~ attribute);
 		}
 		try {
 			return Double.parseDouble(value);
 		} catch (NumberFormatException e) {
-			throw new XmlParseException("Failed to parse double attribute " + attribute, e);
+			throw new XmlParseException("Failed to parse double attribute " ~ attribute, e);
 		}
 	}
 
@@ -92,7 +91,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	public bool getBoolean(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
-			throw new XmlParseException("Could not find attribute " + attribute);
+			throw new XmlParseException("Could not find attribute " ~ attribute);
 		}
 		value = value.toLowerCase();
 		if ("true".equals(value) || "yes".equals(value) || "y".equals(value)) {
@@ -101,7 +100,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 		if ("false".equals(value) || "no".equals(value) || "n".equals(value)) {
 			return false;
 		}
-		throw new XmlParseException("Attribute " + attribute + " did not have bool value (was: " + value + ')');
+		throw new XmlParseException("Attribute " ~ attribute ~ " did not have bool value (was: " ~ value ~ ')');
 	}
 
 	/**
@@ -111,7 +110,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 */
 	public String toXml() {
 		StringBuilder builder = new StringBuilder(10 * size());
-		for (Map.Entry<String, String> entry : entrySet()) {
+		foreach (Map.Entry/*<String, String>*/ entry ; entrySet()) {
 			builder.append(' ').append(entry.getKey()).append("=").append("'");
 			builder.append(Xmlwise.escapeXML(entry.getValue())).append("'");
 		}

@@ -34,12 +34,12 @@ public class CoverUtil : HTTPResource {
 	/**
 	 * Use www.discogs.com as backend for cover lookups.
 	 */
-	public static final int AUDIO_DISCOGS = 0;
+	public static const int AUDIO_DISCOGS = 0;
 
 	/**
 	 * Use www.amazon.com as backend for cover lookups.
 	 */
-	public static final int AUDIO_AMAZON = 1;
+	public static const int AUDIO_AMAZON = 1;
 
 	/**
 	 * Class instance.
@@ -51,7 +51,7 @@ public class CoverUtil : HTTPResource {
 	 * FIXME: Storing the thumbnail image data in memory is very costly.
 	 * It would be wiser to store the image as a file instead.
 	 */
-	private HashMap<String, byte[]> covers;
+	private HashMap/*<String, byte[]>*/ covers;
 
 	/**
 	 * Returns the instance of the CoverUtil class.
@@ -69,7 +69,7 @@ public class CoverUtil : HTTPResource {
 	 * This class is not meant to be instantiated. Use {@link #get()} instead.
 	 */
 	private this() {
-		covers = new HashMap<String, byte[]>();
+		covers = new HashMap/*<String, byte[]>*/();
 	}
 
 	/**
@@ -85,13 +85,13 @@ public class CoverUtil : HTTPResource {
 	 * @return The thumbnail image data or <code>null</code>.
 	 * @throws IOException Thrown when downloading the thumbnail fails.
 	 */
-	public synchronized byte[] getThumbnailFromArtistAlbum(int backend, String... info) {
+	public synchronized byte[] getThumbnailFromArtistAlbum(int backend, String[] info... ) {
 		if (info.length >= 2 && StringUtils.isNotBlank(info[0]) && StringUtils.isNotBlank(info[1])) {
 			String artist = URLEncoder.encode(info[0], "UTF-8");
 			String album = URLEncoder.encode(info[1], "UTF-8");
 
-			if (covers.get(artist + album) !is null) {
-				byte[] data = covers.get(artist + album);
+			if (covers.get(artist ~ album) !is null) {
+				byte[] data = covers.get(artist ~ album);
 
 				if (data.length == 0) {
 					return null;
@@ -101,8 +101,8 @@ public class CoverUtil : HTTPResource {
 			}
 
 			if (backend == AUDIO_DISCOGS) {
-				String url = "http://www.discogs.com/advanced_search?artist=" + artist 
-						+ "&release_title=" + album + "&btn=Search+Releases";
+				String url = "http://www.discogs.com/advanced_search?artist=" ~ artist 
+						~ "&release_title=" ~ album ~ "&btn=Search+Releases";
 				byte[] data = downloadAndSendBinary(url);
 
 				if (data !is null) {
@@ -131,13 +131,13 @@ public class CoverUtil : HTTPResource {
 							}
 						}
 					} catch (IOException e) {
-						LOGGER.error("Error while retrieving cover for " + artist + album, e);
+						LOGGER.error("Error while retrieving cover for " ~ artist ~ album, e);
 					}
 				}
 			} else if (backend == AUDIO_AMAZON) {
 				String url = "http://www.amazon.com/gp/search/ref=sr_adv_m_pop/?search-alias=popular&unfiltered=1&field-keywords=&field-artist="
-						+ artist + "&field-title=" + album 
-						+ "&field-label=&field-binding=&sort=relevancerank&Adv-Srch-Music-Album-Submit.x=35&Adv-Srch-Music-Album-Submit.y=13";
+						~ artist ~ "&field-title=" ~ album 
+						~ "&field-label=&field-binding=&sort=relevancerank&Adv-Srch-Music-Album-Submit.x=35&Adv-Srch-Music-Album-Submit.y=13";
 				byte[] data = downloadAndSendBinary(url);
 
 				if (data !is null) {
@@ -158,11 +158,11 @@ public class CoverUtil : HTTPResource {
 							return data;
 						}
 					} catch (IOException e) {
-						LOGGER.error("Error while retrieving cover for " + artist + album, e);
+						LOGGER.error("Error while retrieving cover for " ~ artist ~ album, e);
 					}
 				}
 			}
-			covers.put(artist + album, new byte[0]);
+			covers.put(artist ~ album, new byte[0]);
 		}
 		return null;
 	}

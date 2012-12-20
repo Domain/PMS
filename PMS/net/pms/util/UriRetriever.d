@@ -13,8 +13,8 @@ import java.io.InputStream;
  * @author Tim Cox (mail@tcox.org)
  */
 public class UriRetriever {
-	private static final String HTTP_HEADER_CONTENT_LENGTH = "Content-Length";
-	private static final int BUFFER_SIZE = 1024;
+	private static const String HTTP_HEADER_CONTENT_LENGTH = "Content-Length";
+	private static const int BUFFER_SIZE = 1024;
 	private HttpClient client = new HttpClient();
 
 	public byte[] get(String uri) {
@@ -26,7 +26,7 @@ public class UriRetriever {
 			}
 			return method.getResponseBody();
 		} catch (HttpException e) {
-			throw new IOException("Unable to download by HTTP" + e.getMessage());
+			throw new IOException("Unable to download by HTTP" ~ e.getMessage());
 		} finally {
 			method.releaseConnection();
 		}
@@ -41,9 +41,9 @@ public class UriRetriever {
 			byte[] data = pullData(uri, getMethod, callback, totalBytes);
 			return data;
 		} catch (HttpException e) {
-			throw new IOException("Unable to download via HTTP: " + uri + ": " + e.getMessage());
+			throw new IOException("Unable to download via HTTP: " ~ uri ~ ": " ~ e.getMessage());
 		} catch (IOException e) {
-			throw new IOException("Unable to download via HTTP: " + uri + ": " + e.getMessage());
+			throw new IOException("Unable to download via HTTP: " ~ uri ~ ": " ~ e.getMessage());
 		} finally {
 			if (getMethod !is null) {
 				getMethod.releaseConnection();
@@ -94,7 +94,7 @@ public class UriRetriever {
 	private int getContentSize(String uri, HttpMethod method) {
 		Header header = method.getResponseHeader(HTTP_HEADER_CONTENT_LENGTH);
 		if (header !is null) {
-			String value = "" + header.getValue();
+			String value = header.getValue().toString();
 			int totalBytes = -1;
 			try {
 				totalBytes = Integer.parseInt(value);

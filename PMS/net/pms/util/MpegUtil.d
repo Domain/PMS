@@ -32,9 +32,9 @@ public class MpegUtil {
 		return 0;
 	}
 
-	private static Map<Integer, Integer> checkRange(RandomAccessFile raf, long startingPos,
+	private static Map/*<Integer, Integer>*/ checkRange(RandomAccessFile raf, long startingPos,
 		int range, bool end) {
-		Map<Integer, Integer> pts = new HashMap<Integer, Integer>();
+		Map/*<Integer, Integer>*/ pts = new HashMap/*<Integer, Integer>*/();
 		byte buffer[] = new byte[range];
 		if (end) // statringPos not applicable for end==true
 		{
@@ -102,7 +102,7 @@ public class MpegUtil {
 	 */
 	public static long getPositionForTimeInMpeg(File f, int timeS) {
 		RandomAccessFile raf = new RandomAccessFile(f, "r");
-		Map<Integer, Integer> ptsStart = checkRange(raf, 0, 250000, false);
+		Map/*<Integer, Integer>*/ ptsStart = checkRange(raf, 0, 250000, false);
 		long currentPos = 0;
 
 		if (ptsStart !is null && !ptsStart.isEmpty()) {
@@ -112,9 +112,9 @@ public class MpegUtil {
 			while (maxRangePos - minRangePos > 250000 && nextPosition) {
 				nextPosition = false;
 				currentPos = minRangePos + (maxRangePos - minRangePos) / 2;
-				Map<Integer, Integer> ptsEnd = checkRange(raf, currentPos, 250000, false);
+				Map/*<Integer, Integer>*/ ptsEnd = checkRange(raf, currentPos, 250000, false);
 				if (ptsEnd !is null) {
-					Iterator<Integer> iterator = ptsStart.keySet().iterator();
+					Iterator/*<Integer>*/ iterator = ptsStart.keySet().iterator();
 					while (iterator.hasNext()) {
 						Integer id = iterator.next();
 						if (ptsEnd.get(id) !is null) {

@@ -2,7 +2,7 @@ module net.pms.util.Version;
 
 import java.util.Arrays;
 
-public final class Version : Comparable<Version> {
+public final class Version : Comparable!Version {
 	private final static int MAX_ELEMENTS = 4;
 	private final int[] elements;
 
@@ -15,17 +15,17 @@ public final class Version : Comparable<Version> {
 	}
 
 	private int[] parse(String[] elements) {
-		int[] out = new int[elements.length];
+		int[] _out = new int[elements.length];
 
 		for (int i = 0; i < elements.length; i++) {
 			try {
-				out[i] = Integer.parseInt(elements[i]);
+				_out[i] = Integer.parseInt(elements[i]);
 			} catch (NumberFormatException e) {
-				out[i] = 0;
+				_out[i] = 0;
 			}
 		}
 
-		return out;
+		return _out;
 	}
 
 	/**
@@ -38,8 +38,8 @@ public final class Version : Comparable<Version> {
 	 * equal, or greater than zero if this version is higher
 	 */
 	public int compareTo(Version other) {
-		final int[] longerElements, shorterElements;
-		final int sign;
+		int[] longerElements, shorterElements;
+		int sign;
 
 		if (elements.length >= other.elements.length) {
 			longerElements = elements;
@@ -71,7 +71,7 @@ public final class Version : Comparable<Version> {
 	override
 	public bool equals(Object other) {
 		if (cast(Version)other !is null) {
-			return compareTo((Version)other) == 0;
+			return compareTo(cast(Version)other) == 0;
 		} else {
 			return false;
 		}

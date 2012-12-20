@@ -1,13 +1,13 @@
 module net.pms.update.UpdateException;
 
 public class UpdateException : Exception {
-	private static final long serialVersionUID = 661674274433241720L;
+	private static const long serialVersionUID = 661674274433241720L;
 
-	UpdateException(String message) {
+	this(String message) {
 		super(message);
 	}
 
-	UpdateException(String message, Throwable cause) {
+	this(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

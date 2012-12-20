@@ -102,7 +102,7 @@ public class FormLayoutUtil {
 		String separator = "";
 		ColumnSpec[] flippedSpecs = flipped(ColumnSpec.decodeSpecs(encodedColumnSpecs));
 		
-		for (ColumnSpec spec : flippedSpecs) {
+		foreach (ColumnSpec spec ; flippedSpecs) {
 			result.append(separator);
 			result.append(spec.encode());
 			separator = ", ";

@@ -32,9 +32,9 @@ public class PropertiesUtil {
 	/**
 	 * General properties for the PMS project.
 	 */
-	private static final PmsProperties projectProperties = new PmsProperties();
+	private static immutable PmsProperties projectProperties = new PmsProperties();
 
-	static {
+	static this() {
 		try {
 			// Read project properties resource file.
 			projectProperties.loadFromResourceFile("/resources/project.properties");

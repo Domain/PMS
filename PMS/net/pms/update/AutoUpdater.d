@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.Observable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -19,18 +19,18 @@ import java.util.concurrent.Executors;
  * 
  * @author Tim Cox (mail@tcox.org)
  */
-public class AutoUpdater : Observable : UriRetrieverCallback {
-	private static final String TARGET_FILENAME = "new-version.exe";
+public class AutoUpdater : Observable , UriRetrieverCallback {
+	private static const String TARGET_FILENAME = "new-version.exe";
 	private static immutable Logger LOGGER = LoggerFactory.getLogger(AutoUpdater.class);
 
 	public static enum State {
 		NOTHING_KNOWN, POLLING_SERVER, NO_UPDATE_AVAILABLE, UPDATE_AVAILABLE, DOWNLOAD_IN_PROGRESS, DOWNLOAD_FINISHED, EXECUTING_SETUP, ERROR
 	}
 
-	private final String serverUrl;
-	private final UriRetriever uriRetriever = new UriRetriever();
-	private final AutoUpdaterServerProperties serverProperties = new AutoUpdaterServerProperties();
-	private final Version currentVersion;
+	private String serverUrl;
+	private UriRetriever uriRetriever = new UriRetriever();
+	private AutoUpdaterServerProperties serverProperties = new AutoUpdaterServerProperties();
+	private Version currentVersion;
 	private Executor executor = Executors.newSingleThreadExecutor();
 	private State state = State.NOTHING_KNOWN;
 	private Object stateLock = new Object();
@@ -210,7 +210,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 			}
 			fileOnDisk = new FileOutputStream(target);
 			int bytesSaved = IOUtils.copy(downloadedFromNetwork, fileOnDisk);
-			logger.info("Wrote " + bytesSaved + " bytes to " + target.getAbsolutePath());
+			logger.info("Wrote " ~ bytesSaved.toString() ~ " bytes to " ~ target.getAbsolutePath());
 		} finally {
 			IOUtils.closeQuietly(downloadedFromNetwork);
 			IOUtils.closeQuietly(fileOnDisk);
@@ -218,7 +218,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 	}
 
 	private void wrapException(String downloadUrl, String message, Throwable cause) {
-		throw new UpdateException("Error: " + message, cause);
+		throw new UpdateException("Error: " ~ message, cause);
 	}
 
 	override

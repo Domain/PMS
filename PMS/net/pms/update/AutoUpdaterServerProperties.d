@@ -11,12 +11,12 @@ import java.io.IOException;
  * @author Tim Cox (mail@tcox.org)
  */
 public class AutoUpdaterServerProperties {
-	private static final String KEY_LATEST_VERSION = "LatestVersion";
-	private static final String DEFAULT_LATEST_VERSION = "0";
-	private static final String KEY_DOWNLOAD_URL = "DownloadUrl";
-	private static final String DEFAULT_DOWNLOAD_URL = "";
-	private final PmsProperties properties = new PmsProperties();
-	private final OperatingSystem operatingSystem = new OperatingSystem();
+	private static const String KEY_LATEST_VERSION = "LatestVersion";
+	private static const String DEFAULT_LATEST_VERSION = "0";
+	private static const String KEY_DOWNLOAD_URL = "DownloadUrl";
+	private static const String DEFAULT_DOWNLOAD_URL = "";
+	private PmsProperties properties = new PmsProperties();
+	private OperatingSystem operatingSystem = new OperatingSystem();
 
 	public void loadFrom(byte[] data) {
 		properties.clear();
@@ -47,6 +47,6 @@ public class AutoUpdaterServerProperties {
 	}
 
 	private String getPlatformSpecificKey(String key) {
-		return key + "." + operatingSystem.getPlatformName();
+		return key ~ "." ~ operatingSystem.getPlatformName();
 	}
 }

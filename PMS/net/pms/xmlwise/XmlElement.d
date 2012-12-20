@@ -14,11 +14,10 @@ import java.util.LinkedList;
  *
  * @author Christoffer Lerno
  */
-@SuppressWarnings({"serial"})
-public class XmlElement : LinkedList<XmlElement> {
-	private final XmlElementAttributes m_attributes;
-	private final String m_value;
-	private final String m_name;
+public class XmlElement : LinkedList/*<XmlElement>*/ {
+	private XmlElementAttributes m_attributes;
+	private String m_value;
+	private String m_name;
 
 	/**
 	 * Creates a new XmlElement given an Element object.
@@ -33,7 +32,7 @@ public class XmlElement : LinkedList<XmlElement> {
 		for (int i = 0; i < children.getLength(); i++) {
 			Node node = children.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				add(new XmlElement((Element) node));
+				add(new XmlElement(cast(Element) node));
 			}
 			if (node.getNodeType() == Node.TEXT_NODE) {
 				textValue.append(node.getNodeValue());
@@ -73,9 +72,9 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @throws XmlParseException if there are more than one of the sub element, or if no such element was found.
 	 */
 	public XmlElement getUnique(final String name) {
-		LinkedList<XmlElement> matches = get(name);
+		LinkedList/*<XmlElement>*/ matches = get(name);
 		if (matches.size() != 1) {
-			throw new XmlParseException("Unexpected number of elements of type " + name + " in element <" + getName() + ">");
+			throw new XmlParseException("Unexpected number of elements of type " ~ name ~ " in element <" ~ getName() ~ ">");
 		}
 		return matches.getFirst();
 	}
@@ -185,9 +184,9 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @param name the key to match.
 	 * @return a linked list of matching xml elements
 	 */
-	public LinkedList<XmlElement> get(String name) {
-		LinkedList<XmlElement> list = new LinkedList<XmlElement>();
-		for (XmlElement element : this) {
+	public LinkedList/*<XmlElement>*/ get(String name) {
+		LinkedList/*<XmlElement>*/ list = new LinkedList/*<XmlElement>*/();
+		foreach (XmlElement element ; this) {
 			if (element.getName().equals(name)) {
 				list.add(element);
 			}
@@ -224,7 +223,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return true if the element exists, false otherwise.
 	 */
 	public bool contains(String key) {
-		for (XmlElement element : this) {
+		foreach (XmlElement element ; this) {
 			if (element.getName().equals(key)) {
 				return true;
 			}
@@ -238,7 +237,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return an xml string based on this element and its sub-elements.
 	 */
 	public String toXml() {
-		StringBuilder builder = new StringBuilder("<").append(m_name);
+		StringBuilder builder = (new StringBuilder("<")).append(m_name);
 		if (m_attributes.size() > 0) {
 			builder.append(m_attributes.toXml());
 		}
@@ -247,7 +246,7 @@ public class XmlElement : LinkedList<XmlElement> {
 		} else {
 			builder.append('>');
 			builder.append(Xmlwise.escapeXML(m_value));
-			for (XmlElement element : this) {
+			foreach (XmlElement element ; this) {
 				builder.append(element.toXml());
 			}
 			builder.append("</").append(m_name).append('>');
