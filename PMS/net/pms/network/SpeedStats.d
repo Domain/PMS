@@ -126,7 +126,7 @@ public class SpeedStats {
 			SystemUtils sysUtil = PMS.get().getRegistry();
 			final ProcessWrapperImpl pw = new ProcessWrapperImpl(sysUtil.getPingCommand(addr.getHostAddress(), 3, 64000), op,
 					true, false);
-			Runnable r = new Runnable() {
+			Runnable r = new class() Runnable {
 				public void run() {
 					try {
 						Thread.sleep(2000);

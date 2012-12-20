@@ -83,7 +83,7 @@ public class GeneralTab {
 
 		smcheckBox = new JCheckBox(Messages.getString("NetworkTab.3"));
 		smcheckBox.setContentAreaFilled(false);
-		smcheckBox.addItemListener(new ItemListener() {
+		smcheckBox.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMinimized((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -125,7 +125,7 @@ public class GeneralTab {
 			langs.setSelectedIndex(0);
 		}
 
-		langs.addItemListener(new ItemListener() {
+		langs.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					configuration.setLanguage((String) kcbm.getSelectedKey());
@@ -139,7 +139,7 @@ public class GeneralTab {
 		builder.add(smcheckBox, FormLayoutUtil.flip(cc.xyw(1, 9, 9), colSpec, orientation));
 
 		JButton service = new JButton(Messages.getString("NetworkTab.4"));
-		service.addActionListener(new ActionListener() {
+		service.addActionListener(new class() ActionListener {
 			override
 			public void actionPerformed(ActionEvent e) {
 				if (PMS.get().installWin32Service()) {
@@ -168,7 +168,7 @@ public class GeneralTab {
 
 		JButton checkForUpdates = new JButton(Messages.getString("NetworkTab.8"));
 
-		checkForUpdates.addActionListener(new ActionListener() {
+		checkForUpdates.addActionListener(new class() ActionListener {
 			override
 			public void actionPerformed(ActionEvent e) {
 				LooksFrame frame = (LooksFrame) PMS.get().getFrame();
@@ -180,7 +180,7 @@ public class GeneralTab {
 
 		autoUpdateCheckBox = new JCheckBox(Messages.getString("NetworkTab.9"));
 		autoUpdateCheckBox.setContentAreaFilled(false);
-		autoUpdateCheckBox.addItemListener(new ItemListener() {
+		autoUpdateCheckBox.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setAutoUpdate((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -198,7 +198,7 @@ public class GeneralTab {
 		}
 
 		host = new JTextField(configuration.getServerHostname());
-		host.addKeyListener(new KeyListener() {
+		host.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -214,7 +214,7 @@ public class GeneralTab {
 		});
 
 		port = new JTextField(configuration.getServerPort() != 5001 ? "" + configuration.getServerPort() : "");
-		port.addKeyListener(new KeyListener() {
+		port.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -246,7 +246,7 @@ public class GeneralTab {
 		final KeyedComboBoxModel networkInterfaces = createNetworkInterfacesModel();
 		networkinterfacesCBX = new JComboBox(networkInterfaces);
 		networkInterfaces.setSelectedKey(configuration.getNetworkInterface());
-		networkinterfacesCBX.addItemListener(new ItemListener() {
+		networkinterfacesCBX.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					configuration.setNetworkInterface((String) networkInterfaces.getSelectedKey());
@@ -255,7 +255,7 @@ public class GeneralTab {
 		});
 
 		ip_filter = new JTextField(configuration.getIpFilter());
-		ip_filter.addKeyListener(new KeyListener() {
+		ip_filter.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -271,7 +271,7 @@ public class GeneralTab {
 		});
 
 		maxbitrate = new JTextField(configuration.getMaximumBitrate());
-		maxbitrate.addKeyListener(new KeyListener() {
+		maxbitrate.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -304,7 +304,7 @@ public class GeneralTab {
 
 		newHTTPEngine = new JCheckBox(Messages.getString("NetworkTab.32"));
 		newHTTPEngine.setSelected(configuration.isHTTPEngineV2());
-		newHTTPEngine.addItemListener(new ItemListener() {
+		newHTTPEngine.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setHTTPEngineV2((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -313,7 +313,7 @@ public class GeneralTab {
 
 		preventSleep = new JCheckBox(Messages.getString("NetworkTab.33"));
 		preventSleep.setSelected(configuration.isPreventsSleep());
-		preventSleep.addItemListener(new ItemListener() {
+		preventSleep.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setPreventsSleep((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -322,7 +322,7 @@ public class GeneralTab {
 
 		JCheckBox fdCheckBox = new JCheckBox(Messages.getString("NetworkTab.38"));
 		fdCheckBox.setContentAreaFilled(false);
-		fdCheckBox.addItemListener(new ItemListener() {
+		fdCheckBox.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setRendererForceDefault((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -425,7 +425,7 @@ public class GeneralTab {
 			renderers.setSelectedIndex(0);
 		}
 
-		renderers.addItemListener(new ItemListener() {
+		renderers.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					logger.info("Setting renderer default: \"" + renderersKcbm.getSelectedKey() + "\"");
@@ -450,7 +450,7 @@ public class GeneralTab {
 			}
 			JButton bPlugin = new JButton(listener.name());
 			// listener to show option screen
-			bPlugin.addActionListener(new ActionListener() {
+			bPlugin.addActionListener(new class() ActionListener {
 				override
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showOptionDialog(

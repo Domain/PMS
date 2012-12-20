@@ -80,7 +80,7 @@ public class HelpTab {
 		}
 
 		// Enable internal anchor links
-		editorPane.addHyperlinkListener(new HyperlinkListener() {
+		editorPane.addHyperlinkListener(new class() HyperlinkListener {
 			public void hyperlinkUpdate(HyperlinkEvent event) {
 				try {
 					if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {

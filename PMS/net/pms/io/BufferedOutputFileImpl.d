@@ -210,7 +210,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		inputStreams = new ArrayList<WaitBufferedInputStream>();
 		timer = new Timer();
 		if (params.maxBufferSize > 15 && !params.hidebuffer) {
-			timer.schedule(new TimerTask() {
+			timer.schedule(new class() TimerTask {
 				public void run() {
 					long rc = 0;
 					if (getCurrentInputStream() !is null) {
@@ -746,7 +746,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		if (attachedThread !is null) {
 			attachedThread.setReadyToStop(true);
 		}
-		Runnable checkEnd = new Runnable() {
+		Runnable checkEnd = new class() Runnable {
 			public void run() {
 				try {
 					Thread.sleep(CHECK_END_OF_PROCESS);

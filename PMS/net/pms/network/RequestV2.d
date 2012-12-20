@@ -854,7 +854,7 @@ public class RequestV2 : HTTPResource {
 				ChannelFuture chunkWriteFuture = e.getChannel().write(new ChunkedStream(inputStream, BUFFER_SIZE));
 
 				// Add a listener to clean up after sending the entire response body.
-				chunkWriteFuture.addListener(new ChannelFutureListener() {
+				chunkWriteFuture.addListener(new class() ChannelFutureListener {
 					override
 					public void operationComplete(ChannelFuture future) {
 						try {

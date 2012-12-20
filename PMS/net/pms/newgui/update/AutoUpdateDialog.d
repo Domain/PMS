@@ -93,7 +93,7 @@ public class AutoUpdateDialog : JDialog : Observer {
 	}
 
 	private void update() {
-		SwingUtilities.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new class() Runnable {
 			override
 			public void run() {
 				updateOnGuiThread();

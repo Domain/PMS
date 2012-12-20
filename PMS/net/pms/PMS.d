@@ -192,7 +192,7 @@ public class PMS {
 			OutputTextConsumer outConsumer = new OutputTextConsumer(process.getInputStream(), false);
 			outConsumer.start();
 
-			Runnable r = new Runnable() {
+			Runnable r = new class() Runnable {
 				public void run() {
 					ProcessUtil.waitFor(process);
 				}
@@ -285,7 +285,7 @@ public class PMS {
 			LOGGER.info("Switching to console mode");
 			frame = new DummyFrame();
 		}
-		configuration.addConfigurationListener(new ConfigurationListener() {
+		configuration.addConfigurationListener(new class() ConfigurationListener {
 			override
 			public void configurationChanged(ConfigurationEvent event) {
 				if ((!event.isBeforeUpdate())
@@ -436,7 +436,7 @@ public class PMS {
 			LOGGER.info("Maybe another process is running or the hostname is wrong.");
 		}
 
-		new Thread("Connection Checker") {
+		new class("Connection Checker") Thread {
 			override
 			public void run() {
 				try {
@@ -475,7 +475,7 @@ public class PMS {
 		frame.serverReady();
 
 		//UPNPHelper.sendByeBye();
-		Runtime.getRuntime().addShutdownHook(new Thread("PMS Listeners Stopper") {
+		Runtime.getRuntime().addShutdownHook(new class("PMS Listeners Stopper") Thread {
 			override
 			public void run() {
 				try {
@@ -608,7 +608,7 @@ public class PMS {
 	// XXX: don't try to optimize this by reusing the same server instance.
 	// see the comment above HTTPServer.stop()
 	public void reset() {
-		TaskRunner.getInstance().submitNamed("restart", true, new Runnable() {
+		TaskRunner.getInstance().submitNamed("restart", true, new class() Runnable {
 			public void run() {
 				try {
 					LOGGER.trace("Waiting 1 second...");

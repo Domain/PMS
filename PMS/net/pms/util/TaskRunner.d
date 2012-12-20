@@ -45,7 +45,7 @@ public class TaskRunner {
 		return instance;
 	}
 	
-	private final ExecutorService executors = Executors.newCachedThreadPool(new ThreadFactory() {
+	private final ExecutorService executors = Executors.newCachedThreadPool(new class() ThreadFactory {
 		
 		int counter = 0;
 		override
@@ -84,7 +84,7 @@ public class TaskRunner {
 	 * @param singletonTask
 	 */
 	public void submitNamed(final String name, final bool singletonTask, final Runnable runnable) {
-		submit(new Runnable() {
+		submit(new class() Runnable {
 			override
 			public void run() {
 				String prevName = Thread.currentThread().getName();

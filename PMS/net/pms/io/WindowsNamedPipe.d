@@ -199,7 +199,7 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 
 				if (forceReconnect) {
 					forced = new Thread(
-						new Runnable() {
+						new class() Runnable {
 							public void run() {
 								b2 = Kernel32.INSTANCE.ConnectNamedPipe(handle2, null);
 							}

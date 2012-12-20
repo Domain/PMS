@@ -88,7 +88,7 @@ public class TracesTab {
 		// if scroll bar already was at the bottom we schedule
 		// a new scroll event to again scroll to the bottom
 		if (vbar.getMaximum() == vbar.getValue() + vbar.getVisibleAmount())
-			EventQueue.invokeLater (new Runnable() {
+			EventQueue.invokeLater (new class() Runnable {
 				public void run () {
 					vbar.setValue (vbar.getMaximum ());
 				}
@@ -118,7 +118,7 @@ public class TracesTab {
 		final JPopupMenu popup = new JPopupMenu();
 		JMenuItem defaultItem = new JMenuItem(Messages.getString("TracesTab.3"));
 
-		defaultItem.addActionListener(new ActionListener() {
+		defaultItem.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				jList.setText("");
 			}
@@ -141,7 +141,7 @@ public class TracesTab {
 			JButton b = new JButton(loggerName);
 			b.setToolTipText(logfiles.get(loggerName));
 
-			b.addMouseListener(new MouseAdapter() {
+			b.addMouseListener(new class() MouseAdapter {
 				override
 				public void mouseClicked(MouseEvent e) {
 					File logfile = new File(((JButton) e.getSource()).getToolTipText());

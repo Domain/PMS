@@ -46,7 +46,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 
 	public void pollServer() {
 		if (serverUrl !is null) { // don't poll if the server URL is null
-			executor.execute(new Runnable() {
+			executor.execute(new class() Runnable {
 				public void run() {
 					try {
 						doPollServer();
@@ -74,7 +74,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 	}
 
 	public void getUpdateFromNetwork() {
-		executor.execute(new Runnable() {
+		executor.execute(new class() Runnable {
 			public void run() {
 				try {
 					doGetUpdateFromNetwork();
@@ -86,7 +86,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 	}
 
 	public void runUpdateAndExit() {
-		executor.execute(new Runnable() {
+		executor.execute(new class() Runnable {
 			public void run() {
 				try {
 					doRunUpdateAndExit();

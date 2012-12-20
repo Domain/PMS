@@ -46,7 +46,7 @@ public abstract class UnusedInputStream : InputStream {
 		if (processToTerminate !is null) {
 			processToTerminate.setReadyToStop(true);
 		}
-		Runnable checkEnd = new Runnable() {
+		Runnable checkEnd = new class() Runnable {
 			public void run() {
 				try {
 					Thread.sleep(timeout);

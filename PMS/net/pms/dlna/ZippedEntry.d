@@ -98,7 +98,7 @@ public class ZippedEntry : DLNAResource , IPushOutput {
 
 	override
 	public void push(final OutputStream _out) {
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 			InputStream _in = null;
 
 			public void run() {

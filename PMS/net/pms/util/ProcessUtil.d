@@ -106,7 +106,7 @@ public class ProcessUtil {
 
 			if (pid !is null) { // Unix only
 				logger.trace("Killing the Unix process: " + pid);
-				Runnable r = new Runnable() {
+				Runnable r = new class() Runnable {
 					public void run() {
 						try {
 							Thread.sleep(TERM_TIMEOUT);

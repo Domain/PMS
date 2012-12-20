@@ -100,7 +100,7 @@ public class RarredEntry : DLNAResource , IPushOutput {
 
 	override
 	public void push(immutable OutputStream _out) {
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 
 			public void run() {
 				Archive rarFile = null;

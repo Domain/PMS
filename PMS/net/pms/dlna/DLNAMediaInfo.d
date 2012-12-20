@@ -369,7 +369,7 @@ public class DLNAMediaInfo : Cloneable {
 
 		// FAILSAFE
 		setParsing(true);
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 			public void run() {
 				try {
 					Thread.sleep(10000);
@@ -423,7 +423,7 @@ public class DLNAMediaInfo : Cloneable {
 
 		// FAILSAFE
 		setParsing(true);
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 			public void run() {
 				try {
 					Thread.sleep(3000);
@@ -1281,7 +1281,7 @@ public class DLNAMediaInfo : Cloneable {
 
 		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmdArray, params);
 
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 			public void run() {
 				try {
 					Thread.sleep(3000);

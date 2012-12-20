@@ -298,7 +298,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 
 		toolBar.add(new JPanel());
 		AbstractButton save = createToolBarButton(Messages.getString("LooksFrame.9"), "filesave-48.png", Messages.getString("LooksFrame.9"));
-		save.addActionListener(new ActionListener() {
+		save.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				PMS.get().save();
 			}
@@ -306,7 +306,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 		toolBar.add(save);
 		toolBar.addSeparator();
 		reload = createToolBarButton(Messages.getString("LooksFrame.12"), "reload_page-48.png", Messages.getString("LooksFrame.12"));
-		reload.addActionListener(new ActionListener() {
+		reload.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				PMS.get().reset();
 			}
@@ -314,7 +314,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 		toolBar.add(reload);
 		toolBar.addSeparator();
 		AbstractButton quit = createToolBarButton(Messages.getString("LooksFrame.5"), "exit-48.png", Messages.getString("LooksFrame.5"));
-		quit.addActionListener(new ActionListener() {
+		quit.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 			}

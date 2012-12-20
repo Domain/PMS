@@ -188,7 +188,7 @@ public class UPNPHelper {
 	private static int delay = 10000;
 
 	public static void listen() throws IOException {
-		Runnable rAlive = new Runnable() {
+		Runnable rAlive = new class() Runnable {
 			public void run() {
 				while (true) {
 					try {
@@ -211,7 +211,7 @@ public class UPNPHelper {
 		aliveThread = new Thread(rAlive, "UPNP-AliveMessageSender");
 		aliveThread.start();
 
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 			public void run() {
 				bool bindErrorReported = false;
 				while (true) {

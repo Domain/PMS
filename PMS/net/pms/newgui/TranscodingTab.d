@@ -155,7 +155,7 @@ public class TranscodingTab {
 
 		JButton but = new JButton(LooksFrame.readImageIcon("kdevelop_down-32.png"));
 		but.setToolTipText(Messages.getString("TrTab2.6"));
-		but.addActionListener(new ActionListener() {
+		but.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				TreePath path = tree.getSelectionModel().getSelectionPath();
 				if (path !is null && path.getLastPathComponent() instanceof TreeNodeSettings) {
@@ -182,7 +182,7 @@ public class TranscodingTab {
 
 		JButton but2 = new JButton(LooksFrame.readImageIcon("up-32.png"));
 		but2.setToolTipText(Messages.getString("TrTab2.6"));
-		but2.addActionListener(new ActionListener() {
+		but2.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				TreePath path = tree.getSelectionModel().getSelectionPath();
 				if (path !is null && path.getLastPathComponent() instanceof TreeNodeSettings) {
@@ -209,7 +209,7 @@ public class TranscodingTab {
 
 		JButton but3 = new JButton(LooksFrame.readImageIcon("connect_no-32.png"));
 		but3.setToolTipText(Messages.getString("TrTab2.0"));
-		but3.addActionListener(new ActionListener() {
+		but3.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				TreePath path = tree.getSelectionModel().getSelectionPath();
 				if (path !is null && path.getLastPathComponent() instanceof TreeNodeSettings && ((TreeNodeSettings) path.getLastPathComponent()).getPlayer() !is null) {
@@ -223,7 +223,7 @@ public class TranscodingTab {
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(Messages.getString("TrTab2.11"));
 		TreeNodeSettings commonEnc = new TreeNodeSettings(Messages.getString("TrTab2.5"), null, buildCommon());
-		commonEnc.getConfigPanel().addComponentListener(new ComponentAdapter() {
+		commonEnc.getConfigPanel().addComponentListener(new class() ComponentAdapter {
 			override
 			public void componentShown(ComponentEvent e) {
 				handleCardComponentChange(e.getComponent());
@@ -249,7 +249,7 @@ public class TranscodingTab {
 		};
 		tree.setRootVisible(false);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
+		tree.addTreeSelectionListener(new class() TreeSelectionListener {
 			override
 			public void valueChanged(TreeSelectionEvent e) {
 				if (e.getNewLeadSelectionPath() !is null && e.getNewLeadSelectionPath().getLastPathComponent() instanceof TreeNodeSettings) {
@@ -306,7 +306,7 @@ public class TranscodingTab {
 			if (jc is null) {
 				jc = buildEmpty();
 			}
-			jc.addComponentListener(new ComponentAdapter() {
+			jc.addComponentListener(new class() ComponentAdapter {
 				override
 				public void componentShown(ComponentEvent e) {
 					handleCardComponentChange(e.getComponent());
@@ -353,7 +353,7 @@ public class TranscodingTab {
 		CellConstraints cc = new CellConstraints();
 
 		maxbuffer = new JTextField("" + configuration.getMaxMemoryBufferSize());
-		maxbuffer.addKeyListener(new KeyListener() {
+		maxbuffer.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -396,7 +396,7 @@ public class TranscodingTab {
 			nbcores.setSelectedIndex(0);
 		}
 
-		nbcores.addItemListener(new ItemListener() {
+		nbcores.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 			        configuration.setNumberOfCpuCores(Integer.parseInt(e.getItem().toString()));
 			}
@@ -405,7 +405,7 @@ public class TranscodingTab {
 
 		chapter_interval = new JTextField("" + configuration.getChapterInterval());
 		chapter_interval.setEnabled(configuration.isChapterSupport());
-		chapter_interval.addKeyListener(new KeyListener() {
+		chapter_interval.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -429,7 +429,7 @@ public class TranscodingTab {
 		chapter_support.setContentAreaFilled(false);
 		chapter_support.setSelected(configuration.isChapterSupport());
 
-		chapter_support.addItemListener(new ItemListener() {
+		chapter_support.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setChapterSupport((e.getStateChange() == ItemEvent.SELECTED));
 				chapter_interval.setEnabled(configuration.isChapterSupport());
@@ -451,7 +451,7 @@ public class TranscodingTab {
 		} else {
 			channels.setSelectedIndex(1);
 		}
-		channels.addItemListener(new ItemListener() {
+		channels.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setAudioChannelCount(Integer.parseInt(e.getItem().toString().substring(0, 1)));
 			}
@@ -465,7 +465,7 @@ public class TranscodingTab {
         if (configuration.isMencoderUsePcm()) {
             forcePCM.setSelected(true);
         }
-        forcePCM.addItemListener(new ItemListener() {
+        forcePCM.addItemListener(new class() ItemListener {
             public void itemStateChanged(ItemEvent e) {
                 configuration.setMencoderUsePcm(e.getStateChange() == ItemEvent.SELECTED);
             }
@@ -478,7 +478,7 @@ public class TranscodingTab {
         if (configuration.isRemuxAC3()) {
             ac3remux.setSelected(true);
         }
-        ac3remux.addItemListener(new ItemListener() {
+        ac3remux.addItemListener(new class() ItemListener {
             public void itemStateChanged(ItemEvent e) {
                 configuration.setRemuxAC3((e.getStateChange() == ItemEvent.SELECTED));
             }
@@ -491,7 +491,7 @@ public class TranscodingTab {
         if (configuration.isDTSEmbedInPCM()) {
             forceDTSinPCM.setSelected(true);
         }
-        forceDTSinPCM.addActionListener(new ActionListener() {
+        forceDTSinPCM.addActionListener(new class() ActionListener {
             override
             public void actionPerformed(ActionEvent e) {
                 configuration.setDTSEmbedInPCM(forceDTSinPCM.isSelected());
@@ -508,7 +508,7 @@ public class TranscodingTab {
         builder.add(forceDTSinPCM, FormLayoutUtil.flip(cc.xyw(1, 19, 3), colSpec, orientation));
 
         abitrate = new JTextField("" + configuration.getAudioBitrate());
-		abitrate.addKeyListener(new KeyListener() {
+		abitrate.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -536,7 +536,7 @@ public class TranscodingTab {
 		if (configuration.isMencoderRemuxMPEG2()) {
 			mpeg2remux.setSelected(true);
 		}
-		mpeg2remux.addItemListener(new ItemListener() {
+		mpeg2remux.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMencoderRemuxMPEG2((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -563,7 +563,7 @@ public class TranscodingTab {
 		MyComboBoxModel cbm = new MyComboBoxModel(data);
 
 		vq = new JComboBox(cbm);
-		vq.addItemListener(new ItemListener() {
+		vq.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					String s = (String) e.getItem();
@@ -574,7 +574,7 @@ public class TranscodingTab {
 				}
 			}
 		});
-		vq.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+		vq.getEditor().getEditorComponent().addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -616,7 +616,7 @@ public class TranscodingTab {
 		builder.addLabel(Messages.getString("TrTab2.8"), FormLayoutUtil.flip(cc.xy(1, 37), colSpec, orientation));
 
 		notranscode = new JTextField(configuration.getNoTranscode());
-		notranscode.addKeyListener(new KeyListener() {
+		notranscode.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -635,7 +635,7 @@ public class TranscodingTab {
 		builder.addLabel(Messages.getString("TrTab2.9"), FormLayoutUtil.flip(cc.xy(1, 39), colSpec, orientation));
 
 		forcetranscode = new JTextField(configuration.getForceTranscode());
-		forcetranscode.addKeyListener(new KeyListener() {
+		forcetranscode.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
