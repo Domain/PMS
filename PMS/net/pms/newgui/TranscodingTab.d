@@ -96,7 +96,7 @@ public class TranscodingTab {
 			if (!tree.getModel().isLeaf(firstChild)) {
 				for (int j = 0; j < tree.getModel().getChildCount(firstChild); j++) {
 					Object secondChild = tree.getModel().getChild(firstChild, j);
-					if (secondChild instanceof TreeNodeSettings) {
+					if (cast(TreeNodeSettings)secondChild !is null) {
 						TreeNodeSettings tns = (TreeNodeSettings) secondChild;
 						if (tns.isEnable() && tns.getPlayer() !is null) {
 							engines.add(tns.getPlayer().id());
@@ -158,8 +158,8 @@ public class TranscodingTab {
 		but.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				TreePath path = tree.getSelectionModel().getSelectionPath();
-				if (path !is null && path.getLastPathComponent() instanceof TreeNodeSettings) {
-					TreeNodeSettings node = ((TreeNodeSettings) path.getLastPathComponent());
+				if (path !is null && cast(TreeNodeSettings)path.getLastPathComponent() !is null) {
+					TreeNodeSettings node = cast(TreeNodeSettings) path.getLastPathComponent();
 					if (node.getPlayer() !is null) {
 						DefaultTreeModel dtm = (DefaultTreeModel) tree.getModel();   // get the tree model
 						//now get the index of the selected node in the DefaultTreeModel
@@ -185,8 +185,8 @@ public class TranscodingTab {
 		but2.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				TreePath path = tree.getSelectionModel().getSelectionPath();
-				if (path !is null && path.getLastPathComponent() instanceof TreeNodeSettings) {
-					TreeNodeSettings node = ((TreeNodeSettings) path.getLastPathComponent());
+				if (path !is null && cast(TreeNodeSettings)path.getLastPathComponent() !is null) {
+					TreeNodeSettings node = cast(TreeNodeSettings) path.getLastPathComponent();
 					if (node.getPlayer() !is null) {
 						DefaultTreeModel dtm = (DefaultTreeModel) tree.getModel();   // get the tree model
 						//now get the index of the selected node in the DefaultTreeModel
@@ -212,7 +212,7 @@ public class TranscodingTab {
 		but3.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				TreePath path = tree.getSelectionModel().getSelectionPath();
-				if (path !is null && path.getLastPathComponent() instanceof TreeNodeSettings && ((TreeNodeSettings) path.getLastPathComponent()).getPlayer() !is null) {
+				if (path !is null && cast(TreeNodeSettings)path.getLastPathComponent() !is null && (cast(TreeNodeSettings) path.getLastPathComponent()).getPlayer() !is null) {
 					((TreeNodeSettings) path.getLastPathComponent()).setEnable(!((TreeNodeSettings) path.getLastPathComponent()).isEnable());
 					updateEngineModel();
 					tree.updateUI();
@@ -252,8 +252,8 @@ public class TranscodingTab {
 		tree.addTreeSelectionListener(new class() TreeSelectionListener {
 			override
 			public void valueChanged(TreeSelectionEvent e) {
-				if (e.getNewLeadSelectionPath() !is null && e.getNewLeadSelectionPath().getLastPathComponent() instanceof TreeNodeSettings) {
-					TreeNodeSettings tns = (TreeNodeSettings) e.getNewLeadSelectionPath().getLastPathComponent();
+				if (e.getNewLeadSelectionPath() !is null && cast(TreeNodeSettings)e.getNewLeadSelectionPath().getLastPathComponent() !is null) {
+					TreeNodeSettings tns = cast(TreeNodeSettings) e.getNewLeadSelectionPath().getLastPathComponent();
 					cl.show(tabbedPane, tns.id());
 				}
 			}

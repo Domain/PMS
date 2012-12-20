@@ -39,7 +39,7 @@ public class DVDISOFile : VirtualFolder {
 		params.maxBufferSize = 1;
 		params.log = true;
 		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 			public void run() {
 				try {
 					Thread.sleep(10000);

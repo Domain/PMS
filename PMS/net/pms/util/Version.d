@@ -70,7 +70,7 @@ public final class Version : Comparable<Version> {
 	 */
 	override
 	public bool equals(Object other) {
-		if (other instanceof Version) {
+		if (cast(Version)other !is null) {
 			return compareTo((Version)other) == 0;
 		} else {
 			return false;

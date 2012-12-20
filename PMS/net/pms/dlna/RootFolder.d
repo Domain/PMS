@@ -200,7 +200,7 @@ public class RootFolder : DLNAResource {
 					child.setDefaultRenderer(resource.getDefaultRenderer());
 					String trace = null;
 
-					if (child instanceof RealFile) {
+					if (cast(RealFile)child !is null) {
 						trace = Messages.getString("DLNAMediaDatabase.4") ~ " " ~ child.getName();
 					}
 
@@ -212,7 +212,7 @@ public class RootFolder : DLNAResource {
 					if (child.isDiscovered()) {
 						child.refreshChildren();
 					} else {
-						if (child instanceof DVDISOFile || child instanceof DVDISOTitle) { // ugly hack
+						if (cast(DVDISOFile)child !is null || cast(DVDISOTitle)child !is null) { // ugly hack
 							child.resolve();
 						}
 						child.discoverChildren();

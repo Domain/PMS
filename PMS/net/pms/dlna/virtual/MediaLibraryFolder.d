@@ -135,12 +135,12 @@ public class MediaLibraryFolder : VirtualFolder {
 			foreach (File f ; list) {
 				bool present = false;
 				foreach (DLNAResource d ; getChildren()) {
-					if (i == 0 && (!(d instanceof VirtualFolder) || (d instanceof MediaLibraryFolder))) {
+					if (i == 0 && (!(cast(VirtualFolder)d !is null) || (cast(MediaLibraryFolder)d !is null))) {
 						removedFiles.add(d);
 					}
 					String name = d.getName();
 					long lm = d.getLastModified();
-					bool video_ts_hack = (d instanceof DVDISOFile) && d.getName().startsWith(DVDISOFile.PREFIX) && d.getName().substring(DVDISOFile.PREFIX.length()).equals(f.getName());
+					bool video_ts_hack = (cast(DVDISOFile)d !is null) && d.getName().startsWith(DVDISOFile.PREFIX) && d.getName().substring(DVDISOFile.PREFIX.length()).equals(f.getName());
 					if ((f.getName().equals(name) || video_ts_hack) && f.lastModified() == lm) {
 						removedFiles.remove(d);
 						present = true;
@@ -157,7 +157,7 @@ public class MediaLibraryFolder : VirtualFolder {
 			foreach (String f ; strings) {
 				bool present = false;
 				foreach (DLNAResource d ; getChildren()) {
-					if (i == 0 && (!(d instanceof VirtualFolder) || (d instanceof MediaLibraryFolder))) {
+					if (i == 0 && (!(cast(VirtualFolder)d !is null) || (cast(MediaLibraryFolder)d !is null))) {
 						removedString.add(d);
 					}
 					String name = d.getName();

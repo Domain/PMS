@@ -134,7 +134,7 @@ public class UPNPHelper {
 			Enumeration<InetAddress> enm = ni.getInetAddresses();
 			while (enm.hasMoreElements()) {
 				InetAddress ia = enm.nextElement();
-				if (!(ia instanceof Inet6Address)) {
+				if (!(cast(Inet6Address)ia !is null)) {
 					ssdpSocket.setInterface(ia);
 					break;
 				}

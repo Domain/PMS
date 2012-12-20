@@ -45,7 +45,7 @@ public class TreeRenderer : DefaultTreeCellRenderer {
 			tree, value, sel,
 			expanded, leaf, row,
 			hasFocus);
-		if (leaf && value instanceof TreeNodeSettings) {
+		if (leaf && cast(TreeNodeSettings)value !is null) {
 			if (((TreeNodeSettings) value).getPlayer() is null) {
 				setIcon(LooksFrame.readImageIcon("icon_tree_parent-16.png"));
 			} else {

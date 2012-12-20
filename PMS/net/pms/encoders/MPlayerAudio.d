@@ -209,7 +209,7 @@ public class MPlayerAudio : Player {
 		noresample = new JCheckBox(Messages.getString("TrTab2.22"));
 		noresample.setContentAreaFilled(false);
 		noresample.setSelected(configuration.isAudioResample());
-		noresample.addItemListener(new ItemListener() {
+		noresample.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setAudioResample(e.getStateChange() == ItemEvent.SELECTED);
 			}

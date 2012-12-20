@@ -216,9 +216,9 @@ public final class Plist {
 					return new XmlElement("data", base64encode((byte[]) o));
 			}
 		}
-		if (o instanceof Map) {
+		if (cast(Map)o !is null) {
 			return toXmlDict((Map<String, Object>) o);
-		} else if (o instanceof List) {
+		} else if (cast(List)o !is null) {
 			return toXmlArray((List<?>) o);
 		} else {
 			throw new RuntimeException("Cannot use " + o.getClass() + " in plist.");

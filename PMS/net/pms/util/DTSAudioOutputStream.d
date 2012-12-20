@@ -17,7 +17,7 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 
 	public DTSAudioOutputStream(OutputStream out) {
 		super(out, 600000);
-		if (out instanceof PCMAudioOutputStream) {
+		if (cast(PCMAudioOutputStream)out !is null) {
 			PCMAudioOutputStream pout = (PCMAudioOutputStream) out;
 			pout.swapOrderBits = 0;
 		}
@@ -46,7 +46,7 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 				streamableByteNumber = framesize;
 				//reset of default values
 				int pcm_wrapped_frame_size = 2048;
-				if (out instanceof PCMAudioOutputStream) {
+				if (cast(PCMAudioOutputStream)out !is null) {
 					PCMAudioOutputStream pout = (PCMAudioOutputStream) out;
 					pout.nbchannels = 2;
 					pout.sampleFrequency = 48000;

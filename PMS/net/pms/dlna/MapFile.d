@@ -283,7 +283,7 @@ public class MapFile : DLNAResource {
 		List/*<DLNAResource>*/ removedFiles = new ArrayList/*<DLNAResource>*/();
 
 		foreach (DLNAResource d ; getChildren()) {
-			bool isNeedMatching = !(d.getClass() == MapFile.class || (d instanceof VirtualFolder && !(d instanceof DVDISOFile)));
+			bool isNeedMatching = !(d.getClass() == MapFile.class || (cast(VirtualFolder)d !is null && !(cast(DVDISOFile)d !is null)));
 			if (isNeedMatching && !foundInList(files, d)) {
 				removedFiles.add(d);
 			}
@@ -342,7 +342,7 @@ public class MapFile : DLNAResource {
 	}
 
 	private bool isRealFolder(DLNAResource d) {
-		return d instanceof RealFile && d.isFolder();
+		return cast(RealFile)d !is null && d.isFolder();
 	}
 
 	private bool isNameMatch(File file, DLNAResource resource) {

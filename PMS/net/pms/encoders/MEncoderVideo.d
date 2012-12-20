@@ -194,7 +194,7 @@ public class MEncoderVideo : Player {
 			checkBox.setSelected(true);
 		}
 
-		checkBox.addItemListener(new ItemListener() {
+		checkBox.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setSkipLoopFilterEnabled((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -211,7 +211,7 @@ public class MEncoderVideo : Player {
 			mencodermt.setSelected(true);
 		}
 
-		mencodermt.addActionListener(new ActionListener() {
+		mencodermt.addActionListener(new class() ActionListener {
 			override
 			public void actionPerformed(ActionEvent e) {
 				configuration.setMencoderMT(mencodermt.isSelected());
@@ -230,7 +230,7 @@ public class MEncoderVideo : Player {
 			noskip.setSelected(true);
 		}
 
-		noskip.addItemListener(new ItemListener() {
+		noskip.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMencoderNoOutOfSync((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -810,7 +810,7 @@ public class MEncoderVideo : Player {
 		builder.addLabel(Messages.getString("MEncoderVideo.18"), FormLayoutUtil.flip(cc.xy(9, 41), colSpec, orientation));
 
 		mencoder_noass_blur = new JTextField(configuration.getMencoderNoAssBlur());
-		mencoder_noass_blur.addKeyListener(new KeyListener() {
+		mencoder_noass_blur.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -828,7 +828,7 @@ public class MEncoderVideo : Player {
 		builder.addLabel(Messages.getString("MEncoderVideo.19"), FormLayoutUtil.flip(cc.xy(13, 41), colSpec, orientation));
 
 		mencoder_noass_subpos = new JTextField(configuration.getMencoderNoAssSubPos());
-		mencoder_noass_subpos.addKeyListener(new KeyListener() {
+		mencoder_noass_subpos.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -850,7 +850,7 @@ public class MEncoderVideo : Player {
 
 		ass = new JCheckBox(Messages.getString("MEncoderVideo.20"));
 		ass.setContentAreaFilled(false);
-		ass.addItemListener(new ItemListener() {
+		ass.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e !is null) {
 					configuration.setMencoderAss(e.getStateChange() == ItemEvent.SELECTED);
@@ -864,7 +864,7 @@ public class MEncoderVideo : Player {
 
 		fc = new JCheckBox(Messages.getString("MEncoderVideo.21"));
 		fc.setContentAreaFilled(false);
-		fc.addItemListener(new ItemListener() {
+		fc.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMencoderFontConfig(e.getStateChange() == ItemEvent.SELECTED);
 			}
@@ -875,7 +875,7 @@ public class MEncoderVideo : Player {
 
 		assdefaultstyle = new JCheckBox(Messages.getString("MEncoderVideo.36"));
 		assdefaultstyle.setContentAreaFilled(false);
-		assdefaultstyle.addItemListener(new ItemListener() {
+		assdefaultstyle.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMencoderAssDefaultStyle(e.getStateChange() == ItemEvent.SELECTED);
 			}
@@ -891,7 +891,7 @@ public class MEncoderVideo : Player {
 			subs.setSelected(true);
 		}
 
-		subs.addItemListener(new ItemListener() {
+		subs.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setAutoloadSubtitles((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -901,7 +901,7 @@ public class MEncoderVideo : Player {
 		builder.addLabel(Messages.getString("MEncoderVideo.92"), FormLayoutUtil.flip(cc.xy(1, 45), colSpec, orientation));
 
 		subq = new JTextField(configuration.getMencoderVobsubSubtitleQuality());
-		subq.addKeyListener(new KeyListener() {
+		subq.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -921,7 +921,7 @@ public class MEncoderVideo : Player {
 		builder.addLabel(Messages.getString("MEncoderVideo.28") + "% ", FormLayoutUtil.flip(cc.xy(1, 49, CellConstraints.RIGHT, CellConstraints.CENTER), colSpec, orientation));
 
 		ocw = new JTextField(configuration.getMencoderOverscanCompensationWidth());
-		ocw.addKeyListener(new KeyListener() {
+		ocw.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -940,7 +940,7 @@ public class MEncoderVideo : Player {
 		builder.addLabel(Messages.getString("MEncoderVideo.30") + "% ", FormLayoutUtil.flip(cc.xy(5, 49), colSpec, orientation));
 
 		och = new JTextField(configuration.getMencoderOverscanCompensationHeight());
-		och.addKeyListener(new KeyListener() {
+		och.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -960,7 +960,7 @@ public class MEncoderVideo : Player {
 		subColor = new JButton();
 		subColor.setText(Messages.getString("MEncoderVideo.31"));
 		subColor.setBackground(new Color(configuration.getSubsColor()));
-		subColor.addActionListener(new ActionListener() {
+		subColor.addActionListener(new class() ActionListener {
 			override
 			public void actionPerformed(ActionEvent e) {
 				Color newColor = JColorChooser.showDialog(
@@ -979,7 +979,7 @@ public class MEncoderVideo : Player {
 		builder.add(subColor, FormLayoutUtil.flip(cc.xyw(12, 37, 4), colSpec, orientation));
 
 		JCheckBox disableSubs = ((LooksFrame) PMS.get().getFrame()).getTr().getDisableSubs();
-		disableSubs.addItemListener(new ItemListener() {
+		disableSubs.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMencoderDisableSubs(e.getStateChange() == ItemEvent.SELECTED);
 
@@ -2615,7 +2615,7 @@ public class MEncoderVideo : Player {
 
 								Object result = interpreter.eval(key);
 
-								if (result !is null && result instanceof Boolean && (Boolean) result) {
+								if (result !is null && cast(Boolean)result !is null && (Boolean) result) {
 									sb.append(" ");
 									sb.append(value);
 								}

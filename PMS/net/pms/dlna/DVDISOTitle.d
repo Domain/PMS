@@ -65,7 +65,7 @@ public class DVDISOTitle : DLNAResource {
 		}
 		params.log = true;
 		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
-		Runnable r = new Runnable() {
+		Runnable r = new class() Runnable {
 
 			public void run() {
 				try {

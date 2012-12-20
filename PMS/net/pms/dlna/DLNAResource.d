@@ -575,7 +575,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 						}
 
 						foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
-							if (listener instanceof AdditionalResourceFolderListener) {
+							if (cast(AdditionalResourceFolderListener)listener !is null) {
 								try {
 									((AdditionalResourceFolderListener) listener).addAdditionalFolder(this, child);
 								} catch (Throwable t) {
@@ -711,7 +711,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 					ArrayBlockingQueue/*<Runnable>*/ queue = new ArrayBlockingQueue/*<Runnable>*/(count);
 
 					int parallel_thread_number = 3;
-					if (resource instanceof DVDISOFile) {
+					if (cast(DVDISOFile)resource !is null) {
 						parallel_thread_number = 1; // my DVD drive is dying wih 3 parallel threads
 					}
 
@@ -1002,7 +1002,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 			filenameWithoutExtension = FileUtil.getFileNameWithoutExtension(filenameWithExtension);
 
 			// Check if file extensions are configured to be hidden
-			if (this instanceof RealFile && PMS.getConfiguration().isHideExtensions() && !isFolder()) {
+			if (cast(RealFile)this !is null && PMS.getConfiguration().isHideExtensions() && !isFolder()) {
 				filenameWithExtension = filenameWithoutExtension;
 			}
 		}
@@ -1636,15 +1636,15 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 
 			if (refCount == 0) {
 				immutable DLNAResource self = this;
-				Runnable r = new Runnable() {
+				Runnable r = new class() Runnable {
 					override
 					public void run() {
 						LOGGER.info("renderer: {}, file: {}", rendererId, getSystemName());
 
 						for (final ExternalListener listener : ExternalFactory.getExternalListeners()) {
-							if (listener instanceof StartStopListener) {
+							if (cast(StartStopListener)listener !is null) {
 								// run these asynchronously for slow handlers (e.g. logging, scrobbling)
-								Runnable fireStartStopEvent = new Runnable() {
+								Runnable fireStartStopEvent = new class() Runnable {
 									override
 									public void run() {
 										try {
@@ -1673,7 +1673,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 	public void stopPlaying(immutable String rendererId) {
 		immutable DLNAResource self = this;
 		immutable String requestId = getRequestId(rendererId);
-		Runnable defer = new Runnable() {
+		Runnable defer = new class() Runnable {
 			override
 			public void run() {
 				try {
@@ -1688,7 +1688,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 					assert refCount > 0;
 					requestIdToRefcount.put(requestId, refCount - 1);
 
-					Runnable r = new Runnable() {
+					Runnable r = new class() Runnable {
 						override
 						public void run() {
 							if (refCount == 1) {
@@ -1696,9 +1696,9 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 								PMS.get().getFrame().setStatusLine("");
 
 								for (final ExternalListener listener : ExternalFactory.getExternalListeners()) {
-									if (listener instanceof StartStopListener) {
+									if (cast(StartStopListener)listener !is null) {
 										// run these asynchronously for slow handlers (e.g. logging, scrobbling)
-										Runnable fireStartStopEvent = new Runnable() {
+										Runnable fireStartStopEvent = new class() Runnable {
 											override
 											public void run() {
 												try {
@@ -1765,7 +1765,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		}
 
 		if (getPlayer() is null) {
-			if (this instanceof IPushOutput) {
+			if (cast(IPushOutput)this !is null) {
 				PipedOutputStream _out = new PipedOutputStream();
 				InputStream fis = new PipedInputStream(_out);
 				((IPushOutput) this).push(_out);
@@ -1800,7 +1800,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 				// http://www.ps3mediaserver.org/forum/viewtopic.php?f=11&t=12035
 				fis = wrap(fis, high, low);
 
-				if (timeRange.getStartOrZero() > 0 && this instanceof RealFile) {
+				if (timeRange.getStartOrZero() > 0 && cast(RealFile)this !is null) {
 					fis.skip(MpegUtil.getPositionForTimeInMpeg(((RealFile) this).getFile(), (int) timeRange.getStartOrZero() ));
 				}
 			}
@@ -1846,7 +1846,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 				LOGGER._debug("Requesting time seek: " ~ params.timeseek.toString() ~ " seconds");
 				params.minBufferSize = 1;
 
-				Runnable r = new Runnable() {
+				Runnable r = new class() Runnable {
 					override
 					public void run() {
 						externalProcess.stopProcess();
@@ -1897,7 +1897,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 			// this cleans up lingering MEncoder web video transcode processes that hang
 			// instead of exiting
 			if (fis is null && externalProcess !is null && !externalProcess.isDestroyed()) {
-				Runnable r = new Runnable() {
+				Runnable r = new class() Runnable {
 					override
 					public void run() {
 						LOGGER.trace("External input stream instance is null... stopping process");

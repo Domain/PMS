@@ -42,7 +42,7 @@ import java.net.URISyntaxException;
  *
  */
 public class BasicSystemUtils : SystemUtils {
-	private final static Logger logger = LoggerFactory.getLogger(BasicSystemUtils.class); 
+	private immutable static Logger logger = LoggerFactory.getLogger(BasicSystemUtils.class); 
 
 	protected String vlcp;
 	protected String vlcv;
@@ -118,14 +118,14 @@ public class BasicSystemUtils : SystemUtils {
 		try {
 			Desktop.getDesktop().browse(new URI(uri));
 		} catch (IOException e) {
-			logger.trace("Unable to open the given URI: " + uri + ".");
+			logger.trace("Unable to open the given URI: " ~ uri ~ ".");
 		} catch (URISyntaxException e) {
-			logger.trace("Unable to open the given URI: " + uri + ".");
+			logger.trace("Unable to open the given URI: " ~ uri ~ ".");
 		}
 	}
 
 	override
-	public bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException {
+	public bool isNetworkInterfaceLoopback(NetworkInterface ni) {
 		return ni.isLoopback();
 	}
 
@@ -141,13 +141,13 @@ public class BasicSystemUtils : SystemUtils {
 			MenuItem defaultItem = new MenuItem(Messages.getString("LooksFrame.5"));
 			MenuItem traceItem = new MenuItem(Messages.getString("LooksFrame.6"));
 
-			defaultItem.addActionListener(new ActionListener() {
+			defaultItem.addActionListener(new class() ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					frame.quit();
 				}
 			});
 
-			traceItem.addActionListener(new ActionListener() {
+			traceItem.addActionListener(new class() ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(true);
 				}
@@ -159,7 +159,7 @@ public class BasicSystemUtils : SystemUtils {
 			final TrayIcon trayIcon = new TrayIcon(trayIconImage, PropertiesUtil.getProjectProperties().get("project.name") + " " + PMS.getVersion(), popup);
 
 			trayIcon.setImageAutoSize(true);
-			trayIcon.addActionListener(new ActionListener() {
+			trayIcon.addActionListener(new class() ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(true);
 					frame.setFocusable(true);

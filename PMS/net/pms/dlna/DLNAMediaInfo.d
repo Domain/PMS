@@ -482,7 +482,7 @@ public class DLNAMediaInfo : Cloneable {
 			ProcessWrapperImpl pw = null;
 			bool ffmpeg_parsing = true;
 
-			if (type == Format.AUDIO || ext instanceof AudioAsVideo) {
+			if (type == Format.AUDIO || cast(AudioAsVideo)ext !is null) {
 				ffmpeg_parsing = false;
 				DLNAMediaAudio audio = new DLNAMediaAudio();
 
@@ -584,7 +584,7 @@ public class DLNAMediaInfo : Cloneable {
 						setCodecV("jpg");
 						IImageMetadata meta = Sanselan.getMetadata(inputFile.getFile());
 
-						if (meta !is null && meta instanceof JpegImageMetadata) {
+						if (meta !is null && cast(JpegImageMetadata)meta !is null) {
 							JpegImageMetadata jpegmeta = (JpegImageMetadata) meta;
 							TiffField tf = jpegmeta.findEXIFValue(TiffConstants.EXIF_TAG_MODEL);
 
@@ -1353,7 +1353,7 @@ public class DLNAMediaInfo : Cloneable {
 	protected Object clone() {
 		Object cloned = super.clone();
 
-		if (cloned instanceof DLNAMediaInfo) {
+		if (cast(DLNAMediaInfo)cloned !is null) {
 			DLNAMediaInfo mediaCloned = ((DLNAMediaInfo) cloned);
 			mediaCloned.setAudioTracksList(new ArrayList<DLNAMediaAudio>());
 

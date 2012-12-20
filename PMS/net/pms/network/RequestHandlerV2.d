@@ -315,7 +315,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 		throws Exception {
 		Channel ch = e.getChannel();
 		Throwable cause = e.getCause();
-		if (cause instanceof TooLongFrameException) {
+		if (cast(TooLongFrameException)cause !is null) {
 			sendError(ctx, HttpResponseStatus.BAD_REQUEST);
 			return;
 		}

@@ -128,7 +128,7 @@ public class TSMuxerVideo : Player {
 			videoType = "V_MPEG-2";
 		}
 
-		if (this instanceof TsMuxerAudio && media.getFirstAudioTrack() !is null) {
+		if (cast(TsMuxerAudio)this !is null && media.getFirstAudioTrack() !is null) {
 			String fakeFileName = writeResourceToFile("/resources/images/fake.jpg"); 
 			ffVideoPipe = new PipeIPCProcess(System.currentTimeMillis() ~ "fakevideo", System.currentTimeMillis() ~ "videoout", false, true);
 			String[] ffmpegLPCMextract = [
@@ -535,7 +535,7 @@ public class TSMuxerVideo : Player {
 
 		if (ffVideoPipe !is null) {
 			String videoparams = "level=4.1, insertSEI, contSPS, track=1";
-			if (this instanceof TsMuxerAudio) {
+			if (cast(TsMuxerAudio)this !is null) {
 				videoparams = "track=224";
 			}
 			if (configuration.isFix25FPSAvMismatch()) {
@@ -577,11 +577,11 @@ public class TSMuxerVideo : Player {
 				// AC-3 remux takes priority
 				type = "A_AC3";
 			} else {
-				if ( pcm || this instanceof TsMuxerAudio )
+				if ( pcm || cast(TsMuxerAudio)this !is null )
 				{
 					type = "A_LPCM";
 				}
-				if ( dtsRemux || this instanceof TsMuxerAudio )
+				if ( dtsRemux || cast(TsMuxerAudio)this !is null )
 				{
 					type = "A_LPCM";
 					if (params.mediaRenderer.isMuxDTSToMpeg()) {
@@ -822,7 +822,7 @@ public class TSMuxerVideo : Player {
 		if (configuration.isTsmuxerForceFps()) {
 			tsmuxerforcefps.setSelected(true);
 		}
-		tsmuxerforcefps.addItemListener(new ItemListener() {
+		tsmuxerforcefps.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setTsmuxerForceFps(e.getStateChange() == ItemEvent.SELECTED);
 			}
@@ -835,7 +835,7 @@ public class TSMuxerVideo : Player {
 			muxallaudiotracks.setSelected(true);
 		}
 
-		muxallaudiotracks.addItemListener(new ItemListener() {
+		muxallaudiotracks.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMuxAllAudioTracks(e.getStateChange() == ItemEvent.SELECTED);
 			}

@@ -190,7 +190,7 @@ public class NetworkConfiguration {
 	 * @return True when the address is relevant, false otherwise.
 	 */
 	private bool isRelevantAddress(InetAddress address) {
-		return !(address instanceof Inet6Address || address.isLoopbackAddress());
+		return !(cast(Inet6Address)address !is null || address.isLoopbackAddress());
 	}
 
 	/**
@@ -286,7 +286,7 @@ public class NetworkConfiguration {
 					}
 				} else {
 					LOGGER.trace("has {}, which is skipped, because loopback={}, ipv6={}", new Object[] {
-						address, address.isLoopbackAddress(), (address instanceof Inet6Address)} );
+						address, address.isLoopbackAddress(), (cast(Inet6Address)address !is null)} );
 				}
 			}
 		}

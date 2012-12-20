@@ -102,7 +102,7 @@ public class LoggingConfigFileLoader {
 		// Now get logback to actually use the config file
 
 		ILoggerFactory ilf = LoggerFactory.getILoggerFactory();
-		if (!(ilf instanceof LoggerContext)) {
+		if (!(cast(LoggerContext)ilf !is null)) {
 			// Not using LogBack.
 			// Can't configure the logger, so just exit
 			return;
@@ -130,7 +130,7 @@ public class LoggingConfigFileLoader {
 			Iterator<Appender<ILoggingEvent>> it = logger.iteratorForAppenders();
 			while (it.hasNext()) {
 				Appender<ILoggingEvent> ap = it.next();
-				if (ap instanceof FileAppender) {
+				if (cast(FileAppender)ap !is null) {
 					FileAppender<ILoggingEvent> fa = (FileAppender<ILoggingEvent>) ap;
 					logFilePaths.put(fa.getName(), fa.getFile());
 				}

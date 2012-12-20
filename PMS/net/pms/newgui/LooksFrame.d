@@ -119,7 +119,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 			}
 		}
 
-		if (selectedLaf instanceof PlasticLookAndFeel) {
+		if (cast(PlasticLookAndFeel)selectedLaf !is null) {
 			PlasticLookAndFeel.setPlasticTheme(PlasticLookAndFeel.createMyDefaultTheme());
 			PlasticLookAndFeel.setTabStyle(PlasticLookAndFeel.TAB_STYLE_DEFAULT_VALUE);
 			PlasticLookAndFeel.setHighContrastFocusColorsEnabled(false);
