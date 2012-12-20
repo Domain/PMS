@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
  */
 public class AutoUpdater : Observable : UriRetrieverCallback {
 	private static final String TARGET_FILENAME = "new-version.exe";
-	private static final Logger logger = LoggerFactory.getLogger(AutoUpdater.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(AutoUpdater.class);
 
 	public static enum State {
 		NOTHING_KNOWN, POLLING_SERVER, NO_UPDATE_AVAILABLE, UPDATE_AVAILABLE, DOWNLOAD_IN_PROGRESS, DOWNLOAD_FINISHED, EXECUTING_SETUP, ERROR

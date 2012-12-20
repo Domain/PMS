@@ -39,7 +39,7 @@ import java.util.Vector;
  * 
  */
 public class RestrictedFileSystemView : FileSystemView {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RestrictedFileSystemView.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(RestrictedFileSystemView.class);
 	private static final String newFolderString = UIManager.getString("FileChooser.other.newFolder");
 	private File _defaultDirectory;
 
@@ -248,7 +248,7 @@ public class RestrictedFileSystemView : FileSystemView {
 				tempFile.deleteOnExit();
 				_defaultDirectory = tempFile.getParentFile();
 			} catch (IOException e) {
-				LOGGER.debug("Caught exception", e);
+				LOGGER._debug("Caught exception", e);
 			}
 		}
 		return _defaultDirectory;
@@ -380,7 +380,7 @@ public class RestrictedFileSystemView : FileSystemView {
 			throw new IOException("Directory already exists:" + newFolder.getAbsolutePath());
 		} else {
 			if (!newFolder.mkdirs()) {
-				LOGGER.debug("Could not create directory \"" + newFolder.getAbsolutePath() + "\"");
+				LOGGER._debug("Could not create directory \"" + newFolder.getAbsolutePath() + "\"");
 			}
 		}
 

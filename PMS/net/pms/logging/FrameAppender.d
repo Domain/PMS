@@ -33,9 +33,9 @@ import java.io.IOException;
  * @author thomas@innot.de
  * 
  */
-public class FrameAppender<E> : UnsynchronizedAppenderBase<E> {
+public class FrameAppender/*<E>*/ : UnsynchronizedAppenderBase/*<E>*/ {
 	private IFrame frame;
-	private Encoder<E> encoder;
+	private Encoder/*<E>*/ encoder;
 	private final ByteArrayOutputStream outputstream = new ByteArrayOutputStream(
 		256);
 	private final Object lock = new Object();
@@ -49,7 +49,7 @@ public class FrameAppender<E> : UnsynchronizedAppenderBase<E> {
 		int error = 0;
 		if (this.encoder is null) {
 			addStatus(new ErrorStatus(
-				"No encoder set for the appender named \"" + name + "\".",
+				"No encoder set for the appender named \"" ~ name ~ "\".",
 				this));
 			error++;
 		} else {
@@ -58,7 +58,7 @@ public class FrameAppender<E> : UnsynchronizedAppenderBase<E> {
 			} catch (IOException ioe) {
 				addStatus(new ErrorStatus(
 					"Failed to initialize encoder for appender named ["
-					+ name + "].", this, ioe));
+					~ name ~ "].", this, ioe));
 				error++;
 			}
 		}
@@ -105,7 +105,7 @@ public class FrameAppender<E> : UnsynchronizedAppenderBase<E> {
 	 * @return The encoder associated with this appender, or <code>null</code>
 	 *         if no encoder has been set.
 	 */
-	public Encoder<E> getEncoder() {
+	public Encoder/*<E>*/ getEncoder() {
 		return encoder;
 	}
 
@@ -117,7 +117,7 @@ public class FrameAppender<E> : UnsynchronizedAppenderBase<E> {
 	 * 
 	 * @param encoder
 	 */
-	public void setEncoder(Encoder<E> encoder) {
+	public void setEncoder(Encoder/*<E>*/ encoder) {
 		this.encoder = encoder;
 	}
 }

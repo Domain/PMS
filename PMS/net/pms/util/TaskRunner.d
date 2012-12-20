@@ -93,17 +93,17 @@ public class TaskRunner {
 					if (singletonTask) {
 						if (getLock(name).tryLock()) {
 							locked = true;
-							LOGGER.debug("singleton task " + name + " started");
+							LOGGER._debug("singleton task " + name + " started");
 						} else {
 							locked = false;
-							LOGGER.debug("singleton task '" + name + "' already running, exiting");
+							LOGGER._debug("singleton task '" + name + "' already running, exiting");
 							return;
 						}
 					}
 					Thread.currentThread().setName(prevName + '-' + name + '(' + getAndIncr(name) + ')');
-					LOGGER.debug("task started");
+					LOGGER._debug("task started");
 					runnable.run();
-					LOGGER.debug("task ended");
+					LOGGER._debug("task ended");
 				} finally {
 					if (locked) {
 						getLock(name).unlock();

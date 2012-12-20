@@ -145,7 +145,7 @@ public class AviDemuxerInputStream : InputStream {
 				//Thread.sleep(500);
 				parseHeader();
 			} catch (IOException e) {
-				LOGGER.debug("Parsing error", e);
+				LOGGER._debug("Parsing error", e);
 			}
 		});
 

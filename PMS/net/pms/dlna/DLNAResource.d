@@ -1212,7 +1212,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		try {
 			return URLEncoder.encode(s, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 		return "";
 	}

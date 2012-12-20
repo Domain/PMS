@@ -35,7 +35,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class TreeNodeSettings : DefaultMutableTreeNode {
-	private static final Logger LOGGER = LoggerFactory.getLogger(TreeNodeSettings.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(TreeNodeSettings.class);
 	private static final long serialVersionUID = -337606760204027449L;
 	private Player p;
 	private JComponent otherConfigPanel;
@@ -92,7 +92,7 @@ public class TreeNodeSettings : DefaultMutableTreeNode {
 			try {
 				bi = ImageIO.read(LooksFrame.class.getResourceAsStream("/resources/images/messagebox_warning-220.png"));
 			} catch (IOException e) {
-				LOGGER.debug("Caught exception", e);
+				LOGGER._debug("Caught exception", e);
 			}
 			ImagePanel ip = new ImagePanel(bi);
 

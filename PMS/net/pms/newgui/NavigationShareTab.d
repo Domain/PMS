@@ -39,7 +39,7 @@ import java.io.File;
 import java.util.Locale;
 
 public class NavigationShareTab {
-	private static final Logger LOGGER = LoggerFactory.getLogger(NavigationShareTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(NavigationShareTab.class);
 	public static final String ALL_DRIVES = Messages.getString("FoldTab.0");
 
 	private static final String PANEL_COL_SPEC = "left:pref, 50dlu, pref, 150dlu, pref, 25dlu, pref, 25dlu, pref, default:grow";
@@ -207,7 +207,7 @@ public class NavigationShareTab {
 					int ab = Integer.parseInt(seekpos.getText());
 					configuration.setThumbnailSeekPos(ab);
 				} catch (NumberFormatException nfe) {
-					LOGGER.debug("Could not parse thumbnail seek position from \"" + seekpos.getText() + "\"");
+					LOGGER._debug("Could not parse thumbnail seek position from \"" + seekpos.getText() + "\"");
 				}
 
 			}
@@ -263,7 +263,7 @@ public class NavigationShareTab {
 					try {
 						configuration.setAudioThumbnailMethod(Integer.parseInt((String) thumbKCBM.getSelectedKey()));
 					} catch (NumberFormatException nfe) {
-						LOGGER.debug("Could not parse audio thumbnail method from \"" + thumbKCBM.getSelectedKey() + "\"");
+						LOGGER._debug("Could not parse audio thumbnail method from \"" + thumbKCBM.getSelectedKey() + "\"");
 					}
 
 				}
@@ -493,7 +493,7 @@ public class NavigationShareTab {
 					try {
 						configuration.setSortMethod(Integer.parseInt((String) kcbm.getSelectedKey()));
 					} catch (NumberFormatException nfe) {
-						LOGGER.debug("Could not parse sort method from \"" + kcbm.getSelectedKey() + "\"");
+						LOGGER._debug("Could not parse sort method from \"" + kcbm.getSelectedKey() + "\"");
 					}
 
 				}

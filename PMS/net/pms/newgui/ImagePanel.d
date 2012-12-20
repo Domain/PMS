@@ -27,7 +27,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 
 class ImagePanel : JPanel {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ImagePanel.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(ImagePanel.class);
 	private static final long serialVersionUID = -6709086531128513425L;
 	protected RenderedImage source;
 	protected int originX;
@@ -120,7 +120,7 @@ class ImagePanel : JPanel {
 				source,
 				AffineTransform.getTranslateInstance(i, j));
 		} catch (OutOfMemoryError e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 	}
 }

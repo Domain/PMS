@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class SystemErrWrapper : OutputStream {
-	private static final Logger logger = LoggerFactory.getLogger(SystemErrWrapper.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(SystemErrWrapper.class);
 	private int pos = 0;
 	private byte line[] = new byte[5000];
 

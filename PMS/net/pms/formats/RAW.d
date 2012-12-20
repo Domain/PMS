@@ -112,7 +112,7 @@ public class RAW : JPG {
 			media.finalize(type, file);
 			media.setMediaparsed(true);
 		} catch (Exception e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 	}
 }

@@ -1027,7 +1027,7 @@ public class DLNAMediaInfo : Cloneable {
 			double s = Double.parseDouble(st.nextToken());
 			return h * 3600 + m * 60 + s;
 		} catch (NumberFormatException nfe) {
-			LOGGER.debug("Failed to parse duration \"" ~ duration ~ "\"");
+			LOGGER._debug("Failed to parse duration \"" ~ duration ~ "\"");
 		}
 
 		return null;

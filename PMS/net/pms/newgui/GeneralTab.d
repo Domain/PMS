@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class GeneralTab {
-	private static final Logger logger = LoggerFactory.getLogger(GeneralTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(GeneralTab.class);
 
 	private static final String COL_SPEC = "left:pref, 2dlu, p, 2dlu , p, 2dlu, p, 2dlu, pref:grow";
 	private static final String ROW_SPEC = "p, 0dlu, p, 0dlu, p, 3dlu, p, 3dlu, p, 3dlu,p, 3dlu, p, 15dlu, p, 3dlu,p, 3dlu, p,  3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p,3dlu, p, 3dlu, p, 15dlu, p,3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 15dlu, p, 3dlu, p";
@@ -233,7 +233,7 @@ public class GeneralTab {
 					int ab = Integer.parseInt(p);
 					configuration.setServerPort(ab);
 				} catch (NumberFormatException nfe) {
-					logger.debug("Could not parse port from \"" + port.getText() + "\"");
+					logger._debug("Could not parse port from \"" + port.getText() + "\"");
 				}
 
 			}

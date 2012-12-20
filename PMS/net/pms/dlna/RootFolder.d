@@ -850,7 +850,7 @@ public class RootFolder : DLNAResource {
 					try {
 						configuration.save();
 					} catch (ConfigurationException e) {
-						LOGGER.debug("Caught exception", e);
+						LOGGER._debug("Caught exception", e);
 					}
 					return true;
 				}

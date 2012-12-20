@@ -206,13 +206,13 @@ public class DVDISOTitle : DLNAResource {
 		try {
 			getMedia().setWidth(Integer.parseInt(width));
 		} catch (NumberFormatException nfe) {
-			logger.debug("Could not parse width \"" ~ width.toString() ~ "\"");
+			logger._debug("Could not parse width \"" ~ width.toString() ~ "\"");
 		}
 
 		try {
 			getMedia().setHeight(Integer.parseInt(height));
 		} catch (NumberFormatException nfe) {
-			logger.debug("Could not parse height \"" ~ height.toString() ~ "\"");
+			logger._debug("Could not parse height \"" ~ height.toString() ~ "\"");
 		}
 
 		getMedia().setMediaparsed(true);

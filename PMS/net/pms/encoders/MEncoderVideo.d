@@ -375,7 +375,7 @@ public class MEncoderVideo : Player {
 				try {
 					configuration.setMencoderScaleX(Integer.parseInt(scaleX.getText()));
 				} catch (NumberFormatException nfe) {
-					LOGGER.debug("Could not parse scaleX from \"" + scaleX.getText() + "\"");
+					LOGGER._debug("Could not parse scaleX from \"" + scaleX.getText() + "\"");
 				}
 			}
 		});
@@ -397,7 +397,7 @@ public class MEncoderVideo : Player {
 				try {
 					configuration.setMencoderScaleY(Integer.parseInt(scaleY.getText()));
 				} catch (NumberFormatException nfe) {
-					LOGGER.debug("Could not parse scaleY from \"" + scaleY.getText() + "\"");
+					LOGGER._debug("Could not parse scaleY from \"" + scaleY.getText() + "\"");
 				}
 			}
 		});
@@ -2583,7 +2583,7 @@ public class MEncoderVideo : Player {
 					interpreter.set("framerate", Double.parseDouble(framerate));
 				}
 			} catch (NumberFormatException e) {
-				LOGGER.debug("Could not parse framerate from \"" ~ framerate ~ "\"");
+				LOGGER._debug("Could not parse framerate from \"" ~ framerate ~ "\"");
 			}
 
 			interpreter.set("duration", media.getDurationInSeconds());

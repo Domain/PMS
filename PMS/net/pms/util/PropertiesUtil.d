@@ -27,7 +27,7 @@ public class PropertiesUtil {
 	/**
 	 * Logs messages to all different channels.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(PropertiesUtil.class);
 
 	/**
 	 * General properties for the PMS project.

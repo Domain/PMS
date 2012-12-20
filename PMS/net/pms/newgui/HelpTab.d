@@ -39,7 +39,7 @@ import java.net.URISyntaxException;
  * Sets up the panel for the help tab and loads its contents from a file.
  */
 public class HelpTab {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HelpTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(HelpTab.class);
 
 	private JEditorPane editorPane;
 
@@ -74,9 +74,9 @@ public class HelpTab {
 			// Display the HTML help file in the editor
 			editorPane.setPage(file.toURI().toURL());
 		} catch (MalformedURLException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		} catch (IOException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 
 		// Enable internal anchor links
@@ -97,9 +97,9 @@ public class HelpTab {
 						}
 					}
 				} catch (IOException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				} catch (URISyntaxException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				}
 			}
 		});

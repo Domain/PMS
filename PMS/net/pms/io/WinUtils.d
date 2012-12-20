@@ -36,8 +36,8 @@ import java.util.prefs.Preferences;
  * @author zsombor
  *
  */
-public class WinUtils : BasicSystemUtils : SystemUtils {
-	private static final Logger logger = LoggerFactory.getLogger(WinUtils.class);
+public class WinUtils : BasicSystemUtils , SystemUtils {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(WinUtils.class);
 
 	public interface Kernel32 : Library {
 		Kernel32 INSTANCE = (Kernel32) Native.loadLibrary("kernel32",
@@ -64,7 +64,7 @@ public class WinUtils : BasicSystemUtils : SystemUtils {
 		int ES_SYSTEM_REQUIRED = 0x00000001;
 		int ES_CONTINUOUS = 0x80000000;
 	}
-	private static final int KEY_READ = 0x20019;
+	private static const int KEY_READ = 0x20019;
 	private bool kerio;
 	private String avsPluginsDir;
 	public long lastDontSleepCall = 0;
@@ -134,10 +134,10 @@ public class WinUtils : BasicSystemUtils : SystemUtils {
 				char test[] = new char[2 + pathname.length() * 2];
 				int r = Kernel32.INSTANCE.GetShortPathNameW(pathname, test, test.length);
 				if (r > 0) {
-					logger.debug("Forcing short path name on " + pathname);
+					logger._debug("Forcing short path name on " ~ pathname);
 					return Native.toString(test);
 				} else {
-					logger.info("File does not exist? " + pathname);
+					logger.info("File does not exist? " ~ pathname);
 					return null;
 				}
 
@@ -168,7 +168,7 @@ public class WinUtils : BasicSystemUtils : SystemUtils {
 	public String getDiskLabel(File f) {
 		String driveName;
 		try {
-			driveName = f.getCanonicalPath().substring(0, 2) + "\\";
+			driveName = f.getCanonicalPath().substring(0, 2) ~ "\\";
 
 			char[] lpRootPathName_chars = new char[4];
 			for (int i = 0; i < 3; i++) {
@@ -274,7 +274,7 @@ public class WinUtils : BasicSystemUtils : SystemUtils {
 				}
 			}
 		} catch (Exception e) {
-			logger.debug("Caught exception", e);
+			logger._debug("Caught exception", e);
 		}
 	}
 
@@ -297,6 +297,6 @@ public class WinUtils : BasicSystemUtils : SystemUtils {
 
 	override
 	public String[] getPingCommand(String hostAddress, int count, int packetSize) {
-		return new String[] { "ping", /* count */ "-n" , Integer.toString(count), /* size */ "-l", Integer.toString(packetSize), hostAddress };
+		return [ "ping", /* count */ "-n" , Integer.toString(count), /* size */ "-l", Integer.toString(packetSize), hostAddress ];
 	}
 }

@@ -151,7 +151,7 @@ public class DLNAMediaDatabase : Runnable {
 							Messages.getString("Dialog.Error"),
 		                    JOptionPane.ERROR_MESSAGE);
 					}	
-					LOGGER.debug("Damaged cache can't be deleted. Stop the program and delete the folder \"" ~ dbDir ~ "\" manually");
+					LOGGER._debug("Damaged cache can't be deleted. Stop the program and delete the folder \"" ~ dbDir ~ "\" manually");
 				}
 			}
 		}
@@ -183,7 +183,7 @@ public class DLNAMediaDatabase : Runnable {
 		}
 		bool force_reinit = !PMS.getVersion().equals(version); // here we can force a deletion for a specific version
 		if (force || dbCount == -1 || force_reinit) {
-			LOGGER.debug("Database will be (re)initialized");
+			LOGGER._debug("Database will be (re)initialized");
 			try {
 				conn = getConnection();
 				executeUpdate(conn, "DROP TABLE FILES");

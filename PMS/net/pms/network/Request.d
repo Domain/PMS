@@ -42,16 +42,16 @@ import java.util.*;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class Request : HTTPResource {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Request.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(Request.class);
 
-	private final static String CRLF = "\r\n";
-	private final static String HTTP_200_OK = "HTTP/1.1 200 OK";
-	private final static String HTTP_500 = "HTTP/1.1 500 Internal Server Error";
-	private final static String HTTP_206_OK = "HTTP/1.1 206 Partial Content";
-	private final static String HTTP_200_OK_10 = "HTTP/1.0 200 OK";
-	private final static String HTTP_206_OK_10 = "HTTP/1.0 206 Partial Content";
-	private final static String CONTENT_TYPE_UTF8 = "CONTENT-TYPE: text/xml; charset=\"utf-8\"";
-	private final static String CONTENT_TYPE = "Content-Type: text/xml; charset=\"utf-8\"";
+	private const static String CRLF = "\r\n";
+	private const static String HTTP_200_OK = "HTTP/1.1 200 OK";
+	private const static String HTTP_500 = "HTTP/1.1 500 Internal Server Error";
+	private const static String HTTP_206_OK = "HTTP/1.1 206 Partial Content";
+	private const static String HTTP_200_OK_10 = "HTTP/1.0 200 OK";
+	private const static String HTTP_206_OK_10 = "HTTP/1.0 206 Partial Content";
+	private const static String CONTENT_TYPE_UTF8 = "CONTENT-TYPE: text/xml; charset=\"utf-8\"";
+	private const static String CONTENT_TYPE = "Content-Type: text/xml; charset=\"utf-8\"";
 	private static SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss", Locale.US);
 	private final String method;
 	private String argument;
@@ -186,7 +186,7 @@ public class Request : HTTPResource {
 
 		// Samsung 2012 TVs have a problematic preceding slash that needs to be removed.
 		if (argument.startsWith("/")) {
-			LOGGER.trace("Stripping preceding slash from: " + argument);
+			LOGGER.trace("Stripping preceding slash from: " ~ argument);
 			argument = argument.substring(1);
 		}
 
@@ -196,10 +196,10 @@ public class Request : HTTPResource {
 		} else if ((method.equals("GET") || method.equals("HEAD")) && argument.startsWith("get/")) {
 			String id = argument.substring(argument.indexOf("get/") + 4, argument.lastIndexOf("/"));
 			id = id.replace("%24", "$"); // popcorn hour ?
-			List<DLNAResource> files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(id, false, 0, 0, mediaRenderer);
+			List/*<DLNAResource>*/ files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(id, false, 0, 0, mediaRenderer);
 
 			if (transferMode !is null) {
-				output(output, "TransferMode.DLNA.ORG: " + transferMode);
+				output(output, "TransferMode.DLNA.ORG: " ~ transferMode);
 			}
 
 			if (files.size() == 1) {
@@ -209,9 +209,9 @@ public class Request : HTTPResource {
 
 				if (fileName.startsWith("thumbnail0000")) {
 					// This is a request for a thumbnail file.
-					output(output, "Content-Type: " + dlna.getThumbnailContentType());
+					output(output, "Content-Type: " ~ dlna.getThumbnailContentType());
 					output(output, "Accept-Ranges: bytes");
-					output(output, "Expires: " + getFUTUREDATE() + " GMT");
+					output(output, "Expires: " ~ getFUTUREDATE() ~ " GMT");
 					output(output, "Connection: keep-alive");
 
 					if (mediaRenderer.isMediaParserV2()) {
@@ -222,7 +222,7 @@ public class Request : HTTPResource {
 				} else if (fileName.indexOf("subtitle0000") > -1) {
 					// This is a request for a subtitle file
 					output(output, "Content-Type: text/plain");
-					output(output, "Expires: " + getFUTUREDATE() + " GMT");
+					output(output, "Expires: " ~ getFUTUREDATE() ~ " GMT");
 					List<DLNAMediaSubtitle> subs = dlna.getMedia().getSubtitleTracksList();
 
 					if (subs !is null && !subs.isEmpty()) {
@@ -240,10 +240,10 @@ public class Request : HTTPResource {
 					inputStream = dlna.getInputStream(Range.create(lowRange, highRange, timeseek, timeRangeEnd), mediaRenderer);
 					if (inputStream is null) {
 						// No inputStream indicates that transcoding / remuxing probably crashed.
-						LOGGER.error("There is no inputstream to return for " + name);
+						LOGGER.error("There is no inputstream to return for " ~ name);
 					} else {
 						startStopListenerDelegate.start(dlna);
-						output(output, "Content-Type: " + getRendererMimeType(dlna.mimeType(), mediaRenderer));
+						output(output, "Content-Type: " ~ getRendererMimeType(dlna.mimeType(), mediaRenderer));
 
 						// Some renderers (like Samsung devices) allow a custom header for a subtitle URL
 						String subtitleHttpHeader = mediaRenderer.getSubtitleHttpHeader();
@@ -257,15 +257,15 @@ public class Request : HTTPResource {
 								String subtitleUrl;
 								String subExtension = sub.getType().getExtension();
 								if (isNotBlank(subExtension)) {
-									subtitleUrl = "http://" + PMS.get().getServer().getHost()
-											+ ':' + PMS.get().getServer().getPort() + "/get/"
-											+ id + "/subtitle0000." + subExtension;
+									subtitleUrl = "http://" ~ PMS.get().getServer().getHost()
+											~ ':' ~ PMS.get().getServer().getPort() ~ "/get/"
+											~ id ~ "/subtitle0000." ~ subExtension;
 								} else {
-									subtitleUrl = "http://" + PMS.get().getServer().getHost()
-											+ ':' + PMS.get().getServer().getPort() + "/get/"
-											+ id + "/subtitle0000";
+									subtitleUrl = "http://" ~ PMS.get().getServer().getHost()
+											~ ':' ~ PMS.get().getServer().getPort() ~ "/get/"
+											~ id ~ "/subtitle0000";
 								}
-								output(output, subtitleHttpHeader + ": " + subtitleUrl);
+								output(output, subtitleHttpHeader ~ ": " ~ subtitleUrl);
 							}
 						}
 
@@ -273,15 +273,15 @@ public class Request : HTTPResource {
 
 						if (media !is null) {
 							if (StringUtils.isNotBlank(media.getContainer())) {
-								name += " [container: " + media.getContainer() + "]";
+								name ~= " [container: " ~ media.getContainer() ~ "]";
 							}
 
 							if (StringUtils.isNotBlank(media.getCodecV())) {
-								name += " [video: " + media.getCodecV() + "]";
+								name ~= " [video: " ~ media.getCodecV() ~ "]";
 							}
 						}
 
-						PMS.get().getFrame().setStatusLine("Serving " + name);
+						PMS.get().getFrame().setStatusLine("Serving " ~ name);
 
 						// Response generation:
 						// We use -1 for arithmetic convenience but don't send it as a value.
@@ -313,11 +313,11 @@ public class Request : HTTPResource {
 							// Calculate the corresponding highRange (this is usually redundant).
 							highRange = lowRange + bytes - (bytes > 0 ? 1 : 0);
 
-							LOGGER.trace((chunked ? "Using chunked response. " : "") + "Sending " + bytes + " bytes.");
+							LOGGER.trace((chunked ? "Using chunked response. " : "") ~ "Sending " ~ bytes ~ " bytes.");
 
-							output(output, "Content-Range: bytes " + lowRange
-									+ "-" + (highRange > -1 ? highRange : "*")
-									+ "/" + (totalsize > -1 ? totalsize : "*"));
+							output(output, "Content-Range: bytes " ~ lowRange.toString()
+									~ "-" ~ (highRange > -1 ? highRange.toString() : "*")
+									~ "/" ~ (totalsize > -1 ? totalsize.toString() : "*"));
 
 							// Content-Length refers to the current chunk size here, though in chunked
 							// mode if the request is open-ended and totalsize is unknown we omit it.
@@ -332,7 +332,7 @@ public class Request : HTTPResource {
 						}
 
 						if (contentFeatures !is null) {
-							output(output, "ContentFeatures.DLNA.ORG: " + dlna.getDlnaContentFeatures());
+							output(output, "ContentFeatures.DLNA.ORG: " ~ dlna.getDlnaContentFeatures());
 						}
 
 						if (dlna.getPlayer() is null || xbox) {
@@ -352,7 +352,7 @@ public class Request : HTTPResource {
 
 			output(output, "Accept-Ranges: bytes");
 			output(output, "Connection: keep-alive");
-			output(output, "Expires: " + getFUTUREDATE() + " GMT");
+			output(output, "Expires: " ~ getFUTUREDATE() ~ " GMT");
 			inputStream = getResourceInputStream(argument);
 		} else if ((method.equals("GET") || method.equals("HEAD")) && (argument.equals("description/fetch") || argument.endsWith("1.0.xml"))) {
 			String profileName = PMS.getConfiguration().getProfileName();
@@ -369,22 +369,22 @@ public class Request : HTTPResource {
 				String s = new String(b);
 				s = s.replace("[uuid]", PMS.get().usn());//.substring(0, PMS.get().usn().length()-2));
 				s = s.replace("[host]", PMS.get().getServer().getHost());
-				s = s.replace("[port]", "" + PMS.get().getServer().getPort());
+				s = s.replace("[port]", "" ~ PMS.get().getServer().getPort());
 
 				if (xbox) {
-					LOGGER.debug("DLNA changes for Xbox 360");
-					s = s.replace("PS3 Media Server", "PS3 Media Server [" + profileName + "] : Windows Media Connect");
+					LOGGER._debug("DLNA changes for Xbox 360");
+					s = s.replace("PS3 Media Server", "PS3 Media Server [" ~ profileName ~ "] : Windows Media Connect");
 					s = s.replace("<modelName>PMS</modelName>", "<modelName>Windows Media Connect</modelName>");
-					s = s.replace("<serviceList>", "<serviceList>" + CRLF + "<service>" + CRLF
-							+ "<serviceType>urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1</serviceType>" + CRLF
-							+ "<serviceId>urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar</serviceId>" + CRLF
-							+ "<SCPDURL>/upnp/mrr/scpd</SCPDURL>" + CRLF
-							+ "<controlURL>/upnp/mrr/control</controlURL>" + CRLF
-							+ "</service>" + CRLF);
+					s = s.replace("<serviceList>", "<serviceList>" ~ CRLF ~ "<service>" ~ CRLF
+							~ "<serviceType>urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1</serviceType>" ~ CRLF
+							~ "<serviceId>urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar</serviceId>" ~ CRLF
+							~ "<SCPDURL>/upnp/mrr/scpd</SCPDURL>" ~ CRLF
+							~ "<controlURL>/upnp/mrr/control</controlURL>" ~ CRLF
+							~ "</service>" ~ CRLF);
 
 
 				} else {
-					s = s.replace("PS3 Media Server", "PS3 Media Server [" + profileName + "]");
+					s = s.replace("PS3 Media Server", "PS3 Media Server [" ~ profileName ~ "]");
 				}
 
 				inputStream = new ByteArrayInputStream(s.getBytes());
@@ -428,8 +428,8 @@ public class Request : HTTPResource {
 			output(output, CONTENT_TYPE_UTF8);
 			output(output,"Content-Length: 0");
 			output(output,"Connection: close");
-			output(output,"SID: "+PMS.get().usn());
-			output(output,"Server: "+PMS.get().getServerName());
+			output(output,"SID: "~PMS.get().usn());
+			output(output,"Server: "~PMS.get().getServerName());
 			output(output,"Timeout: Second-1800");
 			output(output,"");
 			output.flush();
@@ -444,15 +444,15 @@ public class Request : HTTPResource {
 				Socket sock = new Socket(addr,port);
 				OutputStream out = sock.getOutputStream();
 
-				output(out,"NOTIFY /"+argument+" HTTP/1.1");
-				output(out,"SID: "+PMS.get().usn());
-				output(out,"SEQ: "+0);
+				output(out,"NOTIFY /"~argument~" HTTP/1.1");
+				output(out,"SID: "~PMS.get().usn());
+				output(out,"SEQ: "~0);
 				output(out,"NT: upnp:event");
 				output(out,"NTS: upnp:propchange");
-				output(out,"HOST: " + addr + ":" + port);
+				output(out,"HOST: " ~ addr ~ ":" ~ port.toString());
 				output(out, CONTENT_TYPE_UTF8);
 			} catch (MalformedURLException ex) {
-				LOGGER.debug("Cannot parse address and port from soap action \"" + soapaction + "\"", ex);
+				LOGGER._debug("Cannot parse address and port from soap action \"" ~ soapaction ~ "\"", ex);
 			}
 			
 			if (argument.contains("connection_manager")) {
@@ -465,7 +465,7 @@ public class Request : HTTPResource {
 				response.append(HTTPXMLHelper.eventHeader("urn:schemas-upnp-org:service:ContentDirectory:1"));
 				response.append(HTTPXMLHelper.eventProp("TransferIDs"));
 				response.append(HTTPXMLHelper.eventProp("ContainerUpdateIDs"));
-				response.append(HTTPXMLHelper.eventProp("SystemUpdateID",""+DLNAResource.getSystemUpdateId()));
+				response.append(HTTPXMLHelper.eventProp("SystemUpdateID",DLNAResource.getSystemUpdateId().toString()));
 				response.append(HTTPXMLHelper.EVENT_FOOTER);
 			}
 		} else if (method.equals("POST") && argument.endsWith("upnp/control/content_directory")) {
@@ -580,7 +580,7 @@ public class Request : HTTPResource {
 					}
 				}
 
-				List<DLNAResource> files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(
+				List/*<DLNAResource>*/ files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(
 					objectID,
 					browseFlag !is null && browseFlag.equals("BrowseDirectChildren"),
 					startingIndex,
@@ -602,7 +602,7 @@ public class Request : HTTPResource {
 
 				int minus = 0;
 				if (files !is null) {
-					for (DLNAResource uf : files) {
+					foreach (DLNAResource uf ; files) {
 						if (xbox && containerID !is null) {
 							uf.setFakeParentId(containerID);
 						}
@@ -678,11 +678,11 @@ public class Request : HTTPResource {
 			}
 		}
 
-		output(output, "Server: " + PMS.get().getServerName());
+		output(output, "Server: " ~ PMS.get().getServerName());
 
 		if (response.length() > 0) {
 			byte responseData[] = response.toString().getBytes("UTF-8");
-			output(output, "Content-Length: " + responseData.length);
+			output(output, "Content-Length: " ~ responseData.length);
 			output(output, "");
 			if (!method.equals("HEAD")) {
 				output.write(responseData);
@@ -695,19 +695,19 @@ public class Request : HTTPResource {
 					// Since PS3 firmware 2.50, it is wiser not to send an arbitrary Content-Length,
 					// as the PS3 will display a network error and request the last seconds of the
 					// transcoded video. Better to send no Content-Length at all.
-					output(output, "Content-Length: " + CLoverride);
+					output(output, "Content-Length: " ~ CLoverride);
 				}
 			} else {
 				int cl = inputStream.available();
-				LOGGER.trace("Available Content-Length: " + cl);
-				output(output, "Content-Length: " + cl);
+				LOGGER.trace("Available Content-Length: " ~ cl);
+				output(output, "Content-Length: " ~ cl);
 			}
 
 			if (timeseek > 0 && dlna !is null) {
 				String timeseekValue = DLNAMediaInfo.getDurationString(timeseek);
 				String timetotalValue = dlna.getMedia().getDurationString();
-				output(output, "TimeSeekRange.dlna.org: npt=" + timeseekValue + "-" + timetotalValue + "/" + timetotalValue);
-				output(output, "X-Seek-Range: npt=" + timeseekValue + "-" + timetotalValue + "/" + timetotalValue);
+				output(output, "TimeSeekRange.dlna.org: npt=" ~ timeseekValue ~ "-" ~ timetotalValue ~ "/" ~ timetotalValue);
+				output(output, "X-Seek-Range: npt=" ~ timeseekValue ~ "-" ~ timetotalValue ~ "/" ~ timetotalValue);
 			}
 
 			output(output, "");
@@ -717,11 +717,11 @@ public class Request : HTTPResource {
 				sendB = sendBytes(inputStream); //, ((lowRange > 0 && highRange > 0)?(highRange-lowRange):-1)
 			}
 
-			LOGGER.trace("Sending stream: " + sendB + " bytes of " + argument);
+			LOGGER.trace("Sending stream: " ~ sendB.toString() ~ " bytes of " ~ argument);
 			PMS.get().getFrame().setStatusLine(null);
 		} else { // inputStream is null
 			if (lowRange > 0 && highRange > 0) {
-				output(output, "Content-Length: " + (highRange - lowRange + 1));
+				output(output, "Content-Length: " ~ (highRange - lowRange + 1).toString());
 			} else {
 				output(output, "Content-Length: 0");
 			}
@@ -732,7 +732,7 @@ public class Request : HTTPResource {
 
 	private void output(OutputStream output, String line) {
 		output.write((line + CRLF).getBytes("UTF-8"));
-		LOGGER.trace("Wrote on socket: " + line);
+		LOGGER.trace("Wrote on socket: " ~ line);
 	}
 
 	private String getFUTUREDATE() {
@@ -752,7 +752,7 @@ public class Request : HTTPResource {
 				sendBytes += bytes;
 			}
 		} catch (IOException e) {
-			LOGGER.trace("Sending stream with premature end: " + sendBytes + " bytes of " + argument + ". Reason: " + e.getMessage());
+			LOGGER.trace("Sending stream with premature end: " ~ sendBytes.toString() ~ " bytes of " ~ argument ~ ". Reason: " ~ e.getMessage());
 		} finally {
 			fis.close();
 		}

@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ProcessWrapperImpl : Thread : ProcessWrapper {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ProcessWrapperImpl.class);
+public class ProcessWrapperImpl : Thread , ProcessWrapper {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(ProcessWrapperImpl.class);
 	private String cmdLine;
 	private Process process;
 	private OutputConsumer stdoutConsumer;
@@ -41,7 +41,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 	private bool destroyed;
 	private String[] cmdArray;
 	private bool nullable;
-	private ArrayList<ProcessWrapper> attachedProcesses;
+	private ArrayList/*<ProcessWrapper>*/ attachedProcesses;
 	private BufferedOutputFile bo = null;
 	private bool keepStdout;
 	private bool keepStderr;
@@ -80,7 +80,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 			threadName = threadName.substring(threadName.lastIndexOf("\\") + 1);
 		}
 
-		setName(threadName + "-" + getProcessCounter());
+		setName(threadName ~ "-" ~ getProcessCounter());
 
 		File exec = new File(cmdArray[0]);
 
@@ -97,7 +97,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 			}
 
 			if (cmdArray[i] !is null && cmdArray[i].indexOf(" ") >= 0) {
-				sb.append("\"" + cmdArray[i] + "\"");
+				sb.append("\"" ~ cmdArray[i] ~ "\"");
 			} else {
 				sb.append(cmdArray[i]);
 			}
@@ -122,14 +122,14 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 		ProcessBuilder pb = new ProcessBuilder(cmdArray);
 
 		try {
-			LOGGER.debug("Starting " + cmdLine);
+			LOGGER._debug("Starting " ~ cmdLine);
 
 			if (params.workDir !is null && params.workDir.isDirectory()) {
 				pb.directory(params.workDir);
 			}
 
 			if (params.env !is null && !params.env.isEmpty()) {
-				Map<String,String> environment = pb.environment();
+				Map/*<String,String>*/ environment = pb.environment();
 				// actual name of system path var is case-sensitive
 				String sysPathKey = PMS.get().isWindows() ? "Path" : "PATH";
 				// as is Map
@@ -138,7 +138,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 					params.env.containsKey("Path") ? params.env.get("Path") : null;
 
 				if (PATH !is null) {
-					PATH += (File.pathSeparator + environment.get(sysPathKey));
+					PATH ~= (File.pathSeparator ~ environment.get(sysPathKey));
 				}
 
 				environment.putAll(params.env);
@@ -164,22 +164,22 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 			stdoutConsumer = null;
 
 			if (params.input_pipes[0] !is null) {
-				LOGGER.debug("Reading pipe: " + params.input_pipes[0].getInputPipe());
+				LOGGER._debug("Reading pipe: " ~ params.input_pipes[0].getInputPipe());
 				bo = params.input_pipes[0].getDirectBuffer();
 
 				if (bo is null || params.losslessaudio || params.lossyaudio || params.no_videoencode) {
-					InputStream is = params.input_pipes[0].getInputStream();
+					InputStream _is = params.input_pipes[0].getInputStream();
 
 					if (params.avidemux) {
-						is = new AviDemuxerInputStream(is, params, attachedProcesses);
+						_is = new AviDemuxerInputStream(_is, params, attachedProcesses);
 					}
 
-					stdoutConsumer = new OutputBufferConsumer(is, params);
+					stdoutConsumer = new OutputBufferConsumer(_is, params);
 					bo = stdoutConsumer.getBuffer();
 				}
 
 				bo.attachThread(this);
-				new OutputTextLogger(process.getInputStream()).start();
+				(new OutputTextLogger(process.getInputStream())).start();
 			} else if (params.log) {
 				stdoutConsumer = keepStdout
 					? new OutputTextConsumer(process.getInputStream(), true)
@@ -201,7 +201,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 			Integer pid = ProcessUtil.getProcessID(process);
 
 			if (pid !is null) {
-				LOGGER.debug("Unix process ID ({}): {}", cmdArray[0], pid);
+				LOGGER._debug("Unix process ID (%s): %s", cmdArray[0], pid);
 			}
 
 			ProcessUtil.waitFor(process);
@@ -228,14 +228,14 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 					bo.close();
 				}
 			} catch (IOException ioe) {
-				LOGGER.debug("Error closing buffered output file", ioe.getMessage());
+				LOGGER._debug("Error closing buffered output file", ioe.getMessage());
 			}
 
 			if (!destroyed && !params.noexitcheck) {
 				try {
 					success = true;
 					if (process !is null && process.exitValue() != 0) {
-						LOGGER.info("Process {} has a return code of {}! Maybe an error occurred... check the log file", cmdArray[0], process.exitValue());
+						LOGGER.info("Process %s has a return code of {}! Maybe an error occurred... check the log file", cmdArray[0], process.exitValue());
 						success = false;
 					}
 				} catch (IllegalThreadStateException itse) {
@@ -244,7 +244,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 			}
 
 			if (attachedProcesses !is null) {
-				for (ProcessWrapper pw : attachedProcesses) {
+				foreach (ProcessWrapper pw ; attachedProcesses) {
 					if (pw !is null) {
 						pw.stopProcess();
 					}
@@ -283,7 +283,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 		return null;
 	}
 
-	public List<String> getOtherResults() {
+	public List/*<String>*/ getOtherResults() {
 		if (stdoutConsumer is null) {
 			return null;
 		}
@@ -295,7 +295,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 		return stdoutConsumer.getResults();
 	}
 
-	public List<String> getResults() {
+	public List/*<String>*/ getResults() {
 		try {
 			stderrConsumer.join(1000);
 		} catch (InterruptedException e) { }
@@ -310,16 +310,16 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 				Integer pid = ProcessUtil.getProcessID(process);
 
 				if (pid !is null) {
-					LOGGER.debug("Stopping Unix process " + pid + ": " + this);
+					LOGGER._debug("Stopping Unix process " ~ pid.toString() ~ ": " ~ this);
 				} else {
-					LOGGER.debug("Stopping process: " + this);
+					LOGGER._debug("Stopping process: " ~ this.toString());
 				}
 
 				ProcessUtil.destroy(process);
 			}
 
 			if (attachedProcesses !is null) {
-				for (ProcessWrapper pw : attachedProcesses) {
+				foreach (ProcessWrapper pw ; attachedProcesses) {
 					if (pw !is null) {
 						pw.stopProcess();
 					}
@@ -342,7 +342,7 @@ public class ProcessWrapperImpl : Thread : ProcessWrapper {
 
 	public void setReadyToStop(bool nullable) {
 		if (nullable != this.nullable) {
-			LOGGER.trace("Ready to Stop: " + nullable);
+			LOGGER.trace("Ready to Stop: " ~ nullable);
 		}
 
 		this.nullable = nullable;

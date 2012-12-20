@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class OutputBufferConsumer : OutputConsumer {
-	private static final Logger LOGGER = LoggerFactory.getLogger(OutputBufferConsumer.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(OutputBufferConsumer.class);
 	private BufferedOutputFile outputBuffer;
 	
 	/**
@@ -56,16 +56,16 @@ public class OutputBufferConsumer : OutputConsumer {
 				// LOGGER.trace("Fetched " + n + " from pipe");
 				outputBuffer.write(buf, 0, n);
 			}
-			// LOGGER.debug("Finished to read");
+			// LOGGER._debug("Finished to read");
 		} catch (IOException ioe) {
-			LOGGER.debug("Error consuming stream of spawned process: " + ioe.getMessage());
+			LOGGER._debug("Error consuming stream of spawned process: " ~ ioe.getMessage());
 		} finally {
 			// LOGGER.trace("Closing read from pipe");
 			if (inputStream !is null) {
 				try {
 					inputStream.close();
 				} catch (IOException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				}
 			}
 		}
@@ -75,7 +75,7 @@ public class OutputBufferConsumer : OutputConsumer {
 		return outputBuffer;
 	}
 
-	public List<String> getResults() {
+	public List/*<String>*/ getResults() {
 		return null;
 	}
 }

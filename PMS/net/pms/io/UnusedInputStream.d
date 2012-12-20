@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public abstract class UnusedInputStream : InputStream {
-	private static final Logger logger = LoggerFactory.getLogger(UnusedInputStream.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(UnusedInputStream.class);
 	private InputStream inputStream;
 	private UnusedProcess processToTerminate;
 	private int timeout;
@@ -54,7 +54,7 @@ public abstract class UnusedInputStream : InputStream {
 					logger.error(null, e);
 				}
 				if (processToTerminate !is null && processToTerminate.isReadyToStop()) {
-					logger.debug("Destroying / Stopping attached process: " + processToTerminate);
+					logger._debug("Destroying / Stopping attached process: " ~ processToTerminate);
 					if (processToTerminate !is null) {
 						processToTerminate.stopProcess();
 					}
@@ -63,7 +63,7 @@ public abstract class UnusedInputStream : InputStream {
 				}
 			}
 		};
-		new Thread(checkEnd, "Process Reaper").start();
+		(new Thread(checkEnd, "Process Reaper")).start();
 	}
 
 	public int read() {

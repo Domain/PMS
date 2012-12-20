@@ -18,7 +18,7 @@ import static org.apache.commons.lang.StringUtils.*;
 import static org.mozilla.universalchardet.Constants.*;
 
 public class FileUtil {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
 	private static Map<File, File[]> cache;
 
 	public static File isFileExists(String f, String ext) {
@@ -120,7 +120,7 @@ public class FileUtil {
 				try {
 					subFolder = subFolder.getCanonicalFile();
 				} catch (IOException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				}
 			}
 
@@ -259,9 +259,9 @@ public class FileUtil {
 		String encoding = universalDetector.getDetectedCharset();
 
 		if (encoding !is null) {
-			LOGGER.debug("Detected encoding for {} is {}.", file.getAbsolutePath(), encoding);
+			LOGGER._debug("Detected encoding for {} is {}.", file.getAbsolutePath(), encoding);
 		} else {
-			LOGGER.debug("No encoding detected for {}.", file.getAbsolutePath());
+			LOGGER._debug("No encoding detected for {}.", file.getAbsolutePath());
 		}
 
 		universalDetector.reset();
@@ -332,7 +332,7 @@ public class FileUtil {
 		try {
 			charset = getFileCharset(inputFile);
 		} catch (IOException ex) {
-			LOGGER.debug("Exception during charset detection.", ex);
+			LOGGER._debug("Exception during charset detection.", ex);
 			throw new IllegalArgumentException("Can't confirm inputFile is UTF-16.");
 		}
 

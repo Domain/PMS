@@ -64,7 +64,7 @@ class WaitBufferedInputStream : InputStream {
 	}
 
 	public int available() {
-		return (int) outputStream.getWriteCount();
+		return cast(int) outputStream.getWriteCount();
 	}
 
 	public void close() {

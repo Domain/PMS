@@ -25,7 +25,7 @@ public class MacSystemUtils : BasicSystemUtils {
 			// This will open HTTP URLs in the default browser.
 			Runtime.getRuntime().exec([ "open", uri ]);
 		} catch (IOException e) {
-			LOGGER.trace("Unable to open the given URI: {}", uri);
+			LOGGER.trace("Unable to open the given URI: %s", uri);
 		}
 	}
 

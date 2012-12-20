@@ -48,7 +48,7 @@ import java.io.PipedOutputStream;
  */
 public class UnbufferedOutputFile : BufferedOutputFile {
 
-	private static final Logger logger = LoggerFactory.getLogger(UnbufferedOutputFile.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(UnbufferedOutputFile.class);
 	
 	private PipedOutputStream pipedOutputStream;
 	private PipedInputStream pipedInputStream;
@@ -59,7 +59,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 		try {
 			pipedInputStream = new PipedInputStream(pipedOutputStream);
 		} catch (IOException e) {
-			logger.debug("Error creating piped input stream: " + e);
+			logger._debug("Error creating piped input stream: " ~ e.toString());
 		}
 	}
 	

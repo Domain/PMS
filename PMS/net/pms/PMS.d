@@ -177,7 +177,7 @@ public class PMS {
 	 * @throws Exception TODO: Check which exceptions to use
 	 */
 	private bool checkProcessExistence(String name, bool error, File workDir, String[] params) {
-		LOGGER.debug("launching: " ~ params[0]);
+		LOGGER._debug("launching: " ~ params[0]);
 
 		try {
 			ProcessBuilder pb = new ProcessBuilder(params);
@@ -484,7 +484,7 @@ public class PMS {
 					}
 					UPNPHelper.shutDownListener();
 					UPNPHelper.sendByeBye();
-					LOGGER.debug("Forcing shutdown of all active processes");
+					LOGGER._debug("Forcing shutdown of all active processes");
 					for (Process p : currentProcesses) {
 						try {
 							p.exitValue();
@@ -496,9 +496,9 @@ public class PMS {
 					get().getServer().stop();
 					Thread.sleep(500);
 				} catch (IOException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				} catch (InterruptedException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				}
 			}
 		});
@@ -808,7 +808,7 @@ public class PMS {
 						LOGGER.warn("");
 					}
 				} catch (NumberFormatException e) {
-					LOGGER.debug("Cannot parse minor os.version number");
+					LOGGER._debug("Cannot parse minor os.version number");
 				}
 			}
 		}

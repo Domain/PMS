@@ -37,7 +37,7 @@ public class ProcessWrapperLiteImpl : ProcessWrapper {
 	}
 
 	override
-	public ArrayList<String> getResults() {
+	public ArrayList/*<String>*/ getResults() {
 		return null;
 	}
 

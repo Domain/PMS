@@ -28,13 +28,13 @@ import net.pms.PMS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.ArrayList;
 
-public class WindowsNamedPipe : Thread : ProcessWrapper {
-	private static final Logger LOGGER = LoggerFactory.getLogger(WindowsNamedPipe.class);
+public class WindowsNamedPipe : Thread , ProcessWrapper {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(WindowsNamedPipe.class);
 	private String path;
-	private bool in;
+	private bool _in;
 	private bool forceReconnect;
 	private Pointer handle1;
 	private Pointer handle2;
@@ -42,7 +42,7 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 	private InputStream readable;
 	private Thread forced;
 	private bool b2;
-	private FileOutputStream debug;
+	private FileOutputStream _debug;
 	private BufferedOutputFile directBuffer;
 
 	/**
@@ -54,11 +54,11 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 	public static bool loop = true;
 
 	/**
-	 * Size for the buffer used in defining pipes for Windows in bytes. The buffer is used
+	 * Size for the buffer used in defining pipes for Windows _in bytes. The buffer is used
 	 * to copy from memory to an {@link java.io.OutputStream OutputStream} such as
 	 * {@link net.pms.io.BufferedOutputFile BufferedOutputFile}.
 	 */
-	private static final int BUFSIZE = 500000;
+	private static const int BUFSIZE = 500000;
 
 	public interface Kernel32 : StdCallLibrary {
 		Kernel32 INSTANCE = (Kernel32) Native.loadLibrary("kernel32",
@@ -156,11 +156,11 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 		loop = value;
 	}
 
-	public this(String basename, bool forceReconnect, bool in, OutputParams params) {
-		this.path = "\\\\.\\pipe\\" + basename;
-		this.in = in;
+	public this(String basename, bool forceReconnect, bool _in, OutputParams params) {
+		this.path = "\\\\.\\pipe\\" ~ basename;
+		this._in = _in;
 		this.forceReconnect = forceReconnect;
-		LOGGER.debug("Creating pipe " + this.path);
+		LOGGER._debug("Creating pipe " ~ this.path);
 
 		try {
 			if (PMS.get().isWindows()) {
@@ -211,12 +211,12 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 				}
 			}
 		} catch (Exception e1) {
-			LOGGER.debug("Caught exception", e1);
+			LOGGER._debug("Caught exception", e1);
 		}
 	}
 
 	public void run() {
-		LOGGER.debug("Waiting for pipe connection " + this.path);
+		LOGGER._debug("Waiting for pipe connection " ~ this.path);
 		bool b1 = Kernel32.INSTANCE.ConnectNamedPipe(handle1, null);
 
 		if (forceReconnect) {
@@ -226,15 +226,15 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 				} catch (InterruptedException e) { }
 			}
 
-			LOGGER.debug("Forced reconnection of " + path + " with result : " + b2);
+			LOGGER._debug("Forced reconnection of " ~ path ~ " with result : " ~ b2);
 			handle1 = handle2;
 		}
 
-		LOGGER.debug("Result of " + this.path + " : " + b1);
+		LOGGER._debug("Result of " ~ this.path ~ " : " ~ b1);
 
 		try {
 			if (b1) {
-				if (in) {
+				if (_in) {
 					IntByReference intRef = new IntByReference();
 					Memory buffer = new Memory(BUFSIZE);
 
@@ -258,8 +258,8 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 								writable.close();
 							}
 
-							if (debug !is null) {
-								debug.close();
+							if (_debug !is null) {
+								_debug.close();
 							}
 
 							break;
@@ -273,8 +273,8 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 							writable.write(buffer.getByteArray(0, cbBytesRead));
 						}
 
-						if (debug !is null) {
-							debug.write(buffer.getByteArray(0, cbBytesRead));
+						if (_debug !is null) {
+							_debug.write(buffer.getByteArray(0, cbBytesRead));
 						}
 
 						if (!fSuccess || cbBytesRead == 0) {
@@ -286,8 +286,8 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 								writable.close();
 							}
 
-							if (debug !is null) {
-								debug.close();
+							if (_debug !is null) {
+								_debug.close();
 							}
 
 							break;
@@ -304,8 +304,8 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 						if (cbBytesRead == -1) {
 							readable.close();
 
-							if (debug !is null) {
-								debug.close();
+							if (_debug !is null) {
+								_debug.close();
 							}
 
 							break;
@@ -323,15 +323,15 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 
 						int cbWritten = intRef.getValue();
 
-						if (debug !is null) {
-							debug.write(buffer.getByteArray(0, cbBytesRead));
+						if (_debug !is null) {
+							_debug.write(buffer.getByteArray(0, cbBytesRead));
 						}
 
 						if (!fSuccess || cbWritten == 0) {
 							readable.close();
 
-							if (debug !is null) {
-								debug.close();
+							if (_debug !is null) {
+								_debug.close();
 							}
 
 							break;
@@ -340,11 +340,11 @@ public class WindowsNamedPipe : Thread : ProcessWrapper {
 				}
 			}
 		} catch (IOException e) {
-			LOGGER.debug("Error: " + e.getMessage());
+			LOGGER._debug("Error: " ~ e.getMessage());
 		}
 
-		if (!in) {
-			LOGGER.debug("Disconnected pipe: " + path);
+		if (!_in) {
+			LOGGER._debug("Disconnected pipe: " ~ path);
 			Kernel32.INSTANCE.FlushFileBuffers(handle1);
 			Kernel32.INSTANCE.DisconnectNamedPipe(handle1);
 		} else {

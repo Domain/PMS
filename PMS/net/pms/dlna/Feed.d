@@ -44,7 +44,7 @@ import java.util.List;
  * removed.
  */
 public class Feed : DLNAResource {
-	private static final Logger logger = LoggerFactory.getLogger(Feed.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(Feed.class);
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.

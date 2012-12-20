@@ -37,7 +37,7 @@ public class SizeLimitInputStream : InputStream {
 	 * 
 	 * @since ostermillerutils 1.04.00
 	 */
-	protected InputStream in;
+	protected InputStream _in;
 
 	/**
 	 * The number of bytes to read at most from this Stream. Read methods should
@@ -95,7 +95,7 @@ public class SizeLimitInputStream : InputStream {
 	}
 
 	/**
-	 * Tell whether the number of bytes specified in the constructor have been
+	 * Tell whether the number of bytes specified _in the constructor have been
 	 * read yet.
 	 * 
 	 * @return true iff the specified number of bytes have all been read.
@@ -122,7 +122,7 @@ public class SizeLimitInputStream : InputStream {
 	 * Create a new size limit input stream from another stream given a size
 	 * limit.
 	 * 
-	 * @param in
+	 * @param _in
 	 *            The input stream.
 	 * @param maxBytesToRead
 	 *            the max number of bytes to allow to be read from the
@@ -130,8 +130,8 @@ public class SizeLimitInputStream : InputStream {
 	 * 
 	 * @since ostermillerutils 1.04.00
 	 */
-	public this(InputStream in, long maxBytesToRead) {
-		this.in = in;
+	public this(InputStream _in, long maxBytesToRead) {
+		this._in = _in;
 		this.maxBytesToRead = maxBytesToRead;
 	}
 
@@ -143,7 +143,7 @@ public class SizeLimitInputStream : InputStream {
 		if (bytesRead >= maxBytesToRead) {
 			return -1;
 		}
-		int b = in.read();
+		int b = _in.read();
 		if (b != -1) {
 			bytesRead++;
 			bytesReadSinceMark++;
@@ -169,9 +169,9 @@ public class SizeLimitInputStream : InputStream {
 		}
 		long bytesLeft = getBytesLeft();
 		if (len > bytesLeft) {
-			len = (int) bytesLeft;
+			len = cast(int) bytesLeft;
 		}
-		int bytesJustRead = in.read(b, off, len);
+		int bytesJustRead = _in.read(b, off, len);
 		bytesRead += bytesJustRead;
 		bytesReadSinceMark += bytesJustRead;
 		return bytesJustRead;
@@ -189,7 +189,7 @@ public class SizeLimitInputStream : InputStream {
 		if (n > bytesLeft) {
 			n = bytesLeft;
 		}
-		return in.skip(n);
+		return _in.skip(n);
 	}
 
 	/**
@@ -197,10 +197,10 @@ public class SizeLimitInputStream : InputStream {
 	 */
 	override
 	public int available() {
-		int available = in.available();
+		int available = _in.available();
 		long bytesLeft = getBytesLeft();
 		if (available > bytesLeft) {
-			available = (int) bytesLeft;
+			available = cast(int) bytesLeft;
 		}
 		return available;
 	}
@@ -209,14 +209,14 @@ public class SizeLimitInputStream : InputStream {
 	 * Close this stream and underlying streams. Calling this method may make
 	 * data on the underlying stream unavailable.
 	 * <p>
-	 * Consider wrapping this stream in a NoCloseStream so that clients can call
+	 * Consider wrapping this stream _in a NoCloseStream so that clients can call
 	 * close() with no effect.
 	 * 
 	 * @since ostermillerutils 1.04.00
 	 */
 	override
 	public void close() {
-		in.close();
+		_in.close();
 	}
 
 	/**
@@ -224,10 +224,10 @@ public class SizeLimitInputStream : InputStream {
 	 */
 	override
 	public void mark(int readlimit) {
-		if (in.markSupported()) {
+		if (_in.markSupported()) {
 			markReadLimitBytes = readlimit;
 			bytesReadSinceMark = 0;
-			in.mark(readlimit);
+			_in.mark(readlimit);
 		}
 	}
 
@@ -236,9 +236,9 @@ public class SizeLimitInputStream : InputStream {
 	 */
 	override
 	public void reset() {
-		if (in.markSupported() && bytesReadSinceMark <= markReadLimitBytes) {
+		if (_in.markSupported() && bytesReadSinceMark <= markReadLimitBytes) {
 			bytesRead -= bytesReadSinceMark;
-			in.reset();
+			_in.reset();
 			bytesReadSinceMark = 0;
 		}
 	}
@@ -248,7 +248,7 @@ public class SizeLimitInputStream : InputStream {
 	 */
 	override
 	public bool markSupported() {
-		return in.markSupported();
+		return _in.markSupported();
 	}
 }
 

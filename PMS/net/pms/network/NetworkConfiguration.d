@@ -23,8 +23,8 @@ import net.pms.configuration.PmsConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.*;
-import java.util.*;
+import java.net.all;
+import java.util.all;
 
 /**
  * This class stores the network configuration information: which network
@@ -99,7 +99,7 @@ public class NetworkConfiguration {
 			}
 
 			if (addr !is null) {
-				displayName += " (" + addr.getHostAddress() + ")";
+				displayName ~= " (" ~ addr.getHostAddress() ~ ")";
 			}
 
 			return displayName;
@@ -107,14 +107,14 @@ public class NetworkConfiguration {
 		
 		override
 		public String toString() {
-			return "InterfaceAssociation(addr=" + addr + ", iface=" + iface + ", parent=" + parentName + ')';
+			return "InterfaceAssociation(addr=" ~ addr ~ ", iface=" ~ iface ~ ", parent=" ~ parentName ~ ')';
 		}
 	}
 
 	/**
 	 * The logger.
 	 */
-	private final static Logger LOGGER = LoggerFactory.getLogger(NetworkConfiguration.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(NetworkConfiguration.class);
 
 	/**
 	 * Singleton instance of this class.
@@ -124,30 +124,30 @@ public class NetworkConfiguration {
 	/**
 	 * The list of discovered network interfaces.
 	 */
-	private List<InterfaceAssociation> interfaces = new ArrayList<InterfaceAssociation>();
+	private List/*<InterfaceAssociation>*/ interfaces = new ArrayList/*<InterfaceAssociation>*/();
 
 	/**
 	 * The map of discovered default IP addresses belonging to a network interface.
 	 */
-	private Map<String, InterfaceAssociation> mainAddress = new HashMap<String, InterfaceAssociation>();
+	private Map/*<String, InterfaceAssociation>*/ mainAddress = new HashMap/*<String, InterfaceAssociation>*/();
 
 	/**
 	 * The map of IP addresses connected to an interface name.
 	 */
-	private Map<String, Set<InetAddress>> addressMap = new HashMap<String, Set<InetAddress>>();
+	private Map/*<String, Set<InetAddress>>*/ addressMap = new HashMap/*<String, Set<InetAddress>>*/();
 
 	/**
 	 * The list of configured network interface names that should be skipped.
 	 * 
 	 * @see PmsConfiguration#getSkipNetworkInterfaces()
 	 */
-	private List<String> skipNetworkInterfaces = PMS.getConfiguration().getSkipNetworkInterfaces();
+	private List/*<String>*/ skipNetworkInterfaces = PMS.getConfiguration().getSkipNetworkInterfaces();
 
 	/**
 	 * Default constructor. However, this is a singleton class: use
 	 * {@link #getInstance()} to retrieve an instance.
 	 */
-	private this(Enumeration<NetworkInterface> networkInterfaces) {
+	private this(Enumeration/*<NetworkInterface>*/ networkInterfaces) {
 		checkNetworkInterface(networkInterfaces, null);
 	}
 
@@ -159,11 +159,11 @@ public class NetworkConfiguration {
 	 *            The network interface.
 	 * @return The available addresses.
 	 */
-	private Set<InetAddress> addAvailableAddresses(NetworkInterface networkInterface) {
-		Set<InetAddress> addrSet = new HashSet<InetAddress>();
-		LOGGER.trace("available addresses for {} is: {}", networkInterface.getName(), Collections.list(networkInterface.getInetAddresses()));
+	private Set/*<InetAddress>*/ addAvailableAddresses(NetworkInterface networkInterface) {
+		Set/*<InetAddress>*/ addrSet = new HashSet/*<InetAddress>*/();
+		LOGGER.trace("available addresses for %s is: %s", networkInterface.getName(), Collections.list(networkInterface.getInetAddresses()));
 
-		for (InterfaceAddress ia : networkInterface.getInterfaceAddresses()) {
+		foreach (InterfaceAddress ia ; networkInterface.getInterfaceAddresses()) {
 			if (ia !is null) {
 				InetAddress address = ia.getAddress();
 
@@ -173,7 +173,7 @@ public class NetworkConfiguration {
 			}
 		}
 
-		LOGGER.trace("non loopback/ipv4 addresses: {}", addrSet);
+		LOGGER.trace("non loopback/ipv4 addresses: %s", addrSet);
 
 		// Store the addresses
 		addressMap.put(networkInterface.getName(), addrSet);
@@ -208,7 +208,7 @@ public class NetworkConfiguration {
 			return;
 		}
 
-		LOGGER.trace("checkNetworkInterface(parent = {}, child interfaces = {})", parentName, networkInterfaces);
+		LOGGER.trace("checkNetworkInterface(parent = %s, child interfaces = %s)", parentName, networkInterfaces);
 
 		while (networkInterfaces.hasMoreElements()) {
 			NetworkInterface ni = networkInterfaces.nextElement();
@@ -217,12 +217,12 @@ public class NetworkConfiguration {
 				// check for interface has at least one IP address.
 				checkNetworkInterface(ni, parentName);
 			} else {
-				LOGGER.trace("child network interface ({},{}) skipped, because skip_network_interfaces='{}'",
-					new Object[] { ni.getName(), ni.getDisplayName(), skipNetworkInterfaces });
+				LOGGER.trace("child network interface (%s,%s) skipped, because skip_network_interfaces='%s'",
+							 [ ni.getName(), ni.getDisplayName(), skipNetworkInterfaces ]);
 			}
 		}
 
-		LOGGER.trace("checkNetworkInterface(parent = {}) finished", parentName);
+		LOGGER.trace("checkNetworkInterface(parent = %s) finished", parentName);
 	}
 
 	/**
@@ -233,12 +233,12 @@ public class NetworkConfiguration {
 	 *            The list of network interfaces.
 	 * @return The list of addresses.
 	 */
-	private Set<InetAddress> getAllAvailableAddresses(Enumeration<NetworkInterface> networkInterfaces) {
-		Set<InetAddress> addrSet = new HashSet<InetAddress>();
+	private Set/*<InetAddress>*/ getAllAvailableAddresses(Enumeration/*<NetworkInterface>*/ networkInterfaces) {
+		Set/*<InetAddress>*/ addrSet = new HashSet/*<InetAddress>*/();
 
 		while (networkInterfaces.hasMoreElements()) {
 			NetworkInterface ni = networkInterfaces.nextElement();
-			Set<InetAddress> set = addressMap.get(ni.getName());
+			Set/*<InetAddress>*/ set = addressMap.get(ni.getName());
 
 			if (set !is null) {
 				addrSet.addAll(set);
@@ -261,39 +261,39 @@ public class NetworkConfiguration {
 	 *            The name of the parent interface.
 	 */
 	private void checkNetworkInterface(NetworkInterface networkInterface, String parentName) {
-		LOGGER.trace("checking {}, display name: {}",networkInterface.getName(), networkInterface.getDisplayName());
+		LOGGER.trace("checking %s, display name: %s",networkInterface.getName(), networkInterface.getDisplayName());
 		addAvailableAddresses(networkInterface);
 		checkNetworkInterface(networkInterface.getSubInterfaces(), networkInterface.getName());
 
 		// Create address / iface pairs which are not IP address of the child iface too
-		Set<InetAddress> subAddress = getAllAvailableAddresses(networkInterface.getSubInterfaces());
-		LOGGER.trace("sub address for {} is {}", networkInterface.getName(), subAddress);
+		Set/*<InetAddress>*/ subAddress = getAllAvailableAddresses(networkInterface.getSubInterfaces());
+		LOGGER.trace("sub address for %s is %s", networkInterface.getName(), subAddress);
 		bool foundAddress = false;
 
-		for (InterfaceAddress ifaceAddr : networkInterface.getInterfaceAddresses()) {
+		foreach (InterfaceAddress ifaceAddr ; networkInterface.getInterfaceAddresses()) {
 			if (ifaceAddr !is null) {
 				InetAddress address = ifaceAddr.getAddress();
-				LOGGER.trace("checking {} from {} on {}", new Object[] { address, ifaceAddr, networkInterface.getName() });
+				LOGGER.trace("checking %s from %s on %s", [ address, ifaceAddr, networkInterface.getName() ]);
 
 				if (isRelevantAddress(address)) {
 					// Avoid adding duplicates
 					if (!subAddress.contains(address)) {
-						LOGGER.trace("found {} -> {}", networkInterface.getName(), address.getHostAddress());
-						final InterfaceAssociation ia = new InterfaceAssociation(address, networkInterface, parentName);
+						LOGGER.trace("found %s -> %s", networkInterface.getName(), address.getHostAddress());
+						immutable InterfaceAssociation ia = new InterfaceAssociation(address, networkInterface, parentName);
 						interfaces.add(ia);
 						mainAddress.put(networkInterface.getName(), ia);
 						foundAddress = true;
 					}
 				} else {
-					LOGGER.trace("has {}, which is skipped, because loopback={}, ipv6={}", new Object[] {
-						address, address.isLoopbackAddress(), (cast(Inet6Address)address !is null)} );
+					LOGGER.trace("has %s, which is skipped, because loopback=%s, ipv6=%s", [
+						address, address.isLoopbackAddress(), (cast(Inet6Address)address !is null)] );
 				}
 			}
 		}
 
 		if (!foundAddress) {
 			interfaces.add(new InterfaceAssociation(null, networkInterface, parentName));
-			LOGGER.trace("found {}, without valid address", networkInterface.getName());
+			LOGGER.trace("found %s, without valid address", networkInterface.getName());
 		}
 	}
 
@@ -302,10 +302,10 @@ public class NetworkConfiguration {
 	 *
 	 * @return The interface names.
 	 */
-	public List<String> getKeys() {
-		List<String> result = new ArrayList<String>(interfaces.size());
+	public List/*<String>*/ getKeys() {
+		List/*<String>*/ result = new ArrayList/*<String>*/(interfaces.size());
 
-		for (InterfaceAssociation i : interfaces) {
+		foreach (InterfaceAssociation i ; interfaces) {
 			result.add(i.getShortName());
 		}
 
@@ -318,10 +318,10 @@ public class NetworkConfiguration {
 	 *
 	 * @return The list of names.
 	 */
-	public List<String> getDisplayNames() {
-		List<String> result = new ArrayList<String>(interfaces.size());
+	public List/*<String>*/ getDisplayNames() {
+		List/*<String>*/ result = new ArrayList/*<String>*/(interfaces.size());
 
-		for (InterfaceAssociation i : interfaces) {
+		foreach (InterfaceAssociation i ; interfaces) {
 				result.add(i.getDisplayName());
 		}
 
@@ -337,16 +337,16 @@ public class NetworkConfiguration {
 	 * @return The address.
 	 */
 	public InterfaceAssociation getDefaultNetworkInterfaceAddress() {
-		LOGGER.trace("default network interface address from {}", interfaces);
+		LOGGER.trace("default network interface address from %s", interfaces);
 		InterfaceAssociation association = getFirstInterfaceWithAddress();
 
 		if (association !is null) {
 			if (association.getParentName() !is null) {
 				InterfaceAssociation ia = getAddressForNetworkInterfaceName(association.getParentName());
-				LOGGER.trace("first association has parent: {} -> {}", association, ia);
+				LOGGER.trace("first association has parent: %s -> %s", association, ia);
 				return ia;
 			} else {
-				LOGGER.trace("first network interface: {}", association);
+				LOGGER.trace("first network interface: %s", association);
 				return association;
 			}
 		}
@@ -362,7 +362,7 @@ public class NetworkConfiguration {
 	 * @return The interface.
 	 */
 	private InterfaceAssociation getFirstInterfaceWithAddress() {
-		for (InterfaceAssociation ia : interfaces) {
+		foreach (InterfaceAssociation ia ; interfaces) {
 			if (ia.getAddr() !is null) {
 				return ia;
 			}
@@ -394,7 +394,7 @@ public class NetworkConfiguration {
 	 * @return True if the interface should be skipped, false otherwise.
 	 */
 	private bool skipNetworkInterface(String name, String displayName) {
-		for (String current : skipNetworkInterfaces) {
+		foreach (String current ; skipNetworkInterfaces) {
 			if (current !is null) {
 				// We expect the configured network interface names to skip to be
 				// defined with the start of the interface name, e.g. "tap" to
@@ -426,7 +426,7 @@ public class NetworkConfiguration {
 		String hostname = PMS.getConfiguration().getServerHostname();
 
 		if (hostname !is null) {
-			LOGGER.trace("Searching network interface for " + hostname);
+			LOGGER.trace("Searching network interface for " ~ hostname);
 			return NetworkInterface.getByInetAddress(InetAddress.getByName(hostname));
 		}
 
@@ -444,7 +444,7 @@ public class NetworkConfiguration {
 			try {
 				config = new NetworkConfiguration(NetworkInterface.getNetworkInterfaces());
 			} catch (SocketException e) {
-				LOGGER.error("Inspecting the network failed: " + e.getMessage(), e);
+				LOGGER.error("Inspecting the network failed: " ~ e.getMessage(), e);
 			}
 		}
 

@@ -41,7 +41,7 @@ import java.util.Iterator;
  */
 public class LoggingConfigFileLoader {
 	private static String filepath = null;
-	private static HashMap<String, String> logFilePaths = new HashMap<String, String>(); // key=appender name, value, log file path
+	private static HashMap/*<String, String>*/ logFilePaths = new HashMap/*<String, String>*/(); // key=appender name, value, log file path
 
 	/**
 	 * Gets the full path of a successfully loaded Logback configuration file.
@@ -126,12 +126,12 @@ public class LoggingConfigFileLoader {
 			je.printStackTrace();
 		}
 
-		for (Logger logger : lc.getLoggerList()) {
-			Iterator<Appender<ILoggingEvent>> it = logger.iteratorForAppenders();
+		foreach (Logger logger ; lc.getLoggerList()) {
+			Iterator/*<Appender<ILoggingEvent>>*/ it = logger.iteratorForAppenders();
 			while (it.hasNext()) {
-				Appender<ILoggingEvent> ap = it.next();
+				Appender/*<ILoggingEvent>*/ ap = it.next();
 				if (cast(FileAppender)ap !is null) {
-					FileAppender<ILoggingEvent> fa = (FileAppender<ILoggingEvent>) ap;
+					FileAppender/*<ILoggingEvent>*/ fa = cast(FileAppender/*<ILoggingEvent>*/) ap;
 					logFilePaths.put(fa.getName(), fa.getFile());
 				}
 			}
@@ -140,7 +140,7 @@ public class LoggingConfigFileLoader {
 		StatusPrinter.printInCaseOfErrorsOrWarnings(lc);
 	}
 
-	public static HashMap<String, String> getLogFilePaths() {
+	public static HashMap/*<String, String>*/ getLogFilePaths() {
 		return logFilePaths;
 	}
 }

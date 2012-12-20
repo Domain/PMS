@@ -18,28 +18,30 @@
  */
 module net.pms.io.PipeProcess;
 
+import core.vararg;
+
 import com.sun.jna.Platform;
 import net.pms.PMS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 
 public class PipeProcess {
-	private static final Logger logger = LoggerFactory.getLogger(PipeProcess.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(PipeProcess.class);
 	private String linuxPipeName;
 	private WindowsNamedPipe mk;
 	private bool forcereconnect;
 
-	public this(String pipeName, OutputParams params, String... extras) {
+	public this(String pipeName, OutputParams params, String[] extras...) {
 		forcereconnect = false;
-		bool in = true;
+		bool _in = true;
 
-		if (extras !is null && extras.length > 0 && extras[0].equals("out")) {
-			in = false;
+		if (extras.length > 0 && extras[0] == "out") {
+			_in = false;
 		}
 
-		if (extras !is null) {
+		if (extras.length > 0) {
 			for (int i = 0; i < extras.length; i++) {
 				if (extras[i].equals("reconnect")) {
 					forcereconnect = true;
@@ -48,19 +50,19 @@ public class PipeProcess {
 		}
 
 		if (PMS.get().isWindows()) {
-			mk = new WindowsNamedPipe(pipeName, forcereconnect, in, params);
+			mk = new WindowsNamedPipe(pipeName, forcereconnect, _in, params);
 		} else {
 			linuxPipeName = getPipeName(pipeName);
 		}
 	}
 
-	public this(String pipeName, String... extras) {
+	public this(String pipeName, String[] extras...) {
 		this(pipeName, null, extras);
 	}
 
 	private static String getPipeName(String pipeName) {
 		try {
-			return PMS.getConfiguration().getTempFolder() + "/" + pipeName;
+			return PMS.getConfiguration().getTempFolder() ~ "/" ~ pipeName;
 		} catch (IOException e) {
 			logger.error("Pipe may not be in temporary directory", e);
 			return pipeName;
@@ -116,7 +118,7 @@ public class PipeProcess {
 
 	public InputStream getInputStream() {
 		if (!PMS.get().isWindows()) {
-			logger.trace("Opening file " + linuxPipeName + " for reading...");
+			logger.trace("Opening file " ~ linuxPipeName ~ " for reading...");
 			RandomAccessFile raf = new RandomAccessFile(linuxPipeName, "r");
 			return new FileInputStream(raf.getFD());
 		}
@@ -125,7 +127,7 @@ public class PipeProcess {
 
 	public OutputStream getOutputStream() {
 		if (!PMS.get().isWindows()) {
-			logger.trace("Opening file " + linuxPipeName + " for writing...");
+			logger.trace("Opening file " ~ linuxPipeName ~ " for writing...");
 			RandomAccessFile raf = new RandomAccessFile(linuxPipeName, "rw");
 			FileOutputStream fout = new FileOutputStream(raf.getFD());
 			return fout;

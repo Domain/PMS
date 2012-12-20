@@ -23,8 +23,8 @@ import java.io.InputStream;
 import java.util.List;
 
 public interface ProcessWrapper : UnusedProcess {
-	public InputStream getInputStream(long seek) throws IOException;
-	public List<String> getResults();
+	public InputStream getInputStream(long seek);
+	public List/*<String>*/ getResults();
 	public bool isDestroyed();
 	public void runInNewThread();
 }

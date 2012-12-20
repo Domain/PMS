@@ -41,7 +41,7 @@ public class IpFilter {
 
 	private const static String IP_FILTER_RULE_CHAR = "0123456789-.* ";
 	private const static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
-	private static final Logger LOGGER = LoggerFactory.getLogger(IpFilter.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(IpFilter.class);
 
 	interface Predicate {
 		bool match(InetAddress addr);
@@ -295,7 +295,7 @@ public class IpFilter {
 
 	private static void eq(String name, Object obj, Object obj2) {
 		if (obj !is null && obj.equals(obj2)) {
-			LOGGER.debug("EQ: " ~ name ~ '=' ~ obj);
+			LOGGER._debug("EQ: " ~ name ~ '=' ~ obj);
 		} else {
 			throw new RuntimeException(name ~ " expected : '" ~ obj ~ "' <> actual : '" ~ obj2 ~ "'");
 		}

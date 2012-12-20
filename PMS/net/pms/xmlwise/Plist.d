@@ -51,7 +51,7 @@ import java.util.*;
  */
 deprecated
 public final class Plist {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Plist.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger(Plist.class);
 
 	/**
 	 * Singleton instance.
@@ -132,7 +132,7 @@ public final class Plist {
 				closeable.close();
 			}
 		} catch (IOException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 	}
 
