@@ -243,6 +243,7 @@
     <File path="java\lang\Long.d" />
     <File path="java\lang\Math.d" />
     <File path="java\lang\Number.d" />
+    <File path="java\lang\ProcessBuilder.d" />
     <File path="java\lang\Runnable.d" />
     <File path="java\lang\Short.d" />
     <File path="java\lang\String.d" />
