@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class FormatConfiguration {
-	private static const Logger LOGGER = LoggerFactory.getLogger(FormatConfiguration.class);
+	private static const Logger LOGGER = LoggerFactory.getLogger!FormatConfiguration();
 	private ArrayList/*<SupportSpec>*/ supportSpecs;
 	// Use old parser for JPEG files (MediaInfo does not support EXIF)
 	private static const String[3] PARSER_V1_EXTENSIONS = [ ".jpg", ".jpe", ".jpeg" ];

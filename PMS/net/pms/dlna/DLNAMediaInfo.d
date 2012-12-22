@@ -86,7 +86,7 @@ import org.slf4j.LoggerFactory;
  * removed.
  */
 public class DLNAMediaInfo : Cloneable {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(DLNAMediaInfo.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DLNAMediaInfo();
 	private static const String THUMBNAIL_DIRECTORY_NAME = "thumbs";
 
 	public static const long ENDFILE_POS = 99999475712L;

@@ -35,7 +35,7 @@ import java.util.List;
  *  An input stream consumer that stores the consumed lines in a list and optionally logs each line.
  */
 public class OutputTextConsumer : OutputConsumer {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(OutputTextConsumer.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!OutputTextConsumer();
 	private List/*<String>*/ lines = new ArrayList/*<String>*/();
 	private Object linesLock = new Object();
 	private bool log;

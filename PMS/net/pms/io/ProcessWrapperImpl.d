@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ProcessWrapperImpl : Thread , ProcessWrapper {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(ProcessWrapperImpl.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ProcessWrapperImpl();
 	private String cmdLine;
 	private Process process;
 	private OutputConsumer stdoutConsumer;

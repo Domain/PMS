@@ -30,7 +30,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 public class ZippedFile : DLNAResource {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(ZippedFile.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ZippedFile();
 	private File file;
 	private ZipFile zip;
 

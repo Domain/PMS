@@ -30,7 +30,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class CodecUtil {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(CodecUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!CodecUtil();
 	private static ArrayList/*<String>*/ codecs = new ArrayList/*<String>*/();
 
 	static this() {

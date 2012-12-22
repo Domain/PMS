@@ -33,7 +33,7 @@ import java.util.StringTokenizer;
  * Abstract class to store known information about a given format.
  */
 public abstract class Format : Cloneable {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(Format.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!Format();
 
 	public enum Identifier {
 		AUDIO_AS_VIDEO,

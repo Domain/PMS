@@ -39,7 +39,7 @@ import java.net.URISyntaxException;
  * Sets up the panel for the help tab and loads its contents from a file.
  */
 public class HelpTab {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(HelpTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!HelpTab();
 
 	private JEditorPane editorPane;
 

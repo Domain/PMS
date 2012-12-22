@@ -36,7 +36,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class AboutTab {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(AboutTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AboutTab();
 
 	private ImagePanel imagePanel;
 	private JLabel jl;

@@ -66,7 +66,7 @@ import net.pms.util.StringUtil : isBlank, isNotBlank, isEmpty, isNotEmpty;
 public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 	private immutable Map/*<String, Integer>*/ requestIdToRefcount = new HashMap/*<String, Integer>*/();
 	private static const int STOP_PLAYING_DELAY = 4000;
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(DLNAResource.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DLNAResource();
 	private static immutable SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
 
 	protected static const int MAX_ARCHIVE_ENTRY_SIZE = 10000000;

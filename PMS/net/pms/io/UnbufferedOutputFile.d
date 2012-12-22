@@ -48,7 +48,7 @@ import java.io.PipedOutputStream;
  */
 public class UnbufferedOutputFile : BufferedOutputFile {
 
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(UnbufferedOutputFile.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!UnbufferedOutputFile();
 	
 	private PipedOutputStream pipedOutputStream;
 	private PipedInputStream pipedInputStream;

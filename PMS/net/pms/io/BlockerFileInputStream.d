@@ -28,7 +28,7 @@ import java.io.IOException;
 deprecated
 // no longer used
 public class BlockerFileInputStream : UnusedInputStream {
-	private static immutable Logger logger = LoggerFactory.getLogger(BlockerFileInputStream.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!BlockerFileInputStream();
 	private static const int CHECK_INTERVAL = 1000;
 	private long readCount;
 	private long waitSize;

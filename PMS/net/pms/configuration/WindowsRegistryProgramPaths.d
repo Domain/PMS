@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 class WindowsRegistryProgramPaths : ProgramPaths {
-	private static immutable Logger logger = LoggerFactory.getLogger(WindowsRegistryProgramPaths.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!WindowsRegistryProgramPaths();
 	private immutable ProgramPaths defaults;
 
 	this(ProgramPaths defaults) {

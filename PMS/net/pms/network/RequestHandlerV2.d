@@ -40,7 +40,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(RequestHandlerV2.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!RequestHandlerV2();
 	private static immutable Pattern TIMERANGE_PATTERN = Pattern.compile(
 		"timeseekrange\\.dlna\\.org\\W*npt\\W*=\\W*([\\d\\.:]+)?\\-?([\\d\\.:]+)?",
 		Pattern.CASE_INSENSITIVE

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class DTSAudioOutputStream : FlowParserOutputStream {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(DTSAudioOutputStream.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DTSAudioOutputStream();
 	private static int bits[] = [16, 16, 20, 20, 0, 24, 24];
 	private bool dts = false;
 	private bool dtsHD = false;

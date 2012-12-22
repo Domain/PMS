@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CueFolder : DLNAResource {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(CueFolder.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!CueFolder();
 	private File playlistfile;
 
 	public File getPlaylistfile() {

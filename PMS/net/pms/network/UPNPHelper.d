@@ -35,7 +35,7 @@ import java.util.all;
  * for the specifications.
  */
 public class UPNPHelper {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(UPNPHelper.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!UPNPHelper();
 	private const static String CRLF = "\r\n";
 	private const static String ALIVE = "ssdp:alive";
 	

@@ -42,7 +42,7 @@ import java.net.URISyntaxException;
  *
  */
 public class BasicSystemUtils : SystemUtils {
-	private immutable static Logger logger = LoggerFactory.getLogger(BasicSystemUtils.class); 
+	private immutable static Logger logger = LoggerFactory.getLogger!BasicSystemUtils(); 
 
 	protected String vlcp;
 	protected String vlcv;

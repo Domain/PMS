@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DVDISOTitle : DLNAResource {
-	private static immutable Logger logger = LoggerFactory.getLogger(DVDISOTitle.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!DVDISOTitle();
 	private File f;
 	private int title;
 	private long length;

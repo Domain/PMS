@@ -42,7 +42,7 @@ import java.util.all;
  * removed.
  */
 public class MapFile : DLNAResource {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(MapFile.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!MapFile();
 	private List/*<File>*/ discoverable;
 
 	/**

@@ -31,7 +31,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class PipeIPCProcess : Thread , ProcessWrapper {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(PipeIPCProcess.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PipeIPCProcess();
 	private PipeProcess mkin;
 	private PipeProcess mkout;
 	private StreamModifier modifier;

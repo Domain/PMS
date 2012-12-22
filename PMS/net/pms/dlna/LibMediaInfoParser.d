@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.StringTokenizer;
 
 public class LibMediaInfoParser {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(LibMediaInfoParser.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!LibMediaInfoParser();
 	private static MediaInfo MI;
 	private static Base64 base64;
 

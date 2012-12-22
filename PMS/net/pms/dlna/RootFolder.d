@@ -48,7 +48,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 public class RootFolder : DLNAResource {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(RootFolder.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!RootFolder();
 	private immutable PmsConfiguration configuration = PMS.getConfiguration();
 	private bool running;
 

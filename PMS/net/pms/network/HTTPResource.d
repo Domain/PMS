@@ -39,7 +39,7 @@ import net.pms.util.StringUtil : convertURLToFileName;
  * @see DLNAResource
  */
 public class HTTPResource {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(HTTPResource.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!HTTPResource();
 	public static const String UNKNOWN_VIDEO_TYPEMIME = "video/mpeg";
 	public static const String UNKNOWN_IMAGE_TYPEMIME = "image/jpeg";
 	public static const String UNKNOWN_AUDIO_TYPEMIME = "audio/mpeg";

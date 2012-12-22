@@ -38,7 +38,7 @@ import org.jboss.netty.channel.Channels : pipeline;
  * @author Andy Taylor (andy.taylor@jboss.org)
  */
 public class HttpServerPipelineFactory : ChannelPipelineFactory {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(HttpServerPipelineFactory.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!HttpServerPipelineFactory();
 	private ChannelGroup group;
 	
 	public this(ChannelGroup group) {

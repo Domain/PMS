@@ -48,7 +48,7 @@ public final class PlayerFactory {
 	 * Logger used for all logging.
 	 */
 	private static immutable Logger LOGGER = LoggerFactory
-			.getLogger(FormatFactory.class);
+			.getLogger!FormatFactory();
 
 	/**
 	 * List of registered and approved {@link Player} objects.

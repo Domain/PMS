@@ -45,7 +45,7 @@ import java.util.TimerTask;
  * @see net.pms.network.RequestV2 RequestV2
  */
 public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(BufferedOutputFileImpl.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!BufferedOutputFileImpl();
 	
 	/**
 	 * Initial size for the buffer in bytes.

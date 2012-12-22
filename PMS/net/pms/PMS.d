@@ -49,13 +49,16 @@ import net.pms.util.TaskRunner;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
+import java.lang.exception;
 import java.io.PrintStream;
 import java.net.BindException;
 import java.text.SimpleDateFormat;
 import java.util.all;
 import java.util.Map.Entry;
 import java.util.logging.LogManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PMS {
 	private static const String SCROLLBARS = "scrollbars";
@@ -73,7 +76,7 @@ public class PMS {
 	public static const String AVS_SEPARATOR = "\1";
 
 	// (innot): The logger used for all logging.
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(PMS.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PMS();
 
 	// TODO(tcox):  This shouldn't be static
 	private static PmsConfiguration configuration;
@@ -198,11 +201,10 @@ public class PMS {
 			OutputTextConsumer outConsumer = new OutputTextConsumer(process.getInputStream(), false);
 			outConsumer.start();
 
-			Runnable r = new class() Runnable {
-				public void run() {
+			Runnable r = dgRunnable( {
 					ProcessUtil.waitFor(process);
 				}
-			};
+			);
 
 			Thread checkThread = new Thread(r, "PMS Checker");
 			checkThread.start();

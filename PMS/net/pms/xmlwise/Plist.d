@@ -50,7 +50,7 @@ import java.util.all;
  */
 deprecated
 public final class Plist {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(Plist.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!Plist();
 
 	/**
 	 * Singleton instance.

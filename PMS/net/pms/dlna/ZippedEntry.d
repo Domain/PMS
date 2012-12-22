@@ -31,7 +31,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class ZippedEntry : DLNAResource , IPushOutput {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(ZippedEntry.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ZippedEntry();
 	private File file;
 	private String zeName;
 	private long length;

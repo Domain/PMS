@@ -36,7 +36,7 @@ import java.lang.reflect.Method;
 import java.util.Collections.singletonMap;
 
 public class MediaInfo {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(MediaInfo.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!MediaInfo();
 	static String libraryName;
 
 	static this() {

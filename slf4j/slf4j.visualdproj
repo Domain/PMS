@@ -189,7 +189,9 @@
  <Folder name="slf4j">
   <Folder name="org">
    <Folder name="slf4j">
+    <File path="org\slf4j\log.d" />
     <File path="org\slf4j\Logger.d" />
+    <File path="org\slf4j\LoggerFactory.d" />
    </Folder>
   </Folder>
  </Folder>

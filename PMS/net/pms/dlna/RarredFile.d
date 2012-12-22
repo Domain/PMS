@@ -31,7 +31,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class RarredFile : DLNAResource {
-	private static immutable Logger logger = LoggerFactory.getLogger(RarredFile.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!RarredFile();
 	private File f;
 	private Archive rarFile;
 

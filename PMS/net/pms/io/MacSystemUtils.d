@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MacSystemUtils : BasicSystemUtils {
-	private immutable static Logger LOGGER = LoggerFactory.getLogger(MacSystemUtils.class);
+	private immutable static Logger LOGGER = LoggerFactory.getLogger!MacSystemUtils();
 
 	public this() { }
 

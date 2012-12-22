@@ -114,7 +114,7 @@ public class NetworkConfiguration {
 	/**
 	 * The logger.
 	 */
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(NetworkConfiguration.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!NetworkConfiguration();
 
 	/**
 	 * Singleton instance of this class.

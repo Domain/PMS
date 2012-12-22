@@ -34,7 +34,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  */
 public class TaskRunner {
-	final static Logger LOGGER = LoggerFactory.getLogger(TaskRunner.class);
+	final static Logger LOGGER = LoggerFactory.getLogger!TaskRunner();
 	
 	private static TaskRunner instance;
 	

@@ -27,7 +27,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 
 class ImagePanel : JPanel {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(ImagePanel.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ImagePanel();
 	private static final long serialVersionUID = -6709086531128513425L;
 	protected RenderedImage source;
 	protected int originX;

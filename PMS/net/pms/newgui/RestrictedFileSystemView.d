@@ -39,7 +39,7 @@ import java.util.Vector;
  * 
  */
 public class RestrictedFileSystemView : FileSystemView {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(RestrictedFileSystemView.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!RestrictedFileSystemView();
 	private static final String newFolderString = UIManager.getString("FileChooser.other.newFolder");
 	private File _defaultDirectory;
 

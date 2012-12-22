@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * This class populates the file-specific transcode folder with content.
  */
 public class FileTranscodeVirtualFolder : VirtualFolder {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(FileTranscodeVirtualFolder.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FileTranscodeVirtualFolder();
 	private bool resolved;
 
 	/**

@@ -49,7 +49,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class LooksFrame : JFrame : IFrame, Observer {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(LooksFrame.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!LooksFrame();
 	private final AutoUpdater autoUpdater;
 	private final PmsConfiguration configuration;
 	public static final String START_SERVICE = "start.service";

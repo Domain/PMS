@@ -27,7 +27,7 @@ import java.net.Socket;
 import java.util.StringTokenizer;
 
 public class Proxy : Thread {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(Proxy.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!Proxy();
 	private Socket socket, socketToWeb;
 	private BufferedReader fromBrowser;
 	private OutputStream toBrowser;

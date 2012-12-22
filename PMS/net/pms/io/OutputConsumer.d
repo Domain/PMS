@@ -28,7 +28,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public abstract class OutputConsumer : Thread {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(OutputConsumer.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!OutputConsumer();
 	protected InputStream inputStream;
 
 	public this(InputStream inputStream) {

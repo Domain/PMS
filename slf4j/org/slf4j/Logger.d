@@ -1,7 +1,6 @@
 module org.slf4j.Logger;
 
-import std.format;
-import std.stdio;
+import org.slf4j.log;
 
 /**
 * The org.slf4j.Logger interface is the main user entry point of SLF4J API.
@@ -43,11 +42,20 @@ public class Logger {
 	const public String ROOT_LOGGER_NAME = "ROOT";
 
 	private auto writer = appender!string();
+	private String _name;
+
+	public this(String name)
+	{
+		_name = name;
+	}
 
 	/**
 	* Return the name of this <code>Logger</code> instance.
 	*/
-	public String getName();
+	public String getName()
+	{
+		return _name;
+	]
 
 	/**
 	* Is the logger instance enabled for the TRACE level?
@@ -56,14 +64,20 @@ public class Logger {
 	*         false otherwise.
 	* @since 1.4
 	*/
-	public boolean isTraceEnabled();
-
-	private void log(T...)(string fmt, T args)
+	public boolean isTraceEnabled()
 	{
-		scope(exit) writer.clear();
-		writer.reserve(fmt.length);
-		formattedWrite(writer, fmt, args);
-		writeln(writer.data);
+		return info.willLog;
+	}
+
+	/**
+	* Log a message at the TRACE level.
+	*
+	* @param msg the message string to be logged
+	* @since 1.4
+	*/
+	public void trace(string file = __FILE__, int line = __LINE__, T...)(lazy T args)
+	{
+		info.write!(file, line)(args);
 	}
 
 	/**
@@ -74,90 +88,8 @@ public class Logger {
 	*/
 	public void trace(string file = __FILE__, int line = __LINE__, T...)(lazy string fmt, lazy T args)
 	{
-		log("TRC %s %s: %s", file, line, fmt, args);
+		info.writef!(file, line)(fmt, args);
 	}
-
-	/**
-	* Log an exception (throwable) at the TRACE level with an
-	* accompanying message.
-	*
-	* @param msg the message accompanying the exception
-	* @param t   the exception (throwable) to log
-	* @since 1.4
-	*/
-	public void trace(string file = __FILE__, int line = __LINE__)(String msg, Throwable t)
-	{
-		log("TRC %s %s: %s", file, line, t.toString);
-	}
-
-
-	/**
-	* Similar to {@link #isTraceEnabled()} method except that the
-	* marker data is also taken into account.
-	*
-	* @param marker The marker data to take into consideration
-	* @since 1.4
-	*/
-	public boolean isTraceEnabled(Marker marker);
-
-	/**
-	* Log a message with the specific Marker at the TRACE level.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param msg    the message string to be logged
-	* @since 1.4
-	*/
-	public void trace(Marker marker, String msg);
-
-	/**
-	* This method is similar to {@link #trace(String, Object)} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg    the argument
-	* @since 1.4
-	*/
-	public void trace(Marker marker, String format, Object arg);
-
-
-	/**
-	* This method is similar to {@link #trace(String, Object, Object)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	* @since 1.4
-	*/
-	public void trace(Marker marker, String format, Object arg1, Object arg2);
-
-	/**
-	* This method is similar to {@link #trace(String, Object...)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker   the marker data specific to this log statement
-	* @param format   the format string
-	* @param argArray an array of arguments
-	* @since 1.4
-	*/
-	public void trace(Marker marker, String format, Object... argArray);
-
-
-	/**
-	* This method is similar to {@link #trace(String, Throwable)} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param msg    the message accompanying the exception
-	* @param t      the exception (throwable) to log
-	* @since 1.4
-	*/
-	public void trace(Marker marker, String msg, Throwable t);
-
 
 	/**
 	* Is the logger instance enabled for the DEBUG level?
@@ -165,7 +97,10 @@ public class Logger {
 	* @return True if this Logger is enabled for the DEBUG level,
 	*         false otherwise.
 	*/
-	public boolean isDebugEnabled();
+	public boolean isDebugEnabled()
+	{
+		return info.willLog;
+	}
 
 
 	/**
@@ -173,7 +108,10 @@ public class Logger {
 	*
 	* @param msg the message string to be logged
 	*/
-	public void debug(String msg);
+	public void _debug(string file = __FILE__, int line = __LINE__, T...)(lazy T args)
+	{
+		info.write!(file, line)(args);
+	}
 
 
 	/**
@@ -186,108 +124,10 @@ public class Logger {
 	* @param format the format string
 	* @param arg    the argument
 	*/
-	public void debug(String format, Object arg);
-
-
-	/**
-	* Log a message at the DEBUG level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous object creation when the logger
-	* is disabled for the DEBUG level. </p>
-	*
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void debug(String format, Object arg1, Object arg2);
-
-	/**
-	* Log a message at the DEBUG level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous string concatenation when the logger
-	* is disabled for the DEBUG level. However, this variant incurs the hidden
-	* (and relatively small) cost of creating an <code>Object[]</code> before invoking the method,
-	* even if this logger is disabled for DEBUG. The variants taking
-	* {@link #debug(String, Object) one} and {@link #debug(String, Object, Object) two}
-	* arguments exist solely in order to avoid this hidden cost.</p>
-	*
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void debug(String format, Object... arguments);
-
-	/**
-	* Log an exception (throwable) at the DEBUG level with an
-	* accompanying message.
-	*
-	* @param msg the message accompanying the exception
-	* @param t   the exception (throwable) to log
-	*/
-	public void debug(String msg, Throwable t);
-
-
-	/**
-	* Similar to {@link #isDebugEnabled()} method except that the
-	* marker data is also taken into account.
-	*
-	* @param marker The marker data to take into consideration
-	*/
-	public boolean isDebugEnabled(Marker marker);
-
-	/**
-	* Log a message with the specific Marker at the DEBUG level.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param msg    the message string to be logged
-	*/
-	public void debug(Marker marker, String msg);
-
-	/**
-	* This method is similar to {@link #debug(String, Object)} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg    the argument
-	*/
-	public void debug(Marker marker, String format, Object arg);
-
-
-	/**
-	* This method is similar to {@link #debug(String, Object, Object)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void debug(Marker marker, String format, Object arg1, Object arg2);
-
-	/**
-	* This method is similar to {@link #debug(String, Object...)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker    the marker data specific to this log statement
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void debug(Marker marker, String format, Object... arguments);
-
-
-	/**
-	* This method is similar to {@link #debug(String, Throwable)} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param msg    the message accompanying the exception
-	* @param t      the exception (throwable) to log
-	*/
-	public void debug(Marker marker, String msg, Throwable t);
+	public void _debug(string file = __FILE__, int line = __LINE__, T...)(lazy string fmt, lazy T args)
+	{
+		info.writef!(file, line)(fmt, args);
+	}
 
 
 	/**
@@ -296,7 +136,10 @@ public class Logger {
 	* @return True if this Logger is enabled for the INFO level,
 	*         false otherwise.
 	*/
-	public boolean isInfoEnabled();
+	public boolean isInfoEnabled()
+	{
+		return info.willLog;
+	}
 
 
 	/**
@@ -304,7 +147,11 @@ public class Logger {
 	*
 	* @param msg the message string to be logged
 	*/
-	public void info(String msg);
+	public void info(string file = __FILE__, int line = __LINE__, T...)(lazy T args)
+	{
+		info.write!(file, line)(args);
+	}
+
 
 
 	/**
@@ -317,107 +164,10 @@ public class Logger {
 	* @param format the format string
 	* @param arg    the argument
 	*/
-	public void info(String format, Object arg);
-
-
-	/**
-	* Log a message at the INFO level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous object creation when the logger
-	* is disabled for the INFO level. </p>
-	*
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void info(String format, Object arg1, Object arg2);
-
-	/**
-	* Log a message at the INFO level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous string concatenation when the logger
-	* is disabled for the INFO level. However, this variant incurs the hidden
-	* (and relatively small) cost of creating an <code>Object[]</code> before invoking the method,
-	* even if this logger is disabled for INFO. The variants taking
-	* {@link #info(String, Object) one} and {@link #info(String, Object, Object) two}
-	* arguments exist solely in order to avoid this hidden cost.</p>
-	*
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void info(String format, Object... arguments);
-
-	/**
-	* Log an exception (throwable) at the INFO level with an
-	* accompanying message.
-	*
-	* @param msg the message accompanying the exception
-	* @param t   the exception (throwable) to log
-	*/
-	public void info(String msg, Throwable t);
-
-	/**
-	* Similar to {@link #isInfoEnabled()} method except that the marker
-	* data is also taken into consideration.
-	*
-	* @param marker The marker data to take into consideration
-	*/
-	public boolean isInfoEnabled(Marker marker);
-
-	/**
-	* Log a message with the specific Marker at the INFO level.
-	*
-	* @param marker The marker specific to this log statement
-	* @param msg    the message string to be logged
-	*/
-	public void info(Marker marker, String msg);
-
-	/**
-	* This method is similar to {@link #info(String, Object)} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg    the argument
-	*/
-	public void info(Marker marker, String format, Object arg);
-
-	/**
-	* This method is similar to {@link #info(String, Object, Object)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void info(Marker marker, String format, Object arg1, Object arg2);
-
-
-	/**
-	* This method is similar to {@link #info(String, Object...)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker    the marker data specific to this log statement
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void info(Marker marker, String format, Object... arguments);
-
-
-	/**
-	* This method is similar to {@link #info(String, Throwable)} method
-	* except that the marker data is also taken into consideration.
-	*
-	* @param marker the marker data for this log statement
-	* @param msg    the message accompanying the exception
-	* @param t      the exception (throwable) to log
-	*/
-	public void info(Marker marker, String msg, Throwable t);
+	public void info(string file = __FILE__, int line = __LINE__, T...)(lazy string fmt, lazy T args)
+	{
+		info.writef!(file, line)(fmt, args);
+	}
 
 
 	/**
@@ -426,14 +176,20 @@ public class Logger {
 	* @return True if this Logger is enabled for the WARN level,
 	*         false otherwise.
 	*/
-	public boolean isWarnEnabled();
+	public boolean isWarnEnabled()
+	{
+		return warning.willLog;
+	}
 
 	/**
 	* Log a message at the WARN level.
 	*
 	* @param msg the message string to be logged
 	*/
-	public void warn(String msg);
+	public void warn(string file = __FILE__, int line = __LINE__, T...)(lazy T args)
+	{
+		warning.write!(file, line)(args);
+	}
 
 	/**
 	* Log a message at the WARN level according to the specified format
@@ -445,107 +201,10 @@ public class Logger {
 	* @param format the format string
 	* @param arg    the argument
 	*/
-	public void warn(String format, Object arg);
-
-
-	/**
-	* Log a message at the WARN level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous string concatenation when the logger
-	* is disabled for the WARN level. However, this variant incurs the hidden
-	* (and relatively small) cost of creating an <code>Object[]</code> before invoking the method,
-	* even if this logger is disabled for WARN. The variants taking
-	* {@link #warn(String, Object) one} and {@link #warn(String, Object, Object) two}
-	* arguments exist solely in order to avoid this hidden cost.</p>
-	*
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void warn(String format, Object... arguments);
-
-	/**
-	* Log a message at the WARN level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous object creation when the logger
-	* is disabled for the WARN level. </p>
-	*
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void warn(String format, Object arg1, Object arg2);
-
-	/**
-	* Log an exception (throwable) at the WARN level with an
-	* accompanying message.
-	*
-	* @param msg the message accompanying the exception
-	* @param t   the exception (throwable) to log
-	*/
-	public void warn(String msg, Throwable t);
-
-
-	/**
-	* Similar to {@link #isWarnEnabled()} method except that the marker
-	* data is also taken into consideration.
-	*
-	* @param marker The marker data to take into consideration
-	*/
-	public boolean isWarnEnabled(Marker marker);
-
-	/**
-	* Log a message with the specific Marker at the WARN level.
-	*
-	* @param marker The marker specific to this log statement
-	* @param msg    the message string to be logged
-	*/
-	public void warn(Marker marker, String msg);
-
-	/**
-	* This method is similar to {@link #warn(String, Object)} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg    the argument
-	*/
-	public void warn(Marker marker, String format, Object arg);
-
-	/**
-	* This method is similar to {@link #warn(String, Object, Object)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void warn(Marker marker, String format, Object arg1, Object arg2);
-
-	/**
-	* This method is similar to {@link #warn(String, Object...)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker    the marker data specific to this log statement
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void warn(Marker marker, String format, Object... arguments);
-
-
-	/**
-	* This method is similar to {@link #warn(String, Throwable)} method
-	* except that the marker data is also taken into consideration.
-	*
-	* @param marker the marker data for this log statement
-	* @param msg    the message accompanying the exception
-	* @param t      the exception (throwable) to log
-	*/
-	public void warn(Marker marker, String msg, Throwable t);
+	public void warn(string file = __FILE__, int line = __LINE__, T...)(lazy string fmt, lazy T args)
+	{
+		warning.writef!(file, line)(fmt, args);
+	}
 
 
 	/**
@@ -554,14 +213,20 @@ public class Logger {
 	* @return True if this Logger is enabled for the ERROR level,
 	*         false otherwise.
 	*/
-	public boolean isErrorEnabled();
+	public boolean isErrorEnabled()
+	{
+		return error.willLog;
+	}
 
 	/**
 	* Log a message at the ERROR level.
 	*
 	* @param msg the message string to be logged
 	*/
-	public void error(String msg);
+	public void error(string file = __FILE__, int line = __LINE__, T...)(lazy T args)
+	{
+		error.write!(file, line)(args);
+	}
 
 	/**
 	* Log a message at the ERROR level according to the specified format
@@ -573,106 +238,8 @@ public class Logger {
 	* @param format the format string
 	* @param arg    the argument
 	*/
-	public void error(String format, Object arg);
-
-	/**
-	* Log a message at the ERROR level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous object creation when the logger
-	* is disabled for the ERROR level. </p>
-	*
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void error(String format, Object arg1, Object arg2);
-
-	/**
-	* Log a message at the ERROR level according to the specified format
-	* and arguments.
-	* <p/>
-	* <p>This form avoids superfluous string concatenation when the logger
-	* is disabled for the ERROR level. However, this variant incurs the hidden
-	* (and relatively small) cost of creating an <code>Object[]</code> before invoking the method,
-	* even if this logger is disabled for ERROR. The variants taking
-	* {@link #error(String, Object) one} and {@link #error(String, Object, Object) two}
-	* arguments exist solely in order to avoid this hidden cost.</p>
-	*
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void error(String format, Object... arguments);
-
-	/**
-	* Log an exception (throwable) at the ERROR level with an
-	* accompanying message.
-	*
-	* @param msg the message accompanying the exception
-	* @param t   the exception (throwable) to log
-	*/
-	public void error(String msg, Throwable t);
-
-
-	/**
-	* Similar to {@link #isErrorEnabled()} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker The marker data to take into consideration
-	*/
-	public boolean isErrorEnabled(Marker marker);
-
-	/**
-	* Log a message with the specific Marker at the ERROR level.
-	*
-	* @param marker The marker specific to this log statement
-	* @param msg    the message string to be logged
-	*/
-	public void error(Marker marker, String msg);
-
-	/**
-	* This method is similar to {@link #error(String, Object)} method except that the
-	* marker data is also taken into consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg    the argument
-	*/
-	public void error(Marker marker, String format, Object arg);
-
-	/**
-	* This method is similar to {@link #error(String, Object, Object)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param format the format string
-	* @param arg1   the first argument
-	* @param arg2   the second argument
-	*/
-	public void error(Marker marker, String format, Object arg1, Object arg2);
-
-	/**
-	* This method is similar to {@link #error(String, Object...)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker    the marker data specific to this log statement
-	* @param format    the format string
-	* @param arguments a list of 3 or more arguments
-	*/
-	public void error(Marker marker, String format, Object... arguments);
-
-
-	/**
-	* This method is similar to {@link #error(String, Throwable)}
-	* method except that the marker data is also taken into
-	* consideration.
-	*
-	* @param marker the marker data specific to this log statement
-	* @param msg    the message accompanying the exception
-	* @param t      the exception (throwable) to log
-	*/
-	public void error(Marker marker, String msg, Throwable t);
-
+	public void error(string file = __FILE__, int line = __LINE__, T...)(lazy string fmt, lazy T args)
+	{
+		error.writef!(file, line)(fmt, args);
+	}
 }

@@ -46,7 +46,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class Player {
-	private static immutable Logger logger = LoggerFactory.getLogger(Player.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!Player();
 
 	public static const int VIDEO_SIMPLEFILE_PLAYER = 0;
 	public static const int AUDIO_SIMPLEFILE_PLAYER = 1;

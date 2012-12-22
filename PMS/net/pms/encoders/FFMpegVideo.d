@@ -67,7 +67,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * both of these parameters are unused.
  */
 public class FFMpegVideo : Player {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(FFMpegVideo.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FFMpegVideo();
 	private JTextField ffmpeg;
 	private static const String DEFAULT_QSCALE = "3";
 

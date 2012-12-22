@@ -33,7 +33,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class RarredEntry : DLNAResource , IPushOutput {
-	private static immutable Logger logger = LoggerFactory.getLogger(RarredEntry.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!RarredEntry();
 	private String name;
 	private File file;
 	private String fileHeaderName;

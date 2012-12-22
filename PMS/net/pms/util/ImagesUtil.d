@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.all;
 
 public class ImagesUtil {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(ImagesUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ImagesUtil();
 
 	public static InputStream getAutoRotateInputStreamImage(InputStream input, int exifOrientation) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

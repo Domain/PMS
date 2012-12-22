@@ -26,7 +26,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ProxyServer : Thread {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(ProxyServer.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ProxyServer();
 	private int port;
 
 	public this(int port) {

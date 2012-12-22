@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AviDemuxerInputStream : InputStream {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(AviDemuxerInputStream.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AviDemuxerInputStream();
 	private Process process;
 	private InputStream stream;
 	private ArrayList/*<ProcessWrapper>*/ attachedProcesses;

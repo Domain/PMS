@@ -34,7 +34,7 @@ import java.util.List;
  *  A version of OutputTextConsumer that a) logs all output to the debug.log and b) doesn't store the output
  */
 public class OutputTextLogger : OutputConsumer {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(OutputTextLogger.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!OutputTextLogger();
 
 	public this(InputStream inputStream) {
 		super(inputStream);

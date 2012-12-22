@@ -47,7 +47,7 @@ import java.util.all;
  * file.
  */
 public class PmsConfiguration {
-	private static const Logger LOGGER = LoggerFactory.getLogger(PmsConfiguration.class);
+	private static const Logger LOGGER = LoggerFactory.getLogger!PmsConfiguration();
 	private static const int DEFAULT_PROXY_SERVER_PORT = -1;
 	private static const int DEFAULT_SERVER_PORT = 5001;
 

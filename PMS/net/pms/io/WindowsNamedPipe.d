@@ -32,7 +32,7 @@ import java.io.all;
 import java.util.ArrayList;
 
 public class WindowsNamedPipe : Thread , ProcessWrapper {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(WindowsNamedPipe.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!WindowsNamedPipe();
 	private String path;
 	private bool _in;
 	private bool forceReconnect;

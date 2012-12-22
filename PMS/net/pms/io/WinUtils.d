@@ -37,7 +37,7 @@ import java.util.prefs.Preferences;
  *
  */
 public class WinUtils : BasicSystemUtils , SystemUtils {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(WinUtils.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!WinUtils();
 
 	public interface Kernel32 : Library {
 		Kernel32 INSTANCE = (Kernel32) Native.loadLibrary("kernel32",

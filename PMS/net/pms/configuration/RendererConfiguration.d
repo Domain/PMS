@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class RendererConfiguration {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(RendererConfiguration.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!RendererConfiguration();
 	private static ArrayList/*<RendererConfiguration>*/ rendererConfs;
 	private static PmsConfiguration pmsConfiguration;
 	private static RendererConfiguration defaultConf;

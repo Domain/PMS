@@ -353,7 +353,6 @@
      <File path="net\pms\logging\all.d" />
      <File path="net\pms\logging\DebugLogPathDefiner.d" />
      <File path="net\pms\logging\FrameAppender.d" />
-     <File path="net\pms\logging\log.d" />
      <File path="net\pms\logging\LoggingConfigFileLoader.d" />
     </Folder>
     <Folder name="network">

@@ -10,7 +10,7 @@ import java.net.SocketException;
 import java.util.Arrays;
 
 public class PMSUtil {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(PMSUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PMSUtil();
 
 	deprecated
 	public static T[] copyOf(T)(T[] original, int newLength) {

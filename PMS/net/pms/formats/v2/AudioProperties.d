@@ -36,7 +36,7 @@ import org.apache.commons.lang.StringUtils : isEmpty;
  * @since 1.60.0
  */
 public class AudioProperties {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(AudioProperties.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AudioProperties();
 
 	private static const Pattern intPattern = Pattern.compile("([\\+-]?\\d+)([eE][\\+-]?\\d+)?");
 	private static const Pattern floatPattern = Pattern.compile("([\\+-]?\\d(\\.\\d*)?|\\.\\d+)([eE][\\+-]?(\\d(\\.\\d*)?|\\.\\d+))?");

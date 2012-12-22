@@ -62,7 +62,7 @@ Authors: Jose Armando Garcia Sancio
 
 Source: $(PHOBOSSRC std/_log.d)
 +/
-module net.pms.logging.log;
+module org.slf4j.log;
 
 import core.atomic: atomicOp;
 import core.sync.mutex: Mutex;

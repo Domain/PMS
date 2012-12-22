@@ -41,7 +41,7 @@ public class IpFilter {
 
 	private const static String IP_FILTER_RULE_CHAR = "0123456789-.* ";
 	private const static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(IpFilter.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!IpFilter();
 
 	interface Predicate {
 		bool match(InetAddress addr);

@@ -41,7 +41,7 @@ import java.util.Locale;
 import javax.swing.text.DefaultCaret;
 
 public class TracesTab {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(TracesTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!TracesTab();
 	private PmsConfiguration configuration;
 
 	class PopupTriggerMouseListener : MouseAdapter {

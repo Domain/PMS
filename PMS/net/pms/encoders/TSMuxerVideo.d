@@ -66,7 +66,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class TSMuxerVideo : Player {
-	private static immutable Logger logger = LoggerFactory.getLogger(TSMuxerVideo.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!TSMuxerVideo();
 	private static const String COL_SPEC = "left:pref, 0:grow";
 	private static const String ROW_SPEC = "p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, 0:grow";
 

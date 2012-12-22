@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * Derived from the mpeg4ip project and the ToNMT tool
  */
 public class AVCHeader {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(AVCHeader.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AVCHeader();
 
 	private byte[] buffer;
 	private int currentBit;

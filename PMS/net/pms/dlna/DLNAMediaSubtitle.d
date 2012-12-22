@@ -34,7 +34,7 @@ import net.pms.formats.v2.SubtitleType;
  * This class keeps track of the subtitle information for media.
  */
 public class DLNAMediaSubtitle : DLNAMediaLang , Cloneable {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(DLNAMediaSubtitle.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DLNAMediaSubtitle();
 	private SubtitleType type = SubtitleType.UNKNOWN;
 	private String flavor; // subtrack title / language ?
 	private File externalFile;

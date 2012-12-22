@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 // see https://code.google.com/p/ps3mediaserver/issues/detail?id=680
 // for background/issues/discussion related to this class
 public class ProcessUtil {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(ProcessUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ProcessUtil();
 	// how long to wait in milliseconds until a kill -TERM on Unix has been deemed to fail
 	private static const int TERM_TIMEOUT = 10000;
 	// how long to wait in milliseconds until a kill -ALRM on Unix has been deemed to fail

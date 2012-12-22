@@ -39,7 +39,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class FFMpegWebVideo : FFMpegVideo {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(FFMpegWebVideo.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FFMpegWebVideo();
 	private immutable PmsConfiguration configuration;
 
 	// FIXME we have an id() accessor for this; no need for the field to be public

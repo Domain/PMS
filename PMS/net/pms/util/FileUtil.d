@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringUtils.*;
 import org.mozilla.universalchardet.Constants;
 
 public class FileUtil {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FileUtil();
 	private static Map/*<File, File[]>*/ cache;
 
 	public static File isFileExists(String f, String ext) {

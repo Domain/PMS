@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import java.io.all;
 
 public class PipeProcess {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(PipeProcess.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PipeProcess();
 	private String linuxPipeName;
 	private WindowsNamedPipe mk;
 	private bool forcereconnect;

@@ -58,7 +58,7 @@ import org.apache.commons.lang.BooleanUtils.isTrue;
 import org.apache.commons.lang.StringUtils : isBlank, isNotBlank, isEmpty, isNotEmpty;
 
 public class MEncoderVideo : Player {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(MEncoderVideo.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!MEncoderVideo();
 	private static const String COL_SPEC = "left:pref, 3dlu, p:grow, 3dlu, right:p:grow, 3dlu, p:grow, 3dlu, right:p:grow,3dlu, p:grow, 3dlu, right:p:grow,3dlu, pref:grow";
 	private static const String ROW_SPEC = "p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu,p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 9dlu, p, 2dlu, p, 2dlu, p , 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p";
 	private static const String REMOVE_OPTION = "---REMOVE-ME---"; // use an out-of-band option that can't be confused with a real option

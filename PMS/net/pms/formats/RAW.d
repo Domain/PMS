@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class RAW : JPG {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger(RAW.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!RAW();
 
 	/**
 	 * {@inheritDoc} 
