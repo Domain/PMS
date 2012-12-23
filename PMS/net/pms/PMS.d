@@ -193,7 +193,7 @@ public class PMS {
 			if (workDir !is null) {
 				pb.directory(workDir);
 			}
-			const Process process = pb.start();
+			immutable Process process = pb.start();
 
 			OutputTextConsumer stderrConsumer = new OutputTextConsumer(process.getErrorStream(), false);
 			stderrConsumer.start();

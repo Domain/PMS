@@ -112,6 +112,10 @@ IDwtLogger getDwtLogger(){
     return dwtLoggerInstance;
 }
 
+void implMissing(String file = __FILE__, uint line = __LINE__){
+	implMissing(file, line);
+}
+
 void implMissing( String file, uint line ){
     getDwtLogger().fatal( file, line, "implementation missing in file {} line {}", file, line );
     getDwtLogger().fatal( file, line, "Please create a bug report at http://www.dsource.org/projects/dwt" );
