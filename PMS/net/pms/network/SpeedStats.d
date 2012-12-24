@@ -113,7 +113,7 @@ public class SpeedStats {
 			}
 
 			
-			if (!ip.equals(hostname)) {
+			if (!ip.opEquals(hostname)) {
 				logger.info("Renderer " ~ rendererName ~ " found on this address: " ~ hostname ~ " (" ~ ip ~ ")");
 			} else {
 				logger.info("Renderer " ~ rendererName ~ " found on this address: " ~ ip);

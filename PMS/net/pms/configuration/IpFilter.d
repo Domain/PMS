@@ -132,7 +132,7 @@ public class IpFilter {
 		}
 
 		ByteRule parseTag(String s) {
-			if ("*".equals(s)) {
+			if ("*".opEquals(s)) {
 				return new ByteRule(-1, -1);
 			} else {
 				Matcher matcher = PATTERN.matcher(s);
@@ -214,7 +214,7 @@ public class IpFilter {
 	}
 
 	public synchronized void setRawFilter(String rawFilter) {
-		if (this.rawFilter !is null && this.rawFilter.equals(rawFilter)) {
+		if (this.rawFilter !is null && this.rawFilter.opEquals(rawFilter)) {
 			return;
 		}
 		this.matchers.clear();
@@ -294,7 +294,7 @@ public class IpFilter {
 	}
 
 	private static void eq(String name, Object obj, Object obj2) {
-		if (obj !is null && obj.equals(obj2)) {
+		if (obj !is null && obj.opEquals(obj2)) {
 			LOGGER._debug("EQ: " ~ name ~ '=' ~ obj);
 		} else {
 			throw new RuntimeException(name ~ " expected : '" ~ obj ~ "' <> actual : '" ~ obj2 ~ "'");

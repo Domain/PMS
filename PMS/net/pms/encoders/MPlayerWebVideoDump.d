@@ -125,7 +125,7 @@ public class MPlayerWebVideoDump : MPlayerAudio {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.WEB)) {
+			if (id.opEquals(Format.Identifier.WEB)) {
 				return true;
 			}
 		}

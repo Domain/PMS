@@ -236,7 +236,7 @@ public class FFMpegDVRMSRemux : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.DVRMS)) {
+			if (id.opEquals(Format.Identifier.DVRMS)) {
 				return true;
 			}
 		}

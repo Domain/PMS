@@ -55,7 +55,7 @@ public class RAW : JPG {
 	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		ArrayList/*<Class<? : Player>>*/ profiles = new ArrayList/*<Class<? : Player>>*/();
 		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry())) {
-			if (engine.equals(RAWThumbnailer.ID)) {
+			if (engine.opEquals(RAWThumbnailer.ID)) {
 				profiles.add(RAWThumbnailer.class);
 			}
 		}

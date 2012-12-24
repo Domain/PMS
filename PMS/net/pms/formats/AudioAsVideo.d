@@ -38,7 +38,7 @@ public class AudioAsVideo : MKV {
 		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
 		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
-			if (engine.equals(TsMuxerAudio.ID)) {
+			if (engine.opEquals(TsMuxerAudio.ID)) {
 				a.add(TsMuxerAudio.class);
 			}
 		}

@@ -94,10 +94,10 @@ public class XmlElementAttributes : HashMap/*<String, String>*/ {
 			throw new XmlParseException("Could not find attribute " ~ attribute);
 		}
 		value = value.toLowerCase();
-		if ("true".equals(value) || "yes".equals(value) || "y".equals(value)) {
+		if ("true".opEquals(value) || "yes".opEquals(value) || "y".opEquals(value)) {
 			return true;
 		}
-		if ("false".equals(value) || "no".equals(value) || "n".equals(value)) {
+		if ("false".opEquals(value) || "no".opEquals(value) || "n".opEquals(value)) {
 			return false;
 		}
 		throw new XmlParseException("Attribute " ~ attribute ~ " did not have bool value (was: " ~ value ~ ')');

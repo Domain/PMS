@@ -123,7 +123,7 @@ public class Feed : DLNAResource {
 
 				ArrayList/*<Element>*/ elements = cast(ArrayList/*<Element>*/) entry.getForeignMarkup();
 				foreach (Element elt ; elements) {
-					if ("group".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())) {
+					if ("group".opEquals(elt.getName()) && "media".opEquals(elt.getNamespacePrefix())) {
 						List<Content> subElts = elt.getContent();
 						foreach (Content subelt ; subElts) {
 							if (cast(Element)subelt !is null ) {
@@ -146,7 +146,7 @@ public class Feed : DLNAResource {
 	}
 
 	private void parseElement(Element elt, bool parseLink) {
-		if ("content".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())) {
+		if ("content".opEquals(elt.getName()) && "media".opEquals(elt.getNamespacePrefix())) {
 			if (parseLink) {
 				setTempItemLink(elt.getAttribute("url").getValue());
 			}
@@ -157,11 +157,11 @@ public class Feed : DLNAResource {
 				}
 			}
 		}
-		if ("thumbnail".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())
+		if ("thumbnail".opEquals(elt.getName()) && "media".opEquals(elt.getNamespacePrefix())
 				&& getTempItemThumbURL() is null) {
 			setTempItemThumbURL(elt.getAttribute("url").getValue());
 		}
-		if ("image".equals(elt.getName()) && "exInfo".equals(elt.getNamespacePrefix())
+		if ("image".opEquals(elt.getName()) && "exInfo".opEquals(elt.getNamespacePrefix())
 				&& getTempItemThumbURL() is null) {
 			setTempItemThumbURL(elt.getValue());
 		}

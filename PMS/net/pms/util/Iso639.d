@@ -128,7 +128,7 @@ public class Iso639 {
 	 * @return The code.
 	 */
 	private static String normalize(String isoCode) {
-		if (LOCAL_ALIAS.equals(isoCode)) {
+		if (LOCAL_ALIAS.opEquals(isoCode)) {
 			return PMS.getConfiguration().getLanguage();
 		} else {
 			return isoCode;

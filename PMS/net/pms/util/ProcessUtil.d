@@ -35,7 +35,7 @@ public class ProcessUtil {
 	public static Integer getProcessID(Process p) {
 		Integer pid = null;
 
-		if (p !is null && p.getClass().getName().equals("java.lang.UNIXProcess")) {
+		if (p !is null && p.getClass().getName().opEquals("java.lang.UNIXProcess")) {
 			try {
 				Field f = p.getClass().getDeclaredField("pid");
 				f.setAccessible(true);

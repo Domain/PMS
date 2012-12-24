@@ -123,7 +123,7 @@ public class MapFile : DLNAResource {
 					addChild(new ZippedFile(f));
 				} else if (PMS.getConfiguration().isArchiveBrowsing() && (lcFilename.endsWith(".rar") || lcFilename.endsWith(".cbr"))) {
 					addChild(new RarredFile(f));
-				} else if ((lcFilename.endsWith(".iso") || lcFilename.endsWith(".img")) || (f.isDirectory() && f.getName().toUpperCase().equals("VIDEO_TS"))) {
+				} else if ((lcFilename.endsWith(".iso") || lcFilename.endsWith(".img")) || (f.isDirectory() && f.getName().toUpperCase().opEquals("VIDEO_TS"))) {
 					addChild(new DVDISOFile(f));
 				} else if (lcFilename.endsWith(".m3u") || lcFilename.endsWith(".m3u8") || lcFilename.endsWith(".pls")) {
 					addChild(new PlaylistFolder(f));
@@ -141,7 +141,7 @@ public class MapFile : DLNAResource {
 
 			// FIXME this causes folder thumbnails to take precedence over file thumbnails
 			if (f.isFile()) {
-				if (lcFilename.equals("folder.jpg") || lcFilename.equals("folder.png") || (lcFilename.contains("albumart") && lcFilename.endsWith(".jpg"))) {
+				if (lcFilename.opEquals("folder.jpg") || lcFilename.opEquals("folder.png") || (lcFilename.contains("albumart") && lcFilename.endsWith(".jpg"))) {
 					setPotentialCover(f);
 				}
 			}
@@ -311,7 +311,7 @@ public class MapFile : DLNAResource {
 
 			if (vf !is null) {
 				for (int j = vf.getChildren().size() - 1; j >= 0; j--) {
-					if (vf.getChildren().get(j).getName().equals(f.getName())) {
+					if (vf.getChildren().get(j).getName().opEquals(f.getName())) {
 						vf.getChildren().remove(j);
 					}
 				}
@@ -346,13 +346,13 @@ public class MapFile : DLNAResource {
 	}
 
 	private bool isNameMatch(File file, DLNAResource resource) {
-		return (resource.getName().equals(file.getName()) || isDVDIsoMatch(file, resource));
+		return (resource.getName().opEquals(file.getName()) || isDVDIsoMatch(file, resource));
 	}
 
 	private bool isDVDIsoMatch(File file, DLNAResource resource) {
 		return (cast(DVDISOFile)resource !is null) &&
 			resource.getName().startsWith(DVDISOFile.PREFIX) &&
-			resource.getName().substring(DVDISOFile.PREFIX.length()).equals(file.getName());
+			resource.getName().substring(DVDISOFile.PREFIX.length()).opEquals(file.getName());
 	}
 
 	override

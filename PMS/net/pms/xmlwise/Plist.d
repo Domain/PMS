@@ -345,15 +345,15 @@ public final class Plist {
 	 * @return the Double value of this string.
 	 */
 	private Number parseDouble(String value) {
-		if (value.equals("NaN"))
+		if (value.opEquals("NaN"))
 		{
 			return Double.NaN;
 		}
-		if (value.equals("-inf"))
+		if (value.opEquals("-inf"))
 		{
 			return Double.NEGATIVE_INFINITY;
 		}
-		if (value.equals("inf"))
+		if (value.opEquals("inf"))
 		{
 			return Double.POSITIVE_INFINITY;
 		}
@@ -372,7 +372,7 @@ public final class Plist {
 		HashMap/*<String, Object>*/ dict = new HashMap/*<String, Object>*/();
 		while (element.hasNext()) {
 			XmlElement key = element.next();
-			if (!"key".equals(key.getName())) {
+			if (!"key".opEquals(key.getName())) {
 				throw new Exception("Expected key but was " ~ key.getName());
 			}
 			Object o = parseElementRaw(element.next());

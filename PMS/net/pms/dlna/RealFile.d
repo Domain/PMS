@@ -67,7 +67,7 @@ public class RealFile : MapFile {
 			// Given that here getFormat() has already matched some (possibly plugin-defined) format:
 			//    Format.UNKNOWN + bad parse = inconclusive
 			//    known types    + bad parse = bad/encrypted file
-			if (getType() != Format.UNKNOWN && getMedia() !is null && (getMedia().isEncrypted() || getMedia().getContainer() is null || getMedia().getContainer().equals(DLNAMediaLang.UND))) {
+			if (getType() != Format.UNKNOWN && getMedia() !is null && (getMedia().isEncrypted() || getMedia().getContainer() is null || getMedia().getContainer().opEquals(DLNAMediaLang.UND))) {
 				valid = false;
 
 				if (getMedia().isEncrypted()) {
@@ -122,7 +122,7 @@ public class RealFile : MapFile {
 			String name = null;
 			File file = getFile();
 
-			if (file.getName().trim().equals("")) {
+			if (file.getName().trim().opEquals("")) {
 				if (PMS.get().isWindows()) {
 					name = PMS.get().getRegistry().getDiskLabel(file);
 				}

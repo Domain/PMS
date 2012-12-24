@@ -113,7 +113,7 @@ public class DVDISOTitle : DLNAResource {
 					DLNAMediaSubtitle lang = new DLNAMediaSubtitle();
 					lang.setId(Integer.parseInt(line.substring(line.indexOf("): ") + 3, line.lastIndexOf("language")).trim()));
 					lang.setLang(line.substring(line.indexOf("language: ") + 10).trim());
-					if (lang.getLang().equals("unknown")) {
+					if (lang.getLang().opEquals("unknown")) {
 						lang.setLang(DLNAMediaLang.UND);
 					}
 					lang.setType(SubtitleType.UNKNOWN);

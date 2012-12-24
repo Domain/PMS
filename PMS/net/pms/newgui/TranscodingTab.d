@@ -283,7 +283,7 @@ public class TranscodingTab {
 		for (String id : configuration.getEnginesAsList(r.getRegistry())) {
 			//bool matched = false;
 			for (Player p : PlayerFactory.getAllPlayers()) {
-				if (p.id().equals(id)) {
+				if (p.id().opEquals(id)) {
 					ordPlayers.add(p);
 					//matched = true;
 				}

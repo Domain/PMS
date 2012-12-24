@@ -108,7 +108,7 @@ public class RarredEntry : DLNAResource , IPushOutput {
 					rarFile = new Archive(file);
 					FileHeader header = null;
 					foreach (FileHeader fh ; rarFile.getFileHeaders()) {
-						if (fh.getFileNameString().equals(fileHeaderName)) {
+						if (fh.getFileNameString().opEquals(fileHeaderName)) {
 							header = fh;
 							break;
 						}

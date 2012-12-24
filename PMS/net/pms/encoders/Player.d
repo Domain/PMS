@@ -246,13 +246,13 @@ public abstract class Player {
 				sub = sub.trim();
 				logger.trace("Searching for a match for: " ~ currentLang ~ " with " ~ audio ~ " and " ~ sub);
 
-				if (Iso639.isCodesMatching(audio, currentLang) || (currentLang !is null && audio.equals("*"))) {
-					if (sub.equals("off")) {
+				if (Iso639.isCodesMatching(audio, currentLang) || (currentLang !is null && audio.opEquals("*"))) {
+					if (sub.opEquals("off")) {
 						matchedSub = new DLNAMediaSubtitle();
 						matchedSub.setLang("off");
 					} else {
 						foreach (DLNAMediaSubtitle present_sub ; media.getSubtitleTracksList()) {
-							if (present_sub.matchCode(sub) || sub.equals("*")) {
+							if (present_sub.matchCode(sub) || sub.opEquals("*")) {
 								matchedSub = present_sub;
 								logger.trace("Found a match: " ~ matchedSub);
 								break;
@@ -268,7 +268,7 @@ public abstract class Player {
 		}
 
 		if (matchedSub !is null && params.sid is null) {
-			if (configuration.isMencoderDisableSubs() || (matchedSub.getLang() !is null && matchedSub.getLang().equals("off"))) {
+			if (configuration.isMencoderDisableSubs() || (matchedSub.getLang() !is null && matchedSub.getLang().opEquals("off"))) {
 				logger.trace(" Disabled the subtitles: " ~ matchedSub);
 			} else {
 				params.sid = matchedSub;
@@ -284,7 +284,7 @@ public abstract class Player {
 				bool forcedSubsFound = false;
 				// Priority to external subtitles
 				foreach (DLNAMediaSubtitle sub ; media.getSubtitleTracksList()) {
-					if (matchedSub !is null && matchedSub.getLang() !is null && matchedSub.getLang().equals("off")) {
+					if (matchedSub !is null && matchedSub.getLang() !is null && matchedSub.getLang().opEquals("off")) {
 						StringTokenizer st = new StringTokenizer(configuration.getMencoderForcedSubTags(), ",");
 
 						while (st !is null && sub.getFlavor() !is null && st.hasMoreTokens()) {
@@ -323,7 +323,7 @@ public abstract class Player {
 			if (
 				matchedSub !is null && 
 				matchedSub.getLang() !is null && 
-				matchedSub.getLang().equals("off")
+				matchedSub.getLang().opEquals("off")
 			) {
 				return;
 			}

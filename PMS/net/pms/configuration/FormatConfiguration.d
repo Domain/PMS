@@ -231,9 +231,9 @@ public class FormatConfiguration {
 					String key = keyIt.next();
 					String value = extras.get(key);
 
-					if (matched && key.equals(MI_QPEL) && miExtras.get(MI_QPEL) !is null) {
+					if (matched && key.opEquals(MI_QPEL) && miExtras.get(MI_QPEL) !is null) {
 						matched = miExtras.get(MI_QPEL).matcher(value).matches();
-					} else if (matched && key.equals(MI_GMC) && miExtras.get(MI_GMC) !is null) {
+					} else if (matched && key.opEquals(MI_GMC) && miExtras.get(MI_GMC) !is null) {
 						matched = miExtras.get(MI_GMC).matcher(value).matches();
 					}
 				}

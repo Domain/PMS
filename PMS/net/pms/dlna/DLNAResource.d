@@ -414,7 +414,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 	 */
 	public DLNAResource searchByName(String name) {
 		foreach (DLNAResource child ; getChildren()) {
-			if (child.getName().equals(name)) {
+			if (child.getName().opEquals(name)) {
 				return child;
 			}
 		}
@@ -474,7 +474,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 
 					if (mimeType !is null) {
 						// This is streamable
-						child.getMedia().setMimeType(mimeType.equals(FormatConfiguration.MIMETYPE_AUTO) ? child.getMedia().getMimeType() : mimeType);
+						child.getMedia().setMimeType(mimeType.opEquals(FormatConfiguration.MIMETYPE_AUTO) ? child.getMedia().getMimeType() : mimeType);
 					} else {
 						// This is transcodable
 						forceTranscodeV2 = true;
@@ -820,7 +820,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		if (getId() !is null && searchId !is null) {
 			String[] indexPath = searchId.split("\\$", 2);
 
-			if (getId().equals(indexPath[0])) {
+			if (getId().opEquals(indexPath[0])) {
 				if (indexPath.length == 1 || indexPath[1].length() == 0) {
 					return this;
 				} else {
@@ -1393,22 +1393,22 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 				}
 
 				if (mediaRenderer.isPS3()) { // XXX TO REMOVE, OR AT LEAST MAKE THIS GENERIC // whole extensions/mime-types mess to rethink anyway
-					if (mime.equals("video/x-divx")) {
+					if (mime.opEquals("video/x-divx")) {
 						dlnaspec = "DLNA.ORG_PN=AVI";
-					} else if (mime.equals("video/x-ms-wmv") && getMedia() !is null && getMedia().getHeight() > 700) {
+					} else if (mime.opEquals("video/x-ms-wmv") && getMedia() !is null && getMedia().getHeight() > 700) {
 						dlnaspec = "DLNA.ORG_PN=WMVHIGH_PRO";
 					}
 				} else {
-					if (mime.equals("video/mpeg")) {
+					if (mime.opEquals("video/mpeg")) {
 						if (getPlayer() !is null) {
 							// do we have some mpegts to offer ?
-							bool mpegTsMux = TSMuxerVideo.ID.equals(getPlayer().id()) || VideoLanVideoStreaming.ID.equals(getPlayer().id());
+							bool mpegTsMux = TSMuxerVideo.ID.opEquals(getPlayer().id()) || VideoLanVideoStreaming.ID.opEquals(getPlayer().id());
 							if (!mpegTsMux) {
-								mpegTsMux = MEncoderVideo.ID.equals(getPlayer().id()) && mediaRenderer.isTranscodeToMPEGTSAC3();
+								mpegTsMux = MEncoderVideo.ID.opEquals(getPlayer().id()) && mediaRenderer.isTranscodeToMPEGTSAC3();
 							}
 
 							if (mpegTsMux) {
-								dlnaspec = getMedia().isH264() && !VideoLanVideoStreaming.ID.equals(getPlayer().id()) && getMedia().isMuxable(mediaRenderer) ?
+								dlnaspec = getMedia().isH264() && !VideoLanVideoStreaming.ID.opEquals(getPlayer().id()) && getMedia().isMuxable(mediaRenderer) ?
 									"DLNA.ORG_PN=AVC_TS_HD_24_AC3_ISO" :
 									"DLNA.ORG_PN=" ~ getMPEG_TS_SD_EU_ISOLocalizedValue(c);
 							} else {
@@ -1423,14 +1423,14 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 						} else {
 							dlnaspec = "DLNA.ORG_PN=" ~ getMPEG_PS_PALLocalizedValue(c);
 						}
-					} else if (mime.equals("video/vnd.dlna.mpeg-tts")) {
+					} else if (mime.opEquals("video/vnd.dlna.mpeg-tts")) {
 						// patters - on Sony BDP m2ts clips aren't listed without this
 						dlnaspec = "DLNA.ORG_PN=" ~ getMPEG_TS_SD_EULocalizedValue(c);
-					} else if (mime.equals("image/jpeg")) {
+					} else if (mime.opEquals("image/jpeg")) {
 						dlnaspec = "DLNA.ORG_PN=JPEG_LRG";
-					} else if (mime.equals("audio/mpeg")) {
+					} else if (mime.opEquals("audio/mpeg")) {
 						dlnaspec = "DLNA.ORG_PN=MP3";
-					} else if (mime.substring(0, 9).equals("audio/L16") || mime.equals("audio/wav")) {
+					} else if (mime.substring(0, 9).opEquals("audio/L16") || mime.opEquals("audio/wav")) {
 						dlnaspec = "DLNA.ORG_PN=LPCM";
 					}
 				}
@@ -1546,7 +1546,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 			openTag(sb, "upnp:albumArtURI");
 			addAttribute(sb, "xmlns:dlna", "urn:schemas-dlna-org:metadata-1-0/");
 
-			if (getThumbnailContentType().equals(PNG_TYPEMIME) && !mediaRenderer.isForceJPGThumbnails()) {
+			if (getThumbnailContentType().opEquals(PNG_TYPEMIME) && !mediaRenderer.isForceJPGThumbnails()) {
 				addAttribute(sb, "dlna:profileID", "PNG_TN");
 			} else {
 				addAttribute(sb, "dlna:profileID", "JPEG_TN");
@@ -1560,7 +1560,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		if ((isFolder() || mediaRenderer.isForceJPGThumbnails()) && thumbURL !is null) {
 			openTag(sb, "res");
 
-			if (getThumbnailContentType().equals(PNG_TYPEMIME) && !mediaRenderer.isForceJPGThumbnails()) {
+			if (getThumbnailContentType().opEquals(PNG_TYPEMIME) && !mediaRenderer.isForceJPGThumbnails()) {
 				addAttribute(sb, "protocolInfo", "http-get:*:image/png:DLNA.ORG_PN=PNG_TN");
 			} else {
 				addAttribute(sb, "protocolInfo", "http-get:*:image/jpeg:DLNA.ORG_PN=JPEG_TN");
@@ -1582,13 +1582,13 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 			if (isFolder()) {
 				uclass = "object.container.storageFolder";
 				bool xbox = mediaRenderer.isXBOX();
-				if (xbox && getFakeParentId() !is null && getFakeParentId().equals("7")) {
+				if (xbox && getFakeParentId() !is null && getFakeParentId().opEquals("7")) {
 					uclass = "object.container.album.musicAlbum";
-				} else if (xbox && getFakeParentId() !is null && getFakeParentId().equals("6")) {
+				} else if (xbox && getFakeParentId() !is null && getFakeParentId().opEquals("6")) {
 					uclass = "object.container.person.musicArtist";
-				} else if (xbox && getFakeParentId() !is null && getFakeParentId().equals("5")) {
+				} else if (xbox && getFakeParentId() !is null && getFakeParentId().opEquals("5")) {
 					uclass = "object.container.genre.musicGenre";
-				} else if (xbox && getFakeParentId() !is null && getFakeParentId().equals("F")) {
+				} else if (xbox && getFakeParentId() !is null && getFakeParentId().opEquals("F")) {
 					uclass = "object.container.playlistContainer";
 				}
 			} else if (getFormat() !is null && getFormat().isVideo()) {

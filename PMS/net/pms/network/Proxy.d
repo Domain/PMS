@@ -154,7 +154,7 @@ public class Proxy : Thread {
 					if (bytes_read >= 7) {
 						byte end[] = new byte[7];
 						System.arraycopy(buffer, bytes_read - 7, end, 0, 7);
-						if ((new String(end)).equals("\r\n0\r\n\r\n")) {
+						if ((new String(end)).opEquals("\r\n0\r\n\r\n")) {
 							logger.trace("end of transfer chunked");
 							CL = -1;
 						}

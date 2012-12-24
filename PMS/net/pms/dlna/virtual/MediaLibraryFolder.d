@@ -97,7 +97,7 @@ public class MediaLibraryFolder : VirtualFolder {
 	}
 
 	private String transformName(String name) {
-		if (name.equals(DLNAMediaDatabase.NONAME)) {
+		if (name.opEquals(DLNAMediaDatabase.NONAME)) {
 			name = "";
 		}
 		name = name.replace("'", "''"); // issue 448
@@ -140,8 +140,8 @@ public class MediaLibraryFolder : VirtualFolder {
 					}
 					String name = d.getName();
 					long lm = d.getLastModified();
-					bool video_ts_hack = (cast(DVDISOFile)d !is null) && d.getName().startsWith(DVDISOFile.PREFIX) && d.getName().substring(DVDISOFile.PREFIX.length()).equals(f.getName());
-					if ((f.getName().equals(name) || video_ts_hack) && f.lastModified() == lm) {
+					bool video_ts_hack = (cast(DVDISOFile)d !is null) && d.getName().startsWith(DVDISOFile.PREFIX) && d.getName().substring(DVDISOFile.PREFIX.length()).opEquals(f.getName());
+					if ((f.getName().opEquals(name) || video_ts_hack) && f.lastModified() == lm) {
 						removedFiles.remove(d);
 						present = true;
 					}
@@ -161,7 +161,7 @@ public class MediaLibraryFolder : VirtualFolder {
 						removedString.add(d);
 					}
 					String name = d.getName();
-					if (f.equals(name)) {
+					if (f.opEquals(name)) {
 						removedString.remove(d);
 						present = true;
 					}

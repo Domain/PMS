@@ -137,14 +137,14 @@ public class RequestHandler : Runnable {
 				try {
 					StringTokenizer s = new StringTokenizer(headerLine);
 					String temp = s.nextToken();
-					if (temp.equals("SUBSCRIBE") || temp.equals("GET") || temp.equals("POST") || temp.equals("HEAD")) {
+					if (temp.opEquals("SUBSCRIBE") || temp.opEquals("GET") || temp.opEquals("POST") || temp.opEquals("HEAD")) {
 						request = new Request(temp, s.nextToken().substring(1));
-						if (s.hasMoreTokens() && s.nextToken().equals("HTTP/1.0")) {
+						if (s.hasMoreTokens() && s.nextToken().opEquals("HTTP/1.0")) {
 							request.setHttp10(true);
 						}
-					} else if (request !is null && temp.toUpperCase().equals("CALLBACK:")) {
+					} else if (request !is null && temp.toUpperCase().opEquals("CALLBACK:")) {
 						request.setSoapaction(s.nextToken());
-					} else if (request !is null && temp.toUpperCase().equals("SOAPACTION:")) {
+					} else if (request !is null && temp.toUpperCase().opEquals("SOAPACTION:")) {
 						request.setSoapaction(s.nextToken());
 					} else if (headerLine.toUpperCase().contains("CONTENT-LENGTH:")) {
 						receivedContentLength = Integer.parseInt(headerLine.substring(headerLine.toUpperCase().indexOf("CONTENT-LENGTH: ") + 16));
@@ -216,10 +216,10 @@ public class RequestHandler : Runnable {
 					request.setMediaRenderer(RendererConfiguration.getDefaultConf());
 					LOGGER.trace("Using default media renderer: " ~ request.getMediaRenderer().getRendererName());
 
-					if (userAgentString !is null && !userAgentString.equals("FDSSDP")) {
+					if (userAgentString !is null && !userAgentString.opEquals("FDSSDP")) {
 						// We have found an unknown renderer
 						LOGGER.info("Media renderer was not recognized. Possible identifying HTTP headers: User-Agent: "	~ userAgentString
-								+ ("".equals(unknownHeaders.toString()) ? "" : ", " + unknownHeaders.toString()));
+								+ ("".opEquals(unknownHeaders.toString()) ? "" : ", " + unknownHeaders.toString()));
 						PMS.get().setRendererfound(request.getMediaRenderer());
 					}
 				} else {

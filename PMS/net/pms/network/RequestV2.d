@@ -258,11 +258,11 @@ public class RequestV2 : HTTPResource {
 			argument = argument.substring(1);
 		}
 
-		if ((method.equals("GET") || method.equals("HEAD")) && argument.startsWith("console/")) {
+		if ((method.opEquals("GET") || method.opEquals("HEAD")) && argument.startsWith("console/")) {
 			// Request to output a page to the HTML console.
 			output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/html");
 			response.append(HTMLConsole.servePage(argument.substring(8)));
-		} else if ((method.equals("GET") || method.equals("HEAD")) && argument.startsWith("get/")) {
+		} else if ((method.opEquals("GET") || method.opEquals("HEAD")) && argument.startsWith("get/")) {
 			// Request to retrieve a file
 
 			// skip the leading "get/" and extract the
@@ -333,7 +333,7 @@ public class RequestV2 : HTTPResource {
 					// Some renderers (like Samsung devices) allow a custom header for a subtitle URL
 					String subtitleHttpHeader = mediaRenderer.getSubtitleHttpHeader();
 
-					if (subtitleHttpHeader !is null && !"".equals(subtitleHttpHeader)) {
+					if (subtitleHttpHeader !is null && !"".opEquals(subtitleHttpHeader)) {
 						// Device allows a custom subtitle HTTP header; construct it
 						List<DLNAMediaSubtitle> subs = dlna.getMedia().getSubtitleTracksList();
 
@@ -368,7 +368,7 @@ public class RequestV2 : HTTPResource {
 						// Try to determine the content type of the file
 						String rendererMimeType = getRendererMimeType(dlna.mimeType(), mediaRenderer);
 
-						if (rendererMimeType !is null && !"".equals(rendererMimeType)) {
+						if (rendererMimeType !is null && !"".opEquals(rendererMimeType)) {
 							output.setHeader(HttpHeaders.Names.CONTENT_TYPE, rendererMimeType);
 						}
 
@@ -444,7 +444,7 @@ public class RequestV2 : HTTPResource {
 					}
 				}
 			}
-		} else if ((method.equals("GET") || method.equals("HEAD")) && (argument.toLowerCase().endsWith(".png") || argument.toLowerCase().endsWith(".jpg") || argument.toLowerCase().endsWith(".jpeg"))) {
+		} else if ((method.opEquals("GET") || method.opEquals("HEAD")) && (argument.toLowerCase().endsWith(".png") || argument.toLowerCase().endsWith(".jpg") || argument.toLowerCase().endsWith(".jpeg"))) {
 			if (argument.toLowerCase().endsWith(".png")) {
 				output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "image/png");
 			} else {
@@ -455,14 +455,14 @@ public class RequestV2 : HTTPResource {
 			output.setHeader(HttpHeaders.Names.CONNECTION, "keep-alive");
 			output.setHeader(HttpHeaders.Names.EXPIRES, getFUTUREDATE() + " GMT");
 			inputStream = getResourceInputStream(argument);
-		} else if ((method.equals("GET") || method.equals("HEAD")) && (argument.equals("description/fetch") || argument.endsWith("1.0.xml"))) {
+		} else if ((method.opEquals("GET") || method.opEquals("HEAD")) && (argument.opEquals("description/fetch") || argument.endsWith("1.0.xml"))) {
 			output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/xml; charset=\"utf-8\"");
 			output.setHeader(HttpHeaders.Names.CACHE_CONTROL, "no-cache");
 			output.setHeader(HttpHeaders.Names.EXPIRES, "0");
 			output.setHeader(HttpHeaders.Names.ACCEPT_RANGES, "bytes");
 			output.setHeader(HttpHeaders.Names.CONNECTION, "keep-alive");
-			inputStream = getResourceInputStream((argument.equals("description/fetch") ? "PMS.xml" : argument));
-			if (argument.equals("description/fetch")) {
+			inputStream = getResourceInputStream((argument.opEquals("description/fetch") ? "PMS.xml" : argument));
+			if (argument.opEquals("description/fetch")) {
 				byte b[] = new byte[inputStream.available()];
 				inputStream.read(b);
 				String s = new String(b);
@@ -498,7 +498,7 @@ public class RequestV2 : HTTPResource {
 				response.append(s);
 				inputStream = null;
 			}
-		} else if (method.equals("POST") && (argument.contains("MS_MediaReceiverRegistrar_control") || argument.contains("mrr/control"))) {
+		} else if (method.opEquals("POST") && (argument.contains("MS_MediaReceiverRegistrar_control") || argument.contains("mrr/control"))) {
 			output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/xml; charset=\"utf-8\"");
 			response.append(HTTPXMLHelper.XML_HEADER);
 			response.append(CRLF);
@@ -517,7 +517,7 @@ public class RequestV2 : HTTPResource {
 			response.append(CRLF);
 			response.append(HTTPXMLHelper.SOAP_ENCODING_FOOTER);
 			response.append(CRLF);
-		} else if (method.equals("POST") && argument.endsWith("upnp/control/connection_manager")) {
+		} else if (method.opEquals("POST") && argument.endsWith("upnp/control/connection_manager")) {
 			output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/xml; charset=\"utf-8\"");
 			if (soapaction !is null && soapaction.indexOf("ConnectionManager:1#GetProtocolInfo") > -1) {
 				response.append(HTTPXMLHelper.XML_HEADER);
@@ -529,7 +529,7 @@ public class RequestV2 : HTTPResource {
 				response.append(HTTPXMLHelper.SOAP_ENCODING_FOOTER);
 				response.append(CRLF);
 			}
-		} else if (method.equals("POST") && argument.endsWith("upnp/control/content_directory")) {
+		} else if (method.opEquals("POST") && argument.endsWith("upnp/control/content_directory")) {
 			output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/xml; charset=\"utf-8\"");
 			if (soapaction !is null && soapaction.indexOf("ContentDirectory:1#GetSystemUpdateID") > -1) {
 				response.append(HTTPXMLHelper.XML_HEADER);
@@ -620,17 +620,17 @@ public class RequestV2 : HTTPResource {
 				// XBOX virtual containers ... d'oh!
 				String searchCriteria = null;
 				if (xbox && PMS.getConfiguration().getUseCache() && PMS.get().getLibrary() !is null && containerID !is null) {
-					if (containerID.equals("7") && PMS.get().getLibrary().getAlbumFolder() !is null) {
+					if (containerID.opEquals("7") && PMS.get().getLibrary().getAlbumFolder() !is null) {
 						objectID = PMS.get().getLibrary().getAlbumFolder().getResourceId();
-					} else if (containerID.equals("6") && PMS.get().getLibrary().getArtistFolder() !is null) {
+					} else if (containerID.opEquals("6") && PMS.get().getLibrary().getArtistFolder() !is null) {
 						objectID = PMS.get().getLibrary().getArtistFolder().getResourceId();
-					} else if (containerID.equals("5") && PMS.get().getLibrary().getGenreFolder() !is null) {
+					} else if (containerID.opEquals("5") && PMS.get().getLibrary().getGenreFolder() !is null) {
 						objectID = PMS.get().getLibrary().getGenreFolder().getResourceId();
-					} else if (containerID.equals("F") && PMS.get().getLibrary().getPlaylistFolder() !is null) {
+					} else if (containerID.opEquals("F") && PMS.get().getLibrary().getPlaylistFolder() !is null) {
 						objectID = PMS.get().getLibrary().getPlaylistFolder().getResourceId();
-					} else if (containerID.equals("4") && PMS.get().getLibrary().getAllFolder() !is null) {
+					} else if (containerID.opEquals("4") && PMS.get().getLibrary().getAllFolder() !is null) {
 						objectID = PMS.get().getLibrary().getAllFolder().getResourceId();
-					} else if (containerID.equals("1")) {
+					} else if (containerID.opEquals("1")) {
 						String artist = getEnclosingValue(content, "upnp:artist = &quot;", "&quot;)");
 						if (artist !is null) {
 							objectID = PMS.get().getLibrary().getArtistFolder().getResourceId();
@@ -641,7 +641,7 @@ public class RequestV2 : HTTPResource {
 
 				List<DLNAResource> files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(
 					objectID,
-					browseFlag !is null && browseFlag.equals("BrowseDirectChildren"),
+					browseFlag !is null && browseFlag.opEquals("BrowseDirectChildren"),
 					startingIndex,
 					requestCount,
 					mediaRenderer
@@ -649,7 +649,7 @@ public class RequestV2 : HTTPResource {
 
 				if (searchCriteria !is null && files !is null) {
 					for (int i = files.size() - 1; i >= 0; i--) {
-						if (!files.get(i).getName().equals(searchCriteria)) {
+						if (!files.get(i).getName().opEquals(searchCriteria)) {
 							files.remove(i);
 						}
 					}
@@ -691,7 +691,7 @@ public class RequestV2 : HTTPResource {
 					parentFolder = files.get(0).getParent();
 				}
 
-				if (browseFlag !is null && browseFlag.equals("BrowseDirectChildren") && mediaRenderer.isMediaParserV2() && mediaRenderer.isDLNATreeHack()) {
+				if (browseFlag !is null && browseFlag.opEquals("BrowseDirectChildren") && mediaRenderer.isMediaParserV2() && mediaRenderer.isDLNATreeHack()) {
 					// with the new parser, files are parsed and analyzed *before* creating the DLNA tree,
 					// every 10 items (the ps3 asks 10 by 10),
 					// so we do not know exactly the total number of items in the DLNA folder to send
@@ -703,7 +703,7 @@ public class RequestV2 : HTTPResource {
 						totalCount = startingIndex;
 					}
 					response.append("<TotalMatches>").append(totalCount).append("</TotalMatches>");
-				} else if (browseFlag !is null && browseFlag.equals("BrowseDirectChildren")) {
+				} else if (browseFlag !is null && browseFlag.opEquals("BrowseDirectChildren")) {
 					response.append("<TotalMatches>").append(((parentFolder !is null) ? parentFolder.childrenNumber() : filessize) - minus).append("</TotalMatches>");
 				} else { // from upnp spec: If BrowseMetadata is specified in the BrowseFlags then TotalMatches = 1
 					response.append("<TotalMatches>1</TotalMatches>");
@@ -732,7 +732,7 @@ public class RequestV2 : HTTPResource {
 				response.append(CRLF);
 				// LOGGER.trace(response.toString());
 			}
-		} else if (method.equals("SUBSCRIBE")) {
+		} else if (method.opEquals("SUBSCRIBE")) {
 			output.setHeader("SID", PMS.get().usn());
 			output.setHeader("TIMEOUT", "Second-1800");
 			
@@ -780,7 +780,7 @@ public class RequestV2 : HTTPResource {
 				response.append(HTTPXMLHelper.eventProp("SystemUpdateID", "" + DLNAResource.getSystemUpdateId()));
 				response.append(HTTPXMLHelper.EVENT_FOOTER);
 			}
-		} else if (method.equals("NOTIFY")) {
+		} else if (method.opEquals("NOTIFY")) {
 			output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/xml");
 			output.setHeader("NT", "upnp:event");
 			output.setHeader("NTS", "upnp:propchange");
@@ -807,7 +807,7 @@ public class RequestV2 : HTTPResource {
 			output.setHeader(HttpHeaders.Names.CONTENT_LENGTH, "" + responseData.length);
 
 			// HEAD requests only require headers to be set, no need to set contents.
-			if (!method.equals("HEAD")) {
+			if (!method.opEquals("HEAD")) {
 				// Not a HEAD request, so set the contents of the response.
 				ChannelBuffer buf = ChannelBuffers.copiedBuffer(responseData);
 				output.setContent(buf);
@@ -849,7 +849,7 @@ public class RequestV2 : HTTPResource {
 			// Send the response headers to the client.
 			future = e.getChannel().write(output);
 
-			if (lowRange != DLNAMediaInfo.ENDFILE_POS && !method.equals("HEAD")) {
+			if (lowRange != DLNAMediaInfo.ENDFILE_POS && !method.opEquals("HEAD")) {
 				// Send the response body to the client in chunks.
 				ChannelFuture chunkWriteFuture = e.getChannel().write(new ChunkedStream(inputStream, BUFFER_SIZE));
 

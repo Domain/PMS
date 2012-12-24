@@ -213,12 +213,12 @@ public class PMS {
 			checkThread = null;
 
 			// XXX no longer used
-			if (params[0].equals("vlc") && stderrConsumer.getResults().get(0).startsWith("VLC")) {
+			if (params[0].opEquals("vlc") && stderrConsumer.getResults().get(0).startsWith("VLC")) {
 				return true;
 			}
 
 			// XXX no longer used
-			if (params[0].equals("ffmpeg") && stderrConsumer.getResults().get(0).startsWith("FF")) {
+			if (params[0].opEquals("ffmpeg") && stderrConsumer.getResults().get(0).startsWith("FF")) {
 				return true;
 			}
 

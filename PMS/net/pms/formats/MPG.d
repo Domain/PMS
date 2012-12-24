@@ -44,15 +44,15 @@ public class MPG : Format {
 		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r3 = PMS.get();
 		for (String engine : PMS.getConfiguration().getEnginesAsList(r3.getRegistry())) {
-			if (engine.equals(MEncoderVideo.ID)) {
+			if (engine.opEquals(MEncoderVideo.ID)) {
 				a.add(MEncoderVideo.class);
-			} else if (engine.equals(MEncoderAviSynth.ID) && PMS.get().getRegistry().isAvis()) {
+			} else if (engine.opEquals(MEncoderAviSynth.ID) && PMS.get().getRegistry().isAvis()) {
 				a.add(MEncoderAviSynth.class);
-			} else if (engine.equals(FFMpegVideo.ID)) {
+			} else if (engine.opEquals(FFMpegVideo.ID)) {
 				a.add(FFMpegVideo.class);
-			} else if (engine.equals(FFMpegAviSynthVideo.ID) && PMS.get().getRegistry().isAvis()) {
+			} else if (engine.opEquals(FFMpegAviSynthVideo.ID) && PMS.get().getRegistry().isAvis()) {
 				a.add(FFMpegAviSynthVideo.class);
-			} else if (engine.equals(TSMuxerVideo.ID)/* && PMS.get().isWindows()*/) {
+			} else if (engine.opEquals(TSMuxerVideo.ID)/* && PMS.get().isWindows()*/) {
 				a.add(TSMuxerVideo.class);
 			}
 		}

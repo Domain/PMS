@@ -163,7 +163,7 @@ public final class PlayerFactory {
 		bool ok = false;
 		allPlayers.add(player);
 
-		if (Player.NATIVE.equals(player.executable())) {
+		if (Player.NATIVE.opEquals(player.executable())) {
 			ok = true;
 		} else {
 			if (Platform.isWindows()) {
@@ -241,7 +241,7 @@ public final class PlayerFactory {
 			immutable Format ext) {
 
 		foreach (Player player ; players) {
-			if (player.getClass().equals(profileClass)
+			if (player.getClass().opEquals(profileClass)
 					&& player.type() == ext.getType()
 					&& !player.excludeFormat(ext)) {
 				return player;

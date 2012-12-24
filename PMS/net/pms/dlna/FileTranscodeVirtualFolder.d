@@ -54,11 +54,11 @@ public class FileTranscodeVirtualFolder : VirtualFolder {
 			Integer playerIndex1 = players.indexOf(resource1.getPlayer());
 			Integer playerIndex2 = players.indexOf(resource2.getPlayer());
 
-			if (playerIndex1.equals(playerIndex2)) {
+			if (playerIndex1.opEquals(playerIndex2)) {
 				String audioLang1 = resource1.getMediaAudio().getLang();
 				String audioLang2 = resource2.getMediaAudio().getLang();
 
-				if (audioLang1.equals(audioLang2)) {
+				if (audioLang1.opEquals(audioLang2)) {
 					String subtitle1 = resource1.getMediaSubtitle().getLang();
 					String subtitle2 = resource2.getMediaSubtitle().getLang();
 

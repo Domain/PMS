@@ -89,7 +89,7 @@ public class TsMuxerAudio : TSMuxerVideo {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.AUDIO_AS_VIDEO)) {
+			if (id.opEquals(Format.Identifier.AUDIO_AS_VIDEO)) {
 				return true;
 			}
 		}

@@ -177,7 +177,7 @@ public class FileUtil {
 							bool exists = false;
 							if (media !is null) {
 								foreach (DLNAMediaSubtitle sub ; media.getSubtitleTracksList()) {
-									if (f.equals(sub.getExternalFile())) {
+									if (f.opEquals(sub.getExternalFile())) {
 										exists = true;
 									} else if (equalsIgnoreCase(ext, "idx") && sub.getType() == SubtitleType.MICRODVD) { // sub+idx => VOBSUB
 										sub.setType(SubtitleType.VOBSUB);

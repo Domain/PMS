@@ -82,7 +82,7 @@ public class NavigationShareTab {
 	}
 
 	private void updateModel() {
-		if (df.size() == 1 && df.getElementAt(0).equals(ALL_DRIVES)) {
+		if (df.size() == 1 && df.getElementAt(0).opEquals(ALL_DRIVES)) {
 			configuration.setFolders("");
 		} else {
 			StringBuilder sb = new StringBuilder();
@@ -529,7 +529,7 @@ public class NavigationShareTab {
 				int returnVal = chooser.showOpenDialog((Component) e.getSource());
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					((DefaultListModel) FList.getModel()).add(FList.getModel().getSize(), chooser.getSelectedFile().getAbsolutePath());
-					if (FList.getModel().getElementAt(0).equals(ALL_DRIVES)) {
+					if (FList.getModel().getElementAt(0).opEquals(ALL_DRIVES)) {
 						((DefaultListModel) FList.getModel()).remove(0);
 					}
 					updateModel();

@@ -136,7 +136,7 @@ public class RAWThumbnailer : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.RAW)) {
+			if (id.opEquals(Format.Identifier.RAW)) {
 				return true;
 			}
 		}

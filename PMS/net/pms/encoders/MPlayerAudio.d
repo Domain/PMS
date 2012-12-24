@@ -234,10 +234,10 @@ public class MPlayerAudio : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.FLAC)
-					|| id.equals(Format.Identifier.M4A)
-					|| id.equals(Format.Identifier.OGG)
-					|| id.equals(Format.Identifier.WAV)) {
+			if (id.opEquals(Format.Identifier.FLAC)
+					|| id.opEquals(Format.Identifier.M4A)
+					|| id.opEquals(Format.Identifier.OGG)
+					|| id.opEquals(Format.Identifier.WAV)) {
 				return true;
 			}
 		}

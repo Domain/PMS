@@ -454,7 +454,7 @@ public class RendererConfiguration {
 	}
 
 	public bool isTranscodeToWMV() {
-		return getVideoTranscode().equals(WMV);
+		return getVideoTranscode().opEquals(WMV);
 	}
 
 	public bool isTranscodeToAC3() {
@@ -463,11 +463,11 @@ public class RendererConfiguration {
 
 	public bool isTranscodeToMPEGPSAC3() {
 		String videoTranscode = getVideoTranscode();
-		return videoTranscode.equals(MPEGPSAC3) || videoTranscode.equals(DEPRECATED_MPEGPSAC3);
+		return videoTranscode.opEquals(MPEGPSAC3) || videoTranscode.opEquals(DEPRECATED_MPEGPSAC3);
 	}
 
 	public bool isTranscodeToMPEGTSAC3() {
-		return getVideoTranscode().equals(MPEGTSAC3);
+		return getVideoTranscode().opEquals(MPEGTSAC3);
 	}
 
 	public bool isAutoRotateBasedOnExif() {
@@ -475,15 +475,15 @@ public class RendererConfiguration {
 	}
 
 	public bool isTranscodeToMP3() {
-		return getAudioTranscode().equals(MP3);
+		return getAudioTranscode().opEquals(MP3);
 	}
 
 	public bool isTranscodeToLPCM() {
-		return getAudioTranscode().equals(LPCM);
+		return getAudioTranscode().opEquals(LPCM);
 	}
 
 	public bool isTranscodeToWAV() {
-		return getAudioTranscode().equals(WAV);
+		return getAudioTranscode().opEquals(WAV);
 	}
 
 	public bool isTranscodeAudioTo441() {
@@ -504,14 +504,14 @@ public class RendererConfiguration {
 
 	public String getMimeType(String mimetype) {
 		if (isMediaParserV2()) {
-			if (mimetype !is null && mimetype.equals(HTTPResource.VIDEO_TRANSCODE)) {
+			if (mimetype !is null && mimetype.opEquals(HTTPResource.VIDEO_TRANSCODE)) {
 				mimetype = getFormatConfiguration().match(FormatConfiguration.MPEGPS, FormatConfiguration.MPEG2, FormatConfiguration.AC3);
 				if (isTranscodeToMPEGTSAC3()) {
 					mimetype = getFormatConfiguration().match(FormatConfiguration.MPEGTS, FormatConfiguration.MPEG2, FormatConfiguration.AC3);
 				} else if (isTranscodeToWMV()) {
 					mimetype = getFormatConfiguration().match(FormatConfiguration.WMV, FormatConfiguration.WMV, FormatConfiguration.WMA);
 				}
-			} else if (mimetype !is null && mimetype.equals(HTTPResource.AUDIO_TRANSCODE)) {
+			} else if (mimetype !is null && mimetype.opEquals(HTTPResource.AUDIO_TRANSCODE)) {
 				mimetype = getFormatConfiguration().match(FormatConfiguration.LPCM, null, null);
 
 				if (mimetype !is null) {
@@ -532,7 +532,7 @@ public class RendererConfiguration {
 			return mimetype;
 		}
 
-		if (mimetype !is null && mimetype.equals(HTTPResource.VIDEO_TRANSCODE)) {
+		if (mimetype !is null && mimetype.opEquals(HTTPResource.VIDEO_TRANSCODE)) {
 			mimetype = HTTPResource.MPEG_TYPEMIME;
 			if (isTranscodeToWMV()) {
 				mimetype = isMediaParserV2()
@@ -547,7 +547,7 @@ public class RendererConfiguration {
 					? getFormatConfiguration().match(FormatConfiguration.MPEGPS, FormatConfiguration.MPEG2, FormatConfiguration.AC3)
 					: HTTPResource.MPEG_TYPEMIME;
 			}
-		} else if (mimetype.equals(HTTPResource.AUDIO_TRANSCODE)) {
+		} else if (mimetype.opEquals(HTTPResource.AUDIO_TRANSCODE)) {
 			if (isTranscodeToWAV()) {
 				mimetype = isMediaParserV2()
 					? getFormatConfiguration().match(FormatConfiguration.WAV, null, null)

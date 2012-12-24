@@ -356,7 +356,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 
 		for (int i = 0; i < data.size(); i++) {
 			immutable ComboBoxItemPair datacon = data.get(i);
-			if (anItem.equals(datacon.getKey())) {
+			if (anItem.opEquals(datacon.getKey())) {
 				return i;
 			}
 		}
@@ -377,7 +377,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 
 		for (int i = 0; i < data.size(); i++) {
 			immutable ComboBoxItemPair datacon = data.get(i);
-			if (key.equals(datacon.getValue())) {
+			if (key.opEquals(datacon.getValue())) {
 				return i;
 			}
 		}

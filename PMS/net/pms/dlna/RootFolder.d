@@ -275,11 +275,11 @@ public class RootFolder : DLNAResource {
 						String[] keys = parseFeedKey(key);
 
 						try {
-							if (keys[0].equals("imagefeed")
-									|| keys[0].equals("audiofeed")
-									|| keys[0].equals("videofeed")
-									|| keys[0].equals("audiostream")
-									|| keys[0].equals("videostream")) {
+							if (keys[0].opEquals("imagefeed")
+									|| keys[0].opEquals("audiofeed")
+									|| keys[0].opEquals("videofeed")
+									|| keys[0].opEquals("audiostream")
+									|| keys[0].opEquals("videostream")) {
 								String[] values = parseFeedValue(value);
 								DLNAResource parent = null;
 
@@ -304,15 +304,15 @@ public class RootFolder : DLNAResource {
 									parent = this;
 								}
 
-								if (keys[0].equals("imagefeed")) {
+								if (keys[0].opEquals("imagefeed")) {
 									parent.addChild(new ImagesFeed(values[0]));
-								} else if (keys[0].equals("videofeed")) {
+								} else if (keys[0].opEquals("videofeed")) {
 									parent.addChild(new VideosFeed(values[0]));
-								} else if (keys[0].equals("audiofeed")) {
+								} else if (keys[0].opEquals("audiofeed")) {
 									parent.addChild(new AudiosFeed(values[0]));
-								} else if (keys[0].equals("audiostream")) {
+								} else if (keys[0].opEquals("audiostream")) {
 									parent.addChild(new WebAudioStream(values[0], values[1], values[2]));
-								} else if (keys[0].equals("videostream")) {
+								} else if (keys[0].opEquals("videostream")) {
 									parent.addChild(new WebVideoStream(values[0], values[1], values[2]));
 								}
 							}

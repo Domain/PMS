@@ -66,7 +66,7 @@ public class PlaylistFolder : DLNAResource {
 					if (line.startsWith("#EXTM3U")) {
 						m3u = true;
 						logger._debug("Reading m3u playlist: " ~ playlistfile.getName());
-					} else if (line.length() > 0 && line.equals("[playlist]")) {
+					} else if (line.length() > 0 && line.opEquals("[playlist]")) {
 						pls = true;
 						logger._debug("Reading PLS playlist: " ~ playlistfile.getName());
 					}

@@ -91,7 +91,7 @@ public class HTTPServer : Runnable {
 			LOGGER.info("Using forced address " ~ hostname);
 			InetAddress tempIA = InetAddress.getByName(hostname);
 
-			if (tempIA !is null && networkInterface !is null && networkInterface.equals(NetworkInterface.getByInetAddress(tempIA))) {
+			if (tempIA !is null && networkInterface !is null && networkInterface.opEquals(NetworkInterface.getByInetAddress(tempIA))) {
 				address = new InetSocketAddress(tempIA, port);
 			} else {
 				address = new InetSocketAddress(hostname, port);

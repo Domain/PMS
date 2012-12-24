@@ -684,7 +684,7 @@ public class DLNAMediaInfo : Cloneable {
 				}
 
 				if (!ffmpeg_failure && !thumbOnly) {
-					if (input.equals("-")) {
+					if (input.opEquals("-")) {
 						input = "pipe:";
 					}
 
@@ -730,10 +730,10 @@ public class DLNAMediaInfo : Cloneable {
 											String value = bitr.substring(0, spacepos);
 											String unit = bitr.substring(spacepos + 1);
 											setBitrate(Integer.parseInt(value));
-											if (unit.equals("kb/s")) {
+											if (unit.opEquals("kb/s")) {
 												setBitrate(1024 * getBitrate());
 											}
-											if (unit.equals("mb/s")) {
+											if (unit.opEquals("mb/s")) {
 												setBitrate(1048576 * getBitrate());
 											}
 										}
@@ -769,23 +769,23 @@ public class DLNAMediaInfo : Cloneable {
 
 									} else if (token.endsWith("Hz")) {
 										audio.setSampleFrequency(token.substring(0, token.indexOf("Hz")).trim());
-									} else if (token.equals("mono")) {
+									} else if (token.opEquals("mono")) {
 										audio.getAudioProperties().setNumberOfChannels(1);
-									} else if (token.equals("stereo")) {
+									} else if (token.opEquals("stereo")) {
 										audio.getAudioProperties().setNumberOfChannels(2);
-									} else if (token.equals("5:1") || token.equals("5.1") || token.equals("6 channels")) {
+									} else if (token.opEquals("5:1") || token.opEquals("5.1") || token.opEquals("6 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(6);
-									} else if (token.equals("5 channels")) {
+									} else if (token.opEquals("5 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(5);
-									} else if (token.equals("4 channels")) {
+									} else if (token.opEquals("4 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(4);
-									} else if (token.equals("2 channels")) {
+									} else if (token.opEquals("2 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(2);
-									} else if (token.equals("s32")) {
+									} else if (token.opEquals("s32")) {
 										audio.setBitsperSample(32);
-									} else if (token.equals("s24")) {
+									} else if (token.opEquals("s24")) {
 										audio.setBitsperSample(24);
-									} else if (token.equals("s16")) {
+									} else if (token.opEquals("s16")) {
 										audio.setBitsperSample(16);
 									}
 								}
@@ -820,7 +820,7 @@ public class DLNAMediaInfo : Cloneable {
 										// Priority to tb(c)
 										String frameRateDoubleString = token.substring(0, token.indexOf("tb")).trim();
 										try {
-											if (!frameRateDoubleString.equals(getFrameRate())) {// tbc taken into account only if different than tbr
+											if (!frameRateDoubleString.opEquals(getFrameRate())) {// tbc taken into account only if different than tbr
 												Double frameRateDouble = Double.parseDouble(frameRateDoubleString);
 												setFrameRate(String.format(Locale.ENGLISH, "%.2f", frameRateDouble / 2));
 											}
@@ -892,7 +892,7 @@ public class DLNAMediaInfo : Cloneable {
 					}
 				}
 
-				if (!thumbOnly && getContainer() !is null && inputFile.getFile() !is null && getContainer().equals("mpegts") && isH264() && getDurationInSeconds() == 0) {
+				if (!thumbOnly && getContainer() !is null && inputFile.getFile() !is null && getContainer().opEquals("mpegts") && isH264() && getDurationInSeconds() == 0) {
 					// let's do the parsing for getting the duration...
 					try {
 						int length = MpegUtil.getDurationFromMpeg(inputFile.getFile());
@@ -1040,19 +1040,19 @@ public class DLNAMediaInfo : Cloneable {
 			codecA = getFirstAudioTrack().getCodecA();
 		}
 
-		if (getContainer() !is null && getContainer().equals("avi")) {
+		if (getContainer() !is null && getContainer().opEquals("avi")) {
 			setMimeType(HTTPResource.AVI_TYPEMIME);
-		} else if (getContainer() !is null && (getContainer().equals("asf") || getContainer().equals("wmv"))) {
+		} else if (getContainer() !is null && (getContainer().opEquals("asf") || getContainer().opEquals("wmv"))) {
 			setMimeType(HTTPResource.WMV_TYPEMIME);
-		} else if (getContainer() !is null && (getContainer().equals("matroska") || getContainer().equals("mkv"))) {
+		} else if (getContainer() !is null && (getContainer().opEquals("matroska") || getContainer().opEquals("mkv"))) {
 			setMimeType(HTTPResource.MATROSKA_TYPEMIME);
-		} else if (getCodecV() !is null && getCodecV().equals("mjpeg")) {
+		} else if (getCodecV() !is null && getCodecV().opEquals("mjpeg")) {
 			setMimeType(HTTPResource.JPEG_TYPEMIME);
-		} else if ("png".equals(getCodecV()) || "png".equals(getContainer())) {
+		} else if ("png".opEquals(getCodecV()) || "png".opEquals(getContainer())) {
 			setMimeType(HTTPResource.PNG_TYPEMIME);
-		} else if ("gif".equals(getCodecV()) || "gif".equals(getContainer())) {
+		} else if ("gif".opEquals(getCodecV()) || "gif".opEquals(getContainer())) {
 			setMimeType(HTTPResource.GIF_TYPEMIME);
-		} else if (getCodecV() !is null && (getCodecV().equals("h264") || getCodecV().equals("h263") || getCodecV().toLowerCase().equals("mpeg4") || getCodecV().toLowerCase().equals("mp4"))) {
+		} else if (getCodecV() !is null && (getCodecV().opEquals("h264") || getCodecV().opEquals("h263") || getCodecV().toLowerCase().opEquals("mpeg4") || getCodecV().toLowerCase().opEquals("mp4"))) {
 			setMimeType(HTTPResource.MP4_TYPEMIME);
 		} else if (getCodecV() !is null && (getCodecV().indexOf("mpeg") > -1 || getCodecV().indexOf("mpg") > -1)) {
 			setMimeType(HTTPResource.MPEG_TYPEMIME);
@@ -1084,9 +1084,9 @@ public class DLNAMediaInfo : Cloneable {
 
 	public bool isVideoPS3Compatible(InputFile f) {
 		if (!h264_parsed) {
-			if (getCodecV() !is null && (getCodecV().equals("h264") || getCodecV().startsWith("mpeg2"))) { // what about VC1 ?
+			if (getCodecV() !is null && (getCodecV().opEquals("h264") || getCodecV().startsWith("mpeg2"))) { // what about VC1 ?
 				muxable = true;
-				if (getCodecV().equals("h264") && getContainer() !is null && (getContainer().equals("matroska") || getContainer().equals("mkv") || getContainer().equals("mov") || getContainer().equals("mp4"))) { // containers without h264_annexB
+				if (getCodecV().opEquals("h264") && getContainer() !is null && (getContainer().opEquals("matroska") || getContainer().opEquals("mkv") || getContainer().opEquals("mov") || getContainer().opEquals("mp4"))) { // containers without h264_annexB
 					byte headers[][] = getAnnexBFrameHeader(f);
 					if (ffmpeg_annexb_failure) {
 						LOGGER.info("Fatal error when retrieving AVC informations !");
@@ -1132,11 +1132,11 @@ public class DLNAMediaInfo : Cloneable {
 	}
 
 	public bool isMuxable(String filename, String codecA) {
-		return codecA !is null && (codecA.startsWith("dts") || codecA.equals("dca"));
+		return codecA !is null && (codecA.startsWith("dts") || codecA.opEquals("dca"));
 	}
 
 	public bool isLossless(String codecA) {
-		return codecA !is null && (codecA.contains("pcm") || codecA.startsWith("dts") || codecA.equals("dca") || codecA.contains("flac")) && !codecA.contains("pcm_u8") && !codecA.contains("pcm_s8");
+		return codecA !is null && (codecA.contains("pcm") || codecA.startsWith("dts") || codecA.opEquals("dca") || codecA.contains("flac")) && !codecA.contains("pcm_u8") && !codecA.contains("pcm_s8");
 	}
 
 	public String toString() {
@@ -1248,7 +1248,7 @@ public class DLNAMediaInfo : Cloneable {
 	}
 
 	public bool isMpegTS() {
-		return getContainer() !is null && getContainer().equals("mpegts");
+		return getContainer() !is null && getContainer().opEquals("mpegts");
 	}
 
 	public byte[][] getAnnexBFrameHeader(InputFile f) {

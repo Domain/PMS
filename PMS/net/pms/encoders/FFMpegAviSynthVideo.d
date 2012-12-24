@@ -145,8 +145,8 @@ public class FFMpegAviSynthVideo : FFMpegVideo {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.MKV)
-					|| id.equals(Format.Identifier.MPG)) {
+			if (id.opEquals(Format.Identifier.MKV)
+					|| id.opEquals(Format.Identifier.MPG)) {
 				return true;
 			}
 		}

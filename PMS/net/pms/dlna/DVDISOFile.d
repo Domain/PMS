@@ -92,7 +92,7 @@ public class DVDISOFile : VirtualFolder {
 	override
 	public String getDisplayName() {
 		String s = super.getDisplayName();
-		if (f.getName().toUpperCase().equals("VIDEO_TS")) {
+		if (f.getName().toUpperCase().opEquals("VIDEO_TS")) {
 			s ~= " {" ~ f.getParentFile().getName() ~ "}";
 		}
 		return s;

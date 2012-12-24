@@ -1080,7 +1080,7 @@ public class MEncoderVideo : Player {
 			String value = null;
 
 			for (String option : INVALID_CUSTOM_OPTIONS) {
-				if (option.equals(name)) {
+				if (option.opEquals(name)) {
 					if ((i + 1) < args.length) {
 					   value = " " + args[i + 1];
 					   ++i;
@@ -1196,15 +1196,15 @@ public class MEncoderVideo : Player {
 
 			// Make room for audio
 			// If audio is PCM, subtract 4600kb/s
-			if ("pcm".equals(audioType)) {
+			if ("pcm".opEquals(audioType)) {
 				defaultMaxBitrates[0] = defaultMaxBitrates[0] - 4600;
 			}
 			// If audio is DTS, subtract 1510kb/s
-			else if ("dts".equals(audioType)) {
+			else if ("dts".opEquals(audioType)) {
 				defaultMaxBitrates[0] = defaultMaxBitrates[0] - 1510;
 			}
 			// If audio is AC3, subtract 640kb/s to be safe
-			else if ("ac3".equals(audioType)) {
+			else if ("ac3".opEquals(audioType)) {
 				defaultMaxBitrates[0] = defaultMaxBitrates[0] - 640;
 			}
 
@@ -1299,7 +1299,7 @@ public class MEncoderVideo : Player {
 			bool nomux = false;
 
 			foreach (String s ; expertOptions) {
-				if (s.equals("-nomux")) {
+				if (s.opEquals("-nomux")) {
 					nomux = true;
 				}
 			}
@@ -1344,7 +1344,7 @@ public class MEncoderVideo : Player {
 					configuration.isMencoderRemuxMPEG2()
 				)
 				// disable LPCM transcoding for MP4 container with non-H264 video as workaround for mencoder's A/V sync bug
-				&& !(media.getContainer().equals("mp4") && !media.getCodecV().equals("h264"))
+				&& !(media.getContainer().opEquals("mp4") && !media.getCodecV().opEquals("h264"))
 				&& params.aid !is null &&
 				(
 					(params.aid.isDTS() && params.aid.getAudioProperties().getNumberOfChannels() <= 6) || // disable 7.1 DTS-HD => LPCM because of channels mapping bug
@@ -1480,7 +1480,7 @@ public class MEncoderVideo : Player {
 				(wmv ? ":acodec=wmav2:abitrate=448" : (cbr_settings + ":acodec=" ~ (configuration.isMencoderAc3Fixed() ? "ac3_fixed" : "ac3") ~
 				":abitrate=" ~ CodecUtil.getAC3Bitrate(configuration, params.aid))) ~
 				":threads=" ~ (wmv ? 1 : configuration.getMencoderMaxThreads()) ~
-				("".equals(mainConfig) ? "" : ":" ~ mainConfig);
+				("".opEquals(mainConfig) ? "" : ":" ~ mainConfig);
 
 			String audioType = "ac3";
 
@@ -1517,7 +1517,7 @@ public class MEncoderVideo : Player {
 			);
 
 			for (String s : expertOptions) {
-				if (s.equals("-noass")) {
+				if (s.opEquals("-noass")) {
 					foundNoassParam = true;
 				}
 			}
@@ -2005,7 +2005,7 @@ public class MEncoderVideo : Player {
 			cmdList.add("softskip,scale=" ~ newWidth.toString() ~ ":" ~ newHeight.toString());
 		}
 
-		if (configuration.getMencoderMT() && !avisynth && !dvd && !(media.getCodecV() !is null && (media.getCodecV().equals("mpeg2video")))) {
+		if (configuration.getMencoderMT() && !avisynth && !dvd && !(media.getCodecV() !is null && (media.getCodecV().opEquals("mpeg2video")))) {
 			cmdList.add("-lavdopts");
 			cmdList.add("fast");
 		}
@@ -2049,7 +2049,7 @@ public class MEncoderVideo : Player {
 
 				// pass 1: process expertOptions
 				for (int i = 0; i < expertOptions.length; ++i) {
-					if (expertOptions[i].equals("-noass")) {
+					if (expertOptions[i].opEquals("-noass")) {
 						// remove -ass from cmdList in pass 2.
 						// -ass won't have been added in this method (getSpecificCodecOptions
 						// has been called multiple times above to check for -noass and -nomux)
@@ -2059,30 +2059,30 @@ public class MEncoderVideo : Player {
 						removeCmdListOption.put("-ass", false); // false: option does not have a corresponding value
 						// remove -noass from expertOptions in pass 3
 						expertOptions[i] = REMOVE_OPTION;
-					} else if (expertOptions[i].equals("-nomux")) {
+					} else if (expertOptions[i].opEquals("-nomux")) {
 						expertOptions[i] = REMOVE_OPTION;
-					} else if (expertOptions[i].equals("-mt")) {
+					} else if (expertOptions[i].opEquals("-mt")) {
 						// not an MEncoder option so remove it from exportOptions.
 						// multi-threaded MEncoder is used by default, so this is obsolete (TODO: Remove it from the description)
 						expertOptions[i] = REMOVE_OPTION;
-					} else if (expertOptions[i].equals("-ofps")) {
+					} else if (expertOptions[i].opEquals("-ofps")) {
 						// replace the cmdList version with the expertOptions version i.e. remove the former
 						removeCmdListOption.put("-ofps", true);
 						// skip (i.e. leave unchanged) the exportOptions value
 						++i;
-					} else if (expertOptions[i].equals("-fps")) {
+					} else if (expertOptions[i].opEquals("-fps")) {
 						removeCmdListOption.put("-fps", true);
 						++i;
-					} else if (expertOptions[i].equals("-ovc")) {
+					} else if (expertOptions[i].opEquals("-ovc")) {
 						removeCmdListOption.put("-ovc", true);
 						++i;
-					} else if (expertOptions[i].equals("-channels")) {
+					} else if (expertOptions[i].opEquals("-channels")) {
 						removeCmdListOption.put("-channels", true);
 						++i;
-					} else if (expertOptions[i].equals("-oac")) {
+					} else if (expertOptions[i].opEquals("-oac")) {
 						removeCmdListOption.put("-oac", true);
 						++i;
-					} else if (expertOptions[i].equals("-quality")) {
+					} else if (expertOptions[i].opEquals("-quality")) {
 						// XXX like the old (cmdArray) code, this clobbers the old -lavcopts value
 						String lavcopts = String.format(
 							"autoaspect=1:vcodec=%s:acodec=%s:abitrate=%s:threads=%d:%s",
@@ -2109,21 +2109,21 @@ public class MEncoderVideo : Player {
 						// remove -quality <value>
 						expertOptions[i] = expertOptions[i + 1] = REMOVE_OPTION;
 						++i;
-					} else if (expertOptions[i].equals("-mpegopts")) {
+					} else if (expertOptions[i].opEquals("-mpegopts")) {
 						mergeCmdListOption.put("-mpegopts", "%s:" + expertOptions[i + 1].replace("%", "%%"));
 						// merge if cmdList already contains -mpegopts, but don't append if it doesn't (parity with the old (cmdArray) version)
 						expertOptions[i] = expertOptions[i + 1] = REMOVE_OPTION;
 						++i;
-					} else if (expertOptions[i].equals("-vf")) {
+					} else if (expertOptions[i].opEquals("-vf")) {
 						mergeCmdListOption.put("-vf", "%s," + expertOptions[i + 1].replace("%", "%%"));
 						++i;
-					} else if (expertOptions[i].equals("-af")) {
+					} else if (expertOptions[i].opEquals("-af")) {
 						mergeCmdListOption.put("-af", "%s," + expertOptions[i + 1].replace("%", "%%"));
 						++i;
-					} else if (expertOptions[i].equals("-nosync")) {
+					} else if (expertOptions[i].opEquals("-nosync")) {
 						disableMc0AndNoskip = true;
 						expertOptions[i] = REMOVE_OPTION;
-					} else if (expertOptions[i].equals("-mc")) {
+					} else if (expertOptions[i].opEquals("-mc")) {
 						disableMc0AndNoskip = true;
 					}
 				}
@@ -2267,7 +2267,7 @@ public class MEncoderVideo : Player {
 				for (ListIterator<String> it = cmdList.listIterator(); it.hasNext();) {
 					String option = it.next();
 
-					if (option.equals("-oac")) {
+					if (option.opEquals("-oac")) {
 						it.set("-nosound");
 
 						if (it.hasNext()) {
@@ -2309,7 +2309,7 @@ public class MEncoderVideo : Player {
 
 				String aid = null;
 				if (media !is null && media.getAudioTracksList().size() > 1 && params.aid !is null) {
-					if (media.getContainer() !is null && (media.getContainer().equals(FormatConfiguration.AVI) || media.getContainer().equals(FormatConfiguration.FLV))) {
+					if (media.getContainer() !is null && (media.getContainer().opEquals(FormatConfiguration.AVI) || media.getContainer().opEquals(FormatConfiguration.FLV))) {
 						// TODO confirm (MP4s, OGMs and MOVs already tested: first aid is 0; AVIs: first aid is 1)
 						// for AVIs, FLVs ans MOVs mencoder starts audio tracks numbering from 1
 						aid = "" + (params.aid.getId() + 1);
@@ -2541,25 +2541,25 @@ public class MEncoderVideo : Player {
 					interpreter.set("" + type, r);
 					String secondaryType = "dummy";
 
-					if ("matroska".equals(type)) {
+					if ("matroska".opEquals(type)) {
 						secondaryType = "mkv";
 						interpreter.set(secondaryType, r);
-					} else if ("rm".equals(type)) {
+					} else if ("rm".opEquals(type)) {
 						secondaryType = "rmvb";
 						interpreter.set(secondaryType, r);
-					} else if ("mpeg2video".equals(type)) {
+					} else if ("mpeg2video".opEquals(type)) {
 						secondaryType = "mpeg2";
 						interpreter.set(secondaryType, r);
-					} else if ("mpeg1video".equals(type)) {
+					} else if ("mpeg1video".opEquals(type)) {
 						secondaryType = "mpeg1";
 						interpreter.set(secondaryType, r);
 					}
 
-					if (media.getContainer() !is null && (media.getContainer().equals(type) || media.getContainer().equals(secondaryType))) {
+					if (media.getContainer() !is null && (media.getContainer().opEquals(type) || media.getContainer().opEquals(secondaryType))) {
 						interpreter.set("container", r);
-					} else if (media.getCodecV() !is null && (media.getCodecV().equals(type) || media.getCodecV().equals(secondaryType))) {
+					} else if (media.getCodecV() !is null && (media.getCodecV().opEquals(type) || media.getCodecV().opEquals(secondaryType))) {
 						interpreter.set("vcodec", r);
-					} else if (params.aid !is null && params.aid.getCodecA() !is null && params.aid.getCodecA().equals(type)) {
+					} else if (params.aid !is null && params.aid.getCodecA() !is null && params.aid.getCodecA().opEquals(type)) {
 						interpreter.set("acodec", r);
 					}
 				}
@@ -2670,9 +2670,9 @@ public class MEncoderVideo : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.ISO)
-					|| id.equals(Format.Identifier.MKV)
-					|| id.equals(Format.Identifier.MPG)) {
+			if (id.opEquals(Format.Identifier.ISO)
+					|| id.opEquals(Format.Identifier.MKV)
+					|| id.opEquals(Format.Identifier.MPG)) {
 				return true;
 			}
 		}

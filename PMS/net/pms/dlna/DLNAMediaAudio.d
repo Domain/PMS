@@ -227,7 +227,7 @@ public class DLNAMediaAudio : DLNAMediaLang , Cloneable {
 	 * @return True if the audio is PCM encoded.
 	 */
 	public bool isPCM() {
-		return getCodecA() !is null && (getCodecA().startsWith("pcm") || getCodecA().equals("LPCM"));
+		return getCodecA() !is null && (getCodecA().startsWith("pcm") || getCodecA().opEquals("LPCM"));
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class DLNAMediaAudio : DLNAMediaLang , Cloneable {
 	 * @return True if the audio is lossless compressed.
 	 */
 	public bool isLossless() {
-		return getCodecA() !is null && (isPCM() || getCodecA().startsWith("fla") || getCodecA().equals("mlp") || getCodecA().equals("wv"));
+		return getCodecA() !is null && (isPCM() || getCodecA().startsWith("fla") || getCodecA().opEquals("mlp") || getCodecA().opEquals("wv"));
 	}
 
 	/**
@@ -253,15 +253,15 @@ public class DLNAMediaAudio : DLNAMediaLang , Cloneable {
 			return "TrueHD";
 		} else if (isPCM()) {
 			return "LPCM";
-		} else if (getCodecA() !is null && getCodecA().equals("vorbis")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("vorbis")) {
 			return "OGG";
-		} else if (getCodecA() !is null && getCodecA().equals("aac")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("aac")) {
 			return "AAC";
-		} else if (getCodecA() !is null && getCodecA().equals("mp3")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("mp3")) {
 			return "MP3";
 		} else if (getCodecA() !is null && getCodecA().startsWith("wm")) {
 			return "WMA";
-		} else if (getCodecA() !is null && getCodecA().equals("mp2")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("mp2")) {
 			return "Mpeg Audio";
 		}
 		return getCodecA() !is null ? getCodecA() : "-";

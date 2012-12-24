@@ -433,7 +433,7 @@ public class FFMpegVideo : Player {
 			String audioTrackName = resource.getMediaAudio().toString();
 			String defaultAudioTrackName = resource.getMedia().getAudioTracksList().get(0).toString();
 
-			if (!audioTrackName.equals(defaultAudioTrackName)) {
+			if (!audioTrackName.opEquals(defaultAudioTrackName)) {
 				// PMS only supports playback of the default audio track for FFmpeg
 				return false;
 			}
@@ -450,7 +450,7 @@ public class FFMpegVideo : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.MKV) || id.equals(Format.Identifier.MPG)) {
+			if (id.opEquals(Format.Identifier.MKV) || id.opEquals(Format.Identifier.MPG)) {
 				return true;
 			}
 		}

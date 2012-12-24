@@ -63,7 +63,7 @@ public class AviDemuxerInputStream : InputStream {
 		this.params = params;
 
 		aOut = params.output_pipes[1].getOutputStream();
-		if (params.no_videoencode && params.forceType !is null && params.forceType.equals("V_MPEG4/ISO/AVC") && params.header !is null) {
+		if (params.no_videoencode && params.forceType !is null && params.forceType.opEquals("V_MPEG4/ISO/AVC") && params.header !is null) {
 			// NOT USED RIGHT NOW
 			PipedOutputStream pout = new PipedOutputStream();
 			final InputStream pin = new H264AnnexBInputStream(new PipedInputStream(pout), params.header);
@@ -294,19 +294,19 @@ public class AviDemuxerInputStream : InputStream {
 			int size = readBytes(stream, 4);
 			bool framed = false;
 
-			while ("LIST".equals(command)
-				|| "RIFF".equals(command)
-				|| "JUNK".equals(command)) {
+			while ("LIST".opEquals(command)
+				|| "RIFF".opEquals(command)
+				|| "JUNK".opEquals(command)) {
 
 				if (size < 0) {
 					size = 4;
 				}
 
-				getBytes(stream, "RIFF".equals(command) ? 4 : size);
+				getBytes(stream, "RIFF".opEquals(command) ? 4 : size);
 				command = getString(stream, 4).toUpperCase();
 				size = readBytes(stream, 4);
 
-				if (("LIST".equals(command) || "RIFF".equals(command) || "JUNK".equals(command)) && (size % 2 != 0)) {
+				if (("LIST".opEquals(command) || "RIFF".opEquals(command) || "JUNK".opEquals(command)) && (size % 2 != 0)) {
 					readByte(stream);
 				}
 			}

@@ -65,7 +65,7 @@ public class RestrictedFileSystemView : FileSystemView {
 
 		File[] roots = getRoots();
 		for (int i = 0; i < roots.length; i++) {
-			if (roots[i].equals(f)) {
+			if (roots[i].opEquals(f)) {
 				return true;
 			}
 		}
@@ -140,7 +140,7 @@ public class RestrictedFileSystemView : FileSystemView {
 		if (folder is null || file is null) {
 			return false;
 		} else {
-			return folder.equals(file.getParentFile());
+			return folder.opEquals(file.getParentFile());
 		}
 	}
 

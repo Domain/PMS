@@ -50,9 +50,9 @@ public class WAV : Format {
 		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
 		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
-			if (engine.equals(MPlayerAudio.ID)) {
+			if (engine.opEquals(MPlayerAudio.ID)) {
 				a.add(MPlayerAudio.class);
-			} else if (engine.equals(FFMpegAudio.ID)) {
+			} else if (engine.opEquals(FFMpegAudio.ID)) {
 				a.add(FFMpegAudio.class);
 			}
 		}

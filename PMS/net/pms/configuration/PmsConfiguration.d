@@ -1664,7 +1664,7 @@ public class PmsConfiguration {
 	deprecated
 	public bool isFileBuffer() {
 		String bufferType = getString(KEY_BUFFER_TYPE, "");
-		return bufferType.equals(BUFFER_TYPE_FILE);
+		return bufferType.opEquals(BUFFER_TYPE_FILE);
 	}
 
 	public void setFfmpegSettings(String value) {

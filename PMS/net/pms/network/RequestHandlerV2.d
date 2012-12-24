@@ -93,11 +93,11 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 		LOGGER.trace("Opened request handler on socket " ~ remoteAddress);
 		PMS.get().getRegistry().disableGoToSleep();
 
-		if (HttpMethod.GET.equals(nettyRequest.getMethod())) {
+		if (HttpMethod.GET.opEquals(nettyRequest.getMethod())) {
 			request = new RequestV2("GET", nettyRequest.getUri().substring(1));
-		} else if (HttpMethod.POST.equals(nettyRequest.getMethod())) {
+		} else if (HttpMethod.POST.opEquals(nettyRequest.getMethod())) {
 			request = new RequestV2("POST", nettyRequest.getUri().substring(1));
-		} else if (HttpMethod.HEAD.equals(nettyRequest.getMethod())) {
+		} else if (HttpMethod.HEAD.opEquals(nettyRequest.getMethod())) {
 			request = new RequestV2("HEAD", nettyRequest.getUri().substring(1));
 		} else {
 			request = new RequestV2(nettyRequest.getMethod().getName(), nettyRequest.getUri().substring(1));
@@ -158,9 +158,9 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 			try {
 				StringTokenizer s = new StringTokenizer(headerLine);
 				String temp = s.nextToken();
-				if (request !is null && temp.toUpperCase().equals("SOAPACTION:")) {
+				if (request !is null && temp.toUpperCase().opEquals("SOAPACTION:")) {
 					request.setSoapaction(s.nextToken());
-				} else if (request !is null && temp.toUpperCase().equals("CALLBACK:")) {
+				} else if (request !is null && temp.toUpperCase().opEquals("CALLBACK:")) {
 					request.setSoapaction(s.nextToken());
 				} else if (headerLine.toUpperCase().indexOf("RANGE: BYTES=") > -1) {
 					String nums = headerLine.substring(
@@ -227,10 +227,10 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 				request.setMediaRenderer(RendererConfiguration.getDefaultConf());
 				LOGGER.trace("Using default media renderer: " ~ request.getMediaRenderer().getRendererName());
 
-				if (userAgentString !is null && !userAgentString.equals("FDSSDP")) {
+				if (userAgentString !is null && !userAgentString.opEquals("FDSSDP")) {
 					// We have found an unknown renderer
 					LOGGER.info("Media renderer was not recognized. Possible identifying HTTP headers: User-Agent: " ~ userAgentString
-							+ ("".equals(unknownHeaders.toString()) ? "" : ", " ~ unknownHeaders.toString()));
+							+ ("".opEquals(unknownHeaders.toString()) ? "" : ", " ~ unknownHeaders.toString()));
 					PMS.get().setRendererfound(request.getMediaRenderer());
 				}
 			} else {
@@ -271,7 +271,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 	private void writeResponse(MessageEvent e, RequestV2 request, InetAddress ia) {
 		// Decide whether to close the connection or not.
 		bool close = HttpHeaders.Values.CLOSE.equalsIgnoreCase(nettyRequest.getHeader(HttpHeaders.Names.CONNECTION))
-			|| nettyRequest.getProtocolVersion().equals(
+			|| nettyRequest.getProtocolVersion().opEquals(
 			HttpVersion.HTTP_1_0)
 			&& !HttpHeaders.Values.KEEP_ALIVE.equalsIgnoreCase(nettyRequest.getHeader(HttpHeaders.Names.CONNECTION));
 
@@ -319,7 +319,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 			sendError(ctx, HttpResponseStatus.BAD_REQUEST);
 			return;
 		}
-		if (cause !is null && !cause.getClass().equals(ClosedChannelException.class) && !cause.getClass().equals(IOException.class)) {
+		if (cause !is null && !cause.getClass().opEquals(ClosedChannelException.class) && !cause.getClass().opEquals(IOException.class)) {
 			LOGGER._debug("Caught exception", cause);
 		}
 		if (ch.isConnected()) {

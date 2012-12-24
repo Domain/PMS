@@ -11,15 +11,15 @@ int main(string[] args)
 
 	if (args.length > 0) {
 		for (int a = 0; a < args.length; a++) {
-			if (args[a].equals(CONSOLE)) {
+			if (args[a].opEquals(CONSOLE)) {
 				System.setProperty(CONSOLE, Boolean.toString(true));
-			} else if (args[a].equals(NATIVELOOK)) {
+			} else if (args[a].opEquals(NATIVELOOK)) {
 				System.setProperty(NATIVELOOK, Boolean.toString(true));
-			} else if (args[a].equals(SCROLLBARS)) {
+			} else if (args[a].opEquals(SCROLLBARS)) {
 				System.setProperty(SCROLLBARS, Boolean.toString(true));
-			} else if (args[a].equals(NOCONSOLE)) {
+			} else if (args[a].opEquals(NOCONSOLE)) {
 				System.setProperty(NOCONSOLE, Boolean.toString(true));
-			} else if (args[a].equals(PROFILES)) {
+			} else if (args[a].opEquals(PROFILES)) {
 				displayProfileChooser = true;
 			}
 		}

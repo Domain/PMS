@@ -181,7 +181,7 @@ public class DLNAMediaDatabase : Runnable {
 			close(stmt);
 			close(conn);
 		}
-		bool force_reinit = !PMS.getVersion().equals(version); // here we can force a deletion for a specific version
+		bool force_reinit = !PMS.getVersion().opEquals(version); // here we can force a deletion for a specific version
 		if (force || dbCount == -1 || force_reinit) {
 			LOGGER._debug("Database will be (re)initialized");
 			try {
@@ -343,7 +343,7 @@ public class DLNAMediaDatabase : Runnable {
 				media.setThumb(rs.getBytes("THUMB"));
 				media.setContainer(rs.getString("CONTAINER"));
 				media.setModel(rs.getString("MODEL"));
-				if (media.getModel() !is null && !FormatConfiguration.JPG.equals(media.getContainer())) {
+				if (media.getModel() !is null && !FormatConfiguration.JPG.opEquals(media.getContainer())) {
 					media.setExtrasAsString(media.getModel());
 				}
 				media.setExposure(rs.getInt("EXPOSURE"));

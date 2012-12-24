@@ -30,12 +30,12 @@ public class HTMLConsole {
 
 		DLNAMediaDatabase database = PMS.get().getDatabase();
 		PmsConfiguration configuration = PMS.getConfiguration();
-		if (resource.equals("compact") && configuration.getUseCache()) {
+		if (resource.opEquals("compact") && configuration.getUseCache()) {
 			database.compact();
 			sb.append("<p align=center><b>Database compacted!</b></p><br>");
 		}
 
-		if (resource.equals("scan") && configuration.getUseCache()) {
+		if (resource.opEquals("scan") && configuration.getUseCache()) {
 			if (!database.isScanLibraryRunning()) {
 				database.scanLibrary();
 			}
@@ -44,7 +44,7 @@ public class HTMLConsole {
 			}
 		}
 
-		if (resource.equals("stop") && configuration.getUseCache() && database.isScanLibraryRunning()) {
+		if (resource.opEquals("stop") && configuration.getUseCache() && database.isScanLibraryRunning()) {
 			database.stopScanLibrary();
 			sb.append("<p align=center><b>Scan stopped!</b></p><br>");
 		}

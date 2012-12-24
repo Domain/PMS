@@ -20,6 +20,6 @@ public class OperatingSystem {
 	}
 
 	public bool isWindows() {
-		return getPlatformName().equals("windows");
+		return getPlatformName().opEquals("windows");
 	}
 }

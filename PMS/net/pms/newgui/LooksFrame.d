@@ -104,7 +104,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 					String gtkLAF = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
 					Class.forName(gtkLAF);
 
-					if (systemClassName.equals("javax.swing.plaf.metal.MetalLookAndFeel")) {
+					if (systemClassName.opEquals("javax.swing.plaf.metal.MetalLookAndFeel")) {
 						systemClassName = gtkLAF;
 					}
 				} catch (ClassNotFoundException ce) {
@@ -173,7 +173,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 
 		// Set an unicode font for testing exotics languages (japanese)
 		final String language = configuration.getLanguage();
-		if (language !is null && (language.equals("ja") || language.startsWith("zh"))) {
+		if (language !is null && (language.opEquals("ja") || language.startsWith("zh"))) {
 			sf = new Font("Serif", Font.PLAIN, 12);
 		}
 
@@ -228,7 +228,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 		 * 2) optional scrollbars (-Dscrollbars=optional): display them as needed
 		 * 3) otherwise (default): don't display them
 		 */
-		if (showScrollbars.equals("true")) {
+		if (showScrollbars.opEquals("true")) {
 			setContentPane(
 				new JScrollPane(
 					jp,
@@ -236,7 +236,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS
 				)
 			);
-		} else if (showScrollbars.equals("optional")) {
+		} else if (showScrollbars.opEquals("optional")) {
 			setContentPane(
 				new JScrollPane(
 					jp,

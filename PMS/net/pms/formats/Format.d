@@ -244,7 +244,7 @@ public abstract class Format : Cloneable {
 			while (st.hasMoreTokens()) {
 				String id = st.nextToken().toLowerCase();
 
-				if (matchedId !is null && matchedId.toLowerCase().equals(id)) {
+				if (matchedId !is null && matchedId.toLowerCase().opEquals(id)) {
 					return true;
 				}
 			}
@@ -256,7 +256,7 @@ public abstract class Format : Cloneable {
 			while (st.hasMoreTokens()) {
 				String id = st.nextToken().toLowerCase();
 
-				if (matchedId !is null && matchedId.toLowerCase().equals(id)) {
+				if (matchedId !is null && matchedId.toLowerCase().opEquals(id)) {
 					return true;
 				}
 			}

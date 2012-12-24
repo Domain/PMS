@@ -187,7 +187,7 @@ public class XmlElement : LinkedList/*<XmlElement>*/ {
 	public LinkedList/*<XmlElement>*/ get(String name) {
 		LinkedList/*<XmlElement>*/ list = new LinkedList/*<XmlElement>*/();
 		foreach (XmlElement element ; this) {
-			if (element.getName().equals(name)) {
+			if (element.getName().opEquals(name)) {
 				list.add(element);
 			}
 		}
@@ -224,7 +224,7 @@ public class XmlElement : LinkedList/*<XmlElement>*/ {
 	 */
 	public bool contains(String key) {
 		foreach (XmlElement element ; this) {
-			if (element.getName().equals(key)) {
+			if (element.getName().opEquals(key)) {
 				return true;
 			}
 		}

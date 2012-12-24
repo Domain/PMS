@@ -79,8 +79,8 @@ public class TSMuxerVideo : Player {
 
 	public bool excludeFormat(Format extension) {
 		String m = extension.getMatchedId();
-		return m !is null && !m.equals("mp4") && !m.equals("mkv") && !m.equals("ts") && !m.equals("tp") && !m.equals("m2ts") && !m.equals("m2t") && !m.equals("mpg") && !m.equals("evo") && !m.equals("mpeg")
-			&& !m.equals("vob") && !m.equals("m2v") && !m.equals("mts") && !m.equals("mov");
+		return m !is null && !m.opEquals("mp4") && !m.opEquals("mkv") && !m.opEquals("ts") && !m.opEquals("tp") && !m.opEquals("m2ts") && !m.opEquals("m2t") && !m.opEquals("mpg") && !m.opEquals("evo") && !m.opEquals("mpeg")
+			&& !m.opEquals("vob") && !m.opEquals("m2v") && !m.opEquals("mts") && !m.opEquals("mov");
 	}
 
 	override
@@ -124,7 +124,7 @@ public class TSMuxerVideo : Player {
 
 		String fps = media.getValidFps(false);
 		String videoType = "V_MPEG4/ISO/AVC";
-		if (media !is null && media.getCodecV() !is null && media.getCodecV().equals("mpeg2video")) {
+		if (media !is null && media.getCodecV() !is null && media.getCodecV().opEquals("mpeg2video")) {
 			videoType = "V_MPEG-2";
 		}
 
@@ -283,7 +283,7 @@ public class TSMuxerVideo : Player {
 				bool dtsRemux = false;
 				bool pcm = false;
 				// disable LPCM transcoding for MP4 container with non-H264 video as workaround for mencoder's A/V sync bug
-				bool mp4_with_non_h264 = (media.getContainer().equals("mp4") && !media.getCodecV().equals("h264"));
+				bool mp4_with_non_h264 = (media.getContainer().opEquals("mp4") && !media.getCodecV().opEquals("h264"));
 				if (numAudioTracks <= 1) {
 					ffAudioPipe = new PipeIPCProcess[numAudioTracks];
 					ffAudioPipe[0] = new PipeIPCProcess(System.currentTimeMillis() ~ "ffmpegaudio01", System.currentTimeMillis() ~ "audioout", false, true);
@@ -544,7 +544,7 @@ public class TSMuxerVideo : Player {
 			pw.println(videoType ~ ", \"" ~ ffVideoPipe.getOutputPipe() ~ "\", " ~ (fps !is null ? ("fps=" ~ fps ~ ", ") : "") ~ videoparams);
 		}
 		// disable LPCM transcoding for MP4 container with non-H264 video as workaround for mencoder's A/V sync bug
-		bool mp4_with_non_h264 = (media.getContainer().equals("mp4") && !media.getCodecV().equals("h264"));
+		bool mp4_with_non_h264 = (media.getContainer().opEquals("mp4") && !media.getCodecV().opEquals("h264"));
 		if (ffAudioPipe !is null && ffAudioPipe.length == 1) {
 			String timeshift = "";
 			bool ac3Remux = false;
@@ -885,7 +885,7 @@ public class TSMuxerVideo : Player {
 			String audioTrackName = resource.getMediaAudio().toString();
 			String defaultAudioTrackName = resource.getMedia().getAudioTracksList().get(0).toString();
 	
-			if (!audioTrackName.equals(defaultAudioTrackName)) {
+			if (!audioTrackName.opEquals(defaultAudioTrackName)) {
 				// PMS only supports playback of the default audio track for tsMuxeR
 				return false;
 			}
@@ -902,8 +902,8 @@ public class TSMuxerVideo : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.MKV)
-					|| id.equals(Format.Identifier.MPG)) {
+			if (id.opEquals(Format.Identifier.MKV)
+					|| id.opEquals(Format.Identifier.MPG)) {
 				return true;
 			}
 		}

@@ -75,7 +75,7 @@ public class UPNPHelper {
 		String usn = PMS.get().usn();
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-		if (st.equals(usn)) {
+		if (st.opEquals(usn)) {
 			usn = "";
 		} else {
 			usn ~= "::";
@@ -303,20 +303,20 @@ public class UPNPHelper {
 		sb.append("NT: ").append(nt).append(CRLF);
 		sb.append("NTS: ").append(message).append(CRLF);
 
-		if (message.equals(ALIVE)) {
+		if (message.opEquals(ALIVE)) {
 			sb.append("LOCATION: http://").append(PMS.get().getServer().getHost()).append(":").append(PMS.get().getServer().getPort()).append("/description/fetch" ~ CRLF);
 		}
 		sb.append("USN: ").append(PMS.get().usn());
-		if (!nt.equals(PMS.get().usn())) {
+		if (!nt.opEquals(PMS.get().usn())) {
 			sb.append("::").append(nt);
 		}
 		sb.append(CRLF);
 
-		if (message.equals(ALIVE)) {
+		if (message.opEquals(ALIVE)) {
 			sb.append("CACHE-CONTROL: max-age=1800" ~ CRLF);
 		}
 
-		if (message.equals(ALIVE)) {
+		if (message.opEquals(ALIVE)) {
 			sb.append("SERVER: ").append(PMS.get().getServerName()).append(CRLF);
 		}
 
