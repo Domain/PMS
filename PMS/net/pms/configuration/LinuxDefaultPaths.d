@@ -7,7 +7,7 @@ import java.io.File;
 import org.apache.commons.lang.StringUtils : isNotBlank;
 
 class LinuxDefaultPaths : ProgramPaths {
-    private const String BINARIES_SEARCH_PATH = getBinariesSearchPath();
+    private immutable String BINARIES_SEARCH_PATH = getBinariesSearchPath();
 
 	override
 	public String getEac3toPath() {
@@ -68,7 +68,7 @@ class LinuxDefaultPaths : ProgramPaths {
 			if (path.endsWith("/")) {
 				return path;
 			} else {
-				return path + "/";
+				return path ~ "/";
 			}
 		} else {
 			return "";

@@ -4,15 +4,16 @@
  */
 module net.pms.configuration.MapFileConfiguration;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import org.apache.commons.io.FileUtils;
+//import com.google.gson.*;
+//import com.google.gson.reflect.TypeToken;
+//import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.util;
 
 import net.pms.util.FileUtil;
 
@@ -59,7 +60,7 @@ public class MapFileConfiguration {
 	}
 
 	public this() {
-		children = new ArrayList<MapFileConfiguration>();
+		children = new ArrayList/*<MapFileConfiguration>*/();
 		files = new ArrayList/*<File>*/();
 	}
 
@@ -83,31 +84,34 @@ public class MapFileConfiguration {
 			return null;
 		}
 
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(File.class, new FileSerializer());
-		Gson gson = gsonBuilder.create();
-		Type listType = (new TypeToken/*<ArrayList<MapFileConfiguration>>*/() { }).getType();
-		List/*<MapFileConfiguration>*/ out = gson.fromJson(conf, listType);
-		return out;
+		// TODO: serialization
+		implMissing();
+		return null;
+		//GsonBuilder gsonBuilder = new GsonBuilder();
+		//gsonBuilder.registerTypeAdapter(File.class, new FileSerializer());
+		//Gson gson = gsonBuilder.create();
+		//Type listType = (new TypeToken/*<ArrayList<MapFileConfiguration>>*/() { }).getType();
+		//List/*<MapFileConfiguration>*/ out = gson.fromJson(conf, listType);
+		//return out;
 	}
 }
 
-class FileSerializer : JsonSerializer<File>, JsonDeserializer<File> {
-	private static immutable Logger LOGGER = LoggerFactory.getLogger!FileSerializer();
-
-	public JsonElement serialize(File src, Type typeOfSrc, JsonSerializationContext context) {
-		return new JsonPrimitive(src.getAbsolutePath());
-	}
-
-	public File deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-	{
-		File file = new File(json.getAsJsonPrimitive().getAsString());
-
-		if (!FileUtil.isDirectoryReadable(file)) {
-			LOGGER.warn("Can't read directory: %s", file.getAbsolutePath());
-			return null;
-		} else {
-			return file;
-		}
-	}
-}
+//class FileSerializer : JsonSerializer<File>, JsonDeserializer<File> {
+//    private static immutable Logger LOGGER = LoggerFactory.getLogger!FileSerializer();
+//
+//    public JsonElement serialize(File src, Type typeOfSrc, JsonSerializationContext context) {
+//        return new JsonPrimitive(src.getAbsolutePath());
+//    }
+//
+//    public File deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+//    {
+//        File file = new File(json.getAsJsonPrimitive().getAsString());
+//
+//        if (!FileUtil.isDirectoryReadable(file)) {
+//            LOGGER.warn("Can't read directory: %s", file.getAbsolutePath());
+//            return null;
+//        } else {
+//            return file;
+//        }
+//    }
+//}
