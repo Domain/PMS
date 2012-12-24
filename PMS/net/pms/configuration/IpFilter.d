@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
 public class IpFilter {
 
 	private const static String IP_FILTER_RULE_CHAR = "0123456789-.* ";
-	private const static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
+	private immutable static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!IpFilter();
 
 	interface Predicate {
@@ -187,7 +187,7 @@ public class IpFilter {
 		override
 		public String toString() {
 			StringBuilder b = new StringBuilder();
-			for (ByteRule r : rules) {
+			foreach (ByteRule r ; rules) {
 				if (b.length() > 0) {
 					b.append('.');
 				}
@@ -222,7 +222,7 @@ public class IpFilter {
 		this.rawFilter = rawFilter;
 		if (rawFilter !is null) {
 			String[] rules = rawFilter.split("[,;]");
-			for (String r : rules) {
+			foreach (String r ; rules) {
 				Predicate p = parse(r);
 				if (p !is null) {
 					matchers.add(p);

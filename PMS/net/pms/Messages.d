@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 public class Messages {
 	private static const String BUNDLE_NAME = "resources.i18n.messages";
 
-	private static const ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
 	private this() {
 	}

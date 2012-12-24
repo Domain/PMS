@@ -25,6 +25,14 @@ public class Platform {
 			return false;
 	}
 
+	public static bool isSo­laris()
+	{
+		version(So­laris)
+			return true;
+		else
+			return false;
+	}
+
 	public static bool is64Bit()
 	{
 		version(X86_64)

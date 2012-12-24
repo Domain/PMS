@@ -330,20 +330,20 @@ public class PMS {
 		HashMap/*<String, String>*/ lfps = LoggingConfigFileLoader.getLogFilePaths();
 
 		// debug.log filename(s) and path(s)
-		if (lfps !is null && lfps.size() > 0) {
-			if (lfps.size() == 1) {
-				Entry/*<String, String>*/ entry = lfps.entrySet().iterator().next();
-				LOGGER.info(String.format("%s: %s", entry.getKey(), entry.getValue()));
-			} else {
-				LOGGER.info("Logging to multiple files:");
-				Iterator/*<Entry<String, String>>*/ logsIterator = lfps.entrySet().iterator();
-				Entry/*<String, String>*/ entry;
-				while (logsIterator.hasNext()) {
-					entry = logsIterator.next();
-					LOGGER.info(String.format("%s: %s", entry.getKey(), entry.getValue()));
-				}
-			}
-		}
+		//if (lfps !is null && lfps.size() > 0) {
+		//    if (lfps.size() == 1) {
+		//        Entry/*<String, String>*/ entry = lfps.entrySet().iterator().next();
+		//        LOGGER.info(String.format("%s: %s", entry.getKey(), entry.getValue()));
+		//    } else {
+		//        LOGGER.info("Logging to multiple files:");
+		//        Iterator/*<Entry<String, String>>*/ logsIterator = lfps.entrySet().iterator();
+		//        Entry/*<String, String>*/ entry;
+		//        while (logsIterator.hasNext()) {
+		//            entry = logsIterator.next();
+		//            LOGGER.info(String.format("%s: %s", entry.getKey(), entry.getValue()));
+		//        }
+		//    }
+		//}
 
 		LOGGER.info("");
 
@@ -444,7 +444,7 @@ public class PMS {
 			LOGGER.info("Maybe another process is running or the hostname is wrong.");
 		}
 
-		new class("Connection Checker") Thread {
+		(new class("Connection Checker") Thread {
 			override
 			public void run() {
 				try {
@@ -457,7 +457,7 @@ public class PMS {
 					frame.setStatusCode(0, Messages.getString("PMS.18"), "apply-220.png");
 				}
 			}
-		}.start();
+		}).start();
 
 		if (!binding) {
 			return false;
@@ -551,12 +551,12 @@ public class PMS {
 	 */
 	public bool installWin32Service() {
 		LOGGER.info(Messages.getString("PMS.41"));
-		String cmdArray[] = new String[]{"win32/service/wrapper.exe", "-r", "wrapper.conf"};
+		String cmdArray[] = ["win32/service/wrapper.exe", "-r", "wrapper.conf"];
 		OutputParams output = new OutputParams(configuration);
 		output.noexitcheck = true;
 		ProcessWrapperImpl pwuninstall = new ProcessWrapperImpl(cmdArray, output);
 		pwuninstall.runInSameThread();
-		cmdArray = new String[]{"win32/service/wrapper.exe", "-i", "wrapper.conf"};
+		cmdArray = ["win32/service/wrapper.exe", "-i", "wrapper.conf"];
 		ProcessWrapperImpl pwinstall = new ProcessWrapperImpl(cmdArray, new OutputParams(configuration));
 		pwinstall.runInSameThread();
 		return pwinstall.isSuccess();
@@ -580,7 +580,7 @@ public class PMS {
 		}
 		ArrayList/*<File>*/ directories = new ArrayList/*<File>*/();
 		String[] foldersArray = folders.split(",");
-		for (String folder : foldersArray) {
+		foreach (String folder ; foldersArray) {
 			// unescape embedded commas. note: backslashing isn't safe as it conflicts with
 			// Windows path separators:
 			// http://ps3mediaserver.org/forum/viewtopic.php?f=14&t=8883&start=250#p43520
@@ -616,28 +616,26 @@ public class PMS {
 	// XXX: don't try to optimize this by reusing the same server instance.
 	// see the comment above HTTPServer.stop()
 	public void reset() {
-		TaskRunner.getInstance().submitNamed("restart", true, new class() Runnable {
-			public void run() {
+		TaskRunner.getInstance().submitNamed("restart", true, dgRunnable( {
+			try {
+				LOGGER.trace("Waiting 1 second...");
+				UPNPHelper.sendByeBye();
+				server.stop();
+				server = null;
+				RendererConfiguration.resetAllRenderers();
 				try {
-					LOGGER.trace("Waiting 1 second...");
-					UPNPHelper.sendByeBye();
-					server.stop();
-					server = null;
-					RendererConfiguration.resetAllRenderers();
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						LOGGER.trace("Caught exception", e);
-					}
-					server = new HTTPServer(configuration.getServerPort());
-					server.start();
-					UPNPHelper.sendAlive();
-					frame.setReloadable(false);
-				} catch (IOException e) {
-					LOGGER.error("error during restart :" ~ e.getMessage(), e);
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					LOGGER.trace("Caught exception", e);
 				}
+				server = new HTTPServer(configuration.getServerPort());
+				server.start();
+				UPNPHelper.sendAlive();
+				frame.setReloadable(false);
+			} catch (IOException e) {
+				LOGGER.error("error during restart :" ~ e.getMessage(), e);
 			}
-		});
+		}));
 	}
 
 	/**
@@ -784,13 +782,13 @@ public class PMS {
 	 * warnings where appropriate.
 	 */
 	private void logSystemInfo() {
-		long memoryInMB = Runtime.getRuntime().maxMemory() / 1048576;
-
-		LOGGER.info("Java: " ~ System.getProperty("java.version") ~ "-" ~ System.getProperty("java.vendor"));
-		LOGGER.info("OS: " ~ System.getProperty("os.name") ~ " " ~ System.getProperty("os.arch") ~ " " ~ System.getProperty("os.version"));
-		LOGGER.info("Encoding: " ~ System.getProperty("file.encoding"));
-		LOGGER.info("Memory: " ~ memoryInMB ~ " " ~ Messages.getString("StatusTab.12"));
-		LOGGER.info("");
+		//long memoryInMB = Runtime.getRuntime().maxMemory() / 1048576;
+		//
+		//LOGGER.info("Java: " ~ System.getProperty("java.version") ~ "-" ~ System.getProperty("java.vendor"));
+		//LOGGER.info("OS: " ~ System.getProperty("os.name") ~ " " ~ System.getProperty("os.arch") ~ " " ~ System.getProperty("os.version"));
+		//LOGGER.info("Encoding: " ~ System.getProperty("file.encoding"));
+		//LOGGER.info("Memory: " ~ memoryInMB ~ " " ~ Messages.getString("StatusTab.12"));
+		//LOGGER.info("");
 
 		if (Platform.isMac()) {
 			// The binaries shipped with the Mac OS X version of PMS are being
