@@ -17,7 +17,7 @@ import java.io.IOException;
 class TempFolder {
 	private static immutable Logger logger = LoggerFactory.getLogger!TempFolder();
 	private static const String DEFAULT_TEMP_FOLDER_NAME = "ps3mediaserver";
-	private immutable String userSpecifiedFolder;
+	private String userSpecifiedFolder;
 	private File tempFolder;
 
 	/**

@@ -116,7 +116,7 @@ public class CueFolder : DLNAResource {
 						if (r.getPlayer() is null) { // assign a splitter engine if file is natively supported by renderer
 							if (defaultPlayer is null) {
 								if (r.getFormat() is null) {
-									LOGGER.error("No file format known for file \"{}\", assuming it is a video for now.", r.getName());
+									LOGGER.error("No file format known for file \"%s\", assuming it is a video for now.", r.getName());
 									// XXX aren't players supposed to be singletons?
 									// NOTE: needs new signature for getPlayer():
 									// PlayerFactory.getPlayer(MEncoderVideo.class)

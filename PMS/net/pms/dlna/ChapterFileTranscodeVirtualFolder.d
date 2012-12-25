@@ -57,7 +57,7 @@ public class ChapterFileTranscodeVirtualFolder : VirtualFolder {
 		if (!resolved && getChildren().size() == 1) { //OK
 			DLNAResource child = getChildren().get(0);
 			child.resolve();
-			int nbMinutes = (int) (child.getMedia().getDurationInSeconds() / 60);
+			int nbMinutes = cast(int) (child.getMedia().getDurationInSeconds() / 60);
 			int nbIntervals = nbMinutes / interval;
 
 			for (int i = 1; i <= nbIntervals; i++) {

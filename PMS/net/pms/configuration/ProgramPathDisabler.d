@@ -7,7 +7,7 @@ class ProgramPathDisabler : ProgramPaths {
 	private bool disableMplayer = false;
 	private bool disableDCraw = false;
 	private bool disableIMConvert = false;
-	private final ProgramPaths ifEnabled;
+	private ProgramPaths ifEnabled;
 
 	public this(ProgramPaths ifEnabled) {
 		this.ifEnabled = ifEnabled;

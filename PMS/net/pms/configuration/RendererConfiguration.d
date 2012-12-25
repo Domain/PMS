@@ -369,7 +369,7 @@ public class RendererConfiguration {
 			configuration.load(f);
 		}
 
-		mimes = new HashMap<String, String>();
+		mimes = new HashMap/*<String, String>*/();
 		String mimeTypes = getString(MIME_TYPES_CHANGES, null);
 
 		if (StringUtils.isNotBlank(mimeTypes)) {

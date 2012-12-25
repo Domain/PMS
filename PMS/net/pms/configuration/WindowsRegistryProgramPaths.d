@@ -9,7 +9,7 @@ import java.io.File;
 
 class WindowsRegistryProgramPaths : ProgramPaths {
 	private static immutable Logger logger = LoggerFactory.getLogger!WindowsRegistryProgramPaths();
-	private immutable ProgramPaths defaults;
+	private ProgramPaths defaults;
 
 	this(ProgramPaths defaults) {
 		this.defaults = defaults;
@@ -51,7 +51,7 @@ class WindowsRegistryProgramPaths : ProgramPaths {
 		if (registry.getVlcp() !is null) {
 			String vlc = registry.getVlcp();
 			String version = registry.getVlcv();
-			if (new File(vlc).exists() && version !is null) {
+			if ((new File(vlc)).exists() && version !is null) {
 				logger._debug("Found VLC version " ~ version ~ " in Windows Registry: " ~ vlc);
 				return vlc;
 			}

@@ -11,12 +11,12 @@ public class MediaLibraryFolder : VirtualFolder {
 	public static const int TEXTS = 1;
 	public static const int PLAYLISTS = 2;
 	public static const int ISOS = 3;
-	private String sqls[];
-	private int expectedOutputs[];
+	private String[] sqls;
+	private int[] expectedOutputs;
 	private DLNAMediaDatabase database;
 
 	public this(String name, String sql, int expectedOutput) {
-		this(name, new String[]{sql}, new int[]{expectedOutput});
+		this(name, [sql], [expectedOutput]);
 	}
 
 	public this(String name, String sql[], int expectedOutput[]) {
@@ -26,7 +26,7 @@ public class MediaLibraryFolder : VirtualFolder {
 		this.database = PMS.get().getDatabase();
 		// double check the database has been initialized (via PMS.init -> PMS.initializeDatabase)
 		// http://www.ps3mediaserver.org/forum/viewtopic.php?f=6&t=11474
-		assert this.database !is null;
+		assert(this.database !is null);
 	}
 
 	override

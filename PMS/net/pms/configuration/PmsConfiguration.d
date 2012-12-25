@@ -47,7 +47,7 @@ import java.util.all;
  * file.
  */
 public class PmsConfiguration {
-	private static const Logger LOGGER = LoggerFactory.getLogger!PmsConfiguration();
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PmsConfiguration();
 	private static const int DEFAULT_PROXY_SERVER_PORT = -1;
 	private static const int DEFAULT_SERVER_PORT = 5001;
 
@@ -177,7 +177,7 @@ public class PmsConfiguration {
 
 	// the name of the subdirectory under which PMS config files are stored for this build (default: PMS).
 	// see Build for more details
-	private static const String PROFILE_DIRECTORY_NAME = Build.getProfileDirectoryName();
+	private static immutable String PROFILE_DIRECTORY_NAME = Build.getProfileDirectoryName();
 
 	// the default profile name displayed on the renderer
 	private static String HOSTNAME;
@@ -193,12 +193,12 @@ public class PmsConfiguration {
 	private immutable TempFolder tempFolder;
 	private immutable ProgramPathDisabler programPaths;
 
-	private const IpFilter filter = new IpFilter();
+	private immutable IpFilter filter = new IpFilter();
 
 	/**
 	 * The set of the keys defining when the HTTP server has to restarted due to a configuration change
 	 */
-	public static immutable Set/*<String>*/ NEED_RELOAD_FLAGS = new HashSet<String>(
+	public static immutable Set/*<String>*/ NEED_RELOAD_FLAGS = new HashSet/*<String>*/(
 		Arrays.asList(
 			KEY_ALTERNATE_THUMB_FOLDER,
 			KEY_NETWORK_INTERFACE,
@@ -278,7 +278,7 @@ public class PmsConfiguration {
                                                     // "project.skelprofile.dir" project property
 	private static const String PROPERTY_PROFILE_PATH = "pms.profile.path";
 
-	static this {
+	static this() {
         // first try the system property, typically set via the profile chooser
 		String profile = System.getProperty(PROPERTY_PROFILE_PATH);
 
@@ -332,15 +332,15 @@ public class PmsConfiguration {
 			if ((f.exists() || f.mkdir()) && f.isDirectory()) {
 				PROFILE_DIRECTORY = FilenameUtils.normalize(f.getAbsolutePath());
 			} else {
-				PROFILE_DIRECTORY = FilenameUtils.normalize(new File("").getAbsolutePath());
+				PROFILE_DIRECTORY = FilenameUtils.normalize((new File("")).getAbsolutePath());
 			}
 
-			PROFILE_PATH = FilenameUtils.normalize(new File(PROFILE_DIRECTORY, DEFAULT_PROFILE_FILENAME).getAbsolutePath());
+			PROFILE_PATH = FilenameUtils.normalize((new File(PROFILE_DIRECTORY, DEFAULT_PROFILE_FILENAME)).getAbsolutePath());
 		}
         // set SKEL_PROFILE_PATH for Linux systems
         String skelDir = PropertiesUtil.getProjectProperties().get("project.skelprofile.dir");
         if (Platform.isLinux() && StringUtils.isNotBlank(skelDir)) {
-            SKEL_PROFILE_PATH = FilenameUtils.normalize(new File(new File(skelDir, PROFILE_DIRECTORY_NAME).getAbsolutePath(), DEFAULT_PROFILE_FILENAME).getAbsolutePath());
+            SKEL_PROFILE_PATH = FilenameUtils.normalize((new File((new File(skelDir, PROFILE_DIRECTORY_NAME)).getAbsolutePath(), DEFAULT_PROFILE_FILENAME)).getAbsolutePath());
         } else {
             SKEL_PROFILE_PATH = null;
         }
