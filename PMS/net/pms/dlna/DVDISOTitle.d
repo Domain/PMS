@@ -45,7 +45,7 @@ public class DVDISOTitle : DLNAResource {
 
 	override
 	public void resolve() {
-		String cmd[] = new String[]{PMS.getConfiguration().getMplayerPath(), "-identify", "-endpos", "0", "-v", "-ao", "null", "-vc", "null", "-vo", "null", "-dvd-device", ProcessUtil.getShortFileNameIfWideChars(f.getAbsolutePath()), "dvd://" + title};
+		String cmd[] = [PMS.getConfiguration().getMplayerPath(), "-identify", "-endpos", "0", "-v", "-ao", "null", "-vc", "null", "-vo", "null", "-dvd-device", ProcessUtil.getShortFileNameIfWideChars(f.getAbsolutePath()), "dvd://" + title];
 		OutputParams params = new OutputParams(PMS.getConfiguration());
 		params.maxBufferSize = 1;
 		if (PMS.getConfiguration().isDvdIsoThumbnails()) {
@@ -65,16 +65,13 @@ public class DVDISOTitle : DLNAResource {
 		}
 		params.log = true;
 		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
-		Runnable r = new class() Runnable {
-
-			public void run() {
+		Runnable r = dgRunnable( {
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 				}
 				pw.stopProcess();
-			}
-		};
+		});
 		Thread failsafe = new Thread(r, "DVD ISO Title Failsafe");
 		failsafe.start();
 		pw.runInSameThread();
@@ -89,7 +86,7 @@ public class DVDISOTitle : DLNAResource {
 		ArrayList/*<DLNAMediaAudio>*/ audio = new ArrayList/*<DLNAMediaAudio>*/();
 		ArrayList/*<DLNAMediaSubtitle>*/ subs = new ArrayList/*<DLNAMediaSubtitle>*/();
 		if (lines !is null) {
-			foreach0 (String line ; lines) {
+			foreach (String line ; lines) {
 				if (line.startsWith("DVD start=")) {
 					nbsectors = Integer.parseInt(line.substring(line.lastIndexOf("=") + 1).trim());
 				}
@@ -145,17 +142,17 @@ public class DVDISOTitle : DLNAResource {
 				File jpg = new File(frameName + "2.jpg");
 
 				if (jpg.exists()) {
-					InputStream is = new FileInputStream(jpg);
+					InputStream _is = new FileInputStream(jpg);
 
 					try {
-						int sz = is.available();
+						int sz = _is.available();
 
 						if (sz > 0) {
 							getMedia().setThumb(new byte[sz]);
-							is.read(getMedia().getThumb());
+							_is.read(getMedia().getThumb());
 						}
 					} finally {
-						is.close();
+						_is.close();
 					}
 
 					if (!jpg.delete()) {
@@ -163,20 +160,20 @@ public class DVDISOTitle : DLNAResource {
 					}
 
 					// Try and retry
-					if (!jpg.getParentFile().delete() && !jpg.getParentFile().delete()) {
+					if (!jpg.getParentFile()._delete() && !jpg.getParentFile()._delete()) {
 						logger._debug("Failed to delete \"" ~ jpg.getParentFile().getAbsolutePath() ~ "\"");
 					}
 				}
 
-				jpg = new File(frameName + "1.jpg");
+				jpg = new File(frameName ~ "1.jpg");
 
 				if (jpg.exists()) {
-					if (!jpg.delete()) {
+					if (!jpg._delete()) {
 						jpg.deleteOnExit();
 					}
 
-					if (!jpg.getParentFile().delete()) {
-						jpg.getParentFile().delete();
+					if (!jpg.getParentFile()._delete()) {
+						jpg.getParentFile()._delete();
 					}
 				}
 			} catch (IOException e) {

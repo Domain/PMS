@@ -33,25 +33,23 @@ public class DVDISOFile : VirtualFolder {
 
 	override
 	public void resolve() {
-		double titles[] = new double[100];
-		String cmd[] = new String[]{PMS.getConfiguration().getMplayerPath(), "-identify", "-endpos", "0", "-v", "-ao", "null", "-vc", "null", "-vo", "null", "-dvd-device", ProcessUtil.getShortFileNameIfWideChars(f.getAbsolutePath()), "dvd://1"};
+		double[] titles = new double[100];
+		String[] cmd = [PMS.getConfiguration().getMplayerPath(), "-identify", "-endpos", "0", "-v", "-ao", "null", "-vc", "null", "-vo", "null", "-dvd-device", ProcessUtil.getShortFileNameIfWideChars(f.getAbsolutePath()), "dvd://1"];
 		OutputParams params = new OutputParams(PMS.getConfiguration());
 		params.maxBufferSize = 1;
 		params.log = true;
 		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
-		Runnable r = new class() Runnable {
-			public void run() {
+		Runnable r = dgRunnable( {
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 				}
 				pw.stopProcess();
-			}
-		};
+		});
 		Thread failsafe = new Thread(r, "DVDISO Failsafe");
 		failsafe.start();
 		pw.runInSameThread();
-		List<String> lines = pw.getOtherResults();
+		List/*<String>*/ lines = pw.getOtherResults();
 		if (lines !is null) {
 			foreach (String line ; lines) {
 				if (line.startsWith("ID_DVD_TITLE_") && line.contains("_LENGTH")) {

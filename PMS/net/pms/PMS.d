@@ -493,7 +493,7 @@ public class PMS {
 					UPNPHelper.shutDownListener();
 					UPNPHelper.sendByeBye();
 					LOGGER._debug("Forcing shutdown of all active processes");
-					for (Process p : currentProcesses) {
+					foreach (Process p ; currentProcesses) {
 						try {
 							p.exitValue();
 						} catch (IllegalThreadStateException ise) {

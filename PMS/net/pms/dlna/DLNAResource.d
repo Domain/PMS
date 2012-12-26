@@ -498,7 +498,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 					// is preferred.
 					String name = getName();
 
-					for (Player p : PlayerFactory.getAllPlayers()) {
+					foreach (Player p ; PlayerFactory.getAllPlayers()) {
 						String end = "[" ~ p.id() ~ "]";
 
 						if (name.endsWith(end)) {
@@ -663,11 +663,11 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		if (child.getInternalId() !is null) {
 			LOGGER.info(
 				"Node (%s) already has an ID (%d), which is overriden now. The previous parent node was: %s",
-				new Object[] {
+				cast(Object[]) [
 					child.getClass().getName(),
 					child.getResourceId(),
 					child.getParent()
-				}
+				]
 			);
 		}
 
@@ -1236,7 +1236,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 	protected DLNAResource clone() {
 		DLNAResource o = null;
 		try {
-			o = (DLNAResource) super.clone();
+			o = cast(DLNAResource) super.clone();
 			o.setId(null);
 		} catch (CloneNotSupportedException e) {
 			LOGGER.error(null, e);
@@ -1641,20 +1641,17 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 					public void run() {
 						LOGGER.info("renderer: {}, file: {}", rendererId, getSystemName());
 
-						for (final ExternalListener listener : ExternalFactory.getExternalListeners()) {
+						foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
 							if (cast(StartStopListener)listener !is null) {
 								// run these asynchronously for slow handlers (e.g. logging, scrobbling)
-								Runnable fireStartStopEvent = new class() Runnable {
-									override
-									public void run() {
-										try {
-											((StartStopListener) listener).nowPlaying(getMedia(), self);
-										} catch (Throwable t) {
-											LOGGER.error("Notification of startPlaying event failed for StartStopListener {}", listener.getClass(), t);
-										}
+								Runnable fireStartStopEvent = dgRunnable( {
+									try {
+										(cast(StartStopListener) listener).nowPlaying(getMedia(), self);
+									} catch (Throwable t) {
+										LOGGER.error("Notification of startPlaying event failed for StartStopListener {}", listener.getClass(), t);
 									}
-								};
-								new Thread(fireStartStopEvent, "StartPlaying Event for " ~ listener.name()).start();
+								});
+								(new Thread(fireStartStopEvent, "StartPlaying Event for " ~ listener.name())).start();
 							}
 						}
 					}
@@ -1673,53 +1670,44 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 	public void stopPlaying(immutable String rendererId) {
 		immutable DLNAResource self = this;
 		immutable String requestId = getRequestId(rendererId);
-		Runnable defer = new class() Runnable {
-			override
-			public void run() {
-				try {
-					Thread.sleep(STOP_PLAYING_DELAY);
-				} catch (InterruptedException e) {
-					LOGGER.error("stopPlaying sleep interrupted", e);
-				}
+		Runnable defer = dgRunnable( {
+			try {
+				Thread.sleep(STOP_PLAYING_DELAY);
+			} catch (InterruptedException e) {
+				LOGGER.error("stopPlaying sleep interrupted", e);
+			}
 
-				synchronized (requestIdToRefcount) {
-					immutable Integer refCount = requestIdToRefcount.get(requestId);
-					assert refCount !is null;
-					assert refCount > 0;
-					requestIdToRefcount.put(requestId, refCount - 1);
+			synchronized (requestIdToRefcount) {
+				immutable Integer refCount = requestIdToRefcount.get(requestId);
+				assert(refCount !is null);
+				assert(refCount > 0);
+				requestIdToRefcount.put(requestId, refCount - 1);
 
-					Runnable r = new class() Runnable {
-						override
-						public void run() {
-							if (refCount == 1) {
-								LOGGER.info("renderer: %d, file: %s", rendererId, getSystemName());
-								PMS.get().getFrame().setStatusLine("");
+				Runnable r = dgRunnable( {
+					if (refCount == 1) {
+						LOGGER.info("renderer: %d, file: %s", rendererId, getSystemName());
+						PMS.get().getFrame().setStatusLine("");
 
-								for (final ExternalListener listener : ExternalFactory.getExternalListeners()) {
-									if (cast(StartStopListener)listener !is null) {
-										// run these asynchronously for slow handlers (e.g. logging, scrobbling)
-										Runnable fireStartStopEvent = new class() Runnable {
-											override
-											public void run() {
-												try {
-													((StartStopListener) listener).donePlaying(getMedia(), self);
-												} catch (Throwable t) {
-													LOGGER.error("Notification of donePlaying event failed for StartStopListener %s", listener.getClass(), t);
-												}
-											}
-										};
+						foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
+							if (cast(StartStopListener)listener !is null) {
+								// run these asynchronously for slow handlers (e.g. logging, scrobbling)
+								Runnable fireStartStopEvent = dgRunnable( {
+										try {
+											(cast(StartStopListener) listener).donePlaying(getMedia(), self);
+										} catch (Throwable t) {
+											LOGGER.error("Notification of donePlaying event failed for StartStopListener %s", listener.getClass(), t);
+										}
+								});
 
-										(new Thread(fireStartStopEvent, "StopPlaying Event for " ~ listener.name())).start();
-									}
-								}
+								(new Thread(fireStartStopEvent, "StopPlaying Event for " ~ listener.name())).start();
 							}
 						}
-					};
+					}
+				});
 
-					(new Thread(r, "StopPlaying Event")).start();
-				}
+				(new Thread(r, "StopPlaying Event")).start();
 			}
-		};
+		});
 
 		(new Thread(defer, "StopPlaying Event Deferrer")).start();
 	}
@@ -1744,9 +1732,9 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		Range.Time timeRange = range.createTimeRange();
 
 		if (getPlayer() !is null && low > 0 && cbr_video_bitrate > 0) {
-			int used_bit_rated = (int) ((cbr_video_bitrate + 256) * 1024 / 8 * 1.04); // 1.04 = container overhead
+			int used_bit_rated = cast(int) ((cbr_video_bitrate + 256) * 1024 / 8 * 1.04); // 1.04 = container overhead
 			if (low > used_bit_rated) {
-				timeRange.setStart((double) (low / (used_bit_rated)));
+				timeRange.setStart(cast(double) (low / (used_bit_rated)));
 				low = 0;
 
 				// WDTV Live - if set to TS it asks multiple times and ends by
@@ -1768,7 +1756,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 			if (cast(IPushOutput)this !is null) {
 				PipedOutputStream _out = new PipedOutputStream();
 				InputStream fis = new PipedInputStream(_out);
-				((IPushOutput) this).push(_out);
+				(cast(IPushOutput) this).push(_out);
 
 				if (fis !is null) {
 					if (low > 0) {
@@ -1801,7 +1789,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 				fis = wrap(fis, high, low);
 
 				if (timeRange.getStartOrZero() > 0 && cast(RealFile)this !is null) {
-					fis.skip(MpegUtil.getPositionForTimeInMpeg(((RealFile) this).getFile(), (int) timeRange.getStartOrZero() ));
+					fis.skip(MpegUtil.getPositionForTimeInMpeg((cast(RealFile) this).getFile(), cast(int) timeRange.getStartOrZero() ));
 				}
 			}
 
@@ -1846,12 +1834,9 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 				LOGGER._debug("Requesting time seek: " ~ params.timeseek.toString() ~ " seconds");
 				params.minBufferSize = 1;
 
-				Runnable r = new class() Runnable {
-					override
-					public void run() {
+				Runnable r = dgRunnable( {
 						externalProcess.stopProcess();
-					}
-				};
+				});
 
 				(new Thread(r, "External Process Stopper")).start();
 
@@ -1897,13 +1882,10 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 			// this cleans up lingering MEncoder web video transcode processes that hang
 			// instead of exiting
 			if (fis is null && externalProcess !is null && !externalProcess.isDestroyed()) {
-				Runnable r = new class() Runnable {
-					override
-					public void run() {
+				Runnable r = dgRunnable( {
 						LOGGER.trace("External input stream instance is null... stopping process");
 						externalProcess.stopProcess();
-					}
-				};
+				});
 
 				(new Thread(r, "Hanging External Process Stopper")).start();
 			}
@@ -2420,7 +2402,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 	 *
 	 * @return List of children objects.
 	 */
-	public List<DLNAResource> getChildren() {
+	public List/*<DLNAResource>*/ getChildren() {
 		return children;
 	}
 

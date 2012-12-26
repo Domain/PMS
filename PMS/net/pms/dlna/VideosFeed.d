@@ -28,6 +28,6 @@ public class VideosFeed : Feed {
 	}
 
 	public this(String url) {
-		super("" ~ System.currentTimeMillis(), url, Format.VIDEO);
+		super(System.currentTimeMillis().toString(), url, Format.VIDEO);
 	}
 }

@@ -100,35 +100,32 @@ public class RarredEntry : DLNAResource , IPushOutput {
 
 	override
 	public void push(immutable OutputStream _out) {
-		Runnable r = new class() Runnable {
-
-			public void run() {
-				Archive rarFile = null;
-				try {
-					rarFile = new Archive(file);
-					FileHeader header = null;
-					foreach (FileHeader fh ; rarFile.getFileHeaders()) {
-						if (fh.getFileNameString().opEquals(fileHeaderName)) {
-							header = fh;
-							break;
-						}
-					}
-					if (header !is null) {
-						logger.trace("Starting the extraction of " ~ header.getFileNameString());
-						rarFile.extractFile(header, _out);
-					}
-				} catch (Exception e) {
-					logger._debug("Unpack error, maybe it's normal, as backend can be terminated: " ~ e.getMessage());
-				} finally {
-					try {
-						rarFile.close();
-						_out.close();
-					} catch (IOException e) {
-						logger._debug("Caught exception", e);
+		Runnable r = dgRunnable( {
+			Archive rarFile = null;
+			try {
+				rarFile = new Archive(file);
+				FileHeader header = null;
+				foreach (FileHeader fh ; rarFile.getFileHeaders()) {
+					if (fh.getFileNameString().opEquals(fileHeaderName)) {
+						header = fh;
+						break;
 					}
 				}
+				if (header !is null) {
+					logger.trace("Starting the extraction of " ~ header.getFileNameString());
+					rarFile.extractFile(header, _out);
+				}
+			} catch (Exception e) {
+				logger._debug("Unpack error, maybe it's normal, as backend can be terminated: " ~ e.getMessage());
+			} finally {
+				try {
+					rarFile.close();
+					_out.close();
+				} catch (IOException e) {
+					logger._debug("Caught exception", e);
+				}
 			}
-		};
+		});
 
 		(new Thread(r, "Rar Extractor")).start();
 	}

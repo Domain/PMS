@@ -124,7 +124,7 @@ public class Feed : DLNAResource {
 				ArrayList/*<Element>*/ elements = cast(ArrayList/*<Element>*/) entry.getForeignMarkup();
 				foreach (Element elt ; elements) {
 					if ("group".opEquals(elt.getName()) && "media".opEquals(elt.getNamespacePrefix())) {
-						List<Content> subElts = elt.getContent();
+						List/*<Content>*/ subElts = elt.getContent();
 						foreach (Content subelt ; subElts) {
 							if (cast(Element)subelt !is null ) {
 								parseElement(cast(Element) subelt, false);

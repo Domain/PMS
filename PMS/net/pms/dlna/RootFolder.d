@@ -648,18 +648,18 @@ public class RootFolder : DLNAResource {
 			// the second line should contain a quoted file URL e.g.:
 			// "file://localhost/Users/MyUser/Music/iTunes/iTunes%20Music%20Library.xml"
 			Process process = Runtime.getRuntime().exec("defaults read com.apple.iApps iTunesRecentDatabases");
-			BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			BufferedReader _in = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
 			// we want the 2nd line
-			if ((line = in.readLine()) !is null && (line = in.readLine()) !is null) {
+			if ((line = _in.readLine()) !is null && (line = _in.readLine()) !is null) {
 				line = line.trim(); // remove extra spaces
 				line = line.substring(1, line.length() - 1); // remove quotes and spaces
 				URI tURI = new URI(line);
 				iTunesFile = URLDecoder.decode(tURI.toURL().getFile(), "UTF8");
 			}
 
-			if (in !is null) {
-				in.close();
+			if (_in !is null) {
+				_in.close();
 			}
 		} else if (Platform.isWindows()) {
 			Process process = Runtime.getRuntime().exec("reg query \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"My Music\"");
@@ -771,7 +771,7 @@ public class RootFolder : DLNAResource {
 			VirtualFolder vfSub = new VirtualFolder(Messages.getString("PMS.8"), null);
 			res.addChild(vfSub);
 
-			res.addChild(new VirtualVideoAction(Messages.getString("PMS.3"), configuration.isMencoderNoOutOfSync()) {
+			res.addChild(new class(Messages.getString("PMS.3"), configuration.isMencoderNoOutOfSync()) VirtualVideoAction {
 				override
 				public bool enable() {
 					configuration.setMencoderNoOutOfSync(!configuration
@@ -780,7 +780,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			res.addChild(new VirtualVideoAction("  !!-- Fix 23.976/25fps A/V Mismatch --!!", configuration.isFix25FPSAvMismatch()) {
+			res.addChild(new class("  !!-- Fix 23.976/25fps A/V Mismatch --!!", configuration.isFix25FPSAvMismatch()) VirtualVideoAction {
 				override
 				public bool enable() {
 					configuration.setMencoderForceFps(!configuration.isFix25FPSAvMismatch());
@@ -789,7 +789,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			res.addChild(new VirtualVideoAction(Messages.getString("PMS.4"), configuration.isMencoderYadif()) {
+			res.addChild(new class(Messages.getString("PMS.4"), configuration.isMencoderYadif()) VirtualVideoAction {
 				override
 				public bool enable() {
 					configuration.setMencoderYadif(!configuration.isMencoderYadif());
@@ -798,7 +798,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			vfSub.addChild(new VirtualVideoAction(Messages.getString("PMS.10"), configuration.isMencoderDisableSubs()) {
+			vfSub.addChild(new class(Messages.getString("PMS.10"), configuration.isMencoderDisableSubs()) VirtualVideoAction {
 				override
 				public bool enable() {
 					bool oldValue = configuration.isMencoderDisableSubs();
@@ -808,7 +808,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			vfSub.addChild(new VirtualVideoAction(Messages.getString("PMS.6"), configuration.isAutoloadSubtitles()) {
+			vfSub.addChild(new class(Messages.getString("PMS.6"), configuration.isAutoloadSubtitles()) VirtualVideoAction {
 				override
 				public bool enable() {
 					bool oldValue = configuration.isAutoloadSubtitles();
@@ -818,7 +818,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			vfSub.addChild(new VirtualVideoAction(Messages.getString("MEncoderVideo.36"), configuration.isMencoderAssDefaultStyle()) {
+			vfSub.addChild(new class(Messages.getString("MEncoderVideo.36"), configuration.isMencoderAssDefaultStyle()) VirtualVideoAction {
 				override
 				public bool enable() {
 					bool oldValue = configuration.isMencoderAssDefaultStyle();
@@ -828,7 +828,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			res.addChild(new VirtualVideoAction(Messages.getString("PMS.7"), configuration.getSkipLoopFilterEnabled()) {
+			res.addChild(new class(Messages.getString("PMS.7"), configuration.getSkipLoopFilterEnabled()) VirtualVideoAction {
 				override
 				public bool enable() {
 					configuration.setSkipLoopFilterEnabled(!configuration.getSkipLoopFilterEnabled());
@@ -836,7 +836,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			res.addChild(new VirtualVideoAction(Messages.getString("TrTab2.28"), configuration.isDTSEmbedInPCM()) {
+			res.addChild(new class(Messages.getString("TrTab2.28"), configuration.isDTSEmbedInPCM()) VirtualVideoAction {
 				override
 				public bool enable() {
 					configuration.setDTSEmbedInPCM(!configuration.isDTSEmbedInPCM());
@@ -844,7 +844,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			res.addChild(new VirtualVideoAction(Messages.getString("PMS.27"), true) {
+			res.addChild(new class(Messages.getString("PMS.27"), true) VirtualVideoAction {
 				override
 				public bool enable() {
 					try {
@@ -856,7 +856,7 @@ public class RootFolder : DLNAResource {
 				}
 			});
 
-			res.addChild(new VirtualVideoAction(Messages.getString("LooksFrame.12"), true) {
+			res.addChild(new class(Messages.getString("LooksFrame.12"), true) VirtualVideoAction {
 				override
 				public bool enable() {
 					PMS.get().reset();
@@ -875,7 +875,7 @@ public class RootFolder : DLNAResource {
 	private List/*<DLNAResource>*/ getAdditionalFoldersAtRoot() {
 		List/*<DLNAResource>*/ res = new ArrayList/*<DLNAResource>*/();
 
-		for (ExternalListener listener : ExternalFactory.getExternalListeners()) {
+		foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
 			if (cast(AdditionalFolderAtRoot)listener !is null) {
 				AdditionalFolderAtRoot afar = cast(AdditionalFolderAtRoot) listener;
 

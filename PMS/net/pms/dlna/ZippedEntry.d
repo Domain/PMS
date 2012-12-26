@@ -97,39 +97,36 @@ public class ZippedEntry : DLNAResource , IPushOutput {
 	}
 
 	override
-	public void push(final OutputStream _out) {
-		Runnable r = new class() Runnable {
+	public void push(OutputStream _out) {
+		Runnable r = dgRunnable( {
 			InputStream _in = null;
+			try {
+				int n = -1;
+				byte[] data = new byte[65536];
+				zipFile = new ZipFile(file);
+				ZipEntry ze = zipFile.getEntry(zeName);
+				_in = zipFile.getInputStream(ze);
 
-			public void run() {
+				while ((n = _in.read(data)) > -1) {
+					_out.write(data, 0, n);
+				}
+
+				_in.close();
+				_in = null;
+			} catch (Exception e) {
+				LOGGER.error("Unpack error. Possibly harmless.", e);
+			} finally {
 				try {
-					int n = -1;
-					byte[] data = new byte[65536];
-					zipFile = new ZipFile(file);
-					ZipEntry ze = zipFile.getEntry(zeName);
-					in = zipFile.getInputStream(ze);
-
-					while ((n = _in.read(data)) > -1) {
-						_out.write(data, 0, n);
+					if (_in !is null) {
+						_in.close();
 					}
-
-					_in.close();
-					_in = null;
-				} catch (Exception e) {
-					LOGGER.error("Unpack error. Possibly harmless.", e);
-				} finally {
-					try {
-						if (_in !is null) {
-							_in.close();
-						}
-						zipFile.close();
-						_out.close();
-					} catch (IOException e) {
-						LOGGER._debug("Caught exception", e);
-					}
+					zipFile.close();
+					_out.close();
+				} catch (IOException e) {
+					LOGGER._debug("Caught exception", e);
 				}
 			}
-		};
+		});
 
 		(new Thread(r, "Zip Extractor")).start();
 	}

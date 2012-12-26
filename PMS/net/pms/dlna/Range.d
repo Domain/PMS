@@ -19,7 +19,7 @@ public abstract class Range : Cloneable {
 	}
 
 	public Byte asByteRange() {
-		throw new RuntimeException("Unable to convert to ByteRange:" + this);
+		throw new RuntimeException("Unable to convert to ByteRange:" ~ this.toString());
 	}
 
 	/**

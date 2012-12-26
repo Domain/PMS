@@ -32,6 +32,6 @@ public class ImagesFeed : Feed {
 	}
 
 	public this(String url) {
-		super("" ~ System.currentTimeMillis(), url, Format.IMAGE);
+		super(System.currentTimeMillis().toString(), url, Format.IMAGE);
 	}
 }

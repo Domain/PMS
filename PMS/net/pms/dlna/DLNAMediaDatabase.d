@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; version 2
+ * as published by the Free Software Foundation; _version 2
  * of the License only.
  *
  * This program is distributed in the hope that it will be useful,
@@ -126,12 +126,12 @@ public class DLNAMediaDatabase : Runnable {
 
 	public void init(bool force) {
 		dbCount = -1;
-		String version = null;
+		String _version = null;
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement stmt = null;
 
-		// Check whether the database is not severely damaged, corrupted or wrong version
+		// Check whether the database is not severely damaged, corrupted or wrong _version
 		bool force_delete = false;
 		try {
            	conn = getConnection();
@@ -142,7 +142,7 @@ public class DLNAMediaDatabase : Runnable {
 			if (FileUtils.exists(dbDir ~ File.separator ~ dbName ~ ".data.db") || force_delete){
 				FileUtils.deleteRecursive(dbDir, true);
 				if (!FileUtils.exists(dbDir)){
-					LOGGER._debug("The cache has been deleted because it was corrupt or had the wrong version");
+					LOGGER._debug("The cache has been deleted because it was corrupt or had the wrong _version");
 				} else {
 					if (!java.awt.GraphicsEnvironment.isHeadless()) {
 						JOptionPane.showMessageDialog(
@@ -170,7 +170,7 @@ public class DLNAMediaDatabase : Runnable {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT VALUE FROM METADATA WHERE KEY = 'VERSION'");
 			if (rs.next()) {
-				version = rs.getString(1);
+				_version = rs.getString(1);
 			}
 		} catch (SQLException se) {
 			if (se.getErrorCode() != 42102) { // Don't log exception "Table "FILES" not found" which will be corrected in following step
@@ -181,7 +181,7 @@ public class DLNAMediaDatabase : Runnable {
 			close(stmt);
 			close(conn);
 		}
-		bool force_reinit = !PMS.getVersion().opEquals(version); // here we can force a deletion for a specific version
+		bool force_reinit = !PMS.getVersion().opEquals(_version); // here we can force a deletion for a specific _version
 		if (force || dbCount == -1 || force_reinit) {
 			LOGGER._debug("Database will be (re)initialized");
 			try {
@@ -280,7 +280,7 @@ public class DLNAMediaDatabase : Runnable {
 			}
 		} else {
 			LOGGER._debug("Database file count: " ~ dbCount);
-			LOGGER._debug("Database version: " ~ version);
+			LOGGER._debug("Database _version: " ~ _version);
 		}
 	}
 
@@ -408,7 +408,7 @@ public class DLNAMediaDatabase : Runnable {
 	private Double toDouble(ResultSet rs, String column) {
 		Object obj = rs.getObject(column);
 		if (cast(Double)obj != null) {
-			return (Double) obj;
+			return cast(Double) obj;
 		}
 		return null;
 	}
@@ -505,7 +505,7 @@ public class DLNAMediaDatabase : Runnable {
 				if (media.getSubtitleTracksList().size() > 0) {
 					insert = conn.prepareStatement("INSERT INTO SUBTRACKS VALUES (?, ?, ?, ?, ?)");
 				}
-				for (DLNAMediaSubtitle sub : media.getSubtitleTracksList()) {
+				foreach (DLNAMediaSubtitle sub ; media.getSubtitleTracksList()) {
 					if (sub.getExternalFile() is null) { // no save of external subtitles
 						insert.clearParameters();
 						insert.setInt(1, id);
@@ -729,7 +729,7 @@ public class DLNAMediaDatabase : Runnable {
 			LOGGER.error("Error in compacting database: ", se);
 		} finally {
 			File testsql = new File(filename);
-			if (testsql.exists() && !testsql.delete()) {
+			if (testsql.exists() && !testsql._delete()) {
 				testsql.deleteOnExit();
 			}
 		}
