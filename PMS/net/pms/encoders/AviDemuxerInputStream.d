@@ -56,7 +56,7 @@ public class AviDemuxerInputStream : InputStream {
 		super.close();
 	}
 
-	public this(InputStream fin, final OutputParams params, ArrayList<ProcessWrapper> at) {
+	public this(InputStream fin, OutputParams params, ArrayList/*<ProcessWrapper>*/ at) {
 		stream = fin;
 		LOGGER.trace("Opening AVI Stream");
 		this.attachedProcesses = at;
@@ -66,8 +66,8 @@ public class AviDemuxerInputStream : InputStream {
 		if (params.no_videoencode && params.forceType !is null && params.forceType.opEquals("V_MPEG4/ISO/AVC") && params.header !is null) {
 			// NOT USED RIGHT NOW
 			PipedOutputStream pout = new PipedOutputStream();
-			final InputStream pin = new H264AnnexBInputStream(new PipedInputStream(pout), params.header);
-			final OutputStream _out = params.output_pipes[0].getOutputStream();
+			InputStream pin = new H264AnnexBInputStream(new PipedInputStream(pout), params.header);
+			OutputStream _out = params.output_pipes[0].getOutputStream();
 			Runnable r = dgRunnable({
 				try {
 					byte[] b = new byte[512 * 1024];
@@ -219,9 +219,9 @@ public class AviDemuxerInputStream : InputStream {
 					int scale = str2ulong(hdrl, i + 28);
 					int rate = str2ulong(hdrl, i + 32);
 					track[0] = new Track(compressor, scale, rate, -1);
-					streamVideoTag = new String(new char[]{
+					streamVideoTag = new String(cast(char[])[
 							(char) ((streamNumber / 10) + '0'),
-							(char) ((streamNumber % 10) + '0'), 'd', 'b'});
+							(char) ((streamNumber % 10) + '0'), 'd', 'b']);
 					streamNumber++;
 					lastTagID = 1;
 				}
@@ -422,18 +422,18 @@ public class AviDemuxerInputStream : InputStream {
 
 	public static final byte[] getLe32(long value) {
 		byte[] buffer = new byte[4];
-		buffer[0] = (byte) (value & 0xff);
-		buffer[1] = (byte) ((value >> 8) & 0xff);
-		buffer[2] = (byte) ((value >> 16) & 0xff);
-		buffer[3] = (byte) ((value >> 24) & 0xff);
+		buffer[0] = cast(byte) (value & 0xff);
+		buffer[1] = cast(byte) ((value >> 8) & 0xff);
+		buffer[2] = cast(byte) ((value >> 16) & 0xff);
+		buffer[3] = cast(byte) ((value >> 24) & 0xff);
 
 		return buffer;
 	}
 
 	public static final byte[] getLe16(int value) {
 		byte[] buffer = new byte[2];
-		buffer[0] = (byte) (value & 0xff);
-		buffer[1] = (byte) ((value >> 8) & 0xff);
+		buffer[0] = cast(byte) (value & 0xff);
+		buffer[1] = cast(byte) ((value >> 8) & 0xff);
 
 		return buffer;
 	}

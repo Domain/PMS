@@ -74,9 +74,9 @@ public abstract class Player {
 		new ArrayList/*<FinalizeTranscoderArgsListener>*/();
 
 	public static void initializeFinalizeTranscoderArgsListeners() {
-		for (ExternalListener listener : ExternalFactory.getExternalListeners()) {
+		foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
 			if (cast(FinalizeTranscoderArgsListener)listener !is null) {
-				finalizeTranscoderArgsListeners.add((FinalizeTranscoderArgsListener) listener);
+				finalizeTranscoderArgsListeners.add(cast(FinalizeTranscoderArgsListener) listener);
 			}
 		}
 	}

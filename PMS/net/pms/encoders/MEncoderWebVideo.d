@@ -62,7 +62,7 @@ public class MEncoderWebVideo : Player {
 	protected String[] getDefaultArgs() {
 		int nThreads = configuration.getMencoderMaxThreads();
 		String acodec = configuration.isMencoderAc3Fixed() ? "ac3_fixed" : "ac3";
-		String[] args = [
+		return [
 				"-msglevel", "all=2",
 				"-quiet",
 				"-prefer-ipv4",
@@ -75,7 +75,6 @@ public class MEncoderWebVideo : Player {
 				"-vf", "harddup",
 				"-ofps", "25"
 		];
-		return args;
 	}
 
 	public this(PmsConfiguration configuration) {
@@ -91,7 +90,7 @@ public class MEncoderWebVideo : Player {
 		params.minBufferSize = params.minFileSize;
 		params.secondread_minsize = 100000;
 
-		PipeProcess pipe = new PipeProcess("mencoder" ~ System.currentTimeMillis());
+		PipeProcess pipe = new PipeProcess("mencoder" ~ System.currentTimeMillis().toString());
 		params.input_pipes[0] = pipe;
 
 		String cmdArray[] = new String[args().length + 4];

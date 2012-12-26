@@ -240,7 +240,7 @@ public class FFMpegVideo : Player {
 	// unused; return this array for backwards-compatibility
 	deprecated
 	protected String[] getDefaultArgs() {
-		String[] args = [
+		return [
 			"-vcodec",
 			"mpeg2video",
 			"-f",
@@ -248,7 +248,6 @@ public class FFMpegVideo : Player {
 			"-acodec",
 			"ac3"
 		];
-		return args;
 	}
 
 	override

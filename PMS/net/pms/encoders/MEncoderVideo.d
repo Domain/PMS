@@ -360,7 +360,7 @@ public class MEncoderVideo : Player {
 		builder.add(scaler, FormLayoutUtil.flip(cc.xyw(3, 5, 7), colSpec, orientation));
 
 		builder.addLabel(Messages.getString("MEncoderVideo.28"), FormLayoutUtil.flip(cc.xyw(10, 5, 3, CellConstraints.RIGHT, CellConstraints.CENTER), colSpec, orientation));
-		scaleX = new JTextField("" + configuration.getMencoderScaleX());
+		scaleX = new JTextField(configuration.getMencoderScaleX().toString());
 		scaleX.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
@@ -375,14 +375,14 @@ public class MEncoderVideo : Player {
 				try {
 					configuration.setMencoderScaleX(Integer.parseInt(scaleX.getText()));
 				} catch (NumberFormatException nfe) {
-					LOGGER._debug("Could not parse scaleX from \"" + scaleX.getText() + "\"");
+					LOGGER._debug("Could not parse scaleX from \"" ~ scaleX.getText() ~ "\"");
 				}
 			}
 		});
 
 		builder.add(scaleX, FormLayoutUtil.flip(cc.xyw(13, 5, 3), colSpec, orientation));
 		builder.addLabel(Messages.getString("MEncoderVideo.30"), FormLayoutUtil.flip(cc.xyw(10, 7, 3, CellConstraints.RIGHT, CellConstraints.CENTER), colSpec, orientation));
-		scaleY = new JTextField("" + configuration.getMencoderScaleY());
+		scaleY = new JTextField(configuration.getMencoderScaleY().toString());
 		scaleY.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
@@ -397,7 +397,7 @@ public class MEncoderVideo : Player {
 				try {
 					configuration.setMencoderScaleY(Integer.parseInt(scaleY.getText()));
 				} catch (NumberFormatException nfe) {
-					LOGGER._debug("Could not parse scaleY from \"" + scaleY.getText() + "\"");
+					LOGGER._debug("Could not parse scaleY from \"" ~ scaleY.getText() ~ "\"");
 				}
 			}
 		});
@@ -937,7 +937,7 @@ public class MEncoderVideo : Player {
 		});
 
 		builder.add(ocw, FormLayoutUtil.flip(cc.xyw(3, 49, 1), colSpec, orientation));
-		builder.addLabel(Messages.getString("MEncoderVideo.30") + "% ", FormLayoutUtil.flip(cc.xy(5, 49), colSpec, orientation));
+		builder.addLabel(Messages.getString("MEncoderVideo.30") ~ "% ", FormLayoutUtil.flip(cc.xy(5, 49), colSpec, orientation));
 
 		och = new JTextField(configuration.getMencoderOverscanCompensationHeight());
 		och.addKeyListener(new class() KeyListener {
@@ -978,7 +978,7 @@ public class MEncoderVideo : Player {
 
 		builder.add(subColor, FormLayoutUtil.flip(cc.xyw(12, 37, 4), colSpec, orientation));
 
-		JCheckBox disableSubs = ((LooksFrame) PMS.get().getFrame()).getTr().getDisableSubs();
+		JCheckBox disableSubs = (cast(LooksFrame) PMS.get().getFrame()).getTr().getDisableSubs();
 		disableSubs.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setMencoderDisableSubs(e.getStateChange() == ItemEvent.SELECTED);
@@ -1082,14 +1082,14 @@ public class MEncoderVideo : Player {
 			for (String option : INVALID_CUSTOM_OPTIONS) {
 				if (option.opEquals(name)) {
 					if ((i + 1) < args.length) {
-					   value = " " + args[i + 1];
+					   value = " " ~ args[i + 1];
 					   ++i;
 					} else {
 					   value = "";
 					}
 
 					LOGGER.warn(
-						"Ignoring custom MEncoder option: {}{}; the following options cannot be changed: " ~ INVALID_CUSTOM_OPTIONS_LIST,
+						"Ignoring custom MEncoder option: %s%s; the following options cannot be changed: " ~ INVALID_CUSTOM_OPTIONS_LIST,
 						name,
 						value
 					);
@@ -1149,7 +1149,7 @@ public class MEncoderVideo : Player {
 			bitrate = "0";
 		}
 
-		bitrates[0] = (int) Double.parseDouble(bitrate);
+		bitrates[0] = cast(int) Double.parseDouble(bitrate);
 
 		return bitrates;
 	}
@@ -1211,7 +1211,7 @@ public class MEncoderVideo : Player {
 			// Round down to the nearest Mb
 			defaultMaxBitrates[0] = defaultMaxBitrates[0] / 1000 * 1000;
 
-			encodeSettings += ":vrc_maxrate=" + defaultMaxBitrates[0] + ":vrc_buf_size=" + bufSize;
+			encodeSettings += ":vrc_maxrate=" ~ defaultMaxBitrates[0] ~ ":vrc_buf_size=" ~ bufSize.toString();
 		}
 
 		return encodeSettings;
@@ -1708,14 +1708,14 @@ public class MEncoderVideo : Player {
 			}
 		}
 
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 
 		cmdList.add(executable());
 
 		// timeseek
 		// XXX -ss 0 is is included for parity with the old (cmdArray) code: it may be possible to omit it
 		cmdList.add("-ss");
-		cmdList.add((params.timeseek > 0) ? "" ~ params.timeseek : "0");
+		cmdList.add((params.timeseek > 0) ? "" ~ params.timeseek.toString() : "0");
 
 		if (dvd) {
 			cmdList.add("-dvd-device");
@@ -1739,7 +1739,7 @@ public class MEncoderVideo : Player {
 
 		for (String arg : args()) {
 			if (arg.contains("format=mpeg2") && media.getAspect() !is null && media.getValidAspect(true) !is null) {
-				cmdList.add(arg + ":vaspect=" ~ media.getValidAspect(true));
+				cmdList.add(arg ~ ":vaspect=" ~ media.getValidAspect(true));
 			} else {
 				cmdList.add(arg);
 			}
@@ -1748,7 +1748,7 @@ public class MEncoderVideo : Player {
 		if (!dtsRemux && !pcm && !avisynth() && params.aid !is null && media.getAudioTracksList().size() > 1) {
 			cmdList.add("-aid");
 			bool lavf = false; // TODO Need to add support for LAVF demuxing
-			cmdList.add("" ~ (lavf ? params.aid.getId() + 1 : params.aid.getId()));
+			cmdList.add("" ~ (lavf ? params.aid.getId() + 1 : params.aid.getId()).toString());
 		}
 
 		/*
@@ -1768,7 +1768,7 @@ public class MEncoderVideo : Player {
 			// note: isEmbedded() and isExternal() are mutually exclusive
 			if (params.sid.isEmbedded()) { // internal (embedded) subs
 				cmdList.add("-sid");
-				cmdList.add("" + params.sid.getId());
+				cmdList.add(params.sid.getId().toString());
 			} else { // external subtitles
 				assert params.sid.isExternal(); // confirm the mutual exclusion
 
@@ -1874,10 +1874,10 @@ public class MEncoderVideo : Player {
 					if (overscannedAspectRatio > rendererAspectRatio) {
 						// Limit video by width
 						scaleWidth  = params.mediaRenderer.getMaxVideoWidth();
-						scaleHeight = (int) Math.round(params.mediaRenderer.getMaxVideoWidth() / overscannedAspectRatio);
+						scaleHeight = cast(int) Math.round(params.mediaRenderer.getMaxVideoWidth() / overscannedAspectRatio);
 					} else {
 						// Limit video by height
-						scaleWidth  = (int) Math.round(params.mediaRenderer.getMaxVideoHeight() * overscannedAspectRatio);
+						scaleWidth  = cast(int) Math.round(params.mediaRenderer.getMaxVideoHeight() * overscannedAspectRatio);
 						scaleHeight = params.mediaRenderer.getMaxVideoHeight();
 					}
 				}
@@ -1923,8 +1923,8 @@ public class MEncoderVideo : Player {
 					media.getHeight() > params.mediaRenderer.getMaxVideoHeight()
 				)
 			) {
-				double videoAspectRatio = (double) media.getWidth() / (double) media.getHeight();
-				rendererAspectRatio = (double) params.mediaRenderer.getMaxVideoWidth() / (double) params.mediaRenderer.getMaxVideoHeight();
+				double videoAspectRatio =cast (double) media.getWidth() / cast(double) media.getHeight();
+				rendererAspectRatio = cast(double) params.mediaRenderer.getMaxVideoWidth() / cast(double) params.mediaRenderer.getMaxVideoHeight();
 
 				/*
 				 * First we deal with some exceptions, then if they are not matched we will
@@ -1952,9 +1952,9 @@ public class MEncoderVideo : Player {
 					// Passed the exceptions, now we allow the renderer to define the limits
 					if (videoAspectRatio > rendererAspectRatio) {
 						scaleWidth  = params.mediaRenderer.getMaxVideoWidth();
-						scaleHeight = (int) Math.round(params.mediaRenderer.getMaxVideoWidth() / videoAspectRatio);
+						scaleHeight = cast(int) Math.round(params.mediaRenderer.getMaxVideoWidth() / videoAspectRatio);
 					} else {
-						scaleWidth  = (int) Math.round(params.mediaRenderer.getMaxVideoHeight() * videoAspectRatio);
+						scaleWidth  = cast(int) Math.round(params.mediaRenderer.getMaxVideoHeight() * videoAspectRatio);
 						scaleHeight = params.mediaRenderer.getMaxVideoHeight();
 					}
 				}
@@ -2033,19 +2033,19 @@ public class MEncoderVideo : Player {
 			if (expertOptions !is null && expertOptions.length > 0) {
 				// remove this option (key) from the cmdList in pass 2.
 				// if the bool value is true, also remove the option's corresponding value
-				Map<String, Boolean> removeCmdListOption = new HashMap<String, Boolean>();
+				Map/*<String, Boolean>*/ removeCmdListOption = new HashMap/*<String, Boolean>*/();
 
 				// if this option (key) is defined in cmdList, merge this string value into the
 				// option's value in pass 2. the value is a string format template into which the
 				// cmdList option value is injected
-				Map<String, String> mergeCmdListOption = new HashMap<String, String>();
+				Map/*<String, String>*/ mergeCmdListOption = new HashMap/*<String, String>*/();
 
 				// merges that are performed in pass 2 are logged in this map; the key (string) is
 				// the option name and the value is a bool indicating whether the option was merged
 				// or not. the map is populated after pass 1 with the options from mergeCmdListOption
 				// and all values initialised to false. if an option was merged, it is not appended
 				// to cmdList
-				Map<String, Boolean> mergedCmdListOption = new HashMap<String, Boolean>();
+				Map/*<String, Boolean>*/ mergedCmdListOption = new HashMap/*<String, Boolean>*/();
 
 				// pass 1: process expertOptions
 				for (int i = 0; i < expertOptions.length; ++i) {
@@ -2128,7 +2128,7 @@ public class MEncoderVideo : Player {
 					}
 				}
 
-				for (String key : mergeCmdListOption.keySet()) {
+				foreach (String key ; mergeCmdListOption.keySet()) {
 					mergedCmdListOption.put(key, false);
 				}
 
@@ -2218,7 +2218,7 @@ public class MEncoderVideo : Player {
 			// transcode video, demux audio, remux with tsmuxer
 			bool channels_filter_present = false;
 
-			for (String s : cmdList) {
+			foreach (String s ; cmdList) {
 				if (isNotBlank(s) && s.startsWith("channels")) {
 					channels_filter_present = true;
 					break;
@@ -2226,7 +2226,7 @@ public class MEncoderVideo : Player {
 			}
 
 			if (params.avidemux) {
-				pipe = new PipeProcess("mencoder" + System.currentTimeMillis(), (pcm || dtsRemux || ac3Remux) ? null : params);
+				pipe = new PipeProcess("mencoder" ~ System.currentTimeMillis().toString(), (pcm || dtsRemux || ac3Remux) ? null : params);
 				params.input_pipes[0] = pipe;
 
 				cmdList.add("-o");
@@ -2244,8 +2244,8 @@ public class MEncoderVideo : Player {
 				cmdList.toArray(cmdArray);
 				pw = new ProcessWrapperImpl(cmdArray, params);
 
-				PipeProcess videoPipe = new PipeProcess("videoPipe" + System.currentTimeMillis(), "out", "reconnect");
-				PipeProcess audioPipe = new PipeProcess("audioPipe" + System.currentTimeMillis(), "out", "reconnect");
+				PipeProcess videoPipe = new PipeProcess("videoPipe" ~ System.currentTimeMillis().toString(), "out", "reconnect");
+				PipeProcess audioPipe = new PipeProcess("audioPipe" ~ System.currentTimeMillis().toString(), "out", "reconnect");
 
 				ProcessWrapper videoPipeProcess = videoPipe.getPipeProcess();
 				ProcessWrapper audioPipeProcess = audioPipe.getPipeProcess();
@@ -2264,7 +2264,7 @@ public class MEncoderVideo : Player {
 				audioPipe.deleteLater();
 			} else {
 				// remove the -oac switch, otherwise the "too many video packets" errors appear again
-				for (ListIterator<String> it = cmdList.listIterator(); it.hasNext();) {
+				for (ListIterator/*<String>*/ it = cmdList.listIterator(); it.hasNext();) {
 					String option = it.next();
 
 					if (option.opEquals("-oac")) {
@@ -2279,14 +2279,14 @@ public class MEncoderVideo : Player {
 					}
 				}
 
-				pipe = new PipeProcess(System.currentTimeMillis() + "tsmuxerout.ts");
+				pipe = new PipeProcess(System.currentTimeMillis().toString() ~ "tsmuxerout.ts");
 
 				TSMuxerVideo ts = new TSMuxerVideo(configuration);
 				File f = new File(configuration.getTempFolder(), "pms-tsmuxer.meta");
 				String[] cmd = [ ts.executable(), f.getAbsolutePath(), pipe.getInputPipe() ];
 				pw = new ProcessWrapperImpl(cmd, params);
 
-				PipeIPCProcess ffVideoPipe = new PipeIPCProcess(System.currentTimeMillis() + "ffmpegvideo", System.currentTimeMillis() + "videoout", false, true);
+				PipeIPCProcess ffVideoPipe = new PipeIPCProcess(System.currentTimeMillis().toString() ~ "ffmpegvideo", System.currentTimeMillis().toString() ~ "videoout", false, true);
 
 				cmdList.add("-o");
 				cmdList.add(ffVideoPipe.getInputPipe());
@@ -2312,14 +2312,14 @@ public class MEncoderVideo : Player {
 					if (media.getContainer() !is null && (media.getContainer().opEquals(FormatConfiguration.AVI) || media.getContainer().opEquals(FormatConfiguration.FLV))) {
 						// TODO confirm (MP4s, OGMs and MOVs already tested: first aid is 0; AVIs: first aid is 1)
 						// for AVIs, FLVs ans MOVs mencoder starts audio tracks numbering from 1
-						aid = "" + (params.aid.getId() + 1);
+						aid = (params.aid.getId() + 1).toString();
 					} else {
 						// everything else from 0
-						aid = "" + params.aid.getId();
+						aid = params.aid.getId().toString();
 					}
 				}
 
-				PipeIPCProcess ffAudioPipe = new PipeIPCProcess(System.currentTimeMillis() + "ffmpegaudio01", System.currentTimeMillis() + "audioout", false, true);
+				PipeIPCProcess ffAudioPipe = new PipeIPCProcess(System.currentTimeMillis().toString() ~ "ffmpegaudio01", System.currentTimeMillis() + "audioout", false, true);
 				StreamModifier sm = new StreamModifier();
 				sm.setPcm(pcm);
 				sm.setDtsEmbed(dtsRemux);
@@ -2335,7 +2335,7 @@ public class MEncoderVideo : Player {
 
 				// it seems the -really-quiet prevents mencoder to stop the pipe output after some time...
 				// -mc 0.1 make the DTS-HD extraction works better with latest mencoder builds, and makes no impact on the regular DTS one
-				String ffmpegLPCMextract[] = new String[]{
+				String[] ffmpegLPCMextract = [
 					executable(),
 					"-ss", "0",
 					fileName,
@@ -2351,7 +2351,7 @@ public class MEncoderVideo : Player {
 					(isNotBlank(mixer) && !channels_filter_present) ? "-af" : "-quiet", (isNotBlank(mixer) && !channels_filter_present) ? mixer : "-quiet",
 					"-srate", "48000",
 					"-o", ffAudioPipe.getInputPipe()
-				};
+				];
 
 				if (!params.mediaRenderer.isMuxDTSToMpeg()) { // no need to use the PCM trick when media renderer supports DTS
 					ffAudioPipe.setModifier(sm);
@@ -2371,7 +2371,7 @@ public class MEncoderVideo : Player {
 				}
 
 				if (params.timeseek > 0) {
-					ffmpegLPCMextract[2] = "" + params.timeseek;
+					ffmpegLPCMextract[2] = params.timeseek.toString();
 				}
 
 				OutputParams ffaudioparams = new OutputParams(configuration);
@@ -2416,7 +2416,7 @@ public class MEncoderVideo : Player {
 				// override with tsmuxer.meta setting
 				String timeshift = "";
 				if (mencoderAC3RemuxAudioDelayBug) {
-					timeshift = "timeshift=" ~ params.aid.getAudioProperties().getAudioDelay() ~ "ms, ";
+					timeshift = "timeshift=" ~ params.aid.getAudioProperties().getAudioDelay().toString() ~ "ms, ";
 				}
 
 				pwMux.println(videoType ~ ", \"" ~ ffVideoPipe.getOutputPipe() ~ "\", " ~ fps ~ "level=4.1, insertSEI, contSPS, track=1");
@@ -2459,7 +2459,7 @@ public class MEncoderVideo : Player {
 				cmdList.add("statusline=2");
 				params.input_pipes = new PipeProcess[2];
 			} else {
-				pipe = new PipeProcess("mencoder" ~ System.currentTimeMillis(), (pcm || dtsRemux) ? null : params);
+				pipe = new PipeProcess("mencoder" ~ System.currentTimeMillis().toString(), (pcm || dtsRemux) ? null : params);
 				params.input_pipes[0] = pipe;
 				cmdList.add("-o");
 				cmdList.add(pipe.getInputPipe());
@@ -2526,13 +2526,13 @@ public class MEncoderVideo : Player {
 	) {
 		StringBuilder sb = new StringBuilder();
 		String codecs = enable ? DEFAULT_CODEC_CONF_SCRIPT : "";
-		codecs ~= "\n" + codecParam;
+		codecs ~= "\n" ~ codecParam;
 		StringTokenizer stLines = new StringTokenizer(codecs, "\n");
 
 		try {
 			Interpreter interpreter = new Interpreter();
 			interpreter.setStrictJava(true);
-			ArrayList<String> types = CodecUtil.getPossibleCodecs();
+			ArrayList/*<String>*/ types = CodecUtil.getPossibleCodecs();
 			int rank = 1;
 
 			if (types !is null) {
@@ -2580,7 +2580,7 @@ public class MEncoderVideo : Player {
 
 			try {
 				if (framerate !is null) {
-					interpreter.set("framerate", Double.parseDouble(framerate));
+					interpreter.set("framerate", Double.parseDouble(framerate).toString());
 				}
 			} catch (NumberFormatException e) {
 				LOGGER._debug("Could not parse framerate from \"" ~ framerate ~ "\"");

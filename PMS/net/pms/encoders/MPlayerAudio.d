@@ -68,8 +68,7 @@ public class MPlayerAudio : Player {
 
 	override
 	public String[] args() {
-		String[] args = [];
-		return args;
+		return [];
 	}
 
 	override
@@ -96,9 +95,9 @@ public class MPlayerAudio : Player {
 		}
 
 		params.maxBufferSize = PMS.getConfiguration().getMaxAudioBuffer();
-		PipeProcess audioP = new PipeProcess("mplayer_aud" ~ System.currentTimeMillis());
+		PipeProcess audioP = new PipeProcess("mplayer_aud" ~ System.currentTimeMillis().toString());
 
-		String mPlayerdefaultAudioArgs[] = new String[] {
+		String mPlayerdefaultAudioArgs[] = [
 			PMS.getConfiguration().getMplayerPath(),
 			fileName,
 			"-prefer-ipv4",
@@ -114,7 +113,7 @@ public class MPlayerAudio : Player {
 			"-quiet",
 			"-format",
 			"s16be"
-		};
+		];
 
 		if (params.mediaRenderer.isTranscodeToWAV()) {
 			mPlayerdefaultAudioArgs[11] = "pcm:waveheader:fast:file=" ~ audioP.getInputPipe();
@@ -203,7 +202,7 @@ public class MPlayerAudio : Player {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator("Audio settings", cc.xyw(2, 1, 1));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		noresample = new JCheckBox(Messages.getString("TrTab2.22"));

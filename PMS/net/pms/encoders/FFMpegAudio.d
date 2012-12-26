@@ -67,7 +67,7 @@ public class FFMpegAudio : FFMpegVideo {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator("Audio settings", cc.xyw(2, 1, 1));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		noresample = new JCheckBox(Messages.getString("TrTab2.22"));
@@ -118,7 +118,7 @@ public class FFMpegAudio : FFMpegVideo {
 	deprecated
 	public String[] args() {
 		// unused: kept for backwards compatibility
-		return new String[] { "-f", "s16be", "-ar", "48000" };
+		return [ "-f", "s16be", "-ar", "48000" ];
 	}
 
 	override
@@ -138,7 +138,7 @@ public class FFMpegAudio : FFMpegVideo {
 		params.manageFastStart();
 
 		int nThreads = configuration.getNumberOfCpuCores();
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 
 		cmdList.add(executable());
 

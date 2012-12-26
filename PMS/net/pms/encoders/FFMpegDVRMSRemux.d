@@ -81,7 +81,7 @@ public class FFMpegDVRMSRemux : Player {
 
 	deprecated
 	protected String[] getDefaultArgs() {
-		String[] args = [
+		return [
 			"-vcodec", "copy",
 			"-acodec", "copy",
 			"-threads", "2",
@@ -91,7 +91,6 @@ public class FFMpegDVRMSRemux : Player {
 			"-f", "vob",
 			"-copyts"
 		];
-		return args;
 	}
 
 	override
@@ -193,7 +192,7 @@ public class FFMpegDVRMSRemux : Player {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator(Messages.getString("FFMpegDVRMSRemux.1"), cc.xyw(1, 1, 5));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.addLabel(Messages.getString("FFMpegDVRMSRemux.0"), cc.xy(1, 3));

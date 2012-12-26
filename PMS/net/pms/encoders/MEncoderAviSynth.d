@@ -124,7 +124,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 	public int purpose() {
 		return VIDEO_SIMPLEFILE_PLAYER;
 	}
-	public static final String ID = "avsmencoder";
+	public static const String ID = "avsmencoder";
 
 	override
 	public String id() {
