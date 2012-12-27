@@ -18,23 +18,27 @@
  */
 module net.pms.formats.v2.AudioAttribute;
 
-import java.util.*;
+import java.util.all;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
+import org.apache.commons.lang.StringUtils : isBlank;
 
 /**
  * Enum with possible audio track attributes.
  * AUDIO_ATTRIBUTE (Set<String> libMediaInfoKeys, bool multipleValuesPossible,
  * bool getLargerValue, Integer defaultValue, Integer minimumValue)
  */
-public enum AudioAttribute {
-	CHANNELS_NUMBER (set("Channel(s)"), true, true, 2, 1),
-	DELAY (set("Video_Delay"), false, false, 0, null),
-	SAMPLE_FREQUENCY (set("SamplingRate"), true, true, 48000, 1);
+public class AudioAttribute {
+	enum Internal {
+		CHANNELS_NUMBER (set("Channel(s)"), true, true, 2, 1),
+		DELAY (set("Video_Delay"), false, false, 0, null),
+		SAMPLE_FREQUENCY (set("SamplingRate"), true, true, 48000, 1);
+	}
 
-
+	Internal internal;
+	alias internal this;
+	
 	private final Set<String> libMediaInfoKeys;
 	private final bool multipleValuesPossible;
 	private final bool getLargerValue;

@@ -80,7 +80,7 @@ public class ExternalFactory {
 	 *
 	 * @param clazz The class to store.
 	 */
-	private static void registerListenerClass(Class<?> clazz) {
+	private static void registerListenerClass(Class/*<?>*/ clazz) {
 		if (!externalListenerClasses.contains(clazz)) {
 			externalListenerClasses.add(clazz);
 		}
@@ -203,7 +203,7 @@ public class ExternalFactory {
 
 				try {
 					// Create a new instance of the plugin class and store it
-					ExternalListener instance = (ExternalListener) clazz.newInstance();
+					ExternalListener instance = cast(ExternalListener) clazz.newInstance();
 					registerListener(instance);
 				} catch (InstantiationException e) {
 					LOGGER.error("Error instantiating plugin", e);
@@ -219,7 +219,7 @@ public class ExternalFactory {
 	 * been instantiated by {@link #instantiateEarlyListeners()}.
 	 */
 	public static void instantiateLateListeners() {
-		foreach (Class/*<?>*/ clazz: externalListenerClasses) {
+		foreach (Class/*<?>*/ clazz; externalListenerClasses) {
 			// Only AdditionalFolderAtRoot and AdditionalFoldersAtRoot
 			// classes have been skipped by lookup().
 			if (AdditionalFolderAtRoot.class.isAssignableFrom(clazz) ||
@@ -227,7 +227,7 @@ public class ExternalFactory {
 
 				try {
 					// Create a new instance of the plugin class and store it
-					ExternalListener instance = (ExternalListener) clazz.newInstance();
+					ExternalListener instance = cast(ExternalListener) clazz.newInstance();
 					registerListener(instance);
 				} catch (InstantiationException e) {
 					LOGGER.error("Error instantiating plugin", e);

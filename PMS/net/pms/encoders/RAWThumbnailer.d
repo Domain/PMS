@@ -18,8 +18,7 @@ public class RAWThumbnailer : Player {
 	public const static String ID = "rawthumbs";
 
 	protected String[] getDefaultArgs() {
-		String[] args = ["-e", "-c"];
-		return args;
+		return ["-e", "-c"];
 	}
 
 	override

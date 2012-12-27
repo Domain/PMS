@@ -53,7 +53,7 @@ public final class PlayerFactory {
 	/**
 	 * List of registered and approved {@link Player} objects.
 	 */
-	private static ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList/*<Player>*/ players = new ArrayList/*<Player>*/();
 
 	/**
 	 * List of registered {@link Player} objects.
@@ -69,10 +69,10 @@ public final class PlayerFactory {
 	/**
 	 * This takes care of sorting the players by the given PMS configuration.
 	 */
-	private static class PlayerSort : Comparator<Player> {
+	private static class PlayerSort : Comparator/*<Player>*/ {
 		private PmsConfiguration configuration;
 
-		PlayerSort(PmsConfiguration configuration) {
+		this(PmsConfiguration configuration) {
 			this.configuration = configuration;
 		}
 
@@ -107,7 +107,7 @@ public final class PlayerFactory {
 	 * 
 	 * @param configuration The PMS configuration.
 	 */
-	public static void initialize(final PmsConfiguration configuration) {
+	public static void initialize(const PmsConfiguration configuration) {
 		utils = PMS.get().getRegistry();
 		registerPlayers(configuration);
 	}
@@ -118,7 +118,7 @@ public final class PlayerFactory {
 	 * @param configuration
 	 *            PMS configuration settings.
 	 */
-	private static void registerPlayers(final PmsConfiguration configuration) {
+	private static void registerPlayers(const PmsConfiguration configuration) {
 		// TODO make these constructors consistent: pass configuration to all or to none
 		if (Platform.isWindows()) {
 			registerPlayer(new FFMpegAviSynthVideo());
@@ -159,7 +159,7 @@ public final class PlayerFactory {
 	 * 
 	 * @param player Player to be added to the list.
 	 */
-	public static synchronized void registerPlayer(final Player player) {
+	public static synchronized void registerPlayer(const Player player) {
 		bool ok = false;
 		allPlayers.add(player);
 

@@ -52,8 +52,7 @@ public class VideoLanVideoStreaming : Player {
 
 	override
 	public String[] args() {
-		String[] args = [];
-		return args;
+		return [];
 	}
 
 	override
