@@ -36,14 +36,14 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.Component;
 import java.io.File;
-import java.sql.*;
+import java.sql.all;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import static org.apache.commons.lang.StringUtils.*;
+import org.apache.commons.lang.StringUtils : isBlank;
 
 /**
  * This class provides methods for creating and maintaining the database where
@@ -88,11 +88,11 @@ public class DLNAMediaDatabase : Runnable {
 			String to_delete = "to_delete";
 			File checkDir = new File(to_delete);
 			if (checkDir.exists()) {
-				defaultLocation = checkDir.delete();
+				defaultLocation = checkDir._delete();
 			} else {
 				defaultLocation = checkDir.mkdir();
 				if (defaultLocation) {
-					defaultLocation = checkDir.delete();
+					defaultLocation = checkDir._delete();
 				}
 			}
 		}
@@ -146,7 +146,7 @@ public class DLNAMediaDatabase : Runnable {
 				} else {
 					if (!java.awt.GraphicsEnvironment.isHeadless()) {
 						JOptionPane.showMessageDialog(
-							(JFrame) (SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame())),
+							cast(JFrame) (SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame())),
 							String.format(Messages.getString("DLNAMediaDatabase.5"), dbDir),
 							Messages.getString("Dialog.Error"),
 		                    JOptionPane.ERROR_MESSAGE);

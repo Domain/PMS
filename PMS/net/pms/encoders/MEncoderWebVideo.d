@@ -27,8 +27,8 @@ import net.pms.io.PipeProcess;
 import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 
-import javax.swing.*;
-import java.io.IOException;
+//import javax.swing.*;
+import java.lang.exceptions;
 
 public class MEncoderWebVideo : Player {
 	public static const String ID = "mencoderwebvideo";

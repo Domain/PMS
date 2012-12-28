@@ -121,7 +121,7 @@ public class AviDemuxerInputStream : InputStream {
 				pipe_process.runInNewThread();
 				tsPipe.deleteLater();
 
-				String[] cmd = new String[]{ts.executable(), f.getAbsolutePath(), tsPipe.getInputPipe()};
+				String[] cmd = [ts.executable(), f.getAbsolutePath(), tsPipe.getInputPipe()];
 				ProcessBuilder pb = new ProcessBuilder(cmd);
 				process = pb.start();
 				ProcessWrapper pwi = new ProcessWrapperLiteImpl(process);
@@ -220,8 +220,8 @@ public class AviDemuxerInputStream : InputStream {
 					int rate = str2ulong(hdrl, i + 32);
 					track[0] = new Track(compressor, scale, rate, -1);
 					streamVideoTag = new String(cast(char[])[
-							(char) ((streamNumber / 10) + '0'),
-							(char) ((streamNumber % 10) + '0'), 'd', 'b']);
+							cast(char) ((streamNumber / 10) + '0'),
+							cast(char) ((streamNumber % 10) + '0'), 'd', 'b']);
 					streamNumber++;
 					lastTagID = 1;
 				}

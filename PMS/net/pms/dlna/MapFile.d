@@ -201,7 +201,7 @@ public class MapFile : DLNAResource {
 		super.discoverChildren();
 
 		if (discoverable is null) {
-			discoverable = new ArrayList<File>();
+			discoverable = new ArrayList/*<File>*/();
 		} else {
 			return;
 		}
@@ -210,14 +210,14 @@ public class MapFile : DLNAResource {
 
 		switch (PMS.getConfiguration().getSortMethod()) {
 			case 4: // Locale-sensitive natural sort
-				Collections.sort(files, new Comparator/*<File>*/() {
+				Collections.sort(files, new class() Comparator/*<File>*/ {
 					public int compare(File f1, File f2) {
 						return NaturalComparator.compareNatural(collator, f1.getName(), f2.getName());
 					}
 				});
 				break;
 			case 3: // Case-insensitive ASCIIbetical sort
-				Collections.sort(files, new Comparator/*<File>*/() {
+				Collections.sort(files, new class() Comparator/*<File>*/ {
 
 					public int compare(File f1, File f2) {
 						return f1.getName().compareToIgnoreCase(f2.getName());
@@ -225,7 +225,7 @@ public class MapFile : DLNAResource {
 				});
 				break;
 			case 2: // Sort by modified date, oldest first
-				Collections.sort(files, new Comparator/*<File>*/() {
+				Collections.sort(files, new class() Comparator/*<File>*/ {
 
 					public int compare(File f1, File f2) {
 						return Long.valueOf(f1.lastModified()).compareTo(Long.valueOf(f2.lastModified()));
@@ -233,7 +233,7 @@ public class MapFile : DLNAResource {
 				});
 				break;
 			case 1: // Sort by modified date, newest first
-				Collections.sort(files, new Comparator/*<File>*/() {
+				Collections.sort(files, new class() Comparator/*<File>*/ {
 
 					public int compare(File f1, File f2) {
 						return Long.valueOf(f2.lastModified()).compareTo(Long.valueOf(f1.lastModified()));
@@ -241,7 +241,7 @@ public class MapFile : DLNAResource {
 				});
 				break;
 			default: // Locale-sensitive A-Z
-				Collections.sort(files, new Comparator/*<File>*/() {
+				Collections.sort(files, new class() Comparator/*<File>*/ {
 
 					public int compare(File f1, File f2) {
 						return collator.compare(f1.getName(), f2.getName());
@@ -283,7 +283,7 @@ public class MapFile : DLNAResource {
 		List/*<DLNAResource>*/ removedFiles = new ArrayList/*<DLNAResource>*/();
 
 		foreach (DLNAResource d ; getChildren()) {
-			bool isNeedMatching = !(d.getClass() == MapFile.class || (cast(VirtualFolder)d !is null && !(cast(DVDISOFile)d !is null)));
+			bool isNeedMatching = !(d.getClass() == MapFile._class || (cast(VirtualFolder)d !is null && !(cast(DVDISOFile)d !is null)));
 			if (isNeedMatching && !foundInList(files, d)) {
 				removedFiles.add(d);
 			}
@@ -328,7 +328,7 @@ public class MapFile : DLNAResource {
 	}
 
 	private bool foundInList(List/*<File>*/ files, DLNAResource d) {
-		for (File f: files) {
+		foreach (File f; files) {
 			if (!f.isHidden() && isNameMatch(f, d) && (isRealFolder(d) || isSameLastModified(f, d))) {
 				files.remove(f);
 				return true;

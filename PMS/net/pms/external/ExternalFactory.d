@@ -198,8 +198,8 @@ public class ExternalFactory {
 		foreach (Class/*<?>*/ clazz; externalListenerClasses) {
 			// Skip the classes that should not be instantiated at this
 			// time but rather at a later time.
-			if (!AdditionalFolderAtRoot.class.isAssignableFrom(clazz) &&
-				!AdditionalFoldersAtRoot.class.isAssignableFrom(clazz)) {
+			if (!AdditionalFolderAtRoot._class.isAssignableFrom(clazz) &&
+				!AdditionalFoldersAtRoot._class.isAssignableFrom(clazz)) {
 
 				try {
 					// Create a new instance of the plugin class and store it
@@ -222,8 +222,8 @@ public class ExternalFactory {
 		foreach (Class/*<?>*/ clazz; externalListenerClasses) {
 			// Only AdditionalFolderAtRoot and AdditionalFoldersAtRoot
 			// classes have been skipped by lookup().
-			if (AdditionalFolderAtRoot.class.isAssignableFrom(clazz) ||
-				AdditionalFoldersAtRoot.class.isAssignableFrom(clazz)) {
+			if (AdditionalFolderAtRoot._class.isAssignableFrom(clazz) ||
+				AdditionalFoldersAtRoot._class.isAssignableFrom(clazz)) {
 
 				try {
 					// Create a new instance of the plugin class and store it

@@ -155,7 +155,7 @@ public class DVDISOTitle : DLNAResource {
 						_is.close();
 					}
 
-					if (!jpg.delete()) {
+					if (!jpg._delete()) {
 						jpg.deleteOnExit();
 					}
 
@@ -264,7 +264,7 @@ public class DVDISOTitle : DLNAResource {
 	public long length(RendererConfiguration mediaRenderer) {
 		// WDTV Live at least, needs a realistic size for stop/resume to works proberly. 2030879 = ((15000 + 256) * 1024 / 8 * 1.04) : 1.04 = overhead
 		int cbr_video_bitrate = getDefaultRenderer().getCBRVideoBitrate();
-		return (cbr_video_bitrate > 0) ? (long) (((cbr_video_bitrate + 256) * 1024 / 8 * 1.04) * getMedia().getDurationInSeconds()) : length();
+		return (cbr_video_bitrate > 0) ? cast(long) (((cbr_video_bitrate + 256) * 1024 / 8 * 1.04) * getMedia().getDurationInSeconds()) : length();
 	}
 
 	override

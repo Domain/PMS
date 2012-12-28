@@ -201,7 +201,7 @@ public class MEncoderVideo : Player {
 		});
 
 		JComponent cmp = builder.addSeparator(Messages.getString("MEncoderVideo.1"), FormLayoutUtil.flip(cc.xyw(1, 1, 15), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		mencodermt = new JCheckBox(Messages.getString("MEncoderVideo.35"));
@@ -282,7 +282,7 @@ public class MEncoderVideo : Player {
 				codecPanel.add(scrollPaneDefault, BorderLayout.CENTER);
 				codecPanel.add(customPanel, BorderLayout.SOUTH);
 
-				while (JOptionPane.showOptionDialog(SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame()),
+				while (JOptionPane.showOptionDialog(SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame()),
 					codecPanel, Messages.getString("MEncoderVideo.34"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null) == JOptionPane.OK_OPTION) {
 					String newCodecparam = textArea.getText();
 					DLNAMediaInfo fakemedia = new DLNAMediaInfo();
@@ -290,7 +290,7 @@ public class MEncoderVideo : Player {
 					audio.setCodecA("ac3");
 					fakemedia.setCodecV("mpeg4");
 					fakemedia.setContainer("matroska");
-					fakemedia.setDuration(45d*60);
+					fakemedia.setDuration(45*60);
 					audio.getAudioProperties().setNumberOfChannels(2);
 					fakemedia.setWidth(1280);
 					fakemedia.setHeight(720);
@@ -302,7 +302,7 @@ public class MEncoderVideo : Player {
 					if (result.length > 0 && result[0].startsWith("@@")) {
 						String errorMessage = result[0].substring(2);
 						JOptionPane.showMessageDialog(
-							SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame()),
+							SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame()),
 							errorMessage,
 							Messages.getString("Dialog.Error"),
 							JOptionPane.ERROR_MESSAGE
@@ -577,7 +577,7 @@ public class MEncoderVideo : Player {
 		subcp.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					String s = (String) e.getItem();
+					String s = cast(String) e.getItem();
 					int offset = s.indexOf("/*");
 
 					if (offset > -1) {
@@ -646,7 +646,7 @@ public class MEncoderVideo : Player {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
 				chooser.setFileFilter(new FontFileFilter());
-				int returnVal = chooser.showDialog((Component) e.getSource(), Messages.getString("MEncoderVideo.25"));
+				int returnVal = chooser.showDialog(cast(Component) e.getSource(), Messages.getString("MEncoderVideo.25"));
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					defaultfont.setText(chooser.getSelectedFile().getAbsolutePath());
 					configuration.setMencoderFont(chooser.getSelectedFile().getAbsolutePath());
@@ -686,7 +686,7 @@ public class MEncoderVideo : Player {
 					chooser = new JFileChooser(new RestrictedFileSystemView());
 				}
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int returnVal = chooser.showDialog((Component) e.getSource(), Messages.getString("FoldTab.28"));
+				int returnVal = chooser.showDialog(cast(Component) e.getSource(), Messages.getString("FoldTab.28"));
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					alternateSubFolder.setText(chooser.getSelectedFile().getAbsolutePath());
 					configuration.setAlternateSubsFolder(chooser.getSelectedFile().getAbsolutePath());
@@ -964,7 +964,7 @@ public class MEncoderVideo : Player {
 			override
 			public void actionPerformed(ActionEvent e) {
 				Color newColor = JColorChooser.showDialog(
-						SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame()),
+						SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame()),
 					Messages.getString("MEncoderVideo.125"),
 					subColor.getBackground()
 				);
@@ -1079,7 +1079,7 @@ public class MEncoderVideo : Player {
 			String name = args[i];
 			String value = null;
 
-			for (String option : INVALID_CUSTOM_OPTIONS) {
+			foreach (String option ; INVALID_CUSTOM_OPTIONS) {
 				if (option.opEquals(name)) {
 					if ((i + 1) < args.length) {
 					   value = " " ~ args[i + 1];
@@ -1516,7 +1516,7 @@ public class MEncoderVideo : Player {
 				false
 			);
 
-			for (String s : expertOptions) {
+			foreach (String s ; expertOptions) {
 				if (s.opEquals("-noass")) {
 					foundNoassParam = true;
 				}
@@ -1737,7 +1737,7 @@ public class MEncoderVideo : Player {
 			cmdList.add("dvd://" ~ media.getDvdtrack());
 		}
 
-		for (String arg : args()) {
+		foreach (String arg ; args()) {
 			if (arg.contains("format=mpeg2") && media.getAspect() !is null && media.getValidAspect(true) !is null) {
 				cmdList.add(arg ~ ":vaspect=" ~ media.getValidAspect(true));
 			} else {
@@ -1770,7 +1770,7 @@ public class MEncoderVideo : Player {
 				cmdList.add("-sid");
 				cmdList.add(params.sid.getId().toString());
 			} else { // external subtitles
-				assert params.sid.isExternal(); // confirm the mutual exclusion
+				assert(params.sid.isExternal()); // confirm the mutual exclusion
 
 				if (params.sid.getType() == SubtitleType.VOBSUB) {
 					cmdList.add("-vobsub");
@@ -2536,7 +2536,7 @@ public class MEncoderVideo : Player {
 			int rank = 1;
 
 			if (types !is null) {
-				for (String type : types) {
+				foreach (String type ; types) {
 					int r = rank++;
 					interpreter.set("" + type, r);
 					String secondaryType = "dummy";
@@ -2615,7 +2615,7 @@ public class MEncoderVideo : Player {
 
 								Object result = interpreter.eval(key);
 
-								if (result !is null && cast(Boolean)result !is null && (Boolean) result) {
+								if (result !is null && cast(bool)result !is null && cast(bool) result) {
 									sb.append(" ");
 									sb.append(value);
 								}

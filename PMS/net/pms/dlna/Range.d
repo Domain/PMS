@@ -158,7 +158,7 @@ public abstract class Range : Cloneable {
 		}
 
 		public Byte createScaledRange(long scale) {
-			return new Byte(start !is null ? (long) (scale * start) : null, end !is null ? (long) (scale * end) : null);
+			return new Byte(start !is null ? cast(long) (scale * start) : null, end !is null ? cast(long) (scale * end) : null);
 		}
 	}
 

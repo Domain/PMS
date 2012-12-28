@@ -443,7 +443,7 @@ public class FormatConfiguration {
 			} else if (token.contains(":")) {
 				// extra MediaInfo stuff
 				if (supportSpec.miExtras is null) {
-					supportSpec.miExtras = new HashMap<String, Pattern>();
+					supportSpec.miExtras = new HashMap/*<String, Pattern>*/();
 				}
 
 				String key = token.substring(0, token.indexOf(":"));

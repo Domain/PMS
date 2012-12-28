@@ -34,11 +34,11 @@ import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 import net.pms.network.HTTPResource;
 
-import javax.swing.*;
-import java.awt.*;
+//import javax.swing.*;
+//import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.Arrays;
 
 // this does nothing that isn't done by the ffmpeg audio engine

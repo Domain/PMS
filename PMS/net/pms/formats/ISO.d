@@ -38,7 +38,7 @@ public class ISO : MPG {
 	override
 	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		ArrayList/*<Class<? : Player>>*/ list = new ArrayList/*<Class<? : Player>>*/();
-		list.add(MEncoderVideo.class);
+		list.add(MEncoderVideo._class);
 		return list;
 	}
 

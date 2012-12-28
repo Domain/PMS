@@ -62,7 +62,7 @@ public class MediaInfo {
 	interface MediaInfoDLL_Internal : Library {
 		MediaInfoDLL_Internal INSTANCE = cast(MediaInfoDLL_Internal) Native.loadLibrary(
 			libraryName,
-			MediaInfoDLL_Internal.class,
+			MediaInfoDLL_Internal._class,
 			singletonMap(OPTION_FUNCTION_MAPPER, new class() FunctionMapper {
 
 			override

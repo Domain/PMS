@@ -30,38 +30,38 @@ import org.apache.commons.lang.StringUtils : isBlank;
  * bool getLargerValue, Integer defaultValue, Integer minimumValue)
  */
 public class AudioAttribute {
-	enum Internal {
-		CHANNELS_NUMBER (set("Channel(s)"), true, true, 2, 1),
-		DELAY (set("Video_Delay"), false, false, 0, null),
-		SAMPLE_FREQUENCY (set("SamplingRate"), true, true, 48000, 1);
-	}
-
-	Internal internal;
-	alias internal this;
+	//enum Internal {
+	//    CHANNELS_NUMBER (set("Channel(s)"), true, true, 2, 1),
+	//    DELAY (set("Video_Delay"), false, false, 0, null),
+	//    SAMPLE_FREQUENCY (set("SamplingRate"), true, true, 48000, 1);
+	//}
+	//
+	//Internal internal;
+	//alias internal this;
 	
-	private final Set<String> libMediaInfoKeys;
-	private final bool multipleValuesPossible;
-	private final bool getLargerValue;
-	private final Integer defaultValue;
-	private final Integer minimumValue;
+	private Set/*<String>*/ libMediaInfoKeys;
+	private bool multipleValuesPossible;
+	private bool getLargerValue;
+	private Integer defaultValue;
+	private Integer minimumValue;
 
 
 	private static final Pattern libMediaInfoKeyPattern = Pattern.compile("^\\s*(\\S+)\\s*:");
-	private final static Map<String, AudioAttribute> libMediaInfoKeyToAudioAttributeMap;
-	private static Set<String> set(String... args) {
-		return new HashSet<String>(Arrays.asList(args));
+	private final static Map/*<String, AudioAttribute>*/ libMediaInfoKeyToAudioAttributeMap;
+	private static Set/*<String>*/ set(String[] args... ) {
+		return new HashSet/*<String>*/(Arrays.asList(args));
 	}
 
-	static {
-		libMediaInfoKeyToAudioAttributeMap = new HashMap<String, AudioAttribute>();
-		for (AudioAttribute audioAttribute : values()) {
-			for (String libMediaInfoKey : audioAttribute.libMediaInfoKeys) {
+	static this() {
+		libMediaInfoKeyToAudioAttributeMap = new HashMap/*<String, AudioAttribute>*/();
+		foreach (AudioAttribute audioAttribute ; values()) {
+			foreach (String libMediaInfoKey ; audioAttribute.libMediaInfoKeys) {
 				libMediaInfoKeyToAudioAttributeMap.put(libMediaInfoKey.toLowerCase(), audioAttribute);
 			}
 		}
 	}
 
-	private this(Set<String> libMediaInfoKeys, bool multipleValuesPossible,
+	private this(Set/*<String>*/ libMediaInfoKeys, bool multipleValuesPossible,
 						   bool getLargerValue, Integer defaultValue, Integer minimumValue) {
 		this.libMediaInfoKeys = libMediaInfoKeys;
 		this.multipleValuesPossible = multipleValuesPossible;

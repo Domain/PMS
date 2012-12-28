@@ -62,22 +62,22 @@ public class WEB : Format {
 			PMS r = PMS.get();
 			foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 				if (engine.opEquals(MPlayerWebAudio.ID)) {
-					a.add(MPlayerWebAudio.class);
+					a.add(MPlayerWebAudio._class);
 				} else if (engine.opEquals(VideoLanAudioStreaming.ID)) {
-					a.add(VideoLanAudioStreaming.class);
+					a.add(VideoLanAudioStreaming._class);
 				}
 			}
 		} else {
 			PMS r = PMS.get();
 			foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 				if (engine.opEquals(FFMpegWebVideo.ID)) {
-					a.add(FFMpegWebVideo.class);
+					a.add(FFMpegWebVideo._class);
 				} else if (engine.opEquals(MEncoderWebVideo.ID)) {
-					a.add(MEncoderWebVideo.class);
+					a.add(MEncoderWebVideo._class);
 				} else if (engine.opEquals(VideoLanVideoStreaming.ID)) {
-					a.add(VideoLanVideoStreaming.class);
+					a.add(VideoLanVideoStreaming._class);
 				} else if (engine.opEquals(MPlayerWebVideoDump.ID)) {
-					a.add(MPlayerWebVideoDump.class);
+					a.add(MPlayerWebVideoDump._class);
 				}
 			}
 		}

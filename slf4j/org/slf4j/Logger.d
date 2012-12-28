@@ -18,7 +18,7 @@ import org.slf4j.log;
 *
 * public class Wombat {
 *
-*   <span style="color:green">final static Logger logger = LoggerFactory.getLogger(Wombat.class);</span>
+*   <span style="color:green">final static Logger logger = LoggerFactory.getLogger(Wombat._class);</span>
 *   Integer t;
 *   Integer oldT;
 *

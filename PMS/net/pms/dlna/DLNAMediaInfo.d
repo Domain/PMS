@@ -581,7 +581,7 @@ public class DLNAMediaInfo : Cloneable {
 						IImageMetadata meta = Sanselan.getMetadata(inputFile.getFile());
 
 						if (meta !is null && cast(JpegImageMetadata)meta !is null) {
-							JpegImageMetadata jpegmeta = (JpegImageMetadata) meta;
+							JpegImageMetadata jpegmeta = cast(JpegImageMetadata) meta;
 							TiffField tf = jpegmeta.findEXIFValue(TiffConstants.EXIF_TAG_MODEL);
 
 							if (tf !is null) {
@@ -644,17 +644,17 @@ public class DLNAMediaInfo : Cloneable {
 						File jpg = new File(thumbFilename);
 
 						if (jpg.exists()) {
-							InputStream is = new FileInputStream(jpg);
-							int sz = is.available();
+							InputStream _is = new FileInputStream(jpg);
+							int sz = _is.available();
 
 							if (sz > 0) {
 								setThumb(new byte[sz]);
-								is.read(getThumb());
+								_is.read(getThumb());
 							}
 
-							is.close();
+							_is.close();
 
-							if (!jpg.delete()) {
+							if (!jpg._delete()) {
 								jpg.deleteOnExit();
 							}
 						}
@@ -685,12 +685,12 @@ public class DLNAMediaInfo : Cloneable {
 					}
 
 					bool matchs = false;
-					ArrayList/*<String>*/ lines = (ArrayList/*<String>*/) pw.getResults();
+					ArrayList/*<String>*/ lines = cast(ArrayList/*<String>*/) pw.getResults();
 					int langId = 0;
 					int subId = 0;
 					ListIterator/*<String>*/ FFmpegMetaData = lines.listIterator();
 
-					for (String line : lines) {
+					foreach (String line ; lines) {
 						FFmpegMetaData.next();
 						line = line.trim();
 						if (line.startsWith("Output")) {
@@ -919,7 +919,7 @@ public class DLNAMediaInfo : Cloneable {
 
 							_is.close();
 
-							if (!jpg.delete()) {
+							if (!jpg._delete()) {
 								jpg.deleteOnExit();
 							}
 
@@ -980,7 +980,7 @@ public class DLNAMediaInfo : Cloneable {
 
 	public int getFrameNumbers() {
 		double fr = Double.parseDouble(getFrameRate());
-		return (int) (getDurationInSeconds() * fr);
+		return cast(int) (getDurationInSeconds() * fr);
 	}
 
 	public void setDuration(Double d) {
@@ -1233,7 +1233,7 @@ public class DLNAMediaInfo : Cloneable {
 		int realBitrate = 10000000;
 
 		if (getDurationInSeconds() != 0) {
-			realBitrate = (int) (getSize() / getDurationInSeconds());
+			realBitrate = cast(int) (getSize() / getDurationInSeconds());
 		}
 
 		return realBitrate;
@@ -1352,13 +1352,13 @@ public class DLNAMediaInfo : Cloneable {
 			mediaCloned.setAudioTracksList(new ArrayList/*<DLNAMediaAudio>*/());
 
 			foreach (DLNAMediaAudio audio ; getAudioTracksList()) {
-				mediaCloned.getAudioTracksList().add((DLNAMediaAudio) audio.clone());
+				mediaCloned.getAudioTracksList().add(cast(DLNAMediaAudio) audio.clone());
 			}
 
-			mediaCloned.setSubtitleTracksList(new ArrayList<DLNAMediaSubtitle>());
+			mediaCloned.setSubtitleTracksList(new ArrayList/*<DLNAMediaSubtitle>*/());
 
 			foreach (DLNAMediaSubtitle sub ; getSubtitleTracksList()) {
-				mediaCloned.getSubtitleTracksList().add((DLNAMediaSubtitle) sub.clone());
+				mediaCloned.getSubtitleTracksList().add(cast(DLNAMediaSubtitle) sub.clone());
 			}
 		}
 

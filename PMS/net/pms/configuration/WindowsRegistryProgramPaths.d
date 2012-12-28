@@ -50,9 +50,9 @@ class WindowsRegistryProgramPaths : ProgramPaths {
 		SystemUtils registry = PMS.get().getRegistry();
 		if (registry.getVlcp() !is null) {
 			String vlc = registry.getVlcp();
-			String version = registry.getVlcv();
-			if ((new File(vlc)).exists() && version !is null) {
-				logger._debug("Found VLC version " ~ version ~ " in Windows Registry: " ~ vlc);
+			String _version = registry.getVlcv();
+			if ((new File(vlc)).exists() && _version !is null) {
+				logger._debug("Found VLC version " ~ _version ~ " in Windows Registry: " ~ vlc);
 				return vlc;
 			}
 		}

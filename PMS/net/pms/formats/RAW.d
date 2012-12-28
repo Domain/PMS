@@ -55,7 +55,7 @@ public class RAW : JPG {
 		ArrayList/*<Class<? : Player>>*/ profiles = new ArrayList/*<Class<? : Player>>*/();
 		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry())) {
 			if (engine.opEquals(RAWThumbnailer.ID)) {
-				profiles.add(RAWThumbnailer.class);
+				profiles.add(RAWThumbnailer._class);
 			}
 		}
 		return profiles;
@@ -88,8 +88,8 @@ public class RAW : JPG {
 			ProcessWrapperImpl pw = new ProcessWrapperImpl(cmdArray, params, true, false);
 			pw.runInSameThread();
 
-			List<String> list = pw.getOtherResults();
-			for (String s : list) {
+			List/*<String>*/ list = pw.getOtherResults();
+			foreach (String s ; list) {
 				if (s.startsWith("Thumb size:  ")) {
 					String sz = s.substring(13);
 					media.setWidth(Integer.parseInt(sz.substring(0, sz.indexOf("x")).trim()));

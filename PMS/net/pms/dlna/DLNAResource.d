@@ -354,7 +354,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 		return length();
 	}
 
-	public abstract InputStream getInputStream() throws IOException;
+	public abstract InputStream getInputStream();
 
 	public abstract bool isFolder();
 
@@ -529,7 +529,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 						bool hasEmbeddedSubs = false;
 
 						if (child.getMedia() !is null) {
-							for (DLNAMediaSubtitle s : child.getMedia().getSubtitleTracksList()) {
+							foreach (DLNAMediaSubtitle s ; child.getMedia().getSubtitleTracksList()) {
 								hasEmbeddedSubs = (hasEmbeddedSubs || s.isEmbedded());
 							}
 						}
@@ -577,7 +577,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 						foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
 							if (cast(AdditionalResourceFolderListener)listener !is null) {
 								try {
-									((AdditionalResourceFolderListener) listener).addAdditionalFolder(this, child);
+									(cast(AdditionalResourceFolderListener) listener).addAdditionalFolder(this, child);
 								} catch (Throwable t) {
 									LOGGER.error("Failed to add additional folder for listener of type: {}", listener.getClass(), t);
 								}
@@ -1521,7 +1521,7 @@ public abstract class DLNAResource : HTTPResource , Cloneable, Runnable {
 									na = 2;
 								}
 
-								int finalsize = (int) (getMedia().getDurationInSeconds() * defaultFrequency * 2 * na);
+								int finalsize = cast(int) (getMedia().getDurationInSeconds() * defaultFrequency * 2 * na);
 								LOGGER._debug("Calculated size: " ~ finalsize.toString());
 								addAttribute(sb, "size", finalsize);
 							}

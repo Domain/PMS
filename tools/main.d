@@ -44,6 +44,13 @@ string[] test()
 	return ["abc"];
 }
 
+version(Tango){
+    private const string CONST_CLASS_INFO = "new ClassInfo()";
+} else { // Phobos
+    private const string CONST_CLASS_INFO = "new const(ClassInfo)()";
+}
+alias typeof(mixin(CONST_CLASS_INFO)) ConstClassInfo;
+
 int main(string[] argv)
 {
 	if (argv.length != 3)
@@ -54,7 +61,6 @@ int main(string[] argv)
 
 	auto jdir = argv[1];
 	auto ddir = argv[2];
-	auto t = test();
 
 	foreach (entry; dirEntries(jdir, SpanMode.depth)) 
 	{ 

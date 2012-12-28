@@ -1,6 +1,6 @@
 module net.pms.dlna.CueFolder;
 
-import jwbroek.cuelib.*;
+//import jwbroek.cuelib.*;
 import net.pms.PMS;
 import net.pms.encoders.MEncoderVideo;
 import net.pms.encoders.MPlayerAudio;
@@ -119,14 +119,14 @@ public class CueFolder : DLNAResource {
 									LOGGER.error("No file format known for file \"%s\", assuming it is a video for now.", r.getName());
 									// XXX aren't players supposed to be singletons?
 									// NOTE: needs new signature for getPlayer():
-									// PlayerFactory.getPlayer(MEncoderVideo.class)
+									// PlayerFactory.getPlayer(MEncoderVideo._class)
 									defaultPlayer = new MEncoderVideo(PMS.getConfiguration());
 								} else {
 									if (r.getFormat().isAudio()) {
-										// XXX PlayerFactory.getPlayer(MPlayerAudio.class)
+										// XXX PlayerFactory.getPlayer(MPlayerAudio._class)
 										defaultPlayer = new MPlayerAudio(PMS.getConfiguration());
 									} else {
-										// XXX PlayerFactory.getPlayer(MEncoderVideo.class)
+										// XXX PlayerFactory.getPlayer(MEncoderVideo._class)
 										defaultPlayer = new MEncoderVideo(PMS.getConfiguration());
 									}
 								}

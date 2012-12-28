@@ -51,9 +51,9 @@ public class WAV : Format {
 		PMS r = PMS.get();
 		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 			if (engine.opEquals(MPlayerAudio.ID)) {
-				a.add(MPlayerAudio.class);
+				a.add(MPlayerAudio._class);
 			} else if (engine.opEquals(FFMpegAudio.ID)) {
-				a.add(FFMpegAudio.class);
+				a.add(FFMpegAudio._class);
 			}
 		}
 		return a;

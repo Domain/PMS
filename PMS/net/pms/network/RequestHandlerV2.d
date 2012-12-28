@@ -319,7 +319,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 			sendError(ctx, HttpResponseStatus.BAD_REQUEST);
 			return;
 		}
-		if (cause !is null && !cause.getClass().opEquals(ClosedChannelException.class) && !cause.getClass().opEquals(IOException.class)) {
+		if (cause !is null && !cause.getClass().opEquals(ClosedChannelException._class) && !cause.getClass().opEquals(IOException._class)) {
 			LOGGER._debug("Caught exception", cause);
 		}
 		if (ch.isConnected()) {

@@ -103,14 +103,14 @@ public class RAWThumbnailer : Player {
 		pw.runInSameThread();
 
 
-		InputStream is = pw.getInputStream(0);
+		InputStream _is = pw.getInputStream(0);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		int n = -1;
 		byte buffer[] = new byte[4096];
-		while ((n = is.read(buffer)) > -1) {
+		while ((n = _is.read(buffer)) > -1) {
 			baos.write(buffer, 0, n);
 		}
-		is.close();
+		_is.close();
 		byte b[] = baos.toByteArray();
 		baos.close();
 		return b;

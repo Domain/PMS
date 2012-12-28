@@ -1,6 +1,6 @@
 module net.pms.external.ExternalListener;
 
-import javax.swing.*;
+//import javax.swing.*;
 
 /**
  * Base interface for pms plugins. Classes implementing this interface and

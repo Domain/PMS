@@ -176,7 +176,7 @@ public class IpFilter {
 		public bool match(InetAddress addr) {
 			byte[] b = addr.getAddress();
 			for (int i = 0; i < rules.size() && i < b.length; i++) {
-				int value = b[i] < 0 ? (int) b[i] + 256 : b[i];
+				int value = b[i] < 0 ? cast(int) b[i] + 256 : b[i];
 				if (!rules.get(i).match(value)) {
 					return false;
 				}
@@ -302,9 +302,9 @@ public class IpFilter {
 	}
 
 	public static void main(String[] args) {
-		eq("f1", "192.168.0.1,192.168.0.5", new IpFilter(" 192.168.0.1, 192.168.0.5").getNormalizedFilter());
-		eq("f2", "192.168.0.*,192.1-6.3-.5", new IpFilter(" 192.168.0.*, 192.1-6.3-.5").getNormalizedFilter());
-		eq("f3", "2-3.5,myhost", new IpFilter(" 3-2. 5;myhost").getNormalizedFilter());
+		eq("f1", "192.168.0.1,192.168.0.5", (new IpFilter(" 192.168.0.1, 192.168.0.5")).getNormalizedFilter());
+		eq("f2", "192.168.0.*,192.1-6.3-.5", (new IpFilter(" 192.168.0.*, 192.1-6.3-.5")).getNormalizedFilter());
+		eq("f3", "2-3.5,myhost", (new IpFilter(" 3-2. 5;myhost")).getNormalizedFilter());
 	}
 
 }

@@ -1786,7 +1786,7 @@ public class PmsConfiguration {
 		configuration.setProperty(KEY_MENCODER_OVERSCAN_COMPENSATION_HEIGHT, value);
 	}
 
-	public void setEnginesAsList(ArrayList<String> enginesAsList) {
+	public void setEnginesAsList(ArrayList/*<String>*/ enginesAsList) {
 		configuration.setProperty(KEY_ENGINES, listToString(enginesAsList));
 	}
 

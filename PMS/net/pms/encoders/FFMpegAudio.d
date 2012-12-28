@@ -34,13 +34,13 @@ import net.pms.Messages;
 import net.pms.network.HTTPResource;
 import net.pms.PMS;
 
-import java.awt.*;
+//import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+//import javax.swing.*;
 
 public class FFMpegAudio : FFMpegVideo {
 	public static const String ID = "ffmpegaudio";

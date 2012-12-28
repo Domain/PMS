@@ -39,7 +39,7 @@ public class AudioAsVideo : MKV {
 		PMS r = PMS.get();
 		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 			if (engine.opEquals(TsMuxerAudio.ID)) {
-				a.add(TsMuxerAudio.class);
+				a.add(TsMuxerAudio._class);
 			}
 		}
 		return a;

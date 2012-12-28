@@ -41,7 +41,7 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 
 	public interface Kernel32 : Library {
 		Kernel32 INSTANCE = cast(Kernel32) Native.loadLibrary("kernel32",
-			Kernel32.class);
+			Kernel32._class);
 		Kernel32 SYNC_INSTANCE = cast(Kernel32) Native.synchronizedLibrary(INSTANCE);
 
 		int GetShortPathNameW(WString lpszLongPath, char[] lpdzShortPath, int cchBuffer);
@@ -224,13 +224,13 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 		try {
 			if (clz.getName().endsWith("WindowsPreferences")) {
 				Method openKey = clz.getDeclaredMethod("WindowsRegOpenKey", int.class,
-					byte[].class, int.class);
+					byte[].class, int._class);
 				openKey.setAccessible(true);
 				Method closeKey = clz.getDeclaredMethod(
-					"WindowsRegCloseKey", int.class);
+					"WindowsRegCloseKey", int._class);
 				closeKey.setAccessible(true);
 				Method winRegQueryValue = clz.getDeclaredMethod(
-					"WindowsRegQueryValueEx", int.class, byte[].class);
+					"WindowsRegQueryValueEx", int.class, byte[]._class);
 				winRegQueryValue.setAccessible(true);
 				byte[] valb = null;
 				String key = null;

@@ -123,7 +123,7 @@ public class LooksFrame : JFrame : IFrame, Observer {
 			PlasticLookAndFeel.setPlasticTheme(PlasticLookAndFeel.createMyDefaultTheme());
 			PlasticLookAndFeel.setTabStyle(PlasticLookAndFeel.TAB_STYLE_DEFAULT_VALUE);
 			PlasticLookAndFeel.setHighContrastFocusColorsEnabled(false);
-		} else if (selectedLaf !is null && selectedLaf.getClass() == MetalLookAndFeel.class) {
+		} else if (selectedLaf !is null && selectedLaf.getClass() == MetalLookAndFeel._class) {
 			MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
 		}
 

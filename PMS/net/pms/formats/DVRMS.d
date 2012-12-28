@@ -39,9 +39,9 @@ public class DVRMS : Format {
 		PMS r = PMS.get();
 		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
 			/*if (engine.opEquals(MEncoderVideo.ID))
-			a.add(MEncoderVideo.class);*/
+			a.add(MEncoderVideo._class);*/
 			if (engine.opEquals(FFMpegDVRMSRemux.ID)) {
-				a.add(FFMpegDVRMSRemux.class);
+				a.add(FFMpegDVRMSRemux._class);
 			}
 		}
 		return a;
