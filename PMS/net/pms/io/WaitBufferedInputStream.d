@@ -34,7 +34,7 @@ class WaitBufferedInputStream : InputStream {
 		return readCount;
 	}
 	
-	WaitBufferedInputStream(BufferedOutputFile outputStream) {
+	this(BufferedOutputFile outputStream) {
 		this.outputStream = outputStream;
 		firstRead = true;
 	}

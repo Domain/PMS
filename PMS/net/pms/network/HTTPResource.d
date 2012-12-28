@@ -98,10 +98,10 @@ public class HTTPResource {
 
 		while (_is is null && cll.getParent() !is null) {
 			cll = cll.getParent();
-			is = cll.getResourceAsStream(fileName.substring(1));
+			_is = cll.getResourceAsStream(fileName.substring(1));
 		}
 
-		return is;
+		return _is;
 	}
 
 	/**

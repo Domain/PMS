@@ -3,14 +3,14 @@ module net.pms.newgui.update.AutoUpdateDialog;
 import net.pms.update.AutoUpdater;
 import net.pms.update.AutoUpdater.State;
 
-import javax.swing.*;
-import java.awt.*;
+//import javax.swing.*;
+//import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class AutoUpdateDialog : JDialog : Observer {
+public class AutoUpdateDialog : JDialog , Observer {
 	private static final long serialVersionUID = 3809427933990495309L;
 	private final AutoUpdater autoUpdater;
 	private JLabel stateLabel = new JLabel();
@@ -28,7 +28,7 @@ public class AutoUpdateDialog : JDialog : Observer {
 		}
 	}
 
-	AutoUpdateDialog(Window parent, AutoUpdater autoUpdater) {
+	this(Window parent, AutoUpdater autoUpdater) {
 		super(parent, "PS3 Media Server Auto Update");
 		this.autoUpdater = autoUpdater;
 		autoUpdater.addObserver(this);
@@ -40,8 +40,8 @@ public class AutoUpdateDialog : JDialog : Observer {
 		update();
 	}
 
-	private class DownloadButton : JButton : ActionListener {
-		private static final long serialVersionUID = 4762020878159496712L;
+	private class DownloadButton : JButton , ActionListener {
+		private static const long serialVersionUID = 4762020878159496712L;
 
 		DownloadButton() {
 			super("Download");
@@ -60,7 +60,7 @@ public class AutoUpdateDialog : JDialog : Observer {
 	}
 
 	private class CancelButton : JButton : ActionListener {
-		private static final long serialVersionUID = 4762020878159496713L;
+		private static const long serialVersionUID = 4762020878159496713L;
 
 		CancelButton() {
 			super("Not Now");
@@ -93,12 +93,9 @@ public class AutoUpdateDialog : JDialog : Observer {
 	}
 
 	private void update() {
-		SwingUtilities.invokeLater(new class() Runnable {
-			override
-			public void run() {
+		SwingUtilities.invokeLater(dgRunnable({
 				updateOnGuiThread();
-			}
-		});
+		}));
 	}
 
 	private void updateOnGuiThread() {

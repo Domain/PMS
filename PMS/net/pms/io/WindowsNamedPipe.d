@@ -62,7 +62,7 @@ public class WindowsNamedPipe : Thread , ProcessWrapper {
 
 	public interface Kernel32 : StdCallLibrary {
 		Kernel32 INSTANCE = cast(Kernel32) Native.loadLibrary("kernel32",
-			Kernel32.class
+			Kernel32._class
 		);
 
 		Kernel32 SYNC_INSTANCE = cast(Kernel32) Native.synchronizedLibrary(INSTANCE);
@@ -192,7 +192,7 @@ public class WindowsNamedPipe : Thread , ProcessWrapper {
 					directBuffer = new BufferedOutputFileImpl(params);
 				} else {
 					writable = new PipedOutputStream();
-					readable = new PipedInputStream((PipedOutputStream) writable, BUFSIZE);
+					readable = new PipedInputStream(cast(PipedOutputStream) writable, BUFSIZE);
 				}
 
 				start();

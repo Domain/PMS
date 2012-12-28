@@ -223,14 +223,15 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 		Class/*<? : Preferences>*/ clz = userRoot.getClass();
 		try {
 			if (clz.getName().endsWith("WindowsPreferences")) {
-				Method openKey = clz.getDeclaredMethod("WindowsRegOpenKey", int.class,
-					byte[].class, int._class);
-				openKey.setAccessible(true);
-				Method closeKey = clz.getDeclaredMethod(
-					"WindowsRegCloseKey", int._class);
-				closeKey.setAccessible(true);
-				Method winRegQueryValue = clz.getDeclaredMethod(
-					"WindowsRegQueryValueEx", int.class, byte[]._class);
+				/// TODO: Fix this
+				//Method openKey = clz.getDeclaredMethod("WindowsRegOpenKey", int._class,
+				//    byte[]._class, int._class);
+				//openKey.setAccessible(true);
+				//Method closeKey = clz.getDeclaredMethod(
+				//    "WindowsRegCloseKey", int._class);
+				//closeKey.setAccessible(true);
+				//Method winRegQueryValue = clz.getDeclaredMethod(
+				//    "WindowsRegQueryValueEx", int._class, byte[]._class);
 				winRegQueryValue.setAccessible(true);
 				byte[] valb = null;
 				String key = null;
@@ -245,10 +246,10 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 				if (handles.length == 2 && handles[0] != 0 && handles[1] == 0) {
 					valb = cast(byte[]) winRegQueryValue.invoke(systemRoot,
 						handles[0], toCstr(""));
-					vlcp = (valb !is null ? new String(valb).trim() : null);
+					vlcp = (valb !is null ? (new String(valb)).trim() : null);
 					valb = cast(byte[]) winRegQueryValue.invoke(systemRoot,
 						handles[0], toCstr("Version"));
-					vlcv = (valb !is null ? new String(valb).trim() : null);
+					vlcv = (valb !is null ? (new String(valb)).trim() : null);
 					closeKey.invoke(systemRoot, handles[0]);
 				}
 				key = "SOFTWARE\\AviSynth";
@@ -263,7 +264,7 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 					avis = true;
 					valb = cast(byte[]) winRegQueryValue.invoke(systemRoot,
 						handles[0], toCstr("plugindir2_5"));
-					avsPluginsDir = (valb !is null ? new String(valb).trim() : null);
+					avsPluginsDir = (valb !is null ? (new String(valb)).trim() : null);
 					closeKey.invoke(systemRoot, handles[0]);
 				}
 				key = "SOFTWARE\\Kerio";

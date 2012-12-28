@@ -37,9 +37,9 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.all;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
+import org.apache.commons.lang.StringUtils : isNotBlank;
 
 public class Request : HTTPResource {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!Request();
@@ -223,7 +223,7 @@ public class Request : HTTPResource {
 					// This is a request for a subtitle file
 					output(output, "Content-Type: text/plain");
 					output(output, "Expires: " ~ getFUTUREDATE() ~ " GMT");
-					List<DLNAMediaSubtitle> subs = dlna.getMedia().getSubtitleTracksList();
+					List/*<DLNAMediaSubtitle>*/ subs = dlna.getMedia().getSubtitleTracksList();
 
 					if (subs !is null && !subs.isEmpty()) {
 						// TODO: maybe loop subs to get the requested subtitle type instead of using the first one
@@ -250,7 +250,7 @@ public class Request : HTTPResource {
 
 						if (subtitleHttpHeader !is null && !"".opEquals(subtitleHttpHeader)) {
 							// Device allows a custom subtitle HTTP header; construct it
-							List<DLNAMediaSubtitle> subs = dlna.getMedia().getSubtitleTracksList();
+							List/*<DLNAMediaSubtitle>*/ subs = dlna.getMedia().getSubtitleTracksList();
 
 							if (subs !is null && !subs.isEmpty()) {
 								DLNAMediaSubtitle sub = subs.get(0);
@@ -442,15 +442,15 @@ public class Request : HTTPResource {
 				String addr = soapActionUrl.getHost();
 				int port = soapActionUrl.getPort();
 				Socket sock = new Socket(addr,port);
-				OutputStream out = sock.getOutputStream();
+				OutputStream _out = sock.getOutputStream();
 
-				output(out,"NOTIFY /"~argument~" HTTP/1.1");
-				output(out,"SID: "~PMS.get().usn());
-				output(out,"SEQ: "~0);
-				output(out,"NT: upnp:event");
-				output(out,"NTS: upnp:propchange");
-				output(out,"HOST: " ~ addr ~ ":" ~ port.toString());
-				output(out, CONTENT_TYPE_UTF8);
+				output(_out,"NOTIFY /"~argument~" HTTP/1.1");
+				output(_out,"SID: "~PMS.get().usn());
+				output(_out,"SEQ: "~0);
+				output(_out,"NT: upnp:event");
+				output(_out,"NTS: upnp:propchange");
+				output(_out,"HOST: " ~ addr ~ ":" ~ port.toString());
+				output(_out, CONTENT_TYPE_UTF8);
 			} catch (MalformedURLException ex) {
 				LOGGER._debug("Cannot parse address and port from soap action \"" ~ soapaction ~ "\"", ex);
 			}

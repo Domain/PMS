@@ -18,7 +18,7 @@
  */
 module net.pms.network.RequestV2;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
+import org.apache.commons.lang.StringUtils : isNotBlank;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -274,7 +274,7 @@ public class RequestV2 : HTTPResource {
 			id = id.replace("%24", "$");
 
 			// Retrieve the DLNAresource itself.
-			List<DLNAResource> files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(id, false, 0, 0, mediaRenderer);
+			List/*<DLNAResource>*/ files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(id, false, 0, 0, mediaRenderer);
 
 			if (transferMode !is null) {
 				output.setHeader("TransferMode.DLNA.ORG", transferMode);
@@ -301,7 +301,7 @@ public class RequestV2 : HTTPResource {
 					// This is a request for a subtitle file
 					output.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/plain");
 					output.setHeader(HttpHeaders.Names.EXPIRES, getFUTUREDATE() + " GMT");
-					List<DLNAMediaSubtitle> subs = dlna.getMedia().getSubtitleTracksList();
+					List/*<DLNAMediaSubtitle>*/ subs = dlna.getMedia().getSubtitleTracksList();
 
 					if (subs !is null && !subs.isEmpty()) {
 						// TODO: maybe loop subs to get the requested subtitle type instead of using the first one
@@ -335,7 +335,7 @@ public class RequestV2 : HTTPResource {
 
 					if (subtitleHttpHeader !is null && !"".opEquals(subtitleHttpHeader)) {
 						// Device allows a custom subtitle HTTP header; construct it
-						List<DLNAMediaSubtitle> subs = dlna.getMedia().getSubtitleTracksList();
+						List/*<DLNAMediaSubtitle>*/ subs = dlna.getMedia().getSubtitleTracksList();
 
 						if (subs !is null && !subs.isEmpty()) {
 							DLNAMediaSubtitle sub = subs.get(0);

@@ -23,10 +23,10 @@ import net.pms.configuration.RendererConfiguration;
 import net.pms.external.StartStopListenerDelegate;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.*;
+//import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.group.ChannelGroup;
 import org.jboss.netty.handler.codec.frame.TooLongFrameException;
-import org.jboss.netty.handler.codec.http.*;
+//import org.jboss.netty.handler.codec.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 		"timeseekrange\\.dlna\\.org\\W*npt\\W*=\\W*([\\d\\.:]+)?\\-?([\\d\\.:]+)?",
 		Pattern.CASE_INSENSITIVE
 	);
-	private volatile HttpRequest nettyRequest;
+	private HttpRequest nettyRequest;
 	private ChannelGroup group;
 
 	// Used to filter out known headers when the renderer is not recognized
@@ -78,9 +78,9 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 		StringBuilder unknownHeaders = new StringBuilder();
 		String separator = "";
 		
-		HttpRequest nettyRequest = this.nettyRequest = (HttpRequest) e.getMessage();
+		HttpRequest nettyRequest = this.nettyRequest = cast(HttpRequest) e.getMessage();
 
-		InetSocketAddress remoteAddress = (InetSocketAddress) e.getChannel().getRemoteAddress();
+		InetSocketAddress remoteAddress = cast(InetSocketAddress) e.getChannel().getRemoteAddress();
 		InetAddress ia = remoteAddress.getAddress();
 
 		// Apply the IP filter
