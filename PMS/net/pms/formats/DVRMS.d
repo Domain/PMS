@@ -61,7 +61,7 @@ public class DVRMS : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "dvr-ms", "dvr" };
+		return [ "dvr-ms", "dvr" ];
 	}
 
 	/**

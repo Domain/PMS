@@ -30,21 +30,21 @@ import java.io.InputStreamReader;
 // consumer that reads and discards the stream
 public class Gob : Thread {
 	private static immutable Logger logger = LoggerFactory.getLogger!Gob();
-	BufferedReader in;
+	BufferedReader _in;
 
-	public this(InputStream in) {
-		this.in = new BufferedReader(new InputStreamReader(in));
+	public this(InputStream _in) {
+		this._in = new BufferedReader(new InputStreamReader(_in));
 	}
 
 	public void run() {
 		String line = null;
 		try {
-			while ((line = in.readLine()) !is null) {
+			while ((line = _in.readLine()) !is null) {
 				if (!line.startsWith("100")) {
 					logger.trace(line);
 				}
 			}
-			in.close();
+			_in.close();
 		} catch (IOException e) {
 			logger.trace("Caught exception", e);
 		}

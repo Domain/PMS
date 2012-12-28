@@ -31,9 +31,8 @@ public class RAW : JPG {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "arw", "cr2", "crw", "dng", "raf", "mrw", "nef",
-				"pef", "srf", "orf" ];
-		return id;
+		return [ "arw", "cr2", "crw", "dng", "raf", "mrw", "nef",
+		"pef", "srf", "orf" ];
 	}
 
 	/**

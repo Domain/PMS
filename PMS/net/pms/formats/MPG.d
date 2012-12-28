@@ -43,7 +43,7 @@ public class MPG : Format {
 		}
 		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r3 = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r3.getRegistry())) {
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r3.getRegistry())) {
 			if (engine.opEquals(MEncoderVideo.ID)) {
 				a.add(MEncoderVideo.class);
 			} else if (engine.opEquals(MEncoderAviSynth.ID) && PMS.get().getRegistry().isAvis()) {
@@ -73,10 +73,10 @@ public class MPG : Format {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "mpg", "mpeg", "mpe", "mod", "tivo", "ty", "tmf",
-				"ts", "tp", "m2t", "m2ts", "m2p", "mts", "mp4", "m4v", "avi",
-				"wmv", "wm", "vob", "divx", "div", "vdr" ];
-		return id;
+		return [ "mpg", "mpeg", "mpe", "mod", "tivo", "ty", "tmf",
+			"ts", "tp", "m2t", "m2ts", "m2p", "mts", "mp4", "m4v", "avi",
+			"wmv", "wm", "vob", "divx", "div", "vdr" 
+		];
 	}
 
 	/**

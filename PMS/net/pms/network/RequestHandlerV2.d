@@ -123,7 +123,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 			LOGGER.trace("Matched media renderer \"" ~ renderer.getRendererName() ~ "\" based on address " ~ ia);
 		}
 		
-		for (String name : nettyRequest.getHeaderNames()) {
+		foreach (String name ; nettyRequest.getHeaderNames()) {
 			String headerLine = name ~ ": " ~ nettyRequest.getHeader(name);
 			LOGGER.trace("Received on socket: " ~ headerLine);
 
@@ -243,7 +243,7 @@ public class RequestHandlerV2 : SimpleChannelUpstreamHandler {
 		}
 
 		if (HttpHeaders.getContentLength(nettyRequest) > 0) {
-			byte data[] = new byte[cast(int) HttpHeaders.getContentLength(nettyRequest)];
+			byte[] data = new byte[cast(int) HttpHeaders.getContentLength(nettyRequest)];
 			ChannelBuffer content = nettyRequest.getContent();
 			content.readBytes(data);
 			request.setTextContent(new String(data, "UTF-8"));

@@ -33,8 +33,7 @@ public class GIF : JPG {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "gif" ];
-		return id;
+		return [ "gif" ];
 	}
 
 	override

@@ -243,8 +243,8 @@ public class RequestV2 : HTTPResource {
 	public ChannelFuture answer(
 		HttpResponse output,
 		MessageEvent e,
-		final bool close,
-		final StartStopListenerDelegate startStopListenerDelegate
+		bool close,
+		StartStopListenerDelegate startStopListenerDelegate
 	) {
 		ChannelFuture future = null;
 		long CLoverride = -2; // 0 and above are valid Content-Length values, -1 means omit
@@ -639,7 +639,7 @@ public class RequestV2 : HTTPResource {
 					}
 				}
 
-				List<DLNAResource> files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(
+				List/*<DLNAResource>*/ files = PMS.get().getRootFolder(mediaRenderer).getDLNAResources(
 					objectID,
 					browseFlag !is null && browseFlag.opEquals("BrowseDirectChildren"),
 					startingIndex,
@@ -661,7 +661,7 @@ public class RequestV2 : HTTPResource {
 
 				int minus = 0;
 				if (files !is null) {
-					for (DLNAResource uf : files) {
+					foreach (DLNAResource uf ; files) {
 						if (xbox && containerID !is null) {
 							uf.setFakeParentId(containerID);
 						}
@@ -744,22 +744,22 @@ public class RequestV2 : HTTPResource {
 					String addr = soapActionUrl.getHost();
 					int port = soapActionUrl.getPort();
 					Socket sock = new Socket(addr,port);
-					OutputStream out = sock.getOutputStream();
+					OutputStream _out = sock.getOutputStream();
 	
-					out.write(("NOTIFY /" ~ argument ~ " HTTP/1.1").getBytes());
-					out.write(CRLF.getBytes());
-					out.write(("SID: " ~ PMS.get().usn()).getBytes());
-					out.write(CRLF.getBytes());
-					out.write(("SEQ: " ~ 0).getBytes());
-					out.write(CRLF.getBytes());
-					out.write(("NT: upnp:event").getBytes());
-					out.write(CRLF.getBytes());
-					out.write(("NTS: upnp:propchange").getBytes());
-					out.write(CRLF.getBytes());
-					out.write(("HOST: " ~ addr ~ ":" ~ port).getBytes());
-					out.write(CRLF.getBytes());
-					out.flush();
-					out.close();
+					_out.write(("NOTIFY /" ~ argument ~ " HTTP/1.1").getBytes());
+					_out.write(CRLF.getBytes());
+					_out.write(("SID: " ~ PMS.get().usn()).getBytes());
+					_out.write(CRLF.getBytes());
+					_out.write(("SEQ: " ~ 0).getBytes());
+					_out.write(CRLF.getBytes());
+					_out.write(("NT: upnp:event").getBytes());
+					_out.write(CRLF.getBytes());
+					_out.write(("NTS: upnp:propchange").getBytes());
+					_out.write(CRLF.getBytes());
+					_out.write(("HOST: " ~ addr ~ ":" ~ port).getBytes());
+					_out.write(CRLF.getBytes());
+					_out.flush();
+					_out.close();
 				} catch (MalformedURLException ex) {
 					LOGGER._debug("Cannot parse address and port from soap action \"" ~ soapaction ~ "\"", ex);
 				}
@@ -803,8 +803,8 @@ public class RequestV2 : HTTPResource {
 
 		if (response.length() > 0) {
 			// A response message was constructed; convert it to data ready to be sent.
-			byte responseData[] = response.toString().getBytes("UTF-8");
-			output.setHeader(HttpHeaders.Names.CONTENT_LENGTH, "" + responseData.length);
+			byte[] responseData = response.toString().getBytes("UTF-8");
+			output.setHeader(HttpHeaders.Names.CONTENT_LENGTH, responseData.length.toString());
 
 			// HEAD requests only require headers to be set, no need to set contents.
 			if (!method.opEquals("HEAD")) {
@@ -829,12 +829,12 @@ public class RequestV2 : HTTPResource {
 					// Since PS3 firmware 2.50, it is wiser not to send an arbitrary Content-Length,
 					// as the PS3 will display a network error and request the last seconds of the
 					// transcoded video. Better to send no Content-Length at all.
-					output.setHeader(HttpHeaders.Names.CONTENT_LENGTH, "" + CLoverride);
+					output.setHeader(HttpHeaders.Names.CONTENT_LENGTH, CLoverride.toString());
 				}
 			} else {
 				int cl = inputStream.available();
-				LOGGER.trace("Available Content-Length: " + cl);
-				output.setHeader(HttpHeaders.Names.CONTENT_LENGTH, "" + cl);
+				LOGGER.trace("Available Content-Length: " ~ cl.toString());
+				output.setHeader(HttpHeaders.Names.CONTENT_LENGTH, cl.toString());
 			}
 
 			if (range.isStartOffsetAvailable() && dlna !is null) {
@@ -905,7 +905,7 @@ public class RequestV2 : HTTPResource {
 		}
 
 		// Log trace information
-		Iterator<String> it = output.getHeaderNames().iterator();
+		Iterator/*<String>*/ it = output.getHeaderNames().iterator();
 
 		while (it.hasNext()) {
 			String headerName = it.next();

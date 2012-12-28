@@ -8,7 +8,7 @@ public class PCMAudioOutputStream : FlowParserOutputStream {
 	protected int sampleFrequency;
 	protected int bitsperSample;
 	protected int blocksize;
-	protected byte payload[];
+	protected byte[] payload;
 
 	public this(OutputStream source, int nbchannels, int sampleFrequency, int bitsperSample) {
 		super(source, 600000);

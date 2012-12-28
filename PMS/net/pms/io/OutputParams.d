@@ -56,7 +56,7 @@ public class OutputParams {
 	public String forceType;
 	public RendererConfiguration mediaRenderer;
 	public bool hidebuffer;
-	public byte header[];
+	public byte[] header;
 	public IPushOutput stdin;
 	public bool avidemux;
 	public bool shift_scr;

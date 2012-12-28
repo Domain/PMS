@@ -25,9 +25,9 @@ public class Platform {
 			return false;
 	}
 
-	public static bool isSo­laris()
+	public static bool isSolaris()
 	{
-		version(So­laris)
+		version(Solaris)
 			return true;
 		else
 			return false;

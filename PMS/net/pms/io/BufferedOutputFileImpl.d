@@ -66,7 +66,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 	private int bufferOverflowWarning;
 	private bool eof;
 	private long writeCount;
-	private byte buffer[];
+	private byte[] buffer;
 	private bool forcefirst = (PMS.getConfiguration().getTrancodeBlocksMultipleConnections() && PMS.getConfiguration().getTrancodeKeepFirstConnections());
 	private ArrayList/*<WaitBufferedInputStream>*/ inputStreams;
 	private ProcessWrapper attachedThread;
@@ -170,8 +170,8 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 	 * 				dimensions and behavior.
 	 */
 	public this(OutputParams params) {
-		this.minMemorySize = (int) (1048576 * params.minBufferSize);
-		this.maxMemorySize = (int) (1048576 * params.maxBufferSize);
+		this.minMemorySize = cast(int) (1048576 * params.minBufferSize);
+		this.maxMemorySize = cast(int) (1048576 * params.maxBufferSize);
 
 		// FIXME: Better to relate margin directly to maxMemorySize instead of using arbitrary fixed values
 
@@ -207,7 +207,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 			System.exit(1);			
 		}
 		
-		inputStreams = new ArrayList<WaitBufferedInputStream>();
+		inputStreams = new ArrayList/*<WaitBufferedInputStream>*/();
 		timer = new Timer();
 		if (params.maxBufferSize > 15 && !params.hidebuffer) {
 			timer.schedule(new class() TimerTask {
@@ -223,7 +223,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 					// There are 1048576 bytes in a megabyte
 					long bufferInMBs = space / 1048576;
 
-					PMS.get().getFrame().setValue((int) (100 * space / maxMemorySize), formatter.format(bufferInMBs) ~ " " ~ Messages.getString("StatusTab.12"));
+					PMS.get().getFrame().setValue(cast(int) (100 * space / maxMemorySize), formatter.format(bufferInMBs) ~ " " ~ Messages.getString("StatusTab.12"));
 				}
 			}, 0, 2000);
 		}
@@ -294,7 +294,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 	}
 
 	override
-	public void write(byte b[], int off, int len) {
+	public void write(byte[] b, int off, int len) {
 		if (debugOutput !is null) {
 			debugOutput.write(b, off, len);
 			debugOutput.flush();
@@ -314,7 +314,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 		
 		
 		if (buffer !is null) {
-			int mb = (int) (writeCount % maxMemorySize);
+			int mb = cast(int) (writeCount % maxMemorySize);
 
 			if (mb >= buffer.length - (len - off)) {
 				if (buffer.length == INITIAL_BUFFER_SIZE) {
@@ -410,7 +410,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 			}
 			input = getCurrentInputStream();
 		}
-		int mb = (int) (writeCount++ % maxMemorySize);
+		int mb = cast(int) (writeCount++ % maxMemorySize);
 		if (buffer !is null) {
 			buffer[mb] = cast(byte) b;
 			buffered = true;
@@ -745,8 +745,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 		if (attachedThread !is null) {
 			attachedThread.setReadyToStop(true);
 		}
-		Runnable checkEnd = new class() Runnable {
-			public void run() {
+		Runnable checkEnd = dgRunnable( {
 				try {
 					Thread.sleep(CHECK_END_OF_PROCESS);
 				} catch (InterruptedException e) {
@@ -758,8 +757,7 @@ public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
 					}
 					reset();
 				}
-			}
-		};
+		});
 		(new Thread(checkEnd, "Buffered IO End Checker")).start();
 	}
 

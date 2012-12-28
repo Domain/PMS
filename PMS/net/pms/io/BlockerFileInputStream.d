@@ -56,7 +56,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 
 	private bool checkAvailability() {
 		if (readCount > file.length()) {
-			logger._debug("File " ~ file.getAbsolutePath() ~ " is not that long!: " ~ readCount);
+			logger._debug("File " ~ file.getAbsolutePath() ~ " is not that long!: " ~ readCount.toString());
 			return false;
 		}
 		int c = 0;

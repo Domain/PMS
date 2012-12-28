@@ -110,7 +110,7 @@ public abstract class FlowParserOutputStream : OutputStream {
 	protected void writePayload(byte payload[]) {
 		_out.write(payload, 0, payload.length);
 	}
-	private byte zerobuffer[];
+	private byte[] zerobuffer;
 
 	protected void padWithZeros(int numberOfZeros) {
 		if (numberOfZeros > 0) {

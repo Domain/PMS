@@ -40,8 +40,7 @@ public class JPG : Format {
 	 */
 	override
 	public String[] getId() {
-		String[] id = ["jpeg", "jpg", "jpe", "mpo"];
-		return id;
+		return ["jpeg", "jpg", "jpe", "mpo"];
 	}
 
 	/**

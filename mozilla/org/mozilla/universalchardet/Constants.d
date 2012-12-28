@@ -1,5 +1,7 @@
 module org.mozilla.universalchardet.Constants;
 
+import java.lang.String;
+
 public final class Constants
 {
     public static const String CHARSET_ISO_2022_JP  = "ISO-2022-JP";

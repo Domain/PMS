@@ -36,7 +36,7 @@ public interface BufferedOutputFile {
 
 	public abstract long getWriteCount();
 
-	public abstract void write(byte b[], int off, int len);
+	public abstract void write(byte[] b, int off, int len);
 
 	public abstract void write(int b);
 

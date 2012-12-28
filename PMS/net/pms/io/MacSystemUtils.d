@@ -56,7 +56,7 @@ public class MacSystemUtils : BasicSystemUtils {
 			String aMacStr = null;
 			Pattern aMacPattern = Pattern.compile("\\s*ether\\s*([a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2})");
 
-			for (String line : lines) {
+			foreach (String line ; lines) {
 				Matcher aMacMatcher = aMacPattern.matcher(line);
 
 				if (aMacMatcher.find()) {

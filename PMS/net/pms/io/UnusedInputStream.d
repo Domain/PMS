@@ -46,23 +46,21 @@ public abstract class UnusedInputStream : InputStream {
 		if (processToTerminate !is null) {
 			processToTerminate.setReadyToStop(true);
 		}
-		Runnable checkEnd = new class() Runnable {
-			public void run() {
-				try {
-					Thread.sleep(timeout);
-				} catch (InterruptedException e) {
-					logger.error(null, e);
-				}
-				if (processToTerminate !is null && processToTerminate.isReadyToStop()) {
-					logger._debug("Destroying / Stopping attached process: " ~ processToTerminate);
-					if (processToTerminate !is null) {
-						processToTerminate.stopProcess();
-					}
-					processToTerminate = null;
-					unusedStreamSignal();
-				}
+		Runnable checkEnd = dgRunnable( {
+			try {
+				Thread.sleep(timeout);
+			} catch (InterruptedException e) {
+				logger.error(null, e);
 			}
-		};
+			if (processToTerminate !is null && processToTerminate.isReadyToStop()) {
+				logger._debug("Destroying / Stopping attached process: " ~ processToTerminate);
+				if (processToTerminate !is null) {
+					processToTerminate.stopProcess();
+				}
+				processToTerminate = null;
+				unusedStreamSignal();
+			}
+		});
 		(new Thread(checkEnd, "Process Reaper")).start();
 	}
 

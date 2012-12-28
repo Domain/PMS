@@ -61,11 +61,11 @@ public class WindowsNamedPipe : Thread , ProcessWrapper {
 	private static const int BUFSIZE = 500000;
 
 	public interface Kernel32 : StdCallLibrary {
-		Kernel32 INSTANCE = (Kernel32) Native.loadLibrary("kernel32",
+		Kernel32 INSTANCE = cast(Kernel32) Native.loadLibrary("kernel32",
 			Kernel32.class
 		);
 
-		Kernel32 SYNC_INSTANCE = (Kernel32) Native.synchronizedLibrary(INSTANCE);
+		Kernel32 SYNC_INSTANCE = cast(Kernel32) Native.synchronizedLibrary(INSTANCE);
 
 		class SECURITY_ATTRIBUTES : Structure {
 			public int nLength = size();
@@ -118,7 +118,7 @@ public class WindowsNamedPipe : Thread , ProcessWrapper {
 	}
 
 	override
-	public ArrayList<String> getResults() {
+	public ArrayList/*<String>*/ getResults() {
 		return null;
 	}
 
@@ -199,11 +199,9 @@ public class WindowsNamedPipe : Thread , ProcessWrapper {
 
 				if (forceReconnect) {
 					forced = new Thread(
-						new class() Runnable {
-							public void run() {
+						dgRunnable( {
 								b2 = Kernel32.INSTANCE.ConnectNamedPipe(handle2, null);
-							}
-						},
+						}),
 						"Forced Reconnector"
 					);
 

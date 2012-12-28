@@ -8,7 +8,7 @@ import java.io.OutputStream;
 
 public class DTSAudioOutputStream : FlowParserOutputStream {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!DTSAudioOutputStream();
-	private static int bits[] = [16, 16, 20, 20, 0, 24, 24];
+	private static int[] bits = [16, 16, 20, 20, 0, 24, 24];
 	private bool dts = false;
 	private bool dtsHD = false;
 	private int framesize;

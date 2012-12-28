@@ -57,15 +57,15 @@ public class ProcessWrapperImpl : Thread , ProcessWrapper {
 		return success;
 	}
 
-	public this(String cmdArray[], OutputParams params) {
+	public this(String[] cmdArray, OutputParams params) {
 		this(cmdArray, params, false, false);
 	}
 
-	public this(String cmdArray[], OutputParams params, bool keepOutput) {
+	public this(String[] cmdArray, OutputParams params, bool keepOutput) {
 		this(cmdArray, params, keepOutput, keepOutput);
 	}
 
-	public this(String cmdArray[], OutputParams params, bool keepStdout, bool keepStderr) {
+	public this(String[] cmdArray, OutputParams params, bool keepStdout, bool keepStderr) {
 		super();
 
 		// Determine a suitable thread name for this process:
@@ -107,7 +107,7 @@ public class ProcessWrapperImpl : Thread , ProcessWrapper {
 		this.params = params;
 		this.keepStdout = keepStdout;
 		this.keepStderr = keepStderr;
-		attachedProcesses = new ArrayList<ProcessWrapper>();
+		attachedProcesses = new ArrayList/*<ProcessWrapper>*/();
 	}
 
 	private synchronized int getProcessCounter() {
@@ -310,7 +310,7 @@ public class ProcessWrapperImpl : Thread , ProcessWrapper {
 				Integer pid = ProcessUtil.getProcessID(process);
 
 				if (pid !is null) {
-					LOGGER._debug("Stopping Unix process " ~ pid.toString() ~ ": " ~ this);
+					LOGGER._debug("Stopping Unix process " ~ pid.toString() ~ ": " ~ this.toString());
 				} else {
 					LOGGER._debug("Stopping process: " ~ this.toString());
 				}
@@ -342,7 +342,7 @@ public class ProcessWrapperImpl : Thread , ProcessWrapper {
 
 	public void setReadyToStop(bool nullable) {
 		if (nullable != this.nullable) {
-			LOGGER.trace("Ready to Stop: " ~ nullable);
+			LOGGER.trace("Ready to Stop: %s", nullable);
 		}
 
 		this.nullable = nullable;

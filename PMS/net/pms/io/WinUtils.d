@@ -40,9 +40,9 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!WinUtils();
 
 	public interface Kernel32 : Library {
-		Kernel32 INSTANCE = (Kernel32) Native.loadLibrary("kernel32",
+		Kernel32 INSTANCE = cast(Kernel32) Native.loadLibrary("kernel32",
 			Kernel32.class);
-		Kernel32 SYNC_INSTANCE = (Kernel32) Native.synchronizedLibrary(INSTANCE);
+		Kernel32 SYNC_INSTANCE = cast(Kernel32) Native.synchronizedLibrary(INSTANCE);
 
 		int GetShortPathNameW(WString lpszLongPath, char[] lpdzShortPath, int cchBuffer);
 
@@ -120,8 +120,8 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 	public String getShortPathNameW(String longPathName) {
 		bool unicodeChars = false;
 		try {
-			byte b1[] = longPathName.getBytes("UTF-8");
-			byte b2[] = longPathName.getBytes("cp1252");
+			byte[] b1 = longPathName.getBytes("UTF-8");
+			byte[] b2 = longPathName.getBytes("cp1252");
 			unicodeChars = b1.length != b2.length;
 		} catch (Exception e) {
 			return longPathName;
@@ -131,7 +131,7 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 			try {
 				WString pathname = new WString(longPathName);
 
-				char test[] = new char[2 + pathname.length() * 2];
+				char[] test = new char[2 + pathname.length() * 2];
 				int r = Kernel32.INSTANCE.GetShortPathNameW(pathname, test, test.length);
 				if (r > 0) {
 					logger._debug("Forcing short path name on " ~ pathname);
@@ -153,7 +153,7 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 	 */
 	override
 	public String getWindowsDirectory() {
-		char test[] = new char[2 + 256 * 2];
+		char[] test = new char[2 + 256 * 2];
 		int r = Kernel32.INSTANCE.GetWindowsDirectoryW(test, 256);
 		if (r > 0) {
 			return Native.toString(test);
@@ -218,56 +218,56 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 	}
 
 	private void start() {
-		final Preferences userRoot = Preferences.userRoot();
-		final Preferences systemRoot = Preferences.systemRoot();
-		final Class<? : Preferences> clz = userRoot.getClass();
+		Preferences userRoot = Preferences.userRoot();
+		Preferences systemRoot = Preferences.systemRoot();
+		Class/*<? : Preferences>*/ clz = userRoot.getClass();
 		try {
 			if (clz.getName().endsWith("WindowsPreferences")) {
-				final Method openKey = clz.getDeclaredMethod("WindowsRegOpenKey", int.class,
+				Method openKey = clz.getDeclaredMethod("WindowsRegOpenKey", int.class,
 					byte[].class, int.class);
 				openKey.setAccessible(true);
-				final Method closeKey = clz.getDeclaredMethod(
+				Method closeKey = clz.getDeclaredMethod(
 					"WindowsRegCloseKey", int.class);
 				closeKey.setAccessible(true);
-				final Method winRegQueryValue = clz.getDeclaredMethod(
+				Method winRegQueryValue = clz.getDeclaredMethod(
 					"WindowsRegQueryValueEx", int.class, byte[].class);
 				winRegQueryValue.setAccessible(true);
 				byte[] valb = null;
 				String key = null;
 				key = "SOFTWARE\\VideoLAN\\VLC";
-				int handles[] = (int[]) openKey.invoke(systemRoot, -2147483646,
+				int handles[] = cast(int[]) openKey.invoke(systemRoot, -2147483646,
 					toCstr(key), KEY_READ);
 				if (!(handles.length == 2 && handles[0] != 0 && handles[1] == 0)) {
 					key = "SOFTWARE\\Wow6432Node\\VideoLAN\\VLC";
-					handles = (int[]) openKey.invoke(systemRoot, -2147483646,
+					handles = cast(int[]) openKey.invoke(systemRoot, -2147483646,
 						toCstr(key), KEY_READ);
 				}
 				if (handles.length == 2 && handles[0] != 0 && handles[1] == 0) {
-					valb = (byte[]) winRegQueryValue.invoke(systemRoot,
+					valb = cast(byte[]) winRegQueryValue.invoke(systemRoot,
 						handles[0], toCstr(""));
 					vlcp = (valb !is null ? new String(valb).trim() : null);
-					valb = (byte[]) winRegQueryValue.invoke(systemRoot,
+					valb = cast(byte[]) winRegQueryValue.invoke(systemRoot,
 						handles[0], toCstr("Version"));
 					vlcv = (valb !is null ? new String(valb).trim() : null);
 					closeKey.invoke(systemRoot, handles[0]);
 				}
 				key = "SOFTWARE\\AviSynth";
-				handles = (int[]) openKey.invoke(systemRoot, -2147483646,
+				handles = cast(int[]) openKey.invoke(systemRoot, -2147483646,
 					toCstr(key), KEY_READ);
 				if (!(handles.length == 2 && handles[0] != 0 && handles[1] == 0)) {
 					key = "SOFTWARE\\Wow6432Node\\AviSynth";
-					handles = (int[]) openKey.invoke(systemRoot, -2147483646,
+					handles = cast(int[]) openKey.invoke(systemRoot, -2147483646,
 						toCstr(key), KEY_READ);
 				}
 				if (handles.length == 2 && handles[0] != 0 && handles[1] == 0) {
 					avis = true;
-					valb = (byte[]) winRegQueryValue.invoke(systemRoot,
+					valb = cast(byte[]) winRegQueryValue.invoke(systemRoot,
 						handles[0], toCstr("plugindir2_5"));
 					avsPluginsDir = (valb !is null ? new String(valb).trim() : null);
 					closeKey.invoke(systemRoot, handles[0]);
 				}
 				key = "SOFTWARE\\Kerio";
-				handles = (int[]) openKey.invoke(systemRoot, -2147483646,
+				handles = cast(int[]) openKey.invoke(systemRoot, -2147483646,
 					toCstr(key), KEY_READ);
 				if (handles.length == 2 && handles[0] != 0 && handles[1] == 0) {
 					kerio = true;
@@ -289,7 +289,7 @@ public class WinUtils : BasicSystemUtils , SystemUtils {
 	private static byte[] toCstr(String str) {
 		byte[] result = new byte[str.length() + 1];
 		for (int i = 0; i < str.length(); i++) {
-			result[i] = (byte) str.charAt(i);
+			result[i] = cast(byte) str.charAt(i);
 		}
 		result[str.length()] = 0;
 		return result;

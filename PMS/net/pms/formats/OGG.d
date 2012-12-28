@@ -58,9 +58,8 @@ public class OGG : MP3 {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "dts", "mka", "ape", "ogg", "shn", "mpc", "ra",
-				"mp2", "wv", "oma", "aa3", "at3", "aif", "aiff" ];
-		return id;
+		return [ "dts", "mka", "ape", "ogg", "shn", "mpc", "ra",
+		"mp2", "wv", "oma", "aa3", "at3", "aif", "aiff" ];
 	}
 
 	/**

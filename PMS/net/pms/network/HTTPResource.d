@@ -94,9 +94,9 @@ public class HTTPResource {
 	protected InputStream getResourceInputStream(String fileName) {
 		fileName = "/resources/" ~ fileName;
 		ClassLoader cll = this.getClass().getClassLoader();
-		InputStream is = cll.getResourceAsStream(fileName.substring(1));
+		InputStream _is = cll.getResourceAsStream(fileName.substring(1));
 
-		while (is is null && cll.getParent() !is null) {
+		while (_is is null && cll.getParent() !is null) {
 			cll = cll.getParent();
 			is = cll.getResourceAsStream(fileName.substring(1));
 		}
@@ -172,7 +172,7 @@ public class HTTPResource {
 		URLConnection conn = url.openConnection();
 		// GameTrailers blocks user-agents that identify themselves as "Java"
 		conn.setRequestProperty("User-agent", PropertiesUtil.getProjectProperties().get("project.name") ~ " " ~ PMS.getVersion());
-		InputStream in = conn.getInputStream();
+		InputStream _in = conn.getInputStream();
 		FileOutputStream fOUT = null;
 
 		if (saveOnDisk && f !is null) {
@@ -183,7 +183,7 @@ public class HTTPResource {
 		byte[] buf = new byte[4096];
 		int n = -1;
 
-		while ((n = in.read(buf)) > -1) {
+		while ((n = _in.read(buf)) > -1) {
 			bytes.write(buf, 0, n);
 
 			if (fOUT !is null) {
@@ -191,7 +191,7 @@ public class HTTPResource {
 			}
 		}
 
-		in.close();
+		_in.close();
 
 		if (fOUT !is null) {
 			fOUT.close();

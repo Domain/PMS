@@ -84,9 +84,7 @@ public class TaskRunner {
 	 * @param singletonTask
 	 */
 	public void submitNamed(immutable String name, immutable bool singletonTask, immutable Runnable runnable) {
-		submit(new class() Runnable {
-			override
-			public void run() {
+		submit(dgRunnable( {
 				String prevName = Thread.currentThread().getName();
 				bool locked = false;
 				try {
@@ -110,8 +108,7 @@ public class TaskRunner {
 					}
 					Thread.currentThread().setName(prevName);
 				}
-			}
-		});
+		}));
 		
 	}
 	

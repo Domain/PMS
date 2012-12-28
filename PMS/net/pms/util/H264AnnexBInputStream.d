@@ -11,10 +11,10 @@ public class H264AnnexBInputStream : InputStream {
 	private InputStream source;
 	private int nextTarget;
 	private bool firstHeader;
-	private byte header[];
+	private byte[] header;
 	//private int remaining;
 
-	public this(InputStream source, byte header[]) {
+	public this(InputStream source, byte[] header) {
 		this.source = source;
 		this.header = header;
 		firstHeader = true;
@@ -112,7 +112,7 @@ public class H264AnnexBInputStream : InputStream {
 			logger.trace("Negative array ?");
 			return null;
 		}
-		byte bb[] = new byte[length];
+		byte[] bb = new byte[length];
 		int n = source.read(bb);
 		if (n == -1) {
 			return null;

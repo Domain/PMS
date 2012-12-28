@@ -130,7 +130,7 @@ public class BasicSystemUtils : SystemUtils {
 	}
 
 	override
-	public void addSystemTray(final LooksFrame frame) {
+	public void addSystemTray(immutable LooksFrame frame) {
 
 		if (SystemTray.isSupported()) {
 			SystemTray tray = SystemTray.getSystemTray();
@@ -198,9 +198,9 @@ public class BasicSystemUtils : SystemUtils {
 	 */
 	override
 	public String[] getPingCommand(String hostAddress, int count, int packetSize) {
-		String[] cmd = [ "ping", /* count */"-c", Integer.toString(count), /* size */
-				"-s", Integer.toString(packetSize), hostAddress ];
-		return cmd;
+		return [ "ping", /* count */"-c", Integer.toString(count), /* size */
+			"-s", Integer.toString(packetSize), hostAddress 
+		];
 	}
 
 	/**

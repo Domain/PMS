@@ -3,8 +3,8 @@ module net.pms.util.Version;
 import java.util.Arrays;
 
 public final class Version : Comparable!Version {
-	private final static int MAX_ELEMENTS = 4;
-	private final int[] elements;
+	private const static int MAX_ELEMENTS = 4;
+	private int[] elements;
 
 	public this(String versionString) {
 		if (versionString is null) {

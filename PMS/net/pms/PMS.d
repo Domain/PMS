@@ -551,7 +551,7 @@ public class PMS {
 	 */
 	public bool installWin32Service() {
 		LOGGER.info(Messages.getString("PMS.41"));
-		String cmdArray[] = ["win32/service/wrapper.exe", "-r", "wrapper.conf"];
+		String[] cmdArray = ["win32/service/wrapper.exe", "-r", "wrapper.conf"];
 		OutputParams output = new OutputParams(configuration);
 		output.noexitcheck = true;
 		ProcessWrapperImpl pwuninstall = new ProcessWrapperImpl(cmdArray, output);
@@ -600,7 +600,7 @@ public class PMS {
 			// add the file even if there are problems so that the user can update the shared folders as required.
 			directories.add(file);
 		}
-		File f[] = new File[directories.size()];
+		File[] f = new File[directories.size()];
 		directories.toArray(f);
 		return f;
 	}
@@ -703,7 +703,7 @@ public class PMS {
 	}
 
 	private synchronized static void createInstance() {
-		assert instance is null; // this should only be called once
+		assert(instance is null); // this should only be called once
 		instance = new PMS();
 
 		try {

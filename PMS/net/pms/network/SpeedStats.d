@@ -126,15 +126,13 @@ public class SpeedStats {
 			SystemUtils sysUtil = PMS.get().getRegistry();
 			immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(sysUtil.getPingCommand(addr.getHostAddress(), 3, 64000), op,
 					true, false);
-			Runnable r = new class() Runnable {
-				public void run() {
+			Runnable r = dgRunnable( {
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
 					}
 					pw.stopProcess();
-				}
-			};
+			});
 
 			Thread failsafe = new Thread(r, "SpeedStats Failsafe");
 			failsafe.start();
@@ -143,7 +141,7 @@ public class SpeedStats {
 			int time = 0;
 			int c = 0;
 
-			for (String line : ls) {
+			foreach (String line ; ls) {
 				int msPos = line.indexOf("ms");
 
 				if (msPos > -1) {
@@ -165,7 +163,7 @@ public class SpeedStats {
 				int speedInMbits = 1024 / time;
 				logger.info("Address " ~ addr ~ " has an estimated network speed of: " ~ speedInMbits.toString() ~ " Mb/s");
 				synchronized(speedStats) {
-					CompletedFuture<Integer> result = new CompletedFuture<Integer>(speedInMbits);
+					CompletedFuture/*<Integer>*/ result = new CompletedFuture/*<Integer>*/(speedInMbits);
 					// update the statistics with a computed future value
 					speedStats.put(ip, result);
 					speedStats.put(hostname, result);

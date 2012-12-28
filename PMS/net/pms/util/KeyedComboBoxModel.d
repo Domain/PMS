@@ -80,7 +80,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 		 * @param key   the key
 		 * @param value the value
 		 */
-		public this(final Object key, final Object value) {
+		public this(Object key, Object value) {
 			this.key = key;
 			this.value = value;
 		}
@@ -128,7 +128,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	/**
 	 * The cached listeners as array.
 	 */
-	private transient ListDataListener[] tempListeners;
+	private ListDataListener[] tempListeners;
 	private bool allowOtherValue;
 
 	/**
@@ -146,7 +146,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param keys   the keys
 	 * @param values the values
 	 */
-	public this(immutable Object[] keys, immutable Object[] values) {
+	public this(Object[] keys, Object[] values) {
 		this();
 		setData(keys, values);
 	}
@@ -158,7 +158,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param keys   the keys
 	 * @param values the values
 	 */
-	public void setData(immutable Object[] keys, immutable Object[] values) {
+	public void setData(Object[] keys, Object[] values) {
 		if (values.length != keys.length) {
 			throw new IllegalArgumentException("Values and text must have the same length.");
 		}
@@ -180,7 +180,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 *
 	 * @param evt the event.
 	 */
-	protected synchronized void fireListDataEvent(immutable ListDataEvent evt) {
+	protected synchronized void fireListDataEvent(ListDataEvent evt) {
 		if (tempListeners is null) {
 			tempListeners = listdatalistener.toArray(new ListDataListener[listdatalistener.size()]);
 		}
@@ -207,7 +207,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 *
 	 * @param anItem the new selected item.
 	 */
-	public void setSelectedKey(immutable Object anItem) {
+	public void setSelectedKey(Object anItem) {
 		if (anItem is null) {
 			selectedItemIndex = -1;
 			selectedItemValue = null;
@@ -232,7 +232,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param anItem the list object to select or <code>null</code> to clear the
 	 *               selection
 	 */
-	public void setSelectedItem(immutable Object anItem) {
+	public void setSelectedItem(Object anItem) {
 		if (anItem is null) {
 			selectedItemIndex = -1;
 			selectedItemValue = null;
@@ -268,7 +268,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 *
 	 * @param l the <code>ListDataListener</code> to be added
 	 */
-	public synchronized void addListDataListener(immutable ListDataListener l) {
+	public synchronized void addListDataListener(ListDataListener l) {
 		listdatalistener.add(l);
 		tempListeners = null;
 	}
@@ -279,12 +279,12 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param index the requested index
 	 * @return the value at <code>index</code>
 	 */
-	public Object getElementAt(immutable int index) {
+	public Object getElementAt(int index) {
 		if (index >= data.size()) {
 			return null;
 		}
 
-		final ComboBoxItemPair datacon = data.get(index);
+		ComboBoxItemPair datacon = data.get(index);
 		if (datacon is null) {
 			return null;
 		}
@@ -297,7 +297,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param index the index of the key.
 	 * @return the the key at the specified index.
 	 */
-	public Object getKeyAt(immutable int index) {
+	public Object getKeyAt(int index) {
 		if (index >= data.size()) {
 			return null;
 		}
@@ -306,7 +306,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 			return null;
 		}
 
-		final ComboBoxItemPair datacon = data.get(index);
+		ComboBoxItemPair datacon = data.get(index);
 		if (datacon is null) {
 			return null;
 		}
@@ -337,7 +337,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 *
 	 * @param l the <code>ListDataListener</code> to be removed
 	 */
-	public void removeListDataListener(immutable ListDataListener l) {
+	public void removeListDataListener(ListDataListener l) {
 		listdatalistener.remove(l);
 		tempListeners = null;
 	}
@@ -349,7 +349,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param anItem the item
 	 * @return the index of the item or -1 if not found.
 	 */
-	private int findDataElementIndex(immutable Object anItem) {
+	private int findDataElementIndex(Object anItem) {
 		if (anItem is null) {
 			throw new NullPointerException("Item to find must not be null");
 		}
@@ -370,7 +370,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param key the key for the element to be searched.
 	 * @return the index of the key, or -1 if not found.
 	 */
-	public int findElementIndex(immutable Object key) {
+	public int findElementIndex(Object key) {
 		if (key is null) {
 			throw new NullPointerException("Item to find must not be null");
 		}
@@ -389,7 +389,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 *
 	 * @param key the key
 	 */
-	public void removeDataElement(immutable Object key) {
+	public void removeDataElement(Object key) {
 		immutable int idx = findDataElementIndex(key);
 		if (idx == -1) {
 			return;
@@ -406,7 +406,7 @@ public class KeyedComboBoxModel : ComboBoxModel {
 	 * @param key    the key
 	 * @param cbitem the display value.
 	 */
-	public void add(immutable Object key, immutable Object cbitem) {
+	public void add(Object key, Object cbitem) {
 		immutable ComboBoxItemPair con = new ComboBoxItemPair(key, cbitem);
 		data.add(con);
 		immutable ListDataEvent evt = new ListDataEvent(this, ListDataEvent.INTERVAL_ADDED, data.size() - 2, data.size() - 2);

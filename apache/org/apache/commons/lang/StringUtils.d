@@ -17,7 +17,7 @@ public class StringUtils {
 		return input is null || input == "";
 	}
 
-	public static bool isEmpty(String input) {
+	public static bool isNotEmpty(String input) {
 		return !isEmpty(input);
 	}
 	

@@ -91,8 +91,7 @@ public class WEB : Format {
 	override
 	// TODO remove screen - it's been tried numerous times (see forum) and it doesn't work
 	public String[] getId() {
-		String[] id = [ "http", "mms", "mmsh", "mmst", "rtsp", "rtp", "udp", "screen" ];
-		return id;
+		return [ "http", "mms", "mmsh", "mmst", "rtsp", "rtp", "udp", "screen" ];
 	}
 
 	override

@@ -26,7 +26,7 @@ import net.pms.dlna.DLNAMediaAudio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.ArrayList;
 
 public class CodecUtil {

@@ -176,7 +176,7 @@ public final class Plist {
 	this() {
 		m_dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		m_dateFormat.setTimeZone(TimeZone.getTimeZone("Z"));
-		m_simpleTypes = new HashMap<Class<?>, ElementType>();
+		m_simpleTypes = new HashMap/*<Class<?>, ElementType>*/();
 		m_simpleTypes.put(Integer.class, ElementType.INTEGER);
 		m_simpleTypes.put(Byte.class, ElementType.INTEGER);
 		m_simpleTypes.put(Short.class, ElementType.INTEGER);
@@ -206,13 +206,13 @@ public final class Plist {
 				case INTEGER:
 					return new XmlElement("integer", o.toString());
 				case TRUE:
-					return new XmlElement(((Boolean) o) ? "true" : "false");
+					return new XmlElement((cast(bool) o) ? "true" : "false");
 				case DATE:
 					return new XmlElement("date", m_dateFormat.format((Date) o));
 				case STRING:
-					return new XmlElement("string", (String) o);
+					return new XmlElement("string", cast(String) o);
 				case DATA:
-					return new XmlElement("data", base64encode((byte[]) o));
+					return new XmlElement("data", base64encode(cast(byte[]) o));
 			}
 		}
 		if (cast(Map)o !is null) {
@@ -435,9 +435,9 @@ public final class Plist {
 			int i1 = BASE64_STRING.indexOf(base64.charAt(i + 1));
 			int i2 = BASE64_STRING.indexOf(base64.charAt(i + 2));
 			int i3 = BASE64_STRING.indexOf(base64.charAt(i + 3));
-			byte b0 = (byte) ((i0 << 2) | (i1 >> 4));
-			byte b1 = (byte) ((i1 << 4) | (i2 >> 2));
-			byte b2 = (byte) ((i2 << 6) | i3);
+			byte b0 = cast(byte) ((i0 << 2) | (i1 >> 4));
+			byte b1 = cast(byte) ((i1 << 4) | (i2 >> 2));
+			byte b2 = cast(byte) ((i2 << 6) | i3);
 			result[index++] = b0;
 			if (index < length) {
 				result[index++] = b1;

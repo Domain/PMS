@@ -36,9 +36,9 @@ import java.io.IOException;
 public class FrameAppender/*<E>*/ : UnsynchronizedAppenderBase/*<E>*/ {
 	private IFrame frame;
 	private Encoder/*<E>*/ encoder;
-	private final ByteArrayOutputStream outputstream = new ByteArrayOutputStream(
+	private immutable ByteArrayOutputStream outputstream = new ByteArrayOutputStream(
 		256);
-	private final Object lock = new Object();
+	private immutable Object lock = new Object();
 
 	/**
 	 * Checks that the required parameters are set and if everything is in

@@ -40,8 +40,7 @@ public class MP3 : Format {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "mp3" ];
-		return id;
+		return [ "mp3" ];
 	}
 
 	/**

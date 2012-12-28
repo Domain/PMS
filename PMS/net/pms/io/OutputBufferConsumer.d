@@ -40,7 +40,7 @@ public class OutputBufferConsumer : OutputConsumer {
 	 * being copied, with 8192 being most commonly used, probably because that is the default
 	 * size for {@link org.jboss.netty.channel.Channel Channel} packets.
 	 */
-	private static final int PIPE_BUFFER_SIZE = 500000;
+	private static const int PIPE_BUFFER_SIZE = 500000;
 
 	public this(InputStream inputStream, OutputParams params) {
 		super(inputStream);
@@ -50,7 +50,7 @@ public class OutputBufferConsumer : OutputConsumer {
 	public void run() {
 		try {
 			// LOGGER.trace("Starting read from pipe");
-			byte buf[] = new byte[PIPE_BUFFER_SIZE];
+			byte[] buf = new byte[PIPE_BUFFER_SIZE];
 			int n = 0;
 			while ((n = inputStream.read(buf)) > 0) {
 				// LOGGER.trace("Fetched " + n + " from pipe");

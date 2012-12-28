@@ -1,10 +1,12 @@
 module java.lang.ProcessBuilder;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.String;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.lang.Process;
 
 public final class ProcessBuilder
 {
@@ -13,14 +15,14 @@ public final class ProcessBuilder
 	private Map/*<String, String>*/ environment;
 	private bool redirectErrorStream;
 
-	public ProcessBuilder(List/*<String>*/ paramList)
+	public this(List/*<String>*/ paramList)
 	{
 		if (paramList is null)
 			throw new NullPointerException();
 		this.command = paramList;
 	}
 
-	public ProcessBuilder(String[] paramArrayOfString)
+	public this(String[] paramArrayOfString)
 	{
 		this.command = new ArrayList(paramArrayOfString.length);
 		foreach (String str ; paramArrayOfString)

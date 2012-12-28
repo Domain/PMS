@@ -53,7 +53,7 @@ public class Request : HTTPResource {
 	private const static String CONTENT_TYPE_UTF8 = "CONTENT-TYPE: text/xml; charset=\"utf-8\"";
 	private const static String CONTENT_TYPE = "Content-Type: text/xml; charset=\"utf-8\"";
 	private static SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss", Locale.US);
-	private final String method;
+	private String method;
 	private String argument;
 	private String soapaction;
 	private String content;
@@ -269,7 +269,7 @@ public class Request : HTTPResource {
 							}
 						}
 
-						final DLNAMediaInfo media = dlna.getMedia();
+						DLNAMediaInfo media = dlna.getMedia();
 
 						if (media !is null) {
 							if (StringUtils.isNotBlank(media.getContainer())) {
@@ -364,7 +364,7 @@ public class Request : HTTPResource {
 			inputStream = getResourceInputStream((argument.opEquals("description/fetch") ? "PMS.xml" : argument));
 
 			if (argument.opEquals("description/fetch")) {
-				byte b[] = new byte[inputStream.available()];
+				byte[] b = new byte[inputStream.available()];
 				inputStream.read(b);
 				String s = new String(b);
 				s = s.replace("[uuid]", PMS.get().usn());//.substring(0, PMS.get().usn().length()-2));

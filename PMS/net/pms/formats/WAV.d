@@ -64,8 +64,7 @@ public class WAV : Format {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "wav" ];
-		return id;
+		return [ "wav" ];
 	}
 
 	/**

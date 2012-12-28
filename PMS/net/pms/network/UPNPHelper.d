@@ -131,7 +131,7 @@ public class UPNPHelper {
 			ssdpSocket.setNetworkInterface(ni);
 
 			// force IPv4 address
-			Enumeration<InetAddress> enm = ni.getInetAddresses();
+			Enumeration/*<InetAddress>*/ enm = ni.getInetAddresses();
 			while (enm.hasMoreElements()) {
 				InetAddress ia = enm.nextElement();
 				if (!(cast(Inet6Address)ia !is null)) {
@@ -188,8 +188,7 @@ public class UPNPHelper {
 	private static int delay = 10000;
 
 	public static void listen() {
-		Runnable rAlive = new class() Runnable {
-			public void run() {
+		Runnable rAlive = dgRunnable( {
 				while (true) {
 					try {
 						Thread.sleep(delay);
@@ -206,13 +205,11 @@ public class UPNPHelper {
 						logger._debug("Error while sending periodic alive message: " ~ e.getMessage());
 					}
 				}
-			}
-		};
+		});
 		aliveThread = new Thread(rAlive, "UPNP-AliveMessageSender");
 		aliveThread.start();
 
-		Runnable r = new class() Runnable {
-			public void run() {
+		Runnable r = dgRunnable( {
 				bool bindErrorReported = false;
 				while (true) {
 					try {
@@ -284,8 +281,7 @@ public class UPNPHelper {
 						sleep(1000);
 					}
 				}
-			}
-		};
+		});
 		listener = new Thread(r, "UPNPHelper");
 		listener.start();
 	}
@@ -325,6 +321,6 @@ public class UPNPHelper {
 	}
 
 	private static InetAddress getUPNPAddress() {
-		return InetAddress.getByAddress(IPV4_UPNP_HOST, new byte[]{(byte) 239, (byte) 255, (byte) 255, (byte) 250});
+		return InetAddress.getByAddress(IPV4_UPNP_HOST, [cast(byte) 239, cast(byte) 255, cast(byte) 255, cast(byte) 250]);
 	}
 }

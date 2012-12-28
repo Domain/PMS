@@ -78,12 +78,12 @@ public class Iso639 {
 		}
 
 		String lang = null;
-		Iterator<Entry<String, String[]>> iterator = links.entrySet().iterator();
+		Iterator/*<Entry<String, String[]>>*/ iterator = links.entrySet().iterator();
 
 		while (iterator.hasNext()) {
 			Entry<String, String[]> entry = iterator.next();
 
-			for (String c : entry.getValue()) {
+			foreach (String c ; entry.getValue()) {
 				if (code.equalsIgnoreCase(c)) {
 					return entry.getKey();
 				}
@@ -154,7 +154,7 @@ public class Iso639 {
 		String isoCode = normalize(code);
 		String[] codes = links.get(language);
 
-		for (String c : codes) {
+		foreach (String c ; codes) {
 			if (c.equalsIgnoreCase(isoCode)) {
 				return true;
 			}

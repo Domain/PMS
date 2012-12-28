@@ -36,7 +36,7 @@ public final class NaturalComparator {
      * <p>A string comparator that does case sensitive comparisons and handles embedded numbers correctly.</p>
      * <p><b>Do not use</b> if your app might ever run on any locale that uses more than 7-bit ascii characters.</p>
      */
-    private static final Comparator/*<String>*/ NATURAL_COMPARATOR_ASCII = new class() Comparator/*<String>*/ {
+    private static Comparator/*<String>*/ NATURAL_COMPARATOR_ASCII = new class() Comparator/*<String>*/ {
         public int compare(String o1, String o2) {
             return compareNaturalAscii(o1, o2);
         }
@@ -46,7 +46,7 @@ public final class NaturalComparator {
      * <p>A string comparator that does case insensitive comparisons and handles embedded numbers correctly.</p>
      * <p><b>Do not use</b> if your app might ever run on any locale that uses more than 7-bit ascii characters.</p>
      */
-    private static final Comparator/*<String>*/ IGNORE_CASE_NATURAL_COMPARATOR_ASCII = new class() Comparator/*<String>()*/ {
+    private static Comparator/*<String>*/ IGNORE_CASE_NATURAL_COMPARATOR_ASCII = new class() Comparator/*<String>()*/ {
         public int compare(String o1, String o2) {
             return compareNaturalIgnoreCaseAscii(o1, o2);
         }
@@ -105,7 +105,7 @@ public final class NaturalComparator {
      * @see #getNaturalComparator()
      * @see #getNaturalComparator(java.text.Collator)
      */
-    public static Comparator<String> getNaturalComparatorAscii() {
+    public static Comparator/*<String>*/ getNaturalComparatorAscii() {
         return NATURAL_COMPARATOR_ASCII;
     }
 

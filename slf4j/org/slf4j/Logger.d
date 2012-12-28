@@ -1,5 +1,9 @@
 module org.slf4j.Logger;
 
+import std.array;
+
+import java.lang.String;
+
 import org.slf4j.log;
 
 /**
@@ -41,7 +45,7 @@ public class Logger {
 	*/
 	const public String ROOT_LOGGER_NAME = "ROOT";
 
-	private auto writer = appender!string();
+	private Appender!(string) writer;
 	private String _name;
 
 	public this(String name)
@@ -55,7 +59,7 @@ public class Logger {
 	public String getName()
 	{
 		return _name;
-	]
+	}
 
 	/**
 	* Is the logger instance enabled for the TRACE level?
@@ -64,7 +68,7 @@ public class Logger {
 	*         false otherwise.
 	* @since 1.4
 	*/
-	public boolean isTraceEnabled()
+	public bool isTraceEnabled()
 	{
 		return info.willLog;
 	}
@@ -97,7 +101,7 @@ public class Logger {
 	* @return True if this Logger is enabled for the DEBUG level,
 	*         false otherwise.
 	*/
-	public boolean isDebugEnabled()
+	public bool isDebugEnabled()
 	{
 		return info.willLog;
 	}
@@ -136,7 +140,7 @@ public class Logger {
 	* @return True if this Logger is enabled for the INFO level,
 	*         false otherwise.
 	*/
-	public boolean isInfoEnabled()
+	public bool isInfoEnabled()
 	{
 		return info.willLog;
 	}
@@ -176,7 +180,7 @@ public class Logger {
 	* @return True if this Logger is enabled for the WARN level,
 	*         false otherwise.
 	*/
-	public boolean isWarnEnabled()
+	public bool isWarnEnabled()
 	{
 		return warning.willLog;
 	}
@@ -213,7 +217,7 @@ public class Logger {
 	* @return True if this Logger is enabled for the ERROR level,
 	*         false otherwise.
 	*/
-	public boolean isErrorEnabled()
+	public bool isErrorEnabled()
 	{
 		return error.willLog;
 	}

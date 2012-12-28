@@ -108,7 +108,7 @@ public class LoggingConfigFileLoader {
 			return;
 		}
 
-		LoggerContext lc = (LoggerContext) ilf;
+		LoggerContext lc = cast(LoggerContext) ilf;
 
 		try {
 			JoranConfigurator configurator = new JoranConfigurator();

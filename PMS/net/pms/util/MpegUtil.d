@@ -11,11 +11,11 @@ public class MpegUtil {
 	public static int getDurationFromMpeg(File f) {
 		RandomAccessFile raf = new RandomAccessFile(f, "r");
 		if (raf.length() >= 500000) {
-			Map<Integer, Integer> ptsStart = checkRange(raf, 0, 250000, false);
+			Map/*<Integer, Integer>*/ ptsStart = checkRange(raf, 0, 250000, false);
 			if (ptsStart !is null) {
-				Map<Integer, Integer> ptsEnd = checkRange(raf, 0, 250000, true);
+				Map/*<Integer, Integer>*/ ptsEnd = checkRange(raf, 0, 250000, true);
 				if (ptsEnd !is null) {
-					Iterator<Integer> iterator = ptsStart.keySet().iterator();
+					Iterator/*<Integer>*/ iterator = ptsStart.keySet().iterator();
 					while (iterator.hasNext()) {
 						Integer id = iterator.next();
 						if (ptsEnd.get(id) !is null) {
@@ -35,7 +35,7 @@ public class MpegUtil {
 	private static Map/*<Integer, Integer>*/ checkRange(RandomAccessFile raf, long startingPos,
 		int range, bool end) {
 		Map/*<Integer, Integer>*/ pts = new HashMap/*<Integer, Integer>*/();
-		byte buffer[] = new byte[range];
+		byte[] buffer = new byte[range];
 		if (end) // statringPos not applicable for end==true
 		{
 			raf.seek(raf.length() - range);

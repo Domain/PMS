@@ -35,7 +35,7 @@ import java.util.StringTokenizer;
 
 public class RequestHandler : Runnable {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!RequestHandler();
-	public final static int SOCKET_BUF_SIZE = 32768;
+	public const static int SOCKET_BUF_SIZE = 32768;
 	private Socket socket;
 	private OutputStream output;
 	private BufferedReader br;

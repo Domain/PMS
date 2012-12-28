@@ -34,8 +34,7 @@ public class PNG : JPG {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "png" ];
-		return id;
+		return  [ "png" ];
 	}
 
 	override

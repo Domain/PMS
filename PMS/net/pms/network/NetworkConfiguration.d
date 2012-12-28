@@ -203,7 +203,7 @@ public class NetworkConfiguration {
 	 * @param parentName
 	 *            The name of the parent network interface.
 	 */
-	private void checkNetworkInterface(Enumeration<NetworkInterface> networkInterfaces, String parentName) {
+	private void checkNetworkInterface(Enumeration/*<NetworkInterface>*/ networkInterfaces, String parentName) {
 		if (networkInterfaces is null) {
 			return;
 		}

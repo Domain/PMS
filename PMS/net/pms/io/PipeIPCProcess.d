@@ -63,7 +63,7 @@ public class PipeIPCProcess : Thread , ProcessWrapper {
 			if (modifier !is null && modifier.isH264AnnexB()) {
 				_in = new H264AnnexBInputStream(_in, modifier.getHeader());
 			} else if (modifier !is null && modifier.isDtsEmbed()) {
-				_out = new DTSAudioOutputStream(_new PCMAudioOutputStream(_out, modifier.getNbChannels(), modifier.getSampleFrequency(), modifier.getBitsPerSample()));
+				_out = new DTSAudioOutputStream(new PCMAudioOutputStream(_out, modifier.getNbChannels(), modifier.getSampleFrequency(), modifier.getBitsPerSample()));
 			} else if (modifier !is null && modifier.isPcm()) {
 				_out = new PCMAudioOutputStream(_out, modifier.getNbChannels(), modifier.getSampleFrequency(), modifier.getBitsPerSample());
 			}
@@ -72,7 +72,7 @@ public class PipeIPCProcess : Thread , ProcessWrapper {
 				_out.write(modifier.getHeader());
 			}
 
-			while ((n = in.read(b)) > -1) {
+			while ((n = _in.read(b)) > -1) {
 				_out.write(b, 0, n);
 				if (_debug !is null) {
 					_debug.write(b, 0, n);

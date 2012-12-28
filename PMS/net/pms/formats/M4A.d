@@ -32,8 +32,7 @@ public class M4A : OGG {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "wma", "m4a", "aac" ];
-		return id;
+		return [ "wma", "m4a", "aac" ];
 	}
 
 	/**

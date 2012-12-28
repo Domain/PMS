@@ -37,7 +37,6 @@ public class FLAC : OGG {
 	 */
 	override
 	public String[] getId() {
-		String[] id = [ "flac", "mlp", "fla" ];
-		return id;
+		return [ "flac", "mlp", "fla" ];
 	}
 }
