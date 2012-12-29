@@ -2,7 +2,7 @@ module net.pms.newgui.FontFileFilter;
 
 import net.pms.Messages;
 
-import javax.swing.filechooser.FileFilter;
+//import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
 public class FontFileFilter : FileFilter {

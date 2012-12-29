@@ -28,17 +28,17 @@ import net.pms.util.FormLayoutUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import javax.swing.*;
-//import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.awt.event.MouseAdapter;
+//import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
-import javax.swing.text.DefaultCaret;
+//import javax.swing.text.DefaultCaret;
 
 public class TracesTab {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!TracesTab();

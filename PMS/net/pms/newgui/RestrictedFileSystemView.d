@@ -3,9 +3,9 @@ module net.pms.newgui.RestrictedFileSystemView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.filechooser.FileView;
+////import javax.swing.*;
+//import javax.swing.filechooser.FileSystemView;
+//import javax.swing.filechooser.FileView;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;

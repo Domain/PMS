@@ -190,7 +190,17 @@
   <Folder name="com">
    <Folder name="sun">
     <Folder name="jna">
+     <Folder name="ptr">
+      <File path="com\sun\jna\ptr\IntByReference.d" />
+     </Folder>
+     <Folder name="win32">
+      <File path="com\sun\jna\win32\StdCallLibrary.d" />
+     </Folder>
+     <File path="com\sun\jna\Memory.d" />
+     <File path="com\sun\jna\Native.d" />
      <File path="com\sun\jna\Platform.d" />
+     <File path="com\sun\jna\Pointer.d" />
+     <File path="com\sun\jna\Structure.d" />
     </Folder>
    </Folder>
   </Folder>

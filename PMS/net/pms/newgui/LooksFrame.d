@@ -18,8 +18,8 @@
  */
 module net.pms.newgui.LooksFrame;
 
-import com.jgoodies.looks.Options;
-import com.jgoodies.looks.plastic.PlasticLookAndFeel;
+//import com.jgoodies.looks.Options;
+//import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import com.sun.jna.Platform;
 import net.pms.Messages;
 import net.pms.PMS;
@@ -32,17 +32,17 @@ import net.pms.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
-//import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.plaf.metal.DefaultMetalTheme;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-//import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
+//import javax.imageio.ImageIO;
+////import javax.swing.*;
+//import javax.swing.border.CompoundBorder;
+//import javax.swing.border.EmptyBorder;
+//import javax.swing.border.EtchedBorder;
+//import javax.swing.plaf.metal.DefaultMetalTheme;
+//import javax.swing.plaf.metal.MetalLookAndFeel;
+////import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+import java.lang.exceptions;
 import java.net.URL;
 import java.util.Locale;
 import java.util.Observable;

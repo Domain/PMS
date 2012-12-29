@@ -28,12 +28,12 @@ import net.pms.configuration.PmsConfiguration;
 import net.pms.dlna.DLNAResource;
 import net.pms.formats.Format;
 
-//import javax.swing.*;
-//import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.event.ItemEvent;
+//import java.awt.event.ItemListener;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
 import java.util.StringTokenizer;
 
 public class MEncoderAviSynth : MEncoderVideo {

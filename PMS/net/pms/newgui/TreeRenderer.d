@@ -21,9 +21,9 @@ module net.pms.newgui.TreeRenderer;
 import net.pms.encoders.Player;
 import net.pms.encoders.PlayerFactory;
 
-//import javax.swing.*;
-import javax.swing.tree.DefaultTreeCellRenderer;
-//import java.awt.*;
+////import javax.swing.*;
+//import javax.swing.tree.DefaultTreeCellRenderer;
+////import java.awt.*;
 
 public class TreeRenderer : DefaultTreeCellRenderer {
 	private static const long serialVersionUID = 8830634234336247114L;

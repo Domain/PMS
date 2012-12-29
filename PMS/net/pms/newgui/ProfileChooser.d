@@ -2,8 +2,8 @@ module net.pms.newgui.ProfileChooser;
 
 import net.pms.Messages;
 
-//import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
+////import javax.swing.*;
+//import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
 public class ProfileChooser {

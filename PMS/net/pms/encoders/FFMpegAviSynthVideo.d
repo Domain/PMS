@@ -25,7 +25,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import javax.swing.JComponent;
+//import javax.swing.JComponent;
 
 import net.pms.PMS;
 import net.pms.dlna.DLNAMediaSubtitle;

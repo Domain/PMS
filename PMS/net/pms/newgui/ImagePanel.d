@@ -21,10 +21,10 @@ module net.pms.newgui.ImagePanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import javax.swing.*;
-//import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.RenderedImage;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.geom.AffineTransform;
+//import java.awt.image.RenderedImage;
 
 class ImagePanel : JPanel {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!ImagePanel();

@@ -19,17 +19,17 @@
 module net.pms.encoders.FFMpegVideo;
 
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.Font;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
+//import java.awt.Font;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.JComponent;
-import javax.swing.JTextField;
+//import javax.swing.JComponent;
+//import javax.swing.JTextField;
 
 import net.pms.configuration.RendererConfiguration;
 import net.pms.dlna.DLNAMediaInfo;

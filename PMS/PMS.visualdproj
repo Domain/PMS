@@ -46,7 +46,7 @@
   <compiler>0</compiler>
   <otherDMD>0</otherDMD>
   <program>$(DMDInstallDir)windows\bin\dmd.exe</program>
-  <imppath>$(SolutionDir)\java $(SolutionDir)\apache $(SolutionDir)\mozilla $(SolutionDir)\sun</imppath>
+  <imppath>$(SolutionDir)\java $(SolutionDir)\apache $(SolutionDir)\mozilla $(SolutionDir)\sun $(SolutionDir)\slf4j</imppath>
   <fileImppath />
   <outdir>$(ConfigurationName)</outdir>
   <objdir>$(OutDir)</objdir>

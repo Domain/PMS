@@ -190,8 +190,12 @@
   <Folder name="org">
    <Folder name="apache">
     <Folder name="commons">
+     <Folder name="configuration">
+      <File path="org\apache\commons\configuration\Configuration.d" />
+     </Folder>
      <Folder name="io">
       <File path="org\apache\commons\io\FilenameUtils.d" />
+      <File path="org\apache\commons\io\IOUtils.d" />
      </Folder>
      <Folder name="lang">
       <File path="org\apache\commons\lang\StringUtils.d" />

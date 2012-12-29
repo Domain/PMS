@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.swing.JComponent;
+//import javax.swing.JComponent;
 
 import net.pms.configuration.PmsConfiguration;
 import net.pms.configuration.RendererConfiguration;

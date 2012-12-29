@@ -21,10 +21,10 @@ module net.pms.encoders.TSMuxerVideo;
 import net.pms.formats.v2.AudioUtils : getLPCMChannelMappingForMencoder;
 import org.apache.commons.lang.StringUtils : isNotBlank;
 
-import java.awt.ComponentOrientation;
-import java.awt.Font;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+//import java.awt.ComponentOrientation;
+//import java.awt.Font;
+//import java.awt.event.ItemEvent;
+//import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,9 +34,9 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Locale;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+//import javax.swing.JCheckBox;
+//import javax.swing.JComponent;
+//import javax.swing.JPanel;
 
 import net.pms.Messages;
 import net.pms.PMS;

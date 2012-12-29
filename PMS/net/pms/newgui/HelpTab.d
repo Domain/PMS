@@ -25,10 +25,10 @@ import net.pms.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-//import java.awt.*;
+////import javax.swing.*;
+//import javax.swing.event.HyperlinkEvent;
+//import javax.swing.event.HyperlinkListener;
+////import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;

@@ -18,7 +18,7 @@
  */
 module net.pms.newgui.MyComboBoxModel;
 
-//import javax.swing.*;
+////import javax.swing.*;
 
 public class MyComboBoxModel : DefaultComboBoxModel {
 	private static const long serialVersionUID = -9094365556516842551L;

@@ -20,15 +20,15 @@ module net.pms.dlna.DLNAMediaInfo;
 
 import com.sun.jna.Platform;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+//import java.awt.Color;
+//import java.awt.Font;
+//import java.awt.Graphics;
+//import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,14 +36,14 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.NoSuchElementException;
+//import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-import javax.imageio.ImageIO;
-
-import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
-import net.coobird.thumbnailator.Thumbnails.Builder;
-import net.coobird.thumbnailator.Thumbnails;
+//import javax.imageio.ImageIO;
+//
+//import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
+//import net.coobird.thumbnailator.Thumbnails.Builder;
+//import net.coobird.thumbnailator.Thumbnails;
 
 import net.pms.PMS;
 import net.pms.configuration.RendererConfiguration;
@@ -60,18 +60,18 @@ import net.pms.util.MpegUtil;
 import net.pms.util.ProcessUtil;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.sanselan.ImageInfo;
-import org.apache.sanselan.Sanselan;
-import org.apache.sanselan.common.IImageMetadata;
-import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
-import org.apache.sanselan.formats.tiff.TiffField;
-import org.apache.sanselan.formats.tiff.constants.TiffConstants;
+//import org.apache.sanselan.ImageInfo;
+//import org.apache.sanselan.Sanselan;
+//import org.apache.sanselan.common.IImageMetadata;
+//import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
+//import org.apache.sanselan.formats.tiff.TiffField;
+//import org.apache.sanselan.formats.tiff.constants.TiffConstants;
 
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.AudioHeader;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
+//import org.jaudiotagger.audio.AudioFile;
+//import org.jaudiotagger.audio.AudioFileIO;
+//import org.jaudiotagger.audio.AudioHeader;
+//import org.jaudiotagger.tag.FieldKey;
+//import org.jaudiotagger.tag.Tag;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
