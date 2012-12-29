@@ -85,8 +85,8 @@ public class ProcessUtil {
 			Process process = Runtime.getRuntime().exec("kill -" ~ signal.toString() ~ " " ~ pid.toString());
 			// "Gob": a cryptic name for (e.g.) StreamGobbler - i.e. a stream
 			// consumer that reads and discards the stream
-			new Gob(process.getErrorStream()).start();
-			new Gob(process.getInputStream()).start();
+			(new Gob(process.getErrorStream())).start();
+			(new Gob(process.getInputStream())).start();
 			int exit = waitFor(process);
 			if (exit == 0) {
 				killed = true;
@@ -102,12 +102,11 @@ public class ProcessUtil {
 	// destroy a process safely (kill -TERM on Unix)
 	public static void destroy(final Process p) {
 		if (p !is null) {
-			final Integer pid = getProcessID(p);
+			Integer pid = getProcessID(p);
 
 			if (pid !is null) { // Unix only
 				logger.trace("Killing the Unix process: " ~ pid.toString());
-				Runnable r = new class() Runnable {
-					public void run() {
+				Runnable r = dgRunnable( {
 						try {
 							Thread.sleep(TERM_TIMEOUT);
 						} catch (InterruptedException e) {
@@ -128,8 +127,7 @@ public class ProcessUtil {
 								kill(pid, 9);
 							}
 						}
-					}
-				};
+				});
 
 				Thread failsafe = new Thread(r, "Process Destroyer");
 				failsafe.start();

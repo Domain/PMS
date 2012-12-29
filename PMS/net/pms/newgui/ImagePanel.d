@@ -21,8 +21,8 @@ module net.pms.newgui.ImagePanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
+//import javax.swing.*;
+//import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 
@@ -99,7 +99,7 @@ class ImagePanel : JPanel {
 	}
 
 	public synchronized void paintComponent(Graphics g) {
-		Graphics2D graphics2d = (Graphics2D) g;
+		Graphics2D graphics2d = cast(Graphics2D) g;
 		if (source is null) {
 			graphics2d.setColor(getBackground());
 			graphics2d.fillRect(0, 0, getWidth(), getHeight());

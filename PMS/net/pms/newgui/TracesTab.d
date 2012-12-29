@@ -28,8 +28,8 @@ import net.pms.util.FormLayoutUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
+//import javax.swing.*;
+//import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -74,7 +74,7 @@ public class TracesTab {
 	private JTextArea jList;
 	protected JScrollPane jListPane;
 
-	TracesTab(PmsConfiguration configuration) {
+	this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -88,11 +88,9 @@ public class TracesTab {
 		// if scroll bar already was at the bottom we schedule
 		// a new scroll event to again scroll to the bottom
 		if (vbar.getMaximum() == vbar.getValue() + vbar.getVisibleAmount())
-			EventQueue.invokeLater (new class() Runnable {
-				public void run () {
+			EventQueue.invokeLater (dgRunnable( {
 					vbar.setValue (vbar.getMaximum ());
-				}
-			});
+			}));
 	}
 
 	public JComponent build() {
@@ -135,16 +133,16 @@ public class TracesTab {
 
 		// Add buttons to open logfiles (there may be more than one)
 		JPanel pLogfileButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		HashMap<String, String> logfiles = LoggingConfigFileLoader.getLogFilePaths();
+		HashMap/*<String, String>*/ logfiles = LoggingConfigFileLoader.getLogFilePaths();
 
-		for (String loggerName : logfiles.keySet()) {
+		foreach (String loggerName ; logfiles.keySet()) {
 			JButton b = new JButton(loggerName);
 			b.setToolTipText(logfiles.get(loggerName));
 
 			b.addMouseListener(new class() MouseAdapter {
 				override
 				public void mouseClicked(MouseEvent e) {
-					File logfile = new File(((JButton) e.getSource()).getToolTipText());
+					File logfile = new File((cast(JButton) e.getSource()).getToolTipText());
 					try {
 						java.awt.Desktop.getDesktop().open(logfile);
 					} catch (IOException ioe) {

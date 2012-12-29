@@ -11,8 +11,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class AutoUpdateDialog : JDialog , Observer {
-	private static final long serialVersionUID = 3809427933990495309L;
-	private final AutoUpdater autoUpdater;
+	private static const long serialVersionUID = 3809427933990495309L;
+	private AutoUpdater autoUpdater;
 	private JLabel stateLabel = new JLabel();
 	private JButton okButton = new DownloadButton();
 	private JButton cancelButton = new CancelButton();
@@ -43,7 +43,7 @@ public class AutoUpdateDialog : JDialog , Observer {
 	private class DownloadButton : JButton , ActionListener {
 		private static const long serialVersionUID = 4762020878159496712L;
 
-		DownloadButton() {
+		this() {
 			super("Download");
 			setEnabled(false);
 			addActionListener(this);
@@ -59,10 +59,10 @@ public class AutoUpdateDialog : JDialog , Observer {
 		}
 	}
 
-	private class CancelButton : JButton : ActionListener {
+	private class CancelButton : JButton , ActionListener {
 		private static const long serialVersionUID = 4762020878159496713L;
 
-		CancelButton() {
+		this() {
 			super("Not Now");
 			setEnabled(true);
 			addActionListener(this);
@@ -73,7 +73,7 @@ public class AutoUpdateDialog : JDialog , Observer {
 			switch (autoUpdater.getState()) {
 				case UPDATE_AVAILABLE:
 				case ERROR:
-					AutoUpdateDialog.this.setVisible(false);
+					AutoUpdateDialog.instance.setVisible(false);
 					break;
 				case DOWNLOAD_IN_PROGRESS:
 					autoUpdater.cancelDownload();
@@ -192,7 +192,7 @@ public class AutoUpdateDialog : JDialog , Observer {
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)).addComponent(stateLabel).addComponent(downloadProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)).addContainerGap()));
 
-		layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[]{cancelButton, okButton});
+		layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, cast(java.awt.Component[])[cancelButton, okButton]);
 
 		layout.setVerticalGroup(
 			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap().addComponent(stateLabel).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(downloadProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(okButton).addComponent(cancelButton)).addContainerGap()));

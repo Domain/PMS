@@ -3,7 +3,7 @@ module net.pms.newgui.RestrictedFileSystemView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
+//import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileView;
 import java.io.File;
@@ -40,7 +40,7 @@ import java.util.Vector;
  */
 public class RestrictedFileSystemView : FileSystemView {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!RestrictedFileSystemView();
-	private static final String newFolderString = UIManager.getString("FileChooser.other.newFolder");
+	private static immutable String newFolderString = UIManager.getString("FileChooser.other.newFolder");
 	private File _defaultDirectory;
 
 	public this() {
@@ -80,7 +80,7 @@ public class RestrictedFileSystemView : FileSystemView {
 	 * @see JFileChooser#isTraversable
 	 * @see FileView#isTraversable
 	 */
-	public Boolean isTraversable(File f) {
+	public bool isTraversable(File f) {
 		return Boolean.valueOf(f.isDirectory());
 	}
 
@@ -280,7 +280,7 @@ public class RestrictedFileSystemView : FileSystemView {
 	 * Gets the list of shown (i.e. not hidden) files.
 	 */
 	public File[] getFiles(File dir, bool useFileHiding) {
-		Vector<File> files = new Vector<File>();
+		Vector/*<File>*/ files = new Vector/*<File>*/();
 
 		// add all files in dir
 		File[] names;
@@ -344,7 +344,7 @@ public class RestrictedFileSystemView : FileSystemView {
 	}
 
 	static class FileSystemRoot : File {
-		private static final long serialVersionUID = -807847319198119832L;
+		private static const long serialVersionUID = -807847319198119832L;
 
 		public this(File f) {
 			super(f, "");
@@ -372,15 +372,15 @@ public class RestrictedFileSystemView : FileSystemView {
 		int i = 2;
 		while (newFolder.exists() && (i < 100)) {
 			newFolder = createFileObject(containingDir, MessageFormat.format(newFolderString,
-				new Object[] { Integer.valueOf(i) }));
+																			 [ Integer.valueOf(i) ]));
 			i++;
 		}
 
 		if (newFolder.exists()) {
-			throw new IOException("Directory already exists:" + newFolder.getAbsolutePath());
+			throw new IOException("Directory already exists:" ~ newFolder.getAbsolutePath());
 		} else {
 			if (!newFolder.mkdirs()) {
-				LOGGER._debug("Could not create directory \"" + newFolder.getAbsolutePath() + "\"");
+				LOGGER._debug("Could not create directory \"" ~ newFolder.getAbsolutePath() ~ "\"");
 			}
 		}
 

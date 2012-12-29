@@ -487,7 +487,7 @@ public class PMS {
 			override
 			public void run() {
 				try {
-					for (ExternalListener l : ExternalFactory.getExternalListeners()) {
+					foreach (ExternalListener l ; ExternalFactory.getExternalListeners()) {
 						l.shutdown();
 					}
 					UPNPHelper.shutDownListener();

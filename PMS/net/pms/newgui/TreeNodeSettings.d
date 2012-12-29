@@ -28,15 +28,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+//import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
+//import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class TreeNodeSettings : DefaultMutableTreeNode {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!TreeNodeSettings();
-	private static final long serialVersionUID = -337606760204027449L;
+	private static const long serialVersionUID = -337606760204027449L;
 	private Player p;
 	private JComponent otherConfigPanel;
 	private bool enable = true;
@@ -66,7 +66,7 @@ public class TreeNodeSettings : DefaultMutableTreeNode {
 		if (p !is null) {
 			return p.id();
 		} else if (otherConfigPanel !is null) {
-			return "" + otherConfigPanel.hashCode();
+			return otherConfigPanel.hashCode().toString();
 		} else {
 			return null;
 		}
@@ -90,7 +90,7 @@ public class TreeNodeSettings : DefaultMutableTreeNode {
 		if (warningPanel is null) {
 			BufferedImage bi = null;
 			try {
-				bi = ImageIO.read(LooksFrame.class.getResourceAsStream("/resources/images/messagebox_warning-220.png"));
+				bi = ImageIO.read(LooksFrame._class.getResourceAsStream("/resources/images/messagebox_warning-220.png"));
 			} catch (IOException e) {
 				LOGGER._debug("Caught exception", e);
 			}

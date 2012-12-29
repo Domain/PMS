@@ -32,33 +32,33 @@ import net.pms.util.FormLayoutUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
+//import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import java.awt.*;
-import java.awt.event.*;
+//import java.awt.*;
+//import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class TranscodingTab {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!TranscodingTab();
-	private static final String COMMON_COL_SPEC = "left:pref, 2dlu, pref:grow";
-	private static final String COMMON_ROW_SPEC = "p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 9dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 9dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 9dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p";
-	private static final String EMPTY_COL_SPEC = "left:pref, 2dlu, pref:grow";
-	private static final String EMPTY_ROW_SPEC = "p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p , 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 20dlu, p, 3dlu, p, 3dlu, p";
-	private static final String LEFT_COL_SPEC = "left:pref, pref, pref, pref, 0:grow";
-	private static final String LEFT_ROW_SPEC = "fill:10:grow, 3dlu, p, 3dlu, p, 3dlu, p";
-	private static final String MAIN_COL_SPEC = "left:pref, pref, 7dlu, pref, pref, fill:10:grow";
-	private static final String MAIN_ROW_SPEC = "fill:10:grow";
+	private static const String COMMON_COL_SPEC = "left:pref, 2dlu, pref:grow";
+	private static const String COMMON_ROW_SPEC = "p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 9dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 9dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 9dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p";
+	private static const String EMPTY_COL_SPEC = "left:pref, 2dlu, pref:grow";
+	private static const String EMPTY_ROW_SPEC = "p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p , 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 20dlu, p, 3dlu, p, 3dlu, p";
+	private static const String LEFT_COL_SPEC = "left:pref, pref, pref, pref, 0:grow";
+	private static const String LEFT_ROW_SPEC = "fill:10:grow, 3dlu, p, 3dlu, p, 3dlu, p";
+	private static const String MAIN_COL_SPEC = "left:pref, pref, 7dlu, pref, pref, fill:10:grow";
+	private static const String MAIN_ROW_SPEC = "fill:10:grow";
 
-	private final PmsConfiguration configuration;
+	private PmsConfiguration configuration;
 	private ComponentOrientation orientation;
 
-	TranscodingTab(PmsConfiguration configuration) {
+	this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 		// Apply the orientation for the locale
 		Locale locale = new Locale(configuration.getLanguage());
@@ -86,10 +86,10 @@ public class TranscodingTab {
 	private JCheckBox mpeg2remux;
 	private JCheckBox chapter_support;
 	private JTextField chapter_interval;
-	private static final int MAX_CORES = 32;
+	private static const int MAX_CORES = 32;
 
 	private void updateEngineModel() {
-		ArrayList<String> engines = new ArrayList<String>();
+		ArrayList/*<String>*/ engines = new ArrayList/*<String>*/();
 		Object root = tree.getModel().getRoot();
 		for (int i = 0; i < tree.getModel().getChildCount(root); i++) {
 			Object firstChild = tree.getModel().getChild(root, i);
@@ -97,7 +97,7 @@ public class TranscodingTab {
 				for (int j = 0; j < tree.getModel().getChildCount(firstChild); j++) {
 					Object secondChild = tree.getModel().getChild(firstChild, j);
 					if (cast(TreeNodeSettings)secondChild !is null) {
-						TreeNodeSettings tns = (TreeNodeSettings) secondChild;
+						TreeNodeSettings tns = cast(TreeNodeSettings) secondChild;
 						if (tns.isEnable() && tns.getPlayer() !is null) {
 							engines.add(tns.getPlayer().id());
 						}
@@ -161,12 +161,12 @@ public class TranscodingTab {
 				if (path !is null && cast(TreeNodeSettings)path.getLastPathComponent() !is null) {
 					TreeNodeSettings node = cast(TreeNodeSettings) path.getLastPathComponent();
 					if (node.getPlayer() !is null) {
-						DefaultTreeModel dtm = (DefaultTreeModel) tree.getModel();   // get the tree model
+						DefaultTreeModel dtm = cast(DefaultTreeModel) tree.getModel();   // get the tree model
 						//now get the index of the selected node in the DefaultTreeModel
 						int index = dtm.getIndexOfChild(node.getParent(), node);
 						// if selected node is first, return (can't move it up)
 						if (index < node.getParent().getChildCount() - 1) {
-							dtm.insertNodeInto(node, (DefaultMutableTreeNode) node.getParent(), index + 1);   // move the node
+							dtm.insertNodeInto(node, cast(DefaultMutableTreeNode) node.getParent(), index + 1);   // move the node
 							dtm.reload();
 							for (int i = 0; i < tree.getRowCount(); i++) {
 								tree.expandRow(i);
@@ -188,12 +188,12 @@ public class TranscodingTab {
 				if (path !is null && cast(TreeNodeSettings)path.getLastPathComponent() !is null) {
 					TreeNodeSettings node = cast(TreeNodeSettings) path.getLastPathComponent();
 					if (node.getPlayer() !is null) {
-						DefaultTreeModel dtm = (DefaultTreeModel) tree.getModel();   // get the tree model
+						DefaultTreeModel dtm = cast(DefaultTreeModel) tree.getModel();   // get the tree model
 						//now get the index of the selected node in the DefaultTreeModel
 						int index = dtm.getIndexOfChild(node.getParent(), node);
 						// if selected node is first, return (can't move it up)
 						if (index != 0) {
-							dtm.insertNodeInto(node, (DefaultMutableTreeNode) node.getParent(), index - 1);   // move the node
+							dtm.insertNodeInto(node, cast(DefaultMutableTreeNode) node.getParent(), index - 1);   // move the node
 							dtm.reload();
 							for (int i = 0; i < tree.getRowCount(); i++) {
 								tree.expandRow(i);
@@ -213,7 +213,7 @@ public class TranscodingTab {
 			public void actionPerformed(ActionEvent e) {
 				TreePath path = tree.getSelectionModel().getSelectionPath();
 				if (path !is null && cast(TreeNodeSettings)path.getLastPathComponent() !is null && (cast(TreeNodeSettings) path.getLastPathComponent()).getPlayer() !is null) {
-					((TreeNodeSettings) path.getLastPathComponent()).setEnable(!((TreeNodeSettings) path.getLastPathComponent()).isEnable());
+					(cast(TreeNodeSettings) path.getLastPathComponent()).setEnable(!(cast(TreeNodeSettings) path.getLastPathComponent()).isEnable());
 					updateEngineModel();
 					tree.updateUI();
 				}
@@ -244,8 +244,8 @@ public class TranscodingTab {
 		root.add(parent[3]);
 		root.add(parent[4]);
 
-		tree = new JTree(new DefaultTreeModel(root)) {
-			private static final long serialVersionUID = -6703434752606636290L;
+		tree = new class(new DefaultTreeModel(root)) JTree {
+			private static const long serialVersionUID = -6703434752606636290L;
 		};
 		tree.setRootVisible(false);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -276,13 +276,13 @@ public class TranscodingTab {
 	}
 
 	public void addEngines() {
-		ArrayList<Player> disPlayers = new ArrayList<Player>();
-		ArrayList<Player> ordPlayers = new ArrayList<Player>();
+		ArrayList/*<Player>*/ disPlayers = new ArrayList/*<Player>*/();
+		ArrayList/*<Player>*/ ordPlayers = new ArrayList/*<Player>*/();
 		PMS r = PMS.get();
 
-		for (String id : configuration.getEnginesAsList(r.getRegistry())) {
+		foreach (String id ; configuration.getEnginesAsList(r.getRegistry())) {
 			//bool matched = false;
-			for (Player p : PlayerFactory.getAllPlayers()) {
+			foreach (Player p ; PlayerFactory.getAllPlayers()) {
 				if (p.id().opEquals(id)) {
 					ordPlayers.add(p);
 					//matched = true;
@@ -290,14 +290,14 @@ public class TranscodingTab {
 			}
 		}
 
-		for (Player p : PlayerFactory.getAllPlayers()) {
+		foreach (Player p ; PlayerFactory.getAllPlayers()) {
 			if (!ordPlayers.contains(p)) {
 				ordPlayers.add(p);
 				disPlayers.add(p);
 			}
 		}
 
-		for (Player p : ordPlayers) {
+		foreach (Player p ; ordPlayers) {
 			TreeNodeSettings en = new TreeNodeSettings(p.name(), p, null);
 			if (disPlayers.contains(p)) {
 				en.setEnable(false);
@@ -352,7 +352,7 @@ public class TranscodingTab {
 
 		CellConstraints cc = new CellConstraints();
 
-		maxbuffer = new JTextField("" + configuration.getMaxMemoryBufferSize());
+		maxbuffer = new JTextField(configuration.getMaxMemoryBufferSize().toString());
 		maxbuffer.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
@@ -368,13 +368,13 @@ public class TranscodingTab {
 					int ab = Integer.parseInt(maxbuffer.getText());
 					configuration.setMaxMemoryBufferSize(ab);
 				} catch (NumberFormatException nfe) {
-					LOGGER._debug("Could not parse max memory buffer size from \"" + maxbuffer.getText() + "\"");
+					LOGGER._debug("Could not parse max memory buffer size from \"" ~ maxbuffer.getText() ~ "\"");
 				}
 			}
 		});
 
 		JComponent cmp = builder.addSeparator(Messages.getString("NetworkTab.5"), FormLayoutUtil.flip(cc.xyw(1, 1, 3), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.addLabel(Messages.getString("NetworkTab.6").replaceAll("MAX_BUFFER_SIZE", configuration.getMaxMemoryBufferSizeStr()), FormLayoutUtil.flip(cc.xy(1, 3), colSpec, orientation));
@@ -403,7 +403,7 @@ public class TranscodingTab {
 		});
 		builder.add(nbcores, FormLayoutUtil.flip(cc.xy(3, 5), colSpec, orientation));
 
-		chapter_interval = new JTextField("" + configuration.getChapterInterval());
+		chapter_interval = new JTextField(configuration.getChapterInterval().toString());
 		chapter_interval.setEnabled(configuration.isChapterSupport());
 		chapter_interval.addKeyListener(new class() KeyListener {
 			override
@@ -420,7 +420,7 @@ public class TranscodingTab {
 					int ab = Integer.parseInt(chapter_interval.getText());
 					configuration.setChapterInterval(ab);
 				} catch (NumberFormatException nfe) {
-					LOGGER._debug("Could not parse chapter interval from \"" + chapter_interval.getText() + "\"");
+					LOGGER._debug("Could not parse chapter interval from \"" ~ chapter_interval.getText() ~ "\"");
 				}
 			}
 		});
@@ -441,10 +441,10 @@ public class TranscodingTab {
 		builder.add(chapter_interval, FormLayoutUtil.flip(cc.xy(3, 7), colSpec, orientation));
 
 		cmp = builder.addSeparator(Messages.getString("TrTab2.3"), FormLayoutUtil.flip(cc.xyw(1, 11, 3), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
-		channels = new JComboBox(new Object[]{Messages.getString("TrTab2.55"),  Messages.getString("TrTab2.56") /*, "8 channels 7.1" */}); // 7.1 not supported by Mplayer :\
+		channels = new JComboBox([Messages.getString("TrTab2.55"),  Messages.getString("TrTab2.56") /*, "8 channels 7.1" */]); // 7.1 not supported by Mplayer :\
 		channels.setEditable(false);
 		if (configuration.getAudioChannelCount() == 2) {
 			channels.setSelectedIndex(0);
@@ -473,7 +473,7 @@ public class TranscodingTab {
 
         builder.add(forcePCM, FormLayoutUtil.flip(cc.xyw(1, 15, 3), colSpec, orientation));
 
-        ac3remux = new JCheckBox(Messages.getString("MEncoderVideo.32") + (Platform.isWindows() ? Messages.getString("TrTab2.21") : ""));
+        ac3remux = new JCheckBox(Messages.getString("MEncoderVideo.32") ~ (Platform.isWindows() ? Messages.getString("TrTab2.21") : ""));
         ac3remux.setContentAreaFilled(false);
         if (configuration.isRemuxAC3()) {
             ac3remux.setSelected(true);
@@ -486,7 +486,7 @@ public class TranscodingTab {
 
         builder.add(ac3remux, FormLayoutUtil.flip(cc.xyw(1, 17, 3), colSpec, orientation));
 
-        forceDTSinPCM = new JCheckBox(Messages.getString("TrTab2.28") + (Platform.isWindows() ? Messages.getString("TrTab2.21") : ""));
+        forceDTSinPCM = new JCheckBox(Messages.getString("TrTab2.28") ~ (Platform.isWindows() ? Messages.getString("TrTab2.21") : ""));
         forceDTSinPCM.setContentAreaFilled(false);
         if (configuration.isDTSEmbedInPCM()) {
             forceDTSinPCM.setSelected(true);
@@ -497,7 +497,7 @@ public class TranscodingTab {
                 configuration.setDTSEmbedInPCM(forceDTSinPCM.isSelected());
                 if (configuration.isDTSEmbedInPCM()) {
                     JOptionPane.showMessageDialog(
-                            (JFrame) (SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame())),
+                            cast(JFrame) (SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame())),
                             Messages.getString("TrTab2.10"),
                             Messages.getString("Dialog.Information"),
                             JOptionPane.INFORMATION_MESSAGE);
@@ -507,7 +507,7 @@ public class TranscodingTab {
 
         builder.add(forceDTSinPCM, FormLayoutUtil.flip(cc.xyw(1, 19, 3), colSpec, orientation));
 
-        abitrate = new JTextField("" + configuration.getAudioBitrate());
+        abitrate = new JTextField(configuration.getAudioBitrate().toString());
 		abitrate.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
@@ -523,7 +523,7 @@ public class TranscodingTab {
 					int ab = Integer.parseInt(abitrate.getText());
 					configuration.setAudioBitrate(ab);
 				} catch (NumberFormatException nfe) {
-					LOGGER._debug("Could not parse audio bitrate from \"" + abitrate.getText() + "\"");
+					LOGGER._debug("Could not parse audio bitrate from \"" ~ abitrate.getText() ~ "\"");
 				}
 			}
 		});
@@ -531,7 +531,7 @@ public class TranscodingTab {
 		builder.addLabel(Messages.getString("TrTab2.29"), FormLayoutUtil.flip(cc.xy(1, 21), colSpec, orientation));
 		builder.add(abitrate, FormLayoutUtil.flip(cc.xy(3, 21), colSpec, orientation));
 
-		mpeg2remux = new JCheckBox(Messages.getString("MEncoderVideo.39") + (Platform.isWindows() ? Messages.getString("TrTab2.21") : ""));
+		mpeg2remux = new JCheckBox(Messages.getString("MEncoderVideo.39") ~ (Platform.isWindows() ? Messages.getString("TrTab2.21") : ""));
 		mpeg2remux.setContentAreaFilled(false);
 		if (configuration.isMencoderRemuxMPEG2()) {
 			mpeg2remux.setSelected(true);
@@ -545,12 +545,12 @@ public class TranscodingTab {
 		builder.add(mpeg2remux, FormLayoutUtil.flip(cc.xyw(1, 23, 3), colSpec, orientation));
 
 		cmp = builder.addSeparator(Messages.getString("TrTab2.4"), FormLayoutUtil.flip(cc.xyw(1, 25, 3), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.addLabel(Messages.getString("TrTab2.32"), FormLayoutUtil.flip(cc.xyw(1, 29, 3), colSpec, orientation));
 
-		Object data[] = new Object[] {
+		Object[] data = [
 			configuration.getMencoderMainSettings(),                                                /* default */
 			String.format("keyint=5:vqscale=1:vqmin=2  /* %s */", Messages.getString("TrTab2.60")), /* great */
 			String.format("keyint=5:vqscale=1:vqmin=1  /* %s */", Messages.getString("TrTab2.61")), /* lossless */
@@ -558,7 +558,7 @@ public class TranscodingTab {
 			String.format("keyint=25:vqmax=5:vqmin=2  /* %s */",  Messages.getString("TrTab2.63")), /* good (wireless) */
 			String.format("keyint=25:vqmax=7:vqmin=2  /* %s */",  Messages.getString("TrTab2.64")), /* medium (wireless) */
 			String.format("keyint=25:vqmax=8:vqmin=3  /* %s */",  Messages.getString("TrTab2.65"))  /* low */
-		};
+		];
 
 		MyComboBoxModel cbm = new MyComboBoxModel(data);
 
@@ -566,7 +566,7 @@ public class TranscodingTab {
 		vq.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					String s = (String) e.getItem();
+					String s = cast(String) e.getItem();
 					if (s.indexOf("/*") > -1) {
 						s = s.substring(0, s.indexOf("/*")).trim();
 					}
@@ -608,7 +608,7 @@ public class TranscodingTab {
 		disableSubs.setContentAreaFilled(false);
 
 		cmp = builder.addSeparator(Messages.getString("TrTab2.7"), FormLayoutUtil.flip(cc.xyw(1, 33, 3), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.add(disableSubs, FormLayoutUtil.flip(cc.xy(1, 35), colSpec, orientation));

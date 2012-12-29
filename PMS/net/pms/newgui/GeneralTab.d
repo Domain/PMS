@@ -37,9 +37,9 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -47,8 +47,8 @@ import java.util.Locale;
 public class GeneralTab {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!GeneralTab();
 
-	private static final String COL_SPEC = "left:pref, 2dlu, p, 2dlu , p, 2dlu, p, 2dlu, pref:grow";
-	private static final String ROW_SPEC = "p, 0dlu, p, 0dlu, p, 3dlu, p, 3dlu, p, 3dlu,p, 3dlu, p, 15dlu, p, 3dlu,p, 3dlu, p,  3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p,3dlu, p, 3dlu, p, 15dlu, p,3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 15dlu, p, 3dlu, p";
+	private static const String COL_SPEC = "left:pref, 2dlu, p, 2dlu , p, 2dlu, p, 2dlu, pref:grow";
+	private static const String ROW_SPEC = "p, 0dlu, p, 0dlu, p, 3dlu, p, 3dlu, p, 3dlu,p, 3dlu, p, 15dlu, p, 3dlu,p, 3dlu, p,  3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p,3dlu, p, 3dlu, p, 15dlu, p,3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 15dlu, p, 3dlu, p";
 
 	private JCheckBox smcheckBox;
 	private JCheckBox autoUpdateCheckBox;
@@ -64,7 +64,7 @@ public class GeneralTab {
 	private JPanel pPlugins;
 	private final PmsConfiguration configuration;
 
-	GeneralTab(PmsConfiguration configuration) {
+	this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -95,20 +95,20 @@ public class GeneralTab {
 
 		JComponent cmp = builder.addSeparator(Messages.getString("NetworkTab.5"),
 				FormLayoutUtil.flip(cc.xyw(1, 1, 9), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 		builder.addLabel(Messages.getString("NetworkTab.0"), 
 				FormLayoutUtil.flip(cc.xy(1, 7), colSpec, orientation));
-		final KeyedComboBoxModel kcbm = new KeyedComboBoxModel(new Object[] {
+		KeyedComboBoxModel kcbm = new KeyedComboBoxModel([
 				"ar", "bg", "ca", "zhs", "zht", "cz", "da", "nl", "en", "fi", "fr",
 				"de", "el", "iw", "is", "it", "ja", "ko", "no", "pl", "pt", "br",
-				"ro", "ru", "sl", "es", "sv", "tr" }, new Object[] {
+				"ro", "ru", "sl", "es", "sv", "tr" ], [
 				"Arabic", "Bulgarian", "Catalan", "Chinese (Simplified)",
 				"Chinese (Traditional)", "Czech", "Danish", "Dutch", "English",
 				"Finnish", "French", "German", "Greek", "Hebrew", "Icelandic", "Italian",
 				"Japanese", "Korean", "Norwegian", "Polish", "Portuguese",
 				"Portuguese (Brazilian)", "Romanian", "Russian", "Slovenian",
-				"Spanish", "Swedish", "Turkish" });
+				"Spanish", "Swedish", "Turkish" ]);
 		langs = new JComboBox(kcbm);
 		langs.setEditable(false);
 		String defaultLang = null;
@@ -128,7 +128,7 @@ public class GeneralTab {
 		langs.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					configuration.setLanguage((String) kcbm.getSelectedKey());
+					configuration.setLanguage(cast(String) kcbm.getSelectedKey());
 
 				}
 			}
@@ -144,7 +144,7 @@ public class GeneralTab {
 			public void actionPerformed(ActionEvent e) {
 				if (PMS.get().installWin32Service()) {
 					JOptionPane.showMessageDialog(
-						(JFrame) (SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame())),
+						cast(JFrame) (SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame())),
 						Messages.getString("NetworkTab.11") +
 						Messages.getString("NetworkTab.12"),
 						Messages.getString("Dialog.Information"),
@@ -152,7 +152,7 @@ public class GeneralTab {
 
 				} else {
 					JOptionPane.showMessageDialog(
-						(JFrame) (SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame())),
+						cast(JFrame) (SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame())),
 						Messages.getString("NetworkTab.14"),
 						Messages.getString("Dialog.Error"),
 						JOptionPane.ERROR_MESSAGE);
@@ -171,7 +171,7 @@ public class GeneralTab {
 		checkForUpdates.addActionListener(new class() ActionListener {
 			override
 			public void actionPerformed(ActionEvent e) {
-				LooksFrame frame = (LooksFrame) PMS.get().getFrame();
+				LooksFrame frame = cast(LooksFrame) PMS.get().getFrame();
 				frame.checkForUpdates();
 			}
 		});
@@ -213,7 +213,7 @@ public class GeneralTab {
 			}
 		});
 
-		port = new JTextField(configuration.getServerPort() != 5001 ? "" + configuration.getServerPort() : "");
+		port = new JTextField(configuration.getServerPort() != 5001 ? configuration.getServerPort().toString() : "");
 		port.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
@@ -240,16 +240,16 @@ public class GeneralTab {
 		});
 
 		cmp = builder.addSeparator(Messages.getString("NetworkTab.22"), FormLayoutUtil.flip(cc.xyw(1, 21, 9), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
-		final KeyedComboBoxModel networkInterfaces = createNetworkInterfacesModel();
+		KeyedComboBoxModel networkInterfaces = createNetworkInterfacesModel();
 		networkinterfacesCBX = new JComboBox(networkInterfaces);
 		networkInterfaces.setSelectedKey(configuration.getNetworkInterface());
 		networkinterfacesCBX.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					configuration.setNetworkInterface((String) networkInterfaces.getSelectedKey());
+					configuration.setNetworkInterface(cast(String) networkInterfaces.getSelectedKey());
 				}
 			}
 		});
@@ -299,7 +299,7 @@ public class GeneralTab {
 
 
 		cmp = builder.addSeparator(Messages.getString("NetworkTab.31"), FormLayoutUtil.flip(cc.xyw(1, 33, 9), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		newHTTPEngine = new JCheckBox(Messages.getString("NetworkTab.32"));
@@ -334,14 +334,14 @@ public class GeneralTab {
 
 		builder.addLabel(Messages.getString("NetworkTab.36"), FormLayoutUtil.flip(cc.xy(1, 39), colSpec, orientation));
 		
-		ArrayList<RendererConfiguration> allConfs = RendererConfiguration.getAllRendererConfigurations();
-		ArrayList<Object> keyValues = new ArrayList<Object>();
-		ArrayList<Object> nameValues = new ArrayList<Object>();
+		ArrayList/*<RendererConfiguration>*/ allConfs = RendererConfiguration.getAllRendererConfigurations();
+		ArrayList/*<Object>*/ keyValues = new ArrayList/*<Object>*/();
+		ArrayList/*<Object>*/ nameValues = new ArrayList/*<Object>*/();
 		keyValues.add("");
 		nameValues.add(Messages.getString("NetworkTab.37"));
 
 		if (allConfs !is null) {
-			for (RendererConfiguration renderer : allConfs) {
+			foreach (RendererConfiguration renderer ; allConfs) {
 				if (renderer !is null) {
 					keyValues.add(renderer.getRendererName());
 					nameValues.add(renderer.getRendererName());
@@ -349,9 +349,9 @@ public class GeneralTab {
 			}
 		}
 
-		final KeyedComboBoxModel renderersKcbm = new KeyedComboBoxModel(
-				(Object[]) keyValues.toArray(new Object[keyValues.size()]),
-				(Object[]) nameValues.toArray(new Object[nameValues.size()]));
+		KeyedComboBoxModel renderersKcbm = new KeyedComboBoxModel(
+				cast(Object[]) keyValues.toArray(new Object[keyValues.size()]),
+				cast(Object[]) nameValues.toArray(new Object[nameValues.size()]));
 		renderers = new JComboBox(renderersKcbm);
 		renderers.setEditable(false);
 		String defaultRenderer = configuration.getRendererDefault();
@@ -366,7 +366,7 @@ public class GeneralTab {
 		builder.add(fdCheckBox, FormLayoutUtil.flip(cc.xyw(1, 41, 9), colSpec, orientation));
 
 		cmp = builder.addSeparator(Messages.getString("NetworkTab.34"), FormLayoutUtil.flip(cc.xyw(1, 43, 9), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		pPlugins = new JPanel(new GridLayout());
@@ -386,8 +386,8 @@ public class GeneralTab {
 	}
 
 	private KeyedComboBoxModel createNetworkInterfacesModel() {
-		List<String> keys = NetworkConfiguration.getInstance().getKeys();
-		List<String> names = NetworkConfiguration.getInstance().getDisplayNames();
+		List/*<String>*/ keys = NetworkConfiguration.getInstance().getKeys();
+		List/*<String>*/ names = NetworkConfiguration.getInstance().getDisplayNames();
 		keys.add(0, "");
 		names.add(0, "");
 		final KeyedComboBoxModel networkInterfaces = new KeyedComboBoxModel(keys.toArray(), names.toArray());
@@ -398,14 +398,14 @@ public class GeneralTab {
 	 * Add the renderer configuration selection after they have been intialized.
 	 */
 	public void addRenderers() {
-		ArrayList<RendererConfiguration> allConfs = RendererConfiguration.getAllRendererConfigurations();
-		ArrayList<Object> keyValues = new ArrayList<Object>();
-		ArrayList<Object> nameValues = new ArrayList<Object>();
+		ArrayList/*<RendererConfiguration>*/ allConfs = RendererConfiguration.getAllRendererConfigurations();
+		ArrayList/*<Object>*/ keyValues = new ArrayList/*<Object>*/();
+		ArrayList/*<Object>*/ nameValues = new ArrayList/*<Object>*/();
 		keyValues.add("");
 		nameValues.add(Messages.getString("NetworkTab.37"));
 		
 		if (allConfs !is null) {
-			for (RendererConfiguration renderer : allConfs) {
+			foreach (RendererConfiguration renderer ; allConfs) {
 				if (renderer !is null) {
 					keyValues.add(renderer.getRendererName());
 					nameValues.add(renderer.getRendererName());
@@ -413,9 +413,9 @@ public class GeneralTab {
 			}
 		}
 		
-		final KeyedComboBoxModel renderersKcbm = new KeyedComboBoxModel(
-				(Object[]) keyValues.toArray(new Object[keyValues.size()]),
-				(Object[]) nameValues.toArray(new Object[nameValues.size()]));
+		KeyedComboBoxModel renderersKcbm = new KeyedComboBoxModel(
+				cast(Object[]) keyValues.toArray(new Object[keyValues.size()]),
+				cast(Object[]) nameValues.toArray(new Object[nameValues.size()]));
 		renderers.setModel(renderersKcbm);
 		renderers.setEditable(false);
 		String defaultRenderer = configuration.getRendererDefault();
@@ -428,8 +428,8 @@ public class GeneralTab {
 		renderers.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					logger.info("Setting renderer default: \"" + renderersKcbm.getSelectedKey() + "\"");
-					configuration.setRendererDefault((String) renderersKcbm.getSelectedKey());
+					logger.info("Setting renderer default: \"" ~ renderersKcbm.getSelectedKey() ~ "\"");
+					configuration.setRendererDefault(cast(String) renderersKcbm.getSelectedKey());
 				}
 			}
 		});
@@ -443,7 +443,7 @@ public class GeneralTab {
 
 		CellConstraints cc = new CellConstraints();
 		int i = 1;
-		for (final ExternalListener listener : ExternalFactory.getExternalListeners()) {
+		foreach (ExternalListener listener ; ExternalFactory.getExternalListeners()) {
 			if (i > 30) {
 				logger.warn("Plugin limit of 30 has been reached");
 				break;
@@ -454,7 +454,7 @@ public class GeneralTab {
 				override
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showOptionDialog(
-							(JFrame) (SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame())), 
+							cast(JFrame) (SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame())), 
 							listener.config(),
 							Messages.getString("Dialog.Options"),
 							JOptionPane.CLOSED_OPTION,

@@ -1,6 +1,6 @@
 module net.pms.util.UriRetriever;
 
-import org.apache.commons.httpclient.*;
+//import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.ByteArrayOutputStream;

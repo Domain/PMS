@@ -82,7 +82,7 @@ public final class Plist {
 	 * @param data the nested data to store as a plist.
 	 * @return the resulting xml as a string.
 	 */
-	public static String toXml(Map<String, Object> data) {
+	public static String toXml(Map/*<String, Object>*/ data) {
 		StringBuilder builder = new StringBuilder(
 			"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 			~ "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" "
@@ -177,17 +177,18 @@ public final class Plist {
 		m_dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		m_dateFormat.setTimeZone(TimeZone.getTimeZone("Z"));
 		m_simpleTypes = new HashMap/*<Class<?>, ElementType>*/();
-		m_simpleTypes.put(Integer.class, ElementType.INTEGER);
-		m_simpleTypes.put(Byte.class, ElementType.INTEGER);
-		m_simpleTypes.put(Short.class, ElementType.INTEGER);
-		m_simpleTypes.put(Short.class, ElementType.INTEGER);
-		m_simpleTypes.put(Long.class, ElementType.INTEGER);
-		m_simpleTypes.put(String.class, ElementType.STRING);
-		m_simpleTypes.put(Float.class, ElementType.REAL);
-		m_simpleTypes.put(Double.class, ElementType.REAL);
-		m_simpleTypes.put(byte[].class, ElementType.DATA);
-		m_simpleTypes.put(Boolean.class, ElementType.TRUE);
-		m_simpleTypes.put(Date.class, ElementType.DATE);
+		/// FIXME:
+		//m_simpleTypes.put(Integer.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Byte.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Short.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Short.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Long.class, ElementType.INTEGER);
+		//m_simpleTypes.put(String.class, ElementType.STRING);
+		//m_simpleTypes.put(Float.class, ElementType.REAL);
+		//m_simpleTypes.put(Double.class, ElementType.REAL);
+		//m_simpleTypes.put(byte[].class, ElementType.DATA);
+		//m_simpleTypes.put(Boolean.class, ElementType.TRUE);
+		//m_simpleTypes.put(Date.class, ElementType.DATE);
 	}
 
 	/**
@@ -208,7 +209,7 @@ public final class Plist {
 				case TRUE:
 					return new XmlElement((cast(bool) o) ? "true" : "false");
 				case DATE:
-					return new XmlElement("date", m_dateFormat.format((Date) o));
+					return new XmlElement("date", m_dateFormat.format(cast(Date) o));
 				case STRING:
 					return new XmlElement("string", cast(String) o);
 				case DATA:

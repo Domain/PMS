@@ -69,7 +69,7 @@ int main(string[] args)
 
 		if (!headless && instance !is null) {
 			JOptionPane.showMessageDialog(
-										  ((JFrame) (SwingUtilities.getWindowAncestor((Component) instance.getFrame()))),
+										  (cast(JFrame) (SwingUtilities.getWindowAncestor(cast(Component) instance.getFrame()))),
 										  errorMessage,
 										  Messages.getString("PMS.42"),
 										  JOptionPane.ERROR_MESSAGE

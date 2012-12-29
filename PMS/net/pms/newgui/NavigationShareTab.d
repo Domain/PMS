@@ -32,20 +32,20 @@ import net.pms.util.KeyedComboBoxModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.*;
 import java.io.File;
 import java.util.Locale;
 
 public class NavigationShareTab {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!NavigationShareTab();
-	public static final String ALL_DRIVES = Messages.getString("FoldTab.0");
+	public static String ALL_DRIVES = Messages.getString("FoldTab.0");
 
-	private static final String PANEL_COL_SPEC = "left:pref, 50dlu, pref, 150dlu, pref, 25dlu, pref, 25dlu, pref, default:grow";
-	private static final String PANEL_ROW_SPEC = "p, 3dlu,  p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 10dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 10dlu, fill:default:grow";
-	private static final String SHARED_FOLDER_COL_SPEC = "left:pref, left:pref, pref, pref, pref, 0:grow";
-	private static final String SHARED_FOLDER_ROW_SPEC = "p, 3dlu, p, 3dlu, fill:default:grow";
+	private static const String PANEL_COL_SPEC = "left:pref, 50dlu, pref, 150dlu, pref, 25dlu, pref, 25dlu, pref, default:grow";
+	private static const String PANEL_ROW_SPEC = "p, 3dlu,  p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 10dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 10dlu, fill:default:grow";
+	private static const String SHARED_FOLDER_COL_SPEC = "left:pref, left:pref, pref, pref, pref, 0:grow";
+	private static const String SHARED_FOLDER_ROW_SPEC = "p, 3dlu, p, 3dlu, fill:default:grow";
 	
 	private JList FList;
 	private DefaultListModel df;
@@ -77,7 +77,7 @@ public class NavigationShareTab {
 	}
 	private final PmsConfiguration configuration;
 
-	NavigationShareTab(PmsConfiguration configuration) {
+	this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -90,7 +90,7 @@ public class NavigationShareTab {
 				if (i > 0) {
 					sb.append(",");
 				}
-				String entry = (String) df.getElementAt(i);
+				String entry = cast(String) df.getElementAt(i);
 				// escape embedded commas. note: backslashing isn't safe as it conflicts with
 				// Windows path separators:
 				// http://ps3mediaserver.org/forum/viewtopic.php?f=14&t=8883&start=250#p43520
@@ -121,7 +121,7 @@ public class NavigationShareTab {
 		// Build gui with initialized components
 		JComponent cmp = builder.addSeparator(Messages.getString("FoldTab.13"),
 				FormLayoutUtil.flip(cc.xyw(1, 1, 10), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.add(thumbgenCheckBox, FormLayoutUtil.flip(cc.xyw(1, 3, 3), colSpec, orientation));
@@ -141,7 +141,7 @@ public class NavigationShareTab {
 		builder.add(select, FormLayoutUtil.flip(cc.xyw(7, 11, 1), colSpec, orientation));
 
 		cmp = builder.addSeparator(Messages.getString("NetworkTab.15"), FormLayoutUtil.flip(cc.xyw(1, 13, 10), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.add(archive, FormLayoutUtil.flip(cc.xyw(1, 15, 3), colSpec, orientation));
@@ -207,7 +207,7 @@ public class NavigationShareTab {
 					int ab = Integer.parseInt(seekpos.getText());
 					configuration.setThumbnailSeekPos(ab);
 				} catch (NumberFormatException nfe) {
-					LOGGER._debug("Could not parse thumbnail seek position from \"" + seekpos.getText() + "\"");
+					LOGGER._debug("Could not parse thumbnail seek position from \"" ~ seekpos.getText() ~ "\"");
 				}
 
 			}
@@ -250,7 +250,7 @@ public class NavigationShareTab {
 		}
 
 		// AudioThumbnailMethod
-		final KeyedComboBoxModel thumbKCBM = new KeyedComboBoxModel(new Object[]{"0", "1", "2"}, new Object[]{Messages.getString("FoldTab.35"), Messages.getString("FoldTab.23"), Messages.getString("FoldTab.24")});
+		KeyedComboBoxModel thumbKCBM = new KeyedComboBoxModel(["0", "1", "2"], [Messages.getString("FoldTab.35"), Messages.getString("FoldTab.23"), Messages.getString("FoldTab.24")]);
 		audiothumbnail = new JComboBox(thumbKCBM);
 		audiothumbnail.setEditable(false);
 
@@ -261,9 +261,9 @@ public class NavigationShareTab {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 
 					try {
-						configuration.setAudioThumbnailMethod(Integer.parseInt((String) thumbKCBM.getSelectedKey()));
+						configuration.setAudioThumbnailMethod(Integer.parseInt(cast(String) thumbKCBM.getSelectedKey()));
 					} catch (NumberFormatException nfe) {
-						LOGGER._debug("Could not parse audio thumbnail method from \"" + thumbKCBM.getSelectedKey() + "\"");
+						LOGGER._debug("Could not parse audio thumbnail method from \"" ~ thumbKCBM.getSelectedKey() ~ "\"");
 					}
 
 				}
@@ -300,7 +300,7 @@ public class NavigationShareTab {
 					chooser = new JFileChooser(new RestrictedFileSystemView());
 				}
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int returnVal = chooser.showDialog((Component) e.getSource(), Messages.getString("FoldTab.28"));
+				int returnVal = chooser.showDialog(cast(Component) e.getSource(), Messages.getString("FoldTab.28"));
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					defaultThumbFolder.setText(chooser.getSelectedFile().getAbsolutePath());
 					configuration.setAlternateThumbFolder(chooser.getSelectedFile().getAbsolutePath());
@@ -362,8 +362,8 @@ public class NavigationShareTab {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setUseCache((e.getStateChange() == ItemEvent.SELECTED));
 				cachereset.setEnabled(configuration.getUseCache());
-				if ((LooksFrame) PMS.get().getFrame() !is null) {
-					((LooksFrame) PMS.get().getFrame()).getFt().setScanLibraryEnabled(configuration.getUseCache());
+				if (cast(LooksFrame) PMS.get().getFrame() !is null) {
+					(cast(LooksFrame) PMS.get().getFrame()).getFt().setScanLibraryEnabled(configuration.getUseCache());
 				}
 			}
 		});
@@ -372,8 +372,8 @@ public class NavigationShareTab {
 			override
 			public void actionPerformed(ActionEvent e) {
 				int option = JOptionPane.showConfirmDialog(
-					(Component) PMS.get().getFrame(),
-					Messages.getString("NetworkTab.13") + Messages.getString("NetworkTab.19"),
+					cast(Component) PMS.get().getFrame(),
+					Messages.getString("NetworkTab.13") ~ Messages.getString("NetworkTab.19"),
 					Messages.getString("Dialog.Question"),
 					JOptionPane.YES_NO_OPTION);
 				if (option == JOptionPane.YES_OPTION) {
@@ -466,34 +466,34 @@ public class NavigationShareTab {
 		});
 
 		// sort method
-		final KeyedComboBoxModel kcbm = new KeyedComboBoxModel(
-			new Object[]{
+		KeyedComboBoxModel kcbm = new KeyedComboBoxModel(
+														 [
 				"0", // alphabetical
 				"4", // natural sort
 				"3", // ASCIIbetical
 				"1", // newest first
 				"2"  // oldest first
-			},
-			new Object[]{
+														 ],
+														 [
 				Messages.getString("FoldTab.15"),
 				Messages.getString("FoldTab.22"),
 				Messages.getString("FoldTab.20"),
 				Messages.getString("FoldTab.16"),
 				Messages.getString("FoldTab.17")
-			}
+														 ]
 		);
 		sortmethod = new JComboBox(kcbm);
 		sortmethod.setEditable(false);
-		kcbm.setSelectedKey("" + configuration.getSortMethod());
+		kcbm.setSelectedKey("" ~ configuration.getSortMethod());
 
 		sortmethod.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 
 					try {
-						configuration.setSortMethod(Integer.parseInt((String) kcbm.getSelectedKey()));
+						configuration.setSortMethod(Integer.parseInt(cast(String) kcbm.getSelectedKey()));
 					} catch (NumberFormatException nfe) {
-						LOGGER._debug("Could not parse sort method from \"" + kcbm.getSelectedKey() + "\"");
+						LOGGER._debug("Could not parse sort method from \"" ~ kcbm.getSelectedKey() ~ "\"");
 					}
 
 				}
@@ -512,11 +512,11 @@ public class NavigationShareTab {
 		builderFolder.setOpaque(true);
 
 		JComponent cmp = builderFolder.addSeparator(Messages.getString("FoldTab.7"), FormLayoutUtil.flip(cc.xyw(1, 1, 6), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		JButton but = new JButton(LooksFrame.readImageIcon("folder_new-32.png"));
-		but.addActionListener(new java.awt.event.ActionListener() {
+		but.addActionListener(new class() java.awt.event.ActionListener {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFileChooser chooser = null;
 				try {
@@ -526,11 +526,11 @@ public class NavigationShareTab {
 				}
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				//int returnVal = chooser.showDialog((Component) e.getSource(), Messages.getString("FoldTab.9"));
-				int returnVal = chooser.showOpenDialog((Component) e.getSource());
+				int returnVal = chooser.showOpenDialog(cast(Component) e.getSource());
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					((DefaultListModel) FList.getModel()).add(FList.getModel().getSize(), chooser.getSelectedFile().getAbsolutePath());
+					(cast(DefaultListModel) FList.getModel()).add(FList.getModel().getSize(), chooser.getSelectedFile().getAbsolutePath());
 					if (FList.getModel().getElementAt(0).opEquals(ALL_DRIVES)) {
-						((DefaultListModel) FList.getModel()).remove(0);
+						(cast(DefaultListModel) FList.getModel()).remove(0);
 					}
 					updateModel();
 				}
@@ -539,12 +539,12 @@ public class NavigationShareTab {
 		builderFolder.add(but, FormLayoutUtil.flip(cc.xy(1, 3), colSpec, orientation));
 		JButton but2 = new JButton(LooksFrame.readImageIcon("button_cancel-32.png"));
 		//but2.setBorder(BorderFactory.createEtchedBorder());
-		but2.addActionListener(new java.awt.event.ActionListener() {
+		but2.addActionListener(new class() java.awt.event.ActionListener {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				if (FList.getSelectedIndex() > -1) {
-					((DefaultListModel) FList.getModel()).remove(FList.getSelectedIndex());
+					(cast(DefaultListModel) FList.getModel()).remove(FList.getSelectedIndex());
 					if (FList.getModel().getSize() == 0) {
-						((DefaultListModel) FList.getModel()).add(0, ALL_DRIVES);
+						(cast(DefaultListModel) FList.getModel()).add(0, ALL_DRIVES);
 					}
 					updateModel();
 				}
@@ -557,7 +557,7 @@ public class NavigationShareTab {
 		// but3.setBorder(BorderFactory.createEmptyBorder());
 		but3.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel model = ((DefaultListModel) FList.getModel());
+				DefaultListModel model = (cast(DefaultListModel) FList.getModel());
 				for (int i = 0; i < model.size() - 1; i++) {
 					if (FList.isSelectedIndex(i)) {
 						String value = model.get(i).toString();
@@ -577,7 +577,7 @@ public class NavigationShareTab {
 		//  but4.setBorder(BorderFactory.createEmptyBorder());
 		but4.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel model = ((DefaultListModel) FList.getModel());
+				DefaultListModel model = (cast(DefaultListModel) FList.getModel());
 				for (int i = 1; i < model.size(); i++) {
 					if (FList.isSelectedIndex(i)) {
 						String value = model.get(i).toString();
@@ -605,7 +605,7 @@ public class NavigationShareTab {
 					if (database !is null) {
 						if (!database.isScanLibraryRunning()) {
 							int option = JOptionPane.showConfirmDialog(
-								(Component) PMS.get().getFrame(),
+								cast(Component) PMS.get().getFrame(),
 								Messages.getString("FoldTab.3") + Messages.getString("FoldTab.4"),
 								Messages.getString("Dialog.Question"),
 								JOptionPane.YES_NO_OPTION);
@@ -615,7 +615,7 @@ public class NavigationShareTab {
 							}
 						} else {
 							int option = JOptionPane.showConfirmDialog(
-								(Component) PMS.get().getFrame(),
+								cast(Component) PMS.get().getFrame(),
 								Messages.getString("FoldTab.10"),
 								Messages.getString("Dialog.Question"),
 								JOptionPane.YES_NO_OPTION);
@@ -636,7 +636,7 @@ public class NavigationShareTab {
 		df = new DefaultListModel();
 		File[] folders = PMS.get().getFoldersConf(false);
 		if (folders !is null && folders.length > 0) {
-			for (File file : folders) {
+			foreach (File file ; folders) {
 				df.addElement(file.getAbsolutePath());
 			}
 		} else {

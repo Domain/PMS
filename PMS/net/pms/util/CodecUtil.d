@@ -43,7 +43,7 @@ public class CodecUtil {
 	 * parsing the "ffmpeg_formats.txt" resource. 
 	 */
 	private static void initCodecs() {
-		InputStream _is = CodecUtil.class.getClassLoader().getResourceAsStream("resources/ffmpeg_formats.txt");
+		InputStream _is = CodecUtil._class.getClassLoader().getResourceAsStream("resources/ffmpeg_formats.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(_is));
 		String line = null;
 
