@@ -12,17 +12,17 @@ import org.serviio.dlna.MediaFormatProfile;
 
 public class ImageTranscodingProfilesProvider
 {
-  private static Map<MediaFormatProfile, List<MediaFormatProfile>> transcodingConfig = new HashMap<MediaFormatProfile, List<MediaFormatProfile>>();
+  private static Map!(MediaFormatProfile, List!(MediaFormatProfile)) transcodingConfig = new HashMap!(MediaFormatProfile, List!(MediaFormatProfile))();
 
-  public static List<MediaFormatProfile> getAvailableTranscodingProfiles(List<MediaFormatProfile> profiles)
+  public static List!(MediaFormatProfile) getAvailableTranscodingProfiles(List!(MediaFormatProfile) profiles)
   {
-    Set<MediaFormatProfile> availableProfiles = new HashSet<MediaFormatProfile>();
+    Set!(MediaFormatProfile) availableProfiles = new HashSet!(MediaFormatProfile)();
     for (MediaFormatProfile profile : profiles) {
       if (transcodingConfig.containsKey(profile)) {
-        availableProfiles.addAll((Collection<MediaFormatProfile>)transcodingConfig.get(profile));
+        availableProfiles.addAll((Collection!(MediaFormatProfile))transcodingConfig.get(profile));
       }
     }
-    return new ArrayList<MediaFormatProfile>(availableProfiles);
+    return new ArrayList!(MediaFormatProfile)(availableProfiles);
   }
 
   static

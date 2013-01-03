@@ -17,7 +17,7 @@ public class VideoTranscodingDefinition : AbstractTranscodingDefinition
   private bool forceVTranscoding;
   private bool forceStereo;
   private DisplayAspectRatio dar;
-  private List<VideoTranscodingMatch> matches = new ArrayList<VideoTranscodingMatch>();
+  private List!(VideoTranscodingMatch) matches = new ArrayList!(VideoTranscodingMatch)();
 
   public this(TranscodingConfiguration parentConfig, VideoContainer targetContainer, VideoCodec targetVideoCodec, AudioCodec targetAudioCodec, Integer maxVideoBitrate, Integer maxHeight, Integer audioBitrate, Integer audioSamplerate, bool forceVTranscoding, bool forceStereo, bool forceInheritance, DisplayAspectRatio dar)
   {
@@ -52,7 +52,7 @@ public class VideoTranscodingDefinition : AbstractTranscodingDefinition
     return maxVideoBitrate;
   }
 
-  public List<VideoTranscodingMatch> getMatches() {
+  public List!(VideoTranscodingMatch) getMatches() {
     return matches;
   }
 

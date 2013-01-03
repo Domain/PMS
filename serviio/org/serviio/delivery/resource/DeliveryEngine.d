@@ -13,7 +13,7 @@ import org.serviio.profile.Profile;
 
 public abstract interface DeliveryEngine<RI : MediaFormatProfileResource, MI : MediaItem>
 {
-  public abstract List<RI> getMediaInfoForProfile(MI paramMI, Profile paramProfile);
+  public abstract List!(RI) getMediaInfoForProfile(MI paramMI, Profile paramProfile);
 
   public abstract RI getMediaInfoForMediaItem(MI paramMI, MediaFormatProfile paramMediaFormatProfile, QualityType paramQualityType, Profile paramProfile)
     throws UnsupportedDLNAMediaFileFormatException;

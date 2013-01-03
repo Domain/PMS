@@ -73,7 +73,7 @@ public class DiscoveryAdvertisementNotifier : Multicaster
 
   public bool sendAlive()
     {
-    Set<NetworkInterface> ifaces = getAvailableNICs();
+    Set!(NetworkInterface) ifaces = getAvailableNICs();
     bool sent = false;
     log.debug_(String.format("Found %s network interfaces to advertise on", cast(Object[])[ Integer.valueOf(ifaces.size()) ]));
     for (NetworkInterface iface : ifaces) {
@@ -119,7 +119,7 @@ public class DiscoveryAdvertisementNotifier : Multicaster
         if ((socket !is null) && (socket.isBound())) {
           log.debug_(String.format("Multicasting SSDP alive using interface %s and address %s, timeout = %s", cast(Object[])[ MultiCastUtils.getInterfaceName(multicastInterface), address.getHostAddress(), Integer.valueOf(socket.getSoTimeout()) ]));
 
-          List<String> messages = SSDPMessageBuilderFactory.getInstance().getBuilder(SSDPMessageBuilderFactory.SSDPMessageType.ALIVE).generateSSDPMessages(Integer.valueOf(advertisementDuration), null);
+          List!(String) messages = SSDPMessageBuilderFactory.getInstance().getBuilder(SSDPMessageBuilderFactory.SSDPMessageType.ALIVE).generateSSDPMessages(Integer.valueOf(advertisementDuration), null);
 
           log.debug_(String.format("Sending %s 'alive' messages describing device %s", cast(Object[])[ Integer.valueOf(messages.size()), device.getUuid() ]));
 
@@ -150,7 +150,7 @@ public class DiscoveryAdvertisementNotifier : Multicaster
         if ((socket !is null) && (socket.isBound())) {
           log.debug_(String.format("Multicasting SSDP byebye using interface %s and address %s, timeout = %s", cast(Object[])[ MultiCastUtils.getInterfaceName(multicastInterface), address.getHostName(), Integer.valueOf(socket.getSoTimeout()) ]));
 
-          List<String> messages = SSDPMessageBuilderFactory.getInstance().getBuilder(SSDPMessageBuilderFactory.SSDPMessageType.BYEBYE).generateSSDPMessages(null, null);
+          List!(String) messages = SSDPMessageBuilderFactory.getInstance().getBuilder(SSDPMessageBuilderFactory.SSDPMessageType.BYEBYE).generateSSDPMessages(null, null);
 
           for (String message : messages)
             for (int i = 0; i < advertisementSendCount; i++)

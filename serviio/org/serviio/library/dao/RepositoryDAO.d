@@ -8,11 +8,11 @@ import org.serviio.library.entities.AccessGroup;
 import org.serviio.library.entities.Repository;
 import org.serviio.library.metadata.MediaFileType;
 
-public abstract interface RepositoryDAO : GenericDAO<Repository>
+public abstract interface RepositoryDAO : GenericDAO!(Repository)
 {
-  public abstract List<Repository> findAll();
+  public abstract List!(Repository) findAll();
 
-  public abstract List<Repository> getRepositories(MediaFileType paramMediaFileType, AccessGroup paramAccessGroup, int paramInt1, int paramInt2);
+  public abstract List!(Repository) getRepositories(MediaFileType paramMediaFileType, AccessGroup paramAccessGroup, int paramInt1, int paramInt2);
 
   public abstract int getRepositoriesCount(MediaFileType paramMediaFileType, AccessGroup paramAccessGroup);
 

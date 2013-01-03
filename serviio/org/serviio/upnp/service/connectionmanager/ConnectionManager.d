@@ -90,8 +90,8 @@ public class ConnectionManager : Service
   private String getSourceProtocolInfo(Profile profile)
   {
     log.debug_(String.format("Sending protocol info using profile '%s'", cast(Object[])[ profile ]));
-    Set<String> protocolInfos = new LinkedHashSet<String>();
-    for (Entry<MediaFormatProfile, ProtocolInfo> entry : profile.getProtocolInfo().entrySet()) {
+    Set!(String) protocolInfos = new LinkedHashSet!(String)();
+    for (Entry!(MediaFormatProfile, ProtocolInfo) entry : profile.getProtocolInfo().entrySet()) {
       protocolInfos.addAll(( cast(ProtocolInfo)entry.getValue()).getProfileProtocolInfo(( cast(MediaFormatProfile)entry.getKey()).getFileType()));
     }
     return CollectionUtils.listToCSV(protocolInfos, ",", false);

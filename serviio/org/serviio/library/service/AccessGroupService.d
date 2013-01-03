@@ -26,12 +26,12 @@ public class AccessGroupService
     return profile;
   }
 
-  public static List<AccessGroup> getAccessGroupsForRepository(Long repositoryId)
+  public static List!(AccessGroup) getAccessGroupsForRepository(Long repositoryId)
   {
     return DAOFactory.getAccessGroupDAO().getAccessGroupsForRepository(repositoryId);
   }
 
-  public static List<AccessGroup> getAccessGroupsForOnlineRepository(Long repositoryId) {
+  public static List!(AccessGroup) getAccessGroupsForOnlineRepository(Long repositoryId) {
     return DAOFactory.getAccessGroupDAO().getAccessGroupsForOnlineRepository(repositoryId);
   }
 }

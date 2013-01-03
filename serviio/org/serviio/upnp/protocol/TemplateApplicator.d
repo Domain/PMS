@@ -17,7 +17,7 @@ public class TemplateApplicator
 
   private static Configuration cfg = new Configuration();
 
-  public static String applyTemplate(String templateName, Map<String, Object> parameters)
+  public static String applyTemplate(String templateName, Map!(String, Object) parameters)
   {
     try
     {

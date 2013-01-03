@@ -87,7 +87,7 @@ public class ProfilesDefinitionParser
   private static final String COMP_NAME_VARIABLE = "\\{computerName\\}";
   private static String COMP_NAME;
 
-  public static List<Profile> parseDefinition(InputStream definitionStream, List<Profile> currentProfiles)
+  public static List!(Profile) parseDefinition(InputStream definitionStream, List!(Profile) currentProfiles)
     {
     if (definitionStream is null)
       throw new ProfilesDefinitionException("Profiles definition is not present.");
@@ -106,7 +106,7 @@ public class ProfilesDefinitionParser
 
       log.info("Parsing Profiles definition");
 
-      List<Profile> profiles = new ArrayList<Profile>(currentProfiles);
+      List!(Profile) profiles = new ArrayList!(Profile)(currentProfiles);
       NodeList profileNodes = XPathUtil.getNodeSet(profilesNode, TAG_PROFILE);
       for (int i = 0; i < profileNodes.getLength(); i++) {
         Profile profile = processProfileNode(profileNodes.item(i), profiles);
@@ -119,7 +119,7 @@ public class ProfilesDefinitionParser
     throw new ProfilesDefinitionException("Cannot read Profiles XML. The file is corrupted.");
   }
 
-  private static Profile processProfileNode(Node profileNode, List<Profile> profiles)
+  private static Profile processProfileNode(Node profileNode, List!(Profile) profiles)
     {
     String id = XPathUtil.getNodeValue(profileNode, "@id");
     if (ObjectValidator.isNotEmpty(id)) {
@@ -142,7 +142,7 @@ public class ProfilesDefinitionParser
       }
       h264LevelCheckType = (h264LevelCheckType is null) && (parentProfile !is null) ? parentProfile.getH264LevelCheck() : h264LevelCheckType;
       String name = XPathUtil.getNodeValue(profileNode, "@name");
-      List<DetectionDefinition> detectionDefinitions = getDetectionDefinitions(id, profileNode);
+      List!(DetectionDefinition) detectionDefinitions = getDetectionDefinitions(id, profileNode);
       Class<?> cdMessageBuilderClass = getContentDirectoryMessageBuilderClass(id, profileNode);
       ResourceTransportProtocolHandler resourceTrasportProtocolHandler = getResourceTransportProtocolHandler(id, profileNode);
       ContentDirectoryDefinitionFilter contentDirectoryDefinitionFilter = getContentDirectoryDefinitionFilter(id, profileNode);
@@ -161,7 +161,7 @@ public class ProfilesDefinitionParser
         protocolInfoType = null;
       }
       protocolInfoType = (protocolInfoType is null) && (parentProfile !is null) ? parentProfile.getProtocolInfoType() : protocolInfoType;
-      Map<MediaFormatProfile, ProtocolInfo> protocolInfos = getProtocolInfoMap(id, profileNode, protocolInfoType, parentProfile);
+      Map!(MediaFormatProfile, ProtocolInfo) protocolInfos = getProtocolInfoMap(id, profileNode, protocolInfoType, parentProfile);
       Profile profile = new Profile(id, name, (cdMessageBuilderClass is null) && (parentProfile !is null) ? parentProfile.getContentDirectoryMessageBuilder() : cdMessageBuilderClass, (resourceTrasportProtocolHandler is null) && (parentProfile !is null) ? parentProfile.getResourceTransportProtocolHandler() : resourceTrasportProtocolHandler, detectionDefinitions, protocolInfos, protocolInfoType, deviceDescription, (contentDirectoryDefinitionFilter is null) && (parentProfile !is null) ? parentProfile.getContentDirectoryDefinitionFilter() : contentDirectoryDefinitionFilter, transcodeConfig, onlineTranscodeConfig, (ObjectValidator.isEmpty(automaticImageRotation)) && (parentProfile !is null) ? parentProfile.isAutomaticImageRotation() : Boolean.parseBoolean(automaticImageRotation), (ObjectValidator.isEmpty(limitImageResolution)) && (parentProfile !is null) ? parentProfile.isLimitImageResolution() : Boolean.parseBoolean(limitImageResolution), (subtitlesMimeType is null) && (parentProfile !is null) ? parentProfile.getSubtitlesMimeType() : subtitlesMimeType, Boolean.parseBoolean(alwaysEnableTranscoding), selectable !is null ? Boolean.parseBoolean(selectable) : true, getAlternativeDeliveryQualities(id, profileNode, h264LevelCheckType), h264LevelCheckType);
 
       if (validateProfile(profile)) {
@@ -278,11 +278,11 @@ public class ProfilesDefinitionParser
     return parentProfile.getDeviceDescription();
   }
 
-  private static List<DetectionDefinition> getDetectionDefinitions(String profileId, Node profileNode) {
+  private static List!(DetectionDefinition) getDetectionDefinitions(String profileId, Node profileNode) {
     Node ddNode = XPathUtil.getNode(profileNode, TAG_DETECTION);
 
     if (ddNode !is null) {
-      List<DetectionDefinition> result = new ArrayList<DetectionDefinition>();
+      List!(DetectionDefinition) result = new ArrayList!(DetectionDefinition)();
       Node upnpSearchNode = XPathUtil.getNode(ddNode, TAG_UPNP_SEARCH);
       Node httpHeadersNode = XPathUtil.getNode(ddNode, TAG_HTTP_HEADERS);
       if (upnpSearchNode !is null) {
@@ -300,9 +300,9 @@ public class ProfilesDefinitionParser
     return null;
   }
 
-  private static Map<String, String> getAllDetectionFields(Node parentNode) {
+  private static Map!(String, String) getAllDetectionFields(Node parentNode) {
     NodeList headerNodes = XPathUtil.getNodeSet(parentNode, "*");
-    Map<String, String> headers = new HashMap<String, String>();
+    Map!(String, String) headers = new HashMap!(String, String)();
     for (int i = 0; i < headerNodes.getLength(); i++) {
       Node headerNode = headerNodes.item(i);
       headers.put(headerNode.getNodeName(), headerNode.getTextContent());
@@ -559,9 +559,9 @@ public class ProfilesDefinitionParser
     return false;
   }
 
-  private static Map<MediaFormatProfile, ProtocolInfo> getProtocolInfoMap(String profileId, Node profileNode, String protocolInfoType, Profile parentProfile)
+  private static Map!(MediaFormatProfile, ProtocolInfo) getProtocolInfoMap(String profileId, Node profileNode, String protocolInfoType, Profile parentProfile)
     {
-    Map<MediaFormatProfile, ProtocolInfo> protocolInfos = new LinkedHashMap<MediaFormatProfile, ProtocolInfo>();
+    Map!(MediaFormatProfile, ProtocolInfo) protocolInfos = new LinkedHashMap!(MediaFormatProfile, ProtocolInfo)();
     if ((parentProfile !is null) && (ObjectValidator.isEmpty(protocolInfoType)))
     {
       protocolInfoType = parentProfile.getProtocolInfoType();
@@ -595,7 +595,7 @@ public class ProfilesDefinitionParser
       }
 
       if (parentProfile !is null) {
-        for (Entry<MediaFormatProfile, ProtocolInfo> parentPI : parentProfile.getProtocolInfo().entrySet()) {
+        for (Entry!(MediaFormatProfile, ProtocolInfo) parentPI : parentProfile.getProtocolInfo().entrySet()) {
           if (!protocolInfos.containsKey(parentPI.getKey()))
           {
             if (parentProfile.getProtocolInfoType().equals(protocolInfoType))
@@ -626,7 +626,7 @@ public class ProfilesDefinitionParser
         return Collections.singletonList(new DLNAProtocolAdditionalInfo(profileFormatName));
       }
 
-      List<DLNAProtocolAdditionalInfo> protocolAdditionalInfos = new ArrayList<DLNAProtocolAdditionalInfo>();
+      List!(DLNAProtocolAdditionalInfo) protocolAdditionalInfos = new ArrayList!(DLNAProtocolAdditionalInfo)();
       String[] names = profileFormatNames.split(",");
       for (String name : names) {
         protocolAdditionalInfos.add(new DLNAProtocolAdditionalInfo(name.trim()));
@@ -637,7 +637,7 @@ public class ProfilesDefinitionParser
     throw new ProfilesDefinitionException(String.format("Profile %s has invalid (%s) type of ProtocolInfo", cast(Object[])[ profileId ]));
   }
 
-  private static Profile getProfileById(List<Profile> profiles, String profileId)
+  private static Profile getProfileById(List!(Profile) profiles, String profileId)
   {
     for (Profile profile : profiles) {
       if (profile.getId().equals(profileId)) {
@@ -647,10 +647,10 @@ public class ProfilesDefinitionParser
     return null;
   }
 
-  private static List<DeliveryQuality> getAlternativeDeliveryQualities(String profileId, Node profileNode, H264LevelCheckType h264LevelCheck)
+  private static List!(DeliveryQuality) getAlternativeDeliveryQualities(String profileId, Node profileNode, H264LevelCheckType h264LevelCheck)
     {
     Node qualitiesNode = XPathUtil.getNode(profileNode, TAG_ALTERNATIVE_QUALITIES);
-    List<DeliveryQuality> qualities = new ArrayList<DeliveryQuality>();
+    List!(DeliveryQuality) qualities = new ArrayList!(DeliveryQuality)();
     if (qualitiesNode !is null) {
       NodeList qualityNodes = XPathUtil.getNodeSet(qualitiesNode, TAG_QUALITY);
       for (Node qualityNode : XPathUtil.getListOfNodes(qualityNodes)) {

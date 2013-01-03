@@ -26,7 +26,7 @@ public class BufferWrapperImpl : AbstractBufferWrapper
     this.parents = parents;
   }
 
-  public this(List<ByteBuffer> parents) {
+  public this(List!(ByteBuffer) parents) {
     this.parents = ( cast(ByteBuffer[])parents.toArray(new ByteBuffer[parents.size()]));
   }
 
@@ -35,7 +35,7 @@ public class BufferWrapperImpl : AbstractBufferWrapper
     int sliceSize = 134217728;
 
     RandomAccessFile raf = new RandomAccessFile(file, "r");
-    ArrayList<ByteBuffer> buffers = new ArrayList<ByteBuffer>();
+    ArrayList!(ByteBuffer) buffers = new ArrayList!(ByteBuffer)();
     long i = 0L;
     while (i < filelength) {
       if (filelength - i > sliceSize) {
@@ -147,7 +147,7 @@ public class BufferWrapperImpl : AbstractBufferWrapper
   public BufferWrapper getSegment(long startPos, long length)
   {
     long savePos = position();
-    ArrayList<ByteBuffer> segments = new ArrayList<ByteBuffer>();
+    ArrayList!(ByteBuffer) segments = new ArrayList!(ByteBuffer)();
     position(startPos);
     while (length > 0L) {
       ByteBuffer currentSlice = parents[activeParent].slice();

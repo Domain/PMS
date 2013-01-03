@@ -13,13 +13,13 @@ public class ResultRepresentation
 
   @XStreamImplicit(itemFieldName="parameter")
   @SerializedName("parameter")
-  private List<String> parameters;
+  private List!(String) parameters;
 
   public this()
   {
   }
 
-  public this(Integer errorCode, int httpCode, List<String> parameters)
+  public this(Integer errorCode, int httpCode, List!(String) parameters)
   {
     this.errorCode = errorCode;
     this.httpCode = httpCode;
@@ -43,11 +43,11 @@ public class ResultRepresentation
     this.httpCode = httpCode;
   }
 
-  public List<String> getParameters() {
+  public List!(String) getParameters() {
     return parameters;
   }
 
-  public void setParameters(List<String> parameters) {
+  public void setParameters(List!(String) parameters) {
     this.parameters = parameters;
   }
 }

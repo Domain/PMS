@@ -12,12 +12,12 @@ public abstract class FeedItemUrlExtractor : AbstractUrlExtractor
     {
     log("Starting extraction of url for item: " + feedItem.getTitle());
 
-    final Map<String, URL> links = new HashMap<String, URL>(feedItem.getLinks());
+    final Map!(String, URL) links = new HashMap!(String, URL)(feedItem.getLinks());
     if (feedItem.getThumbnail() !is null) {
       links.put("thumbnail", feedItem.getThumbnail().getImageUrl());
     }
 
-    ContentURLContainer result = cast(ContentURLContainer)new PluginExecutionProcessor<Object>()
+    ContentURLContainer result = cast(ContentURLContainer)new PluginExecutionProcessor!(Object)()
     {
       protected ContentURLContainer executePluginMethod() {
         return extractUrl(links, Configuration.getOnlineFeedPreferredQuality());
@@ -35,7 +35,7 @@ public abstract class FeedItemUrlExtractor : AbstractUrlExtractor
     return null;
   }
 
-  protected abstract ContentURLContainer extractUrl(Map<String, URL> paramMap, PreferredQuality paramPreferredQuality);
+  protected abstract ContentURLContainer extractUrl(Map!(String, URL) paramMap, PreferredQuality paramPreferredQuality);
 }
 
 /* Location:           D:\Program Files\Serviio\lib\serviio.jar

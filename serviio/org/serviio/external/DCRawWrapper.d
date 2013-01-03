@@ -10,7 +10,7 @@ public class DCRawWrapper : AbstractExecutableWrapper
 {
   private static final Logger log = LoggerFactory.getLogger(DCRawWrapper.class);
 
-  protected static AtomicReference<Boolean> present = new AtomicReference<Boolean>();
+  protected static AtomicReference!(Boolean) present = new AtomicReference!(Boolean)();
 
   public static bool dcrawPresent()
   {

@@ -32,7 +32,7 @@ public class RestletServer
   {
     try
     {
-      List<ConverterHelper> registeredConverters = Engine.getInstance().getRegisteredConverters();
+      List!(ConverterHelper) registeredConverters = Engine.getInstance().getRegisteredConverters();
       registeredConverters.add(0, new GsonConverter());
       registeredConverters.add(1, new ServiioXstreamConverter());
 
@@ -42,7 +42,7 @@ public class RestletServer
 
       Application cdsApp = new ContentDirectoryRestletApplication();
       Application mbApp = cast(Application)createInstanceOfApplication("org.serviio.mediabrowser.rest.MediaBrowserRestletApplication");
-      Map<String, Application> cdsApplications = new HashMap<String, Application>();
+      Map!(String, Application) cdsApplications = new HashMap!(String, Application)();
       cdsApplications.put("/cds", cdsApp);
       cdsApplications.put("/mediabrowser", mbApp);
       prepareComponent(cdsComponent, cdsApplications, 23424);
@@ -63,7 +63,7 @@ public class RestletServer
     }
   }
 
-  private static void prepareComponent(Component component, Map<String, Application> applications, int port) {
+  private static void prepareComponent(Component component, Map!(String, Application) applications, int port) {
     Server httpServer = null;
 
     String remoteHost = System.getProperty("serviio.remoteHost");
@@ -81,7 +81,7 @@ public class RestletServer
     httpServer.getContext().getParameters().add("inboundBufferSize", Integer.toString(WebServer.getSocketBufferSize()));
     httpServer.getContext().getParameters().add("persistingConnections", "false");
 
-    for (Entry<String, Application> application : applications.entrySet()) {
+    for (Entry!(String, Application) application : applications.entrySet()) {
       if (ObjectValidator.isNotEmpty(remoteHost))
         log.info(String.format("Starting Restlet server (%s) exposed on %s:%s", cast(Object[])[ application.getKey(), remoteHost, Integer.valueOf(port) ]));
       else {

@@ -10,7 +10,7 @@ public abstract class DirectoryObject
   protected String parentID;
   protected String title;
   protected String creator;
-  protected List<Resource> resources = new ArrayList<Resource>();
+  protected List!(Resource) resources = new ArrayList!(Resource)();
 
   protected bool restricted = true;
 
@@ -49,11 +49,11 @@ public abstract class DirectoryObject
     this.creator = creator;
   }
 
-  public List<Resource> getResources() {
+  public List!(Resource) getResources() {
     return resources;
   }
 
-  public void setResources(List<Resource> res) {
+  public void setResources(List!(Resource) res) {
     resources = res;
   }
 

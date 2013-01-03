@@ -36,10 +36,10 @@ public class RendererSearchSender : Multicaster
 
   public void searchForRenderers()
     {
-    Set<NetworkInterface> ifaces = getAvailableNICs();
+    Set!(NetworkInterface) ifaces = getAvailableNICs();
     log.info(String.format("Searching for Renderer devices, will multicast on %s NICs", cast(Object[])[ Integer.valueOf(ifaces.size()) ]));
 
-    List<Thread> searchWorkers = new ArrayList<Thread>();
+    List!(Thread) searchWorkers = new ArrayList!(Thread)();
     for (NetworkInterface iface : ifaces) {
       Thread t = ServiioThreadFactory.getInstance().newThread(new RendererSearchWorker(iface));
       searchWorkers.add(t);
@@ -86,7 +86,7 @@ public class RendererSearchSender : Multicaster
           if ((socket !is null) && (socket.isBound())) {
             RendererSearchSender.log.debug_(String.format("Multicasting SSDP M-SEARCH using interface %s and address %s, timeout = %s", cast(Object[])[ MultiCastUtils.getInterfaceName(multicastInterface), address.getHostAddress(), Integer.valueOf(socket.getSoTimeout()) ]));
 
-            List<String> messages = SSDPMessageBuilderFactory.getInstance().getBuilder(SSDPMessageBuilderFactory.SSDPMessageType.SEARCH).generateSSDPMessages(Integer.valueOf(mx), "urn:schemas-upnp-org:device:MediaRenderer:1");
+            List!(String) messages = SSDPMessageBuilderFactory.getInstance().getBuilder(SSDPMessageBuilderFactory.SSDPMessageType.SEARCH).generateSSDPMessages(Integer.valueOf(mx), "urn:schemas-upnp-org:device:MediaRenderer:1");
 
             RendererSearchSender.log.debug_(String.format("Sending %s 'm-search' messages", cast(Object[])[ Integer.valueOf(messages.size()) ]));
             for (String message : messages) {

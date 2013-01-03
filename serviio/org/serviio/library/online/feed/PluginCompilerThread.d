@@ -26,8 +26,8 @@ public class PluginCompilerThread : Thread
   private static final Logger log = LoggerFactory.getLogger(PluginCompilerThread.class);
   private static final int PLUGIN_COMPILER_CHECK_INTERVAL = 10;
   private File pluginsFolder;
-  private Map<AbstractUrlExtractor, OnlineRepositoryType> urlExtractors = new HashMap<AbstractUrlExtractor, OnlineRepositoryType>();
-  private Map<File, Date> seenFilesCache = new HashMap<File, Date>();
+  private Map!(AbstractUrlExtractor, OnlineRepositoryType) urlExtractors = new HashMap!(AbstractUrlExtractor, OnlineRepositoryType)();
+  private Map!(File, Date) seenFilesCache = new HashMap!(File, Date)();
   private GroovyClassLoader gcl = new GroovyClassLoader();
   private bool workerRunning;
   private bool isSleeping = false;
@@ -135,7 +135,7 @@ public class PluginCompilerThread : Thread
     }
   }
 
-  public Map<AbstractUrlExtractor, OnlineRepositoryType> getUrlExtractors() {
+  public Map!(AbstractUrlExtractor, OnlineRepositoryType) getUrlExtractors() {
     return Collections.unmodifiableMap(urlExtractors);
   }
 }

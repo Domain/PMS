@@ -44,7 +44,7 @@ public class Configuration
   private static final String CONSOLE_SECURITY_PIN = "console_security_pin";
   private static final String CONSOLE_CHECK_FOR_UPDATES = "console_check_for_updates";
   private static final String BROWSE_MENU_DYNAMIC_CATEGORIES_NUMBER = "browse_menu_dyn_cat_number";
-  private static Map<String, String> cache = new HashMap<String, String>();
+  private static Map!(String, String) cache = new HashMap!(String, String)();
   private static ConfigStorage storage;
 
   public static bool isSearchHiddenFiles()
@@ -284,7 +284,7 @@ public class Configuration
     storeConfigValue(METADATA_USE_ORIGINAL_TITLE, Boolean.toString(useOriginalTitle));
   }
 
-  public static Map<String, String> getBrowseMenuItemOptions() {
+  public static Map!(String, String) getBrowseMenuItemOptions() {
     String value = cast(String)cache.get(BROWSE_MENU_ITEM_OPTIONS);
     if (ObjectValidator.isNotEmpty(value)) {
       return CollectionUtils.CSVToMap(value, ",");
@@ -292,7 +292,7 @@ public class Configuration
     return Collections.emptyMap();
   }
 
-  public static void setBrowseMenuItemOptions(Map<String, String> itemsMap)
+  public static void setBrowseMenuItemOptions(Map!(String, String) itemsMap)
   {
     if (itemsMap !is null)
       storeConfigValue(BROWSE_MENU_ITEM_OPTIONS, CollectionUtils.mapToCSV(itemsMap, ",", true));
@@ -520,8 +520,8 @@ public class Configuration
   {
     instantiateStorage();
 
-    Map<String, String> currentValues = storage.readAllConfigurationValues();
-    for (Entry<String, String> configEntry : currentValues.entrySet())
+    Map!(String, String) currentValues = storage.readAllConfigurationValues();
+    for (Entry!(String, String) configEntry : currentValues.entrySet())
       cache.put(configEntry.getKey(), configEntry.getValue());
   }
 }

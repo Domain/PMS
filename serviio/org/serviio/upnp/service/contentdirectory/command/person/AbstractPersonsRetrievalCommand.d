@@ -12,16 +12,16 @@ import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 import org.serviio.upnp.service.contentdirectory.command.AbstractEntityContainerCommand;
 import org.serviio.util.StringUtils;
 
-public abstract class AbstractPersonsRetrievalCommand : AbstractEntityContainerCommand<Person>
+public abstract class AbstractPersonsRetrievalCommand : AbstractEntityContainerCommand!(Person)
 {
   public this(String contextIdentifier, ObjectType objectType, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup accessGroup, String idPrefix, int startIndex, int count)
   {
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.PERSON, ObjectClassType.MUSIC_ARTIST, ObjectClassType.STORAGE_FOLDER ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.PERSON, ObjectClassType.MUSIC_ARTIST, ObjectClassType.STORAGE_FOLDER ]));
   }
 
   protected Person retrieveSingleEntity(Long entityId)

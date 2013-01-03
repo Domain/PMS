@@ -45,7 +45,7 @@ public class BasicFeedEntryParser
   private void setLinks(SyndEntry entry, FeedItem item)
   {
     @SuppressWarnings("unchecked")
-	List<SyndLink> links = entry.getLinks();
+	List!(SyndLink) links = entry.getLinks();
     if ((links !is null) && (links.size() > 0))
       for (SyndLink link : links) {
         String key = link.getRel();

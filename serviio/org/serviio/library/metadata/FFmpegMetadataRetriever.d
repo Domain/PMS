@@ -48,11 +48,11 @@ public class FFmpegMetadataRetriever
   private static final String AUDIO_BITRATE = "audio_bitrate";
   private static final String FTYP = "ftyp";
   private static final String SAR = "sar";
-  private static final Map<String, Integer> maxDpbMbs = new LinkedHashMap<String, Integer>();
+  private static final Map!(String, Integer) maxDpbMbs = new LinkedHashMap!(String, Integer)();
 
   public static void retrieveMetadata(VideoMetadata metadata, String filePath, DeliveryContext context)
     {
-    List<String> mediaDescription = FFMPEGWrapper.readMediaFileInformation(filePath, context);
+    List!(String) mediaDescription = FFMPEGWrapper.readMediaFileInformation(filePath, context);
     updateMetadata(metadata, mediaDescription, filePath);
 
     validateMandatoryMetadata(metadata);
@@ -62,7 +62,7 @@ public class FFmpegMetadataRetriever
 
   public static void retrieveAudioMetadata(AudioMetadata metadata, String filePath, DeliveryContext context)
     {
-    List<String> mediaDescription = FFMPEGWrapper.readMediaFileInformation(filePath, context);
+    List!(String) mediaDescription = FFMPEGWrapper.readMediaFileInformation(filePath, context);
     updateMetadata(metadata, mediaDescription);
 
     validateCodecsFound(metadata);
@@ -76,9 +76,9 @@ public class FFmpegMetadataRetriever
       retrieveAudioMetadata( cast(AudioMetadata)md, contentUrl, context);
   }
 
-  private static Map<String, Object> getParametersMap(List<String> ffmpegMediaDescription)
+  private static Map!(String, Object) getParametersMap(List!(String) ffmpegMediaDescription)
     {
-    Map<String, Object> parameters = new HashMap<String, Object>();
+    Map!(String, Object) parameters = new HashMap!(String, Object)();
 
     String container = null;
 
@@ -187,7 +187,7 @@ public class FFmpegMetadataRetriever
     return parameters;
   }
 
-  protected static void updateMetadata(VideoMetadata metadata, List<String> ffmpegMediaDescription, String filePath)
+  protected static void updateMetadata(VideoMetadata metadata, List!(String) ffmpegMediaDescription, String filePath)
     {
     Map<?, ?> parameters = getParametersMap(ffmpegMediaDescription);
     metadata.setAudioBitrate( cast(Integer)parameters.get(AUDIO_BITRATE));
@@ -209,7 +209,7 @@ public class FFmpegMetadataRetriever
     metadata.setSar( cast(String)parameters.get(SAR));
   }
 
-  protected static void updateMetadata(AudioMetadata metadata, List<String> ffmpegMediaDescription)
+  protected static void updateMetadata(AudioMetadata metadata, List!(String) ffmpegMediaDescription)
     {
     Map<?, ?> parameters = getParametersMap(ffmpegMediaDescription);
     metadata.setBitrate( cast(Integer)parameters.get(BITRATE));
@@ -348,7 +348,7 @@ public class FFmpegMetadataRetriever
       Integer dpbMbs = Integer.valueOf(width.intValue() * height.intValue() * refFrames.intValue() / 256);
 
       String level = null;
-      for (Entry<String, Integer> levelDbp : maxDpbMbs.entrySet()) {
+      for (Entry!(String, Integer) levelDbp : maxDpbMbs.entrySet()) {
         level = cast(String)levelDbp.getKey();
         if (( cast(Integer)levelDbp.getValue()).intValue() > dpbMbs.intValue()) {
           return level;

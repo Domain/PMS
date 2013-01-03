@@ -5,11 +5,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FeedItem : OnlineContainerItem<Feed>
+public class FeedItem : OnlineContainerItem!(Feed)
   : Serializable
 {
   private static final long serialVersionUID = -1114391919989682022L;
-  private Map<String, URL> links = new HashMap<String, URL>();
+  private Map!(String, URL) links = new HashMap!(String, URL)();
 
   public this(Feed parentFeed, int feedOrder)
   {
@@ -17,7 +17,7 @@ public class FeedItem : OnlineContainerItem<Feed>
     order = feedOrder;
   }
 
-  public Map<String, URL> getLinks()
+  public Map!(String, URL) getLinks()
   {
     return links;
   }

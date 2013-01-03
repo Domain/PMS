@@ -16,9 +16,9 @@ public abstract interface ITunesRssModule : Module
 
   public abstract void setArtist(String paramString);
 
-  public abstract List<Image> getImages();
+  public abstract List!(Image) getImages();
 
-  public abstract void setImages(List<Image> paramList);
+  public abstract void setImages(List!(Image) paramList);
 
   public abstract Date getReleaseDate();
 

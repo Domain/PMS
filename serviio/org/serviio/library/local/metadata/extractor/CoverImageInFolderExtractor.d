@@ -127,7 +127,7 @@ public class CoverImageInFolderExtractor : AbstractLocalFileExtractor
   }
 
   private File findFileByPriority(File[] files, Pattern[] regexPatterns) {
-    SortedMap<Integer, File> map = new TreeMap<Integer, File>();
+    SortedMap!(Integer, File) map = new TreeMap!(Integer, File)();
     for (File file : files) {
       int index = fileMatches(file, regexPatterns);
       if (index > -1) {

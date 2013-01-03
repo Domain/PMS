@@ -78,7 +78,7 @@ public class MusicAlbumDAOImpl : AbstractSortableItemDao
     log.debug_(String.format("Deleting a MusicAlbum (id = %s)", cast(Object[])[ id ]));
     try
     {
-      new JdbcExecutor<Object>()
+      new JdbcExecutor!(Object)()
       {
         protected PreparedStatement processStatement(Connection con) {
           PreparedStatement ps = con.prepareStatement("DELETE FROM music_album WHERE id = ?");
@@ -145,7 +145,7 @@ public class MusicAlbumDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<MusicAlbum> retrieveMusicAlbumsForTrackRole(Long personId, RoleType personRole, int startingIndex, int requestedCount)
+  public List!(MusicAlbum) retrieveMusicAlbumsForTrackRole(Long personId, RoleType personRole, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of music albums for person %s and role %s (from=%s, count=%s)", cast(Object[])[ personId, personRole, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -194,7 +194,7 @@ public class MusicAlbumDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<MusicAlbum> retrieveMusicAlbumsForAlbumArtist(Long artistId, int startingIndex, int requestedCount)
+  public List!(MusicAlbum) retrieveMusicAlbumsForAlbumArtist(Long artistId, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of music albums for album artist %s (from=%s, count=%s)", cast(Object[])[ artistId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -243,7 +243,7 @@ public class MusicAlbumDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<MusicAlbum> retrieveAllMusicAlbums(int startingIndex, int requestedCount)
+  public List!(MusicAlbum) retrieveAllMusicAlbums(int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of all music albums (from=%s, count=%s)", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -295,9 +295,9 @@ public class MusicAlbumDAOImpl : AbstractSortableItemDao
     return null;
   }
 
-  protected List<MusicAlbum> mapResultSet(ResultSet rs)
+  protected List!(MusicAlbum) mapResultSet(ResultSet rs)
     {
-    List<MusicAlbum> result = new ArrayList<MusicAlbum>();
+    List!(MusicAlbum) result = new ArrayList!(MusicAlbum)();
     while (rs.next()) {
       result.add(initMusicAlbum(rs));
     }

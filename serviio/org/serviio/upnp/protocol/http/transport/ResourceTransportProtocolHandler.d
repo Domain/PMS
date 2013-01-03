@@ -11,7 +11,7 @@ import org.serviio.delivery.ResourceInfo;
 
 public abstract interface ResourceTransportProtocolHandler
 {
-  public abstract void handleResponse(Map<String, String> paramMap, Map<String, Object> paramMap1, HttpMethod paramHttpMethod, ProtocolVersion paramProtocolVersion, ResourceInfo paramResourceInfo, Integer paramInteger, TransferMode paramTransferMode, Client paramClient, Long paramLong, RangeHeaders paramRangeHeaders)
+  public abstract void handleResponse(Map!(String, String) paramMap, Map!(String, Object) paramMap1, HttpMethod paramHttpMethod, ProtocolVersion paramProtocolVersion, ResourceInfo paramResourceInfo, Integer paramInteger, TransferMode paramTransferMode, Client paramClient, Long paramLong, RangeHeaders paramRangeHeaders)
     throws HttpResponseCodeException;
 
   public abstract RangeHeaders handleByteRange(RangeHeaders paramRangeHeaders, ProtocolVersion paramProtocolVersion, ResourceInfo paramResourceInfo, Long paramLong)

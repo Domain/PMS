@@ -5,7 +5,7 @@ import org.serviio.cache.AbstractCacheDecorator;
 import org.serviio.library.online.metadata.OnlineCachable;
 
 public class OnlineContentCacheDecorator : AbstractCacheDecorator
-  : OnlineCacheDecorator<OnlineCachable>
+  : OnlineCacheDecorator!(OnlineCachable)
 {
   public this(String regionName)
   {

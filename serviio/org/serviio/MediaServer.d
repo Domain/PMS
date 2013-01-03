@@ -33,7 +33,7 @@ public class MediaServer
   private static final org.slf4j.Logger log = LoggerFactory.getLogger(MediaServer.class);
   private static DiscoveryManager discoveryManager;
   private static UPnPServerStatus status = UPnPServerStatus.STOPPED;
-  private static Map<String, Object> arguments = new HashMap<String, Object>();
+  private static Map!(String, Object) arguments = new HashMap!(String, Object)();
 
   public static String VERSION = ApplicationSettings.getStringProperty("version");
   public static final String CHANGESET = ApplicationSettings.getStringProperty("changeset");

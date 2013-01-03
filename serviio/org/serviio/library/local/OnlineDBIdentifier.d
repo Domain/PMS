@@ -6,19 +6,19 @@ public enum OnlineDBIdentifier
 {
   IMDB, TVDB, TMDB;
 
-  private static EnumMapConverter<OnlineDBIdentifier> converter = new EnumMapConverter<OnlineDBIdentifier>()
+  private static EnumMapConverter!(OnlineDBIdentifier) converter = new EnumMapConverter!(OnlineDBIdentifier)()
   {
     protected OnlineDBIdentifier enumValue(String name) {
       return OnlineDBIdentifier.valueOf(name);
     }
   };
 
-  public static Map<OnlineDBIdentifier, String> parseFromString(String identifiersCSV)
+  public static Map!(OnlineDBIdentifier, String) parseFromString(String identifiersCSV)
   {
     return converter.convert(identifiersCSV);
   }
 
-  public static String parseToString(Map<OnlineDBIdentifier, String> identifiers) {
+  public static String parseToString(Map!(OnlineDBIdentifier, String) identifiers) {
     return converter.parseToString(identifiers);
   }
 }

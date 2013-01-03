@@ -6,14 +6,14 @@ public class AbstractRestfulException : RuntimeException
 {
   private static final long serialVersionUID = 7485159781915824536L;
   private int errorCode;
-  private List<String> parameters;
+  private List!(String) parameters;
 
   public this(int errorCode)
   {
     this.errorCode = errorCode;
   }
 
-  public this(int errorCode, List<String> parameters) {
+  public this(int errorCode, List!(String) parameters) {
     this(errorCode);
     this.parameters = parameters;
   }
@@ -38,7 +38,7 @@ public class AbstractRestfulException : RuntimeException
     return errorCode;
   }
 
-  public List<String> getParameters() {
+  public List!(String) getParameters() {
     return parameters;
   }
 }

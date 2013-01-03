@@ -63,7 +63,7 @@ public abstract class AudioExtractionStrategy
 
   protected ImageDescriptor findAlbumArt(Tag tag)
   {
-    List<Artwork> albumArtList = tag.getArtworkList();
+    List!(Artwork) albumArtList = tag.getArtworkList();
     if ((albumArtList !is null) && (!albumArtList.isEmpty())) {
       for (Artwork albumArt : albumArtList) {
         if (ObjectValidator.isEmpty(albumArt.getImageUrl())) {

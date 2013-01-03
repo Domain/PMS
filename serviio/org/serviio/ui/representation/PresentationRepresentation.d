@@ -5,17 +5,17 @@ import java.util.List;
 
 public class PresentationRepresentation
 {
-  private List<BrowsingCategory> categories = new ArrayList<BrowsingCategory>();
+  private List!(BrowsingCategory) categories = new ArrayList!(BrowsingCategory)();
   private String language;
   private bool showParentCategoryTitle;
   private Integer numberOfFilesForDynamicCategories;
 
-  public List<BrowsingCategory> getCategories()
+  public List!(BrowsingCategory) getCategories()
   {
     return categories;
   }
 
-  public void setCategories(List<BrowsingCategory> categories) {
+  public void setCategories(List!(BrowsingCategory) categories) {
     this.categories = categories;
   }
 

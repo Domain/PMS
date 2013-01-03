@@ -43,7 +43,7 @@ public class CDSRetrieveMediaServerResource : AbstractRestrictedCDSServerResourc
 
     String normalizedPath = getAndRemoveProfileFromPath(request.getOriginalRef().getPath());
     try {
-      Map<String, String> requestHeaders = getRequestHeaders(request);
+      Map!(String, String) requestHeaders = getRequestHeaders(request);
       HttpDeliveryContainer container = processor.deliverContent(normalizedPath, ResourceDeliveryProcessor.HttpMethod.GET, getProtocol().getVersion().equals("1.1") ? HttpVersion.HTTP_1_1 : HttpVersion.HTTP_1_0, requestHeaders, parseRequestRangeHeaders(requestHeaders, request), new CDSProtocolHandler(), getClient());
 
       ClosingInputRepresentation rep = new ClosingInputRepresentation(container.getContentStream(), getMediaType(container.getResponseHeaders()), getFullStreamSize(container), getDeliveredStreamSize(container), getRequest());
@@ -87,7 +87,7 @@ public class CDSRetrieveMediaServerResource : AbstractRestrictedCDSServerResourc
     }
   }
 
-  private void setRange(Map<String, Object> headers)
+  private void setRange(Map!(String, Object) headers)
   {
     RangeHeaders range = getResponseRangeHeader(headers);
     if (range !is null) {
@@ -103,7 +103,7 @@ public class CDSRetrieveMediaServerResource : AbstractRestrictedCDSServerResourc
     }
   }
 
-  private RangeHeaders getResponseRangeHeader(Map<String, Object> headers) {
+  private RangeHeaders getResponseRangeHeader(Map!(String, Object) headers) {
     RangeHeaders range = cast(RangeHeaders)headers.get("Content-Range");
     return range;
   }
@@ -125,7 +125,7 @@ public class CDSRetrieveMediaServerResource : AbstractRestrictedCDSServerResourc
     return null;
   }
 
-  private MediaType getMediaType(Map<String, Object> headers)
+  private MediaType getMediaType(Map!(String, Object) headers)
   {
     String contentType = getHeaderStringValue("Content-Type", headers);
     if (contentType !is null) {
@@ -134,7 +134,7 @@ public class CDSRetrieveMediaServerResource : AbstractRestrictedCDSServerResourc
     return null;
   }
 
-  private RangeHeaders parseRequestRangeHeaders(Map<String, String> headers, Request request) {
+  private RangeHeaders parseRequestRangeHeaders(Map!(String, String) headers, Request request) {
     String rangeHeader = cast(String)headers.get("Range");
     String startSecond = request.getResourceRef().getQueryAsForm().getFirstValue("start", true);
     try {

@@ -141,7 +141,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Image> retrieveImagesForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Image) retrieveImagesForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of images for folder %s (from=%s, count=%s) [%s]", cast(Object[])[ folderId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -189,7 +189,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Image> retrieveImagesForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Image) retrieveImagesForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of images for Playlist %s (from=%s, count=%s) [%s]", cast(Object[])[ playlistId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -237,7 +237,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Integer> retrieveImagesCreationYears(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Integer) retrieveImagesCreationYears(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of images' years (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -248,7 +248,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
       ps.setString(1, MediaFileType.IMAGE.toString());
       ResultSet rs = ps.executeQuery();
-      List<Integer> years = new ArrayList<Integer>();
+      List!(Integer) years = new ArrayList!(Integer)();
       while (rs.next()) {
         years.add(Integer.valueOf(rs.getInt("creation_year")));
       }
@@ -287,7 +287,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Image> retrieveImagesForYear(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Image) retrieveImagesForYear(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of images for year %s (from=%s, count=%s) [%s]", cast(Object[])[ year, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -335,7 +335,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Integer> retrieveImagesCreationMonths(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Integer) retrieveImagesCreationMonths(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of creation date months for year %s (from=%s, count=%s) [%s]", cast(Object[])[ year, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -347,7 +347,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ps.setString(1, MediaFileType.IMAGE.toString());
       ps.setInt(2, year.intValue());
       ResultSet rs = ps.executeQuery();
-      List<Integer> months = new ArrayList<Integer>();
+      List!(Integer) months = new ArrayList!(Integer)();
       while (rs.next()) {
         months.add(Integer.valueOf(rs.getInt("creation_month")));
       }
@@ -387,7 +387,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Image> retrieveImagesForMonthOfYear(Integer month, Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Image) retrieveImagesForMonthOfYear(Integer month, Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of images for year %s and month %s (from=%s, count=%s) [%s]", cast(Object[])[ year, month, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -437,7 +437,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Image> retrieveAllImages(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Image) retrieveAllImages(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of all images (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -491,9 +491,9 @@ public class ImageDAOImpl : AbstractSortableItemDao
     return null;
   }
 
-  protected List<Image> mapResultSet(ResultSet rs)
+  protected List!(Image) mapResultSet(ResultSet rs)
     {
-    List<Image> result = new ArrayList<Image>();
+    List!(Image) result = new ArrayList!(Image)();
     while (rs.next()) {
       result.add(initImage(rs));
     }

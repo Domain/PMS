@@ -7,14 +7,14 @@ import org.restlet.representation.Representation;
 
 public class ServiioXstreamConverter : XstreamConverter
 {
-  protected <T> XstreamRepresentation<T> create(MediaType mediaType, T source)
+  protected !(T) XstreamRepresentation!(T) create(MediaType mediaType, T source)
   {
-    return new ServiioXstreamRepresentation<T>(mediaType, source);
+    return new ServiioXstreamRepresentation!(T)(mediaType, source);
   }
 
-  protected <T> XstreamRepresentation<T> create(Representation source)
+  protected !(T) XstreamRepresentation!(T) create(Representation source)
   {
-    return new ServiioXstreamRepresentation<T>(source);
+    return new ServiioXstreamRepresentation!(T)(source);
   }
 }
 

@@ -10,7 +10,7 @@ public abstract interface ContentDirectoryDefinitionFilter
 
   public abstract ObjectClassType filterContainerClassType(ObjectClassType paramObjectClassType, String paramString);
 
-  public abstract void filterClassProperties(String paramString, Map<ClassProperties, Object> paramMap);
+  public abstract void filterClassProperties(String paramString, Map!(ClassProperties, Object) paramMap);
 }
 
 /* Location:           D:\Program Files\Serviio\lib\serviio.jar

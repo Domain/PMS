@@ -28,14 +28,14 @@ import org.serviio.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileResource, MI : MediaItem> : AbstractDeliveryEngine<RI, MI>
+public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileResource, MI : MediaItem> : AbstractDeliveryEngine!(RI, MI)
   : DeliveryListener
 {
   private static final String TRANSCODING_SUBFOLDER_NAME = "Serviio";
   private static final String TRANSCODED_FILE_EXTENSION = ".stf";
-  private static Map<Client, TranscodingJobListener> transcodeJobs = Collections.synchronizedMap(new HashMap<Client, TranscodingJobListener>());
-  private static TranscodingDeliveryStrategy<File> fileBasedStrategy = new FileBasedTranscodingDeliveryStrategy();
-  private static TranscodingDeliveryStrategy<OutputStream> streamBasedStrategy = new StreamBasedTranscodingDeliveryStrategy();
+  private static Map!(Client, TranscodingJobListener) transcodeJobs = Collections.synchronizedMap(new HashMap!(Client, TranscodingJobListener)());
+  private static TranscodingDeliveryStrategy!(File) fileBasedStrategy = new FileBasedTranscodingDeliveryStrategy();
+  private static TranscodingDeliveryStrategy!(OutputStream) streamBasedStrategy = new StreamBasedTranscodingDeliveryStrategy();
 
   private static final Logger log = LoggerFactory.getLogger(AbstractTranscodingDeliveryEngine.class);
 
@@ -65,7 +65,7 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
 
   protected DeliveryContainer retrieveTranscodedResource(MI mediaItem, MediaFormatProfile selectedVersion, QualityType selectedQuality, Double timeOffsetInSeconds, Double durationInSeconds, Client client)
     {
-    Map<QualityType, TranscodingDefinition> trDefs = getMatchingTranscodingDefinitions(mediaItem, client.getRendererProfile());
+    Map!(QualityType, TranscodingDefinition) trDefs = getMatchingTranscodingDefinitions(mediaItem, client.getRendererProfile());
     TranscodingDefinition trDef = cast(TranscodingDefinition)trDefs.get(selectedQuality);
     if (trDef !is null) {
       String transcodingIdentifier = null;
@@ -79,8 +79,8 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
       TranscodingJobListener jobListener = startTranscodeJob(mediaItem, transcodingIdentifier, timeOffsetInSeconds, durationInSeconds, client, trDef);
 
       StreamDescriptor stream = getDeliveryStrategy(mediaItem).createInputStream(jobListener, client);
-      LinkedHashMap<QualityType, List<RI>> transcodedMediaInfos = retrieveTranscodedMediaInfo(mediaItem, client.getRendererProfile(), stream.getFileSize());
-      MediaFormatProfileResource transcodedMediaInfo = findMediaInfoForFileProfile((Collection<RI>)transcodedMediaInfos.get(selectedQuality), selectedVersion);
+      LinkedHashMap!(QualityType, List!(RI)) transcodedMediaInfos = retrieveTranscodedMediaInfo(mediaItem, client.getRendererProfile(), stream.getFileSize());
+      MediaFormatProfileResource transcodedMediaInfo = findMediaInfoForFileProfile((Collection!(RI))transcodedMediaInfos.get(selectedQuality), selectedVersion);
       return new StreamDeliveryContainer(new BufferedInputStream(stream.getStream(), 65536), transcodedMediaInfo, jobListener);
     }
     throw new IOException(String.format("Cannot find transcoding definition for %s quality", cast(Object[])[ selectedQuality.toString() ]));
@@ -89,8 +89,8 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
   protected RI retrieveTranscodedMediaInfoForVersion(MI mediaItem, MediaFormatProfile selectedVersion, QualityType selectedQuality, Profile rendererProfile)
     {
     log.debug_(String.format("Getting media info for transcoded version of file %s", cast(Object[])[ mediaItem.getFileName() ]));
-    LinkedHashMap<QualityType, List<RI>> mediaInfos = retrieveTranscodedMediaInfo(mediaItem, rendererProfile, null);
-    return findMediaInfoForFileProfile((Collection<RI>)mediaInfos.get(selectedQuality), selectedVersion);
+    LinkedHashMap!(QualityType, List!(RI)) mediaInfos = retrieveTranscodedMediaInfo(mediaItem, rendererProfile, null);
+    return findMediaInfoForFileProfile((Collection!(RI))mediaInfos.get(selectedQuality), selectedVersion);
   }
 
   protected bool fileCanBeTranscoded(MI mediaItem, Profile rendererProfile)
@@ -170,7 +170,7 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
 
     TranscodingJobListener newListener = null;
 
-    Collection<TranscodingJobListener> availableListeners = findExistingJobListeners(client, mediaItem.isLive(), trDef.getTranscodingConfiguration().isKeepStreamOpen());
+    Collection!(TranscodingJobListener) availableListeners = findExistingJobListeners(client, mediaItem.isLive(), trDef.getTranscodingConfiguration().isKeepStreamOpen());
     for (TranscodingJobListener listener : availableListeners) {
       if (listener.getTranscodingIdentifier().equals(transcodingIdentifier))
       {
@@ -197,7 +197,7 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
     }
   }
 
-  private Collection<TranscodingJobListener> findExistingJobListeners(Client client, bool liveStream, bool keepLiveStreamsOpen)
+  private Collection!(TranscodingJobListener) findExistingJobListeners(Client client, bool liveStream, bool keepLiveStreamsOpen)
   {
     synchronized (transcodeJobs) {
       if (!liveStream)

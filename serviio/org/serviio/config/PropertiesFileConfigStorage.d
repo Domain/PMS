@@ -21,9 +21,9 @@ public class PropertiesFileConfigStorage
     }
   }
 
-  public Map<String, String> readAllConfigurationValues()
+  public Map!(String, String) readAllConfigurationValues()
   {
-    Map<String, String> values = new HashMap<String, String>();
+    Map!(String, String) values = new HashMap!(String, String)();
     for (Entry<?, ?> value : properties.entrySet()) {
       values.put(value.getKey().toString(), value.getValue().toString());
     }

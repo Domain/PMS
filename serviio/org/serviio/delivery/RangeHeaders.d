@@ -8,9 +8,9 @@ import org.serviio.util.ObjectValidator;
 public class RangeHeaders
 {
   public static final long UNSPECIFIED = -1L;
-  private Map<RangeUnit, RangeTupple> headers;
+  private Map!(RangeUnit, RangeTupple) headers;
 
-  private this(Map<RangeUnit, RangeTupple> headers)
+  private this(Map!(RangeUnit, RangeTupple) headers)
   {
     this.headers = headers;
   }
@@ -18,7 +18,7 @@ public class RangeHeaders
   public static RangeHeaders parseHttpRange(RangeDefinition definition, String bytesRangeHeaderValue, String timeRangeHeaderValue)
   {
     if ((ObjectValidator.isNotEmpty(bytesRangeHeaderValue)) || (ObjectValidator.isNotEmpty(timeRangeHeaderValue))) {
-      Map<RangeUnit, RangeTupple> headers = new HashMap<RangeUnit, RangeTupple>();
+      Map!(RangeUnit, RangeTupple) headers = new HashMap!(RangeUnit, RangeTupple)();
       if (ObjectValidator.isNotEmpty(bytesRangeHeaderValue)) {
         headers.put(RangeUnit.BYTES, parseHttpBytesRange(bytesRangeHeaderValue));
       }
@@ -35,7 +35,7 @@ public class RangeHeaders
   }
 
   public static RangeHeaders create(RangeUnit unit, long from, long to, long total) {
-    Map<RangeUnit, RangeTupple> headers = new HashMap<RangeUnit, RangeTupple>();
+    Map!(RangeUnit, RangeTupple) headers = new HashMap!(RangeUnit, RangeTupple)();
     headers.put(unit, new RangeTupple(from, to, total));
     return new RangeHeaders(headers);
   }

@@ -20,7 +20,7 @@ public abstract class AbstractListPersonInitialsCommand : AbstractListInitialsCo
     this.roleType = roleType;
   }
 
-  protected List<String> getListOfInitials(int startIndex, int count)
+  protected List!(String) getListOfInitials(int startIndex, int count)
   {
     return PersonService.getListOfPersonInitials(roleType, startIndex, count);
   }

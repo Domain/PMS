@@ -104,7 +104,7 @@ public class MediaItemDAOImpl
     }
   }
 
-  public List<MediaItem> getMediaItemsInRepository(Long repositoryId)
+  public List!(MediaItem) getMediaItemsInRepository(Long repositoryId)
   {
     log.debug_(String.format("Reading MediaItems for Repository (id = %s)", cast(Object[])[ repositoryId ]));
     Connection con = null;
@@ -124,7 +124,7 @@ public class MediaItemDAOImpl
     }
   }
 
-  public List<MediaItem> getMediaItemsInRepository(Long repositoryId, MediaFileType fileType)
+  public List!(MediaItem) getMediaItemsInRepository(Long repositoryId, MediaFileType fileType)
   {
     log.debug_(String.format("Reading MediaItems (%s) for Repository (id = %s)", cast(Object[])[ fileType, repositoryId ]));
     Connection con = null;
@@ -209,7 +209,7 @@ public class MediaItemDAOImpl
     }
   }
 
-  public List<MediaItem> getDirtyMediaItemsInRepository(Long repositoryId)
+  public List!(MediaItem) getDirtyMediaItemsInRepository(Long repositoryId)
   {
     log.debug_(String.format("Reading dirty MediaItems for Repository (id = %s)", cast(Object[])[ repositoryId ]));
     Connection con = null;
@@ -258,9 +258,9 @@ public class MediaItemDAOImpl
     return null;
   }
 
-  protected List<MediaItem> mapResultSet(ResultSet rs)
+  protected List!(MediaItem) mapResultSet(ResultSet rs)
     {
-    List<MediaItem> result = new ArrayList<MediaItem>();
+    List!(MediaItem) result = new ArrayList!(MediaItem)();
     while (rs.next()) {
       result.add(initMediaItem(rs));
     }

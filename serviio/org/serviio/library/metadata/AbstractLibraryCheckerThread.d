@@ -13,7 +13,7 @@ public abstract class AbstractLibraryCheckerThread : Thread
 
   protected bool dontSleep = false;
 
-  private Set<LibraryIndexingListener> listeners = new HashSet<LibraryIndexingListener>();
+  private Set!(LibraryIndexingListener) listeners = new HashSet!(LibraryIndexingListener)();
 
   public void stopWorker()
   {

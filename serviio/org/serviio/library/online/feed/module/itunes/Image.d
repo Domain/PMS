@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Image
-  : Serializable, Cloneable, Comparable<Image>
+  : Serializable, Cloneable, Comparable!(Image)
 {
   private static final long serialVersionUID = 7603218208987752391L;
   private URL url;

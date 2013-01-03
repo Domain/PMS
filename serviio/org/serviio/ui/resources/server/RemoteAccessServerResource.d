@@ -43,7 +43,7 @@ public class RemoteAccessServerResource : AbstractProEditionServerResource
     return rar;
   }
 
-  protected List<Method> getRestrictedMethods()
+  protected List!(Method) getRestrictedMethods()
   {
     return Collections.singletonList(Method.PUT);
   }

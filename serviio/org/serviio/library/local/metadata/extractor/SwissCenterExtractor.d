@@ -143,8 +143,8 @@ public class SwissCenterExtractor : AbstractLocalFileExtractor
     metadata.setGenre(StringUtils.trim(XPathUtil.getNodeValue(rootNode, "sc:genres/sc:genre[1]", namespaceContext)));
   }
 
-  private List<String> getActors(NodeList actorsNodeList) {
-    List<String> result = new ArrayList<String>();
+  private List!(String) getActors(NodeList actorsNodeList) {
+    List!(String) result = new ArrayList!(String)();
     if ((actorsNodeList !is null) && (actorsNodeList.getLength() > 0)) {
       for (int i = 0; i < actorsNodeList.getLength(); i++) {
         Node castNode = actorsNodeList.item(i);
@@ -154,8 +154,8 @@ public class SwissCenterExtractor : AbstractLocalFileExtractor
     return result;
   }
 
-  private List<String> getDirectors(NodeList directorsNodeList) {
-    List<String> result = new ArrayList<String>();
+  private List!(String) getDirectors(NodeList directorsNodeList) {
+    List!(String) result = new ArrayList!(String)();
     if ((directorsNodeList !is null) && (directorsNodeList.getLength() > 0)) {
       for (int i = 0; i < directorsNodeList.getLength(); i++) {
         Node castNode = directorsNodeList.item(i);

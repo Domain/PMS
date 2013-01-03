@@ -33,7 +33,7 @@ public class GenreService
     return null;
   }
 
-  public static List<Genre> getListOfGenres(MediaFileType fileType, int startingIndex, int requestedCount)
+  public static List!(Genre) getListOfGenres(MediaFileType fileType, int startingIndex, int requestedCount)
   {
     return DAOFactory.getGenreDAO().retrieveGenres(fileType, startingIndex, requestedCount);
   }

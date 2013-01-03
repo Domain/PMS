@@ -8,15 +8,15 @@ public class FFmpegCLBuilder : AbstractCLBuilder
 {
   static String executablePath = setupExecutablePath("ffmpeg.location", "ffmpeg_executable");
 
-  private final List<String> globalOptions = new ArrayList<String>();
-  private final List<String> inFileOptions = new ArrayList<String>();
+  private final List!(String) globalOptions = new ArrayList!(String)();
+  private final List!(String) inFileOptions = new ArrayList!(String)();
   private String inFile;
-  private final List<String> outFileOptions = new ArrayList<String>();
+  private final List!(String) outFileOptions = new ArrayList!(String)();
   private String outFile;
 
   public String[] build()
   {
-    List<String> args = new ArrayList<String>();
+    List!(String) args = new ArrayList!(String)();
     args.add(executablePath);
     args.addAll(globalOptions);
     if (inFile !is null) {
@@ -57,7 +57,7 @@ public class FFmpegCLBuilder : AbstractCLBuilder
     return this;
   }
 
-  List<String> getOutFileOptions() {
+  List!(String) getOutFileOptions() {
     return Collections.unmodifiableList(outFileOptions);
   }
 }

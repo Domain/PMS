@@ -137,9 +137,9 @@ public class MetadataDescriptorDAOImpl
     return null;
   }
 
-  protected List<MetadataDescriptor> mapResultSet(ResultSet rs)
+  protected List!(MetadataDescriptor) mapResultSet(ResultSet rs)
     {
-    List<MetadataDescriptor> result = new ArrayList<MetadataDescriptor>();
+    List!(MetadataDescriptor) result = new ArrayList!(MetadataDescriptor)();
     while (rs.next()) {
       result.add(initDescriptor(rs));
     }

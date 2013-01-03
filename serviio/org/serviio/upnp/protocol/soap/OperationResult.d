@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class OperationResult
 {
-  private Map<String, Object> outputParameters = new LinkedHashMap<String, Object>();
+  private Map!(String, Object) outputParameters = new LinkedHashMap!(String, Object)();
   private InvocationError error;
 
   public this()
@@ -22,7 +22,7 @@ public class OperationResult
     outputParameters.put(name, value);
   }
 
-  public Map<String, Object> getOutputParameters()
+  public Map!(String, Object) getOutputParameters()
   {
     return outputParameters;
   }

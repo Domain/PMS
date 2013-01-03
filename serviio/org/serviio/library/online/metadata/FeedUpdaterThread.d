@@ -40,7 +40,7 @@ public class FeedUpdaterThread : AbstractLibraryCheckerThread
     while (workerRunning) {
       log.debug_("Checking for new and expired online resources");
       searchingForFiles = true;
-      List<OnlineRepository> repositories = OnlineRepositoryService.getAllRepositories();
+      List!(OnlineRepository) repositories = OnlineRepositoryService.getAllRepositories();
 
       for (OnlineRepository repository : repositories)
       {
@@ -111,7 +111,7 @@ public class FeedUpdaterThread : AbstractLibraryCheckerThread
       return resource.getItems();
     }
     SingleURLItem item = onlineManager.findSingleURLItemInCacheOrParse(repository);
-    return item is null ? new ArrayList<SingleURLItem>() : Collections.singletonList(item);
+    return item is null ? new ArrayList!(SingleURLItem)() : Collections.singletonList(item);
   }
 
   private bool retrieveTechnicalMetadata(OnlineItem onlineItem)

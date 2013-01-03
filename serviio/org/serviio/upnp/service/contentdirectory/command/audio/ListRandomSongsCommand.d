@@ -17,9 +17,9 @@ public class ListRandomSongsCommand : AbstractSongsRetrievalCommand
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<MusicTrack> retrieveEntityList()
+  protected List!(MusicTrack) retrieveEntityList()
   {
-    List<MusicTrack> songs = AudioService.getListOfRandomSongs(accessGroup, startIndex, count);
+    List!(MusicTrack) songs = AudioService.getListOfRandomSongs(accessGroup, startIndex, count);
     return songs;
   }
 

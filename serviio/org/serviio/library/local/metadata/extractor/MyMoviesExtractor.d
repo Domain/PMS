@@ -119,8 +119,8 @@ public class MyMoviesExtractor : AbstractLocalFileExtractor
     }
   }
 
-  private List<String> getActors(Node titleNode) {
-    List<String> result = new ArrayList<String>();
+  private List!(String) getActors(Node titleNode) {
+    List!(String) result = new ArrayList!(String)();
     NodeList actorsNodeList = XPathUtil.getNodeSet(titleNode, "Persons/Person[@Type='1']");
     if ((actorsNodeList !is null) && (actorsNodeList.getLength() > 0)) {
       for (int i = 0; i < actorsNodeList.getLength(); i++) {

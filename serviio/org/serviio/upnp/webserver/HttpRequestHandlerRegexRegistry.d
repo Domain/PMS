@@ -10,9 +10,9 @@ import org.apache.http.protocol.HttpRequestHandlerResolver;
 public class HttpRequestHandlerRegexRegistry
   : HttpRequestHandlerResolver
 {
-  private Map<String, HttpRequestHandler> handlers = new HashMap<String, HttpRequestHandler>();
+  private Map!(String, HttpRequestHandler) handlers = new HashMap!(String, HttpRequestHandler)();
 
-  private Map<String, Pattern> patterns = new HashMap<String, Pattern>();
+  private Map!(String, Pattern) patterns = new HashMap!(String, Pattern)();
 
   public HttpRequestHandler lookup(String uri)
   {

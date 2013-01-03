@@ -6,11 +6,11 @@ import java.util.Map;
 public class SSDPMessageBuilderFactory
 {
   private static SSDPMessageBuilderFactory instance;
-  private Map<SSDPMessageType, SSDPRequestMessageBuilder> builders;
+  private Map!(SSDPMessageType, SSDPRequestMessageBuilder) builders;
 
   private this()
   {
-    builders = new HashMap<SSDPMessageType, SSDPRequestMessageBuilder>(3);
+    builders = new HashMap!(SSDPMessageType, SSDPRequestMessageBuilder)(3);
     builders.put(SSDPMessageType.ALIVE, new DeviceAliveMessageBuilder());
     builders.put(SSDPMessageType.BYEBYE, new DeviceUnavailableMessageBuilder());
     builders.put(SSDPMessageType.SEARCH, new RendererSearchMessageBuilder());

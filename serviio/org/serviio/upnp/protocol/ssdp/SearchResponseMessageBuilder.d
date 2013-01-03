@@ -12,7 +12,7 @@ import org.serviio.util.ObjectValidator;
 
 public class SearchResponseMessageBuilder : SSDPResponseMessageBuilder
 {
-  public List<String> generateSSDPMessages(Integer duration, String searchTarget)
+  public List!(String) generateSSDPMessages(Integer duration, String searchTarget)
     {
     if ((duration is null) || (duration.intValue() < 0)) {
       throw new InsufficientInformationException(String.format("Message duration includes invalid value: %s", cast(Object[])[ duration ]));
@@ -22,7 +22,7 @@ public class SearchResponseMessageBuilder : SSDPResponseMessageBuilder
       throw new InsufficientInformationException(String.format("Message searchTarget includes invalid value: %s", cast(Object[])[ searchTarget ]));
     }
 
-    List<String> messages = new ArrayList<String>();
+    List!(String) messages = new ArrayList!(String)();
     Device device = Device.getInstance();
     if (searchTarget.equals("ssdp:all"))
       messages.addAll(generateAllMessages(duration, device));
@@ -49,18 +49,18 @@ public class SearchResponseMessageBuilder : SSDPResponseMessageBuilder
     return response;
   }
 
-  protected List<String> generateAllServicesMessages(Integer duration, Device device)
+  protected List!(String) generateAllServicesMessages(Integer duration, Device device)
   {
-    List<String> result = new ArrayList<String>(3);
+    List!(String) result = new ArrayList!(String)(3);
     for (Service service : device.getServices()) {
       result.add(generateServiceMessage(duration, device, service.getServiceType()));
     }
     return result;
   }
 
-  protected List<String> generateAllMessages(Integer duration, Device device)
+  protected List!(String) generateAllMessages(Integer duration, Device device)
   {
-    List<String> messages = new ArrayList<String>();
+    List!(String) messages = new ArrayList!(String)();
     messages.add(generateRootDeviceMessage(duration, device));
     messages.add(generateDeviceByUUIDMessage(duration, device));
     messages.add(generateDeviceByTypeMessage(duration, device));

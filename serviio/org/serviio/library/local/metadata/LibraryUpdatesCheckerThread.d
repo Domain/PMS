@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 public class LibraryUpdatesCheckerThread : AbstractLibraryCheckerThread
 {
   private static final int THREAD_SLEEP_PERIOD = 3600000;
-  private static List<ExtractorType> automaticExtractors = Arrays.asList(cast(ExtractorType[])[ ExtractorType.EMBEDDED, ExtractorType.COVER_IMAGE_IN_FOLDER, ExtractorType.MYMOVIES, ExtractorType.SWISSCENTER, ExtractorType.XBMC ]);
+  private static List!(ExtractorType) automaticExtractors = Arrays.asList(cast(ExtractorType[])[ ExtractorType.EMBEDDED, ExtractorType.COVER_IMAGE_IN_FOLDER, ExtractorType.MYMOVIES, ExtractorType.SWISSCENTER, ExtractorType.XBMC ]);
 
   private static final Logger log = LoggerFactory.getLogger(LibraryUpdatesCheckerThread.class);
 
@@ -40,7 +40,7 @@ public class LibraryUpdatesCheckerThread : AbstractLibraryCheckerThread
     while (workerRunning) {
       searchingForFiles = true;
 
-      List<Repository> repositories = RepositoryService.getAllRepositories();
+      List!(Repository) repositories = RepositoryService.getAllRepositories();
       for (Repository repository : repositories) {
         try
         {
@@ -91,8 +91,8 @@ public class LibraryUpdatesCheckerThread : AbstractLibraryCheckerThread
   {
     log.debug_(String.format("Looking for removed/updated files in repository: %s", cast(Object[])[ repository.getFolder() ]));
 
-    List<MediaItem> items = MediaService.getMediaItemsInRepository(repository.getId());
-    Iterator<MediaItem> itemsIt = items.iterator();
+    List!(MediaItem) items = MediaService.getMediaItemsInRepository(repository.getId());
+    Iterator!(MediaItem) itemsIt = items.iterator();
     while ((workerRunning) && (itemsIt.hasNext()))
     {
       MediaItem item = cast(MediaItem)itemsIt.next();
@@ -119,7 +119,7 @@ public class LibraryUpdatesCheckerThread : AbstractLibraryCheckerThread
       }
       else if (Configuration.isSearchUpdatedFiles())
         try {
-          List<MetadataExtractor> extractors = MetadataExtractorFactory.getInstance().getExtractors(item.getFileType());
+          List!(MetadataExtractor) extractors = MetadataExtractorFactory.getInstance().getExtractors(item.getFileType());
           for (MetadataExtractor extractor : extractors)
           {
             if ((workerRunning) && (automaticExtractors.contains(extractor.getExtractorType()))) {
@@ -140,8 +140,8 @@ public class LibraryUpdatesCheckerThread : AbstractLibraryCheckerThread
   {
     log.debug_(String.format("Looking for removed playlist files in repository: %s", cast(Object[])[ repository.getFolder() ]));
 
-    List<Playlist> playlists = PlaylistService.getPlaylistsInRepository(repository.getId());
-    Iterator<Playlist> playlistIt = playlists.iterator();
+    List!(Playlist) playlists = PlaylistService.getPlaylistsInRepository(repository.getId());
+    Iterator!(Playlist) playlistIt = playlists.iterator();
     while ((workerRunning) && (playlistIt.hasNext())) {
       Playlist playlist = cast(Playlist)playlistIt.next();
 
@@ -160,10 +160,10 @@ public class LibraryUpdatesCheckerThread : AbstractLibraryCheckerThread
 
   protected void updateMetadata(Repository repository)
   {
-    List<MediaItem> mediaItems = MediaService.getDirtyMediaItemsInRepository(repository.getId());
+    List!(MediaItem) mediaItems = MediaService.getDirtyMediaItemsInRepository(repository.getId());
     if (mediaItems.size() > 0) {
       log.debug_(String.format("Updating dirty metadata for repository: %s", cast(Object[])[ repository.getFolder() ]));
-      Iterator<MediaItem> mediaItemsIt = mediaItems.iterator();
+      Iterator!(MediaItem) mediaItemsIt = mediaItems.iterator();
       while ((workerRunning) && (mediaItemsIt.hasNext())) {
         MediaItem mediaItem = cast(MediaItem)mediaItemsIt.next();
         try {

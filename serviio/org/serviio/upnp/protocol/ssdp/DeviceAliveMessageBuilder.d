@@ -9,13 +9,13 @@ import org.serviio.upnp.service.Service;
 
 public class DeviceAliveMessageBuilder : SSDPRequestMessageBuilder
 {
-  public List<String> generateSSDPMessages(Integer duration, String searchTarget)
+  public List!(String) generateSSDPMessages(Integer duration, String searchTarget)
     {
     if ((duration is null) || (duration.intValue() < 0)) {
       throw new InsufficientInformationException(String.format("Message duration includes invalid value: %s", cast(Object[])[ duration ]));
     }
 
-    List<String> messages = new ArrayList<String>();
+    List!(String) messages = new ArrayList!(String)();
     messages.addAll(generateRootDeviceMessages(duration));
     messages.addAll(generateServicesMessages(duration));
     return messages;
@@ -31,9 +31,9 @@ public class DeviceAliveMessageBuilder : SSDPRequestMessageBuilder
     return request;
   }
 
-  protected List<String> generateRootDeviceMessages(Integer duration)
+  protected List!(String) generateRootDeviceMessages(Integer duration)
   {
-    List<String> result = new ArrayList<String>(3);
+    List!(String) result = new ArrayList!(String)(3);
     Device device = Device.getInstance();
     HttpRequest message1 = generateBase("NOTIFY", duration);
     message1.addHeader("NT", "upnp:rootdevice");
@@ -53,9 +53,9 @@ public class DeviceAliveMessageBuilder : SSDPRequestMessageBuilder
     return result;
   }
 
-  protected List<String> generateServicesMessages(Integer duration)
+  protected List!(String) generateServicesMessages(Integer duration)
   {
-    List<String> result = new ArrayList<String>(3);
+    List!(String) result = new ArrayList!(String)(3);
     Device device = Device.getInstance();
     for (Service service : device.getServices())
     {

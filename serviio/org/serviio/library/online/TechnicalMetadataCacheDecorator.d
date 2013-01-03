@@ -5,7 +5,7 @@ import org.serviio.cache.AbstractCacheDecorator;
 import org.serviio.library.online.metadata.TechnicalMetadata;
 
 public class TechnicalMetadataCacheDecorator : AbstractCacheDecorator
-  : OnlineCacheDecorator<TechnicalMetadata>
+  : OnlineCacheDecorator!(TechnicalMetadata)
 {
   public this(String regionName)
   {

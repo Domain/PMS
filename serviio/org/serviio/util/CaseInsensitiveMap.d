@@ -2,7 +2,7 @@ module org.serviio.util.CaseInsensitiveMap;
 
 import java.util.LinkedHashMap;
 
-public class CaseInsensitiveMap<V> : LinkedHashMap<String, V>
+public class CaseInsensitiveMap!(V) : LinkedHashMap!(String, V)
 {
   private static final long serialVersionUID = 1741026453099609195L;
 

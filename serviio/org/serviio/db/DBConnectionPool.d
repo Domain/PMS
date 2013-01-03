@@ -13,7 +13,7 @@ class DBConnectionPool
 {
   private static final Logger log = LoggerFactory.getLogger(DBConnectionPool.class);
   private int checkedOut;
-  private Vector<Connection> freeConnections = new Vector<Connection>();
+  private Vector!(Connection) freeConnections = new Vector!(Connection)();
   private int maxConn;
   private String name;
   private String URL;
@@ -92,7 +92,7 @@ class DBConnectionPool
 
   public synchronized void release()
   {
-    Enumeration<Connection> allConnections = freeConnections.elements();
+    Enumeration!(Connection) allConnections = freeConnections.elements();
     while (allConnections.hasMoreElements()) {
       Connection con = cast(Connection)allConnections.nextElement();
       try {

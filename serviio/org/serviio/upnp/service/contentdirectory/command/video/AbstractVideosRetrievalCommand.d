@@ -12,16 +12,16 @@ import org.serviio.upnp.service.contentdirectory.ObjectType;
 import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 import org.serviio.upnp.service.contentdirectory.command.AbstractEntityItemCommand;
 
-public abstract class AbstractVideosRetrievalCommand : AbstractEntityItemCommand<Video>
+public abstract class AbstractVideosRetrievalCommand : AbstractEntityItemCommand!(Video)
 {
   public this(String contextIdentifier, ObjectType objectType, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup accessGroup, String idPrefix, int startIndex, int count)
   {
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected final Set<ObjectClassType> getSupportedClasses()
+  protected final Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.VIDEO_ITEM, ObjectClassType.MOVIE ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.VIDEO_ITEM, ObjectClassType.MOVIE ]));
   }
 
   protected Video retrieveSingleEntity(Long entityId)

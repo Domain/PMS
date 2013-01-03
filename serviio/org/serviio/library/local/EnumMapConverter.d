@@ -6,11 +6,11 @@ import org.serviio.util.CollectionUtils;
 import org.serviio.util.ObjectValidator;
 import org.serviio.util.StringUtils;
 
-public abstract class EnumMapConverter<E>
+public abstract class EnumMapConverter!(E)
 {
-  public Map<E, String> convert(String identifiersCSV)
+  public Map!(E, String) convert(String identifiersCSV)
   {
-    Map<E, String> result = new HashMap<E, String>();
+    Map!(E, String) result = new HashMap!(E, String)();
     if (ObjectValidator.isNotEmpty(identifiersCSV)) {
       String[] identifiers = identifiersCSV.split(",");
       for (String identifier : identifiers) {
@@ -21,7 +21,7 @@ public abstract class EnumMapConverter<E>
     return result;
   }
 
-  public String parseToString(Map<E, String> map) {
+  public String parseToString(Map!(E, String) map) {
     return CollectionUtils.mapToCSV(map, ",", true);
   }
 

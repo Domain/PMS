@@ -11,16 +11,16 @@ import org.serviio.upnp.service.contentdirectory.ObjectType;
 import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 import org.serviio.upnp.service.contentdirectory.command.AbstractEntityItemCommand;
 
-public abstract class AbstractSongsRetrievalCommand : AbstractEntityItemCommand<MusicTrack>
+public abstract class AbstractSongsRetrievalCommand : AbstractEntityItemCommand!(MusicTrack)
 {
   public this(String contextIdentifier, ObjectType objectType, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup accessGroup, String idPrefix, int startIndex, int count)
   {
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected final Set<ObjectClassType> getSupportedClasses()
+  protected final Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.AUDIO_ITEM, ObjectClassType.MUSIC_TRACK ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.AUDIO_ITEM, ObjectClassType.MUSIC_TRACK ]));
   }
 
   protected MusicTrack retrieveSingleEntity(Long entityId)

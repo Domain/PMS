@@ -31,7 +31,7 @@ public class PlaylistMaintainerThread : AbstractLibraryCheckerThread
     while (workerRunning) {
       searchingForFiles = true;
 
-      List<Playlist> playlists = PlaylistService.getAllPlaylists();
+      List!(Playlist) playlists = PlaylistService.getAllPlaylists();
       for (Playlist playlist : playlists) {
         bool playlistUpdated = false;
         File playlistFile = new File(playlist.getFilePath());
@@ -75,7 +75,7 @@ public class PlaylistMaintainerThread : AbstractLibraryCheckerThread
 
     ParsedPlaylist parsedPlaylist = parsePlaylst(playlist.getFilePath());
 
-    List<Integer> currentItemIndexes = PlaylistService.getPlaylistItemIndices(playlist.getId());
+    List!(Integer) currentItemIndexes = PlaylistService.getPlaylistItemIndices(playlist.getId());
     bool allItemsPresent = true;
     bool updated = false;
     for (PlaylistItem pi : parsedPlaylist.getItems()) {
@@ -109,7 +109,7 @@ public class PlaylistMaintainerThread : AbstractLibraryCheckerThread
 
     PlaylistService.removePlaylistItems(playlist.getId());
 
-    Set<MediaFileType> fileTypes = new HashSet<MediaFileType>();
+    Set!(MediaFileType) fileTypes = new HashSet!(MediaFileType)();
     bool allItemsPresent = true;
     for (PlaylistItem pi : parsedPlaylist.getItems()) {
       MediaItem existingMediaItem = MediaService.getMediaItem(pi.getPath(), true);

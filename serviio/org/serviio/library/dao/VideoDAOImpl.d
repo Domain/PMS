@@ -190,7 +190,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveVideos(int type, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveVideos(int type, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of videos of type %s (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(type), Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -236,7 +236,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveVideosForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveVideosForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of videos for folder %s (from=%s, count=%s) [%s]", cast(Object[])[ folderId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -284,7 +284,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveVideosForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveVideosForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of videos for playlist %s (from=%s, count=%s) [%s]", cast(Object[])[ playlistId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -332,7 +332,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveVideosForGenre(Long genreId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveVideosForGenre(Long genreId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of videos for genre %s (from=%s, count=%s) [%s]", cast(Object[])[ genreId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -380,7 +380,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveVideosForPerson(Long personId, RoleType role, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveVideosForPerson(Long personId, RoleType role, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of videos for person %s with role %s (from=%s, count=%s) [%s]", cast(Object[])[ personId, role, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -430,7 +430,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveVideosForSeriesSeason(Long seriesId, Integer season, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveVideosForSeriesSeason(Long seriesId, Integer season, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of videos for series %s season %s (from=%s, count=%s) [%s]", cast(Object[])[ seriesId, season, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -480,7 +480,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<String> retrieveVideoInitials(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(String) retrieveVideoInitials(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of video initials (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -491,7 +491,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
 
       ps.setString(1, MediaFileType.VIDEO.toString());
       ResultSet rs = ps.executeQuery();
-      List<String> result = new ArrayList<String>();
+      List!(String) result = new ArrayList!(String)();
       while (rs.next()) {
         result.add(rs.getString("letter"));
       }
@@ -530,7 +530,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveVideosForInitial(String initial, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveVideosForInitial(String initial, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of videos with initial %s (from=%s, count=%s) [%s]", cast(Object[])[ initial, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -578,7 +578,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveLastViewedVideos(int maxReturned, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveLastViewedVideos(int maxReturned, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of %s last viewed videos (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(maxReturned), Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
 
@@ -629,7 +629,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Video> retrieveLastAddedVideos(int maxReturned, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Video) retrieveLastAddedVideos(int maxReturned, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of %s last added videos (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(maxReturned), Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
 
@@ -662,7 +662,7 @@ public class VideoDAOImpl : AbstractSortableItemDao
     return count.intValue() < maxReturned ? count.intValue() : maxReturned;
   }
 
-  public Map<Long, Integer> retrieveLastViewedEpisode(Long seriesId)
+  public Map!(Long, Integer) retrieveLastViewedEpisode(Long seriesId)
   {
     log.debug_(String.format("Retrieving last episode for series %s", cast(Object[])[ seriesId ]));
     Connection con = null;
@@ -674,9 +674,9 @@ public class VideoDAOImpl : AbstractSortableItemDao
       ps.setString(1, MediaFileType.VIDEO.toString());
       ps.setLong(2, seriesId.longValue());
       ResultSet rs = ps.executeQuery();
-      Map<Long, Integer> result;
+      Map!(Long, Integer) result;
       if (rs.next()) {
-        result = new HashMap<Long, Integer>();
+        result = new HashMap!(Long, Integer)();
         result.put(Long.valueOf(rs.getLong(1)), Integer.valueOf(rs.getInt(2)));
         return result;
       }
@@ -698,9 +698,9 @@ public class VideoDAOImpl : AbstractSortableItemDao
     return null;
   }
 
-  protected List<Video> mapResultSet(ResultSet rs)
+  protected List!(Video) mapResultSet(ResultSet rs)
     {
-    List<Video> result = new ArrayList<Video>();
+    List!(Video) result = new ArrayList!(Video)();
     while (rs.next()) {
       result.add(initVideo(rs));
     }

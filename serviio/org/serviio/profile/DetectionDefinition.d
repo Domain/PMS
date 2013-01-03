@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class DetectionDefinition
 {
-  private Map<String, String> fieldValues = new HashMap<String, String>();
+  private Map!(String, String) fieldValues = new HashMap!(String, String)();
   private DetectionType type;
 
   public this(DetectionType type)
@@ -13,7 +13,7 @@ public class DetectionDefinition
     this.type = type;
   }
 
-  public Map<String, String> getFieldValues()
+  public Map!(String, String) getFieldValues()
   {
     return fieldValues;
   }

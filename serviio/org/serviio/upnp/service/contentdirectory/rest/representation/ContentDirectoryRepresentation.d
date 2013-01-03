@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ContentDirectoryRepresentation
 {
-  private List<DirectoryObjectRepresentation> objects;
+  private List!(DirectoryObjectRepresentation) objects;
 
   @XStreamAsAttribute
   private Integer returnedSize;
@@ -13,12 +13,12 @@ public class ContentDirectoryRepresentation
   @XStreamAsAttribute
   private Integer totalMatched;
 
-  public List<DirectoryObjectRepresentation> getObjects()
+  public List!(DirectoryObjectRepresentation) getObjects()
   {
     return objects;
   }
 
-  public void setObjects(List<DirectoryObjectRepresentation> objects) {
+  public void setObjects(List!(DirectoryObjectRepresentation) objects) {
     this.objects = objects;
   }
 

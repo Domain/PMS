@@ -151,7 +151,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Playlist> getPlaylistsInRepository(Long repositoryId)
+  public List!(Playlist) getPlaylistsInRepository(Long repositoryId)
   {
     log.debug_(String.format("Reading Playlists for Repository (id = %s)", cast(Object[])[ repositoryId ]));
     Connection con = null;
@@ -175,7 +175,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
   {
     try
     {
-      new JdbcExecutor<Object>()
+      new JdbcExecutor!(Object)()
       {
         protected PreparedStatement processStatement(Connection con) {
           PreparedStatement ps = con.prepareStatement("DELETE FROM playlist_item WHERE media_item_id = ?");
@@ -192,7 +192,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Playlist> findAll()
+  public List!(Playlist) findAll()
   {
     log.debug_("Reading all Playlists");
     Connection con = null;
@@ -215,7 +215,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
   {
     log.debug_(String.format("Removing all items from playlist %s", cast(Object[])[ playlistId ]));
     try {
-      new JdbcExecutor<Object>()
+      new JdbcExecutor!(Object)()
       {
         protected PreparedStatement processStatement(Connection con) {
           PreparedStatement ps = con.prepareStatement("DELETE FROM playlist_item WHERE playlist_id = ?");
@@ -255,7 +255,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Integer> getPlaylistItemIndices(Long playlistId)
+  public List!(Integer) getPlaylistItemIndices(Long playlistId)
   {
     log.debug_(String.format("Reading items for playlist %s", cast(Object[])[ playlistId ]));
     Connection con = null;
@@ -265,7 +265,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
       ps = con.prepareStatement("SELECT item_order FROM playlist_item WHERE playlist_id = ? ORDER BY item_order");
       ps.setLong(1, playlistId.longValue());
       ResultSet rs = ps.executeQuery();
-      List<Integer> numbers = new ArrayList<Integer>();
+      List!(Integer) numbers = new ArrayList!(Integer)();
       while (rs.next()) {
         numbers.add(Integer.valueOf(rs.getInt("item_order")));
       }
@@ -278,7 +278,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Playlist> retrievePlaylistsWithMedia(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Playlist) retrievePlaylistsWithMedia(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of Playlists for %s (from=%s, count=%s) [%s]", cast(Object[])[ mediaType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -328,7 +328,7 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
   {
     try
     {
-      new JdbcExecutor<Object>()
+      new JdbcExecutor!(Object)()
       {
         protected PreparedStatement processStatement(Connection con) {
           PreparedStatement ps = con.prepareStatement("DELETE FROM playlist WHERE id = ?");
@@ -353,9 +353,9 @@ public class PlaylistDAOImpl : AbstractAccessibleDao
     return null;
   }
 
-  protected List<Playlist> mapResultSet(ResultSet rs)
+  protected List!(Playlist) mapResultSet(ResultSet rs)
     {
-    List<Playlist> result = new ArrayList<Playlist>();
+    List!(Playlist) result = new ArrayList!(Playlist)();
     while (rs.next()) {
       result.add(initPlaylist(rs));
     }

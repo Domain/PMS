@@ -148,7 +148,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
     log.debug_(String.format("Removing all Persons from media item %s", cast(Object[])[ mediaItemId ]));
 
-    List<Person> persons = retrievePersonsForMediaItem(mediaItemId);
+    List!(Person) persons = retrievePersonsForMediaItem(mediaItemId);
 
     log.debug_(String.format("Found all Persons (%s) for media item %s", cast(Object[])[ Integer.valueOf(persons.size()), mediaItemId ]));
 
@@ -184,7 +184,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
     log.debug_(String.format("Removing all Persons from album %s", cast(Object[])[ albumId ]));
 
-    List<Person> persons = retrievePersonsForMusicAlbum(albumId);
+    List!(Person) persons = retrievePersonsForMusicAlbum(albumId);
 
     Connection con = null;
     PreparedStatement ps = null;
@@ -211,7 +211,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public void removePersonsAndRoles(List<Long> personRoleIds)
+  public void removePersonsAndRoles(List!(Long) personRoleIds)
   {
     if ((personRoleIds !is null) && (personRoleIds.size() > 0)) {
       log.debug_("Removing person relationships");
@@ -220,7 +220,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       PreparedStatement ps = null;
       try {
         con = DatabaseManager.getConnection();
-        List<Person> referencedPersons = findPersonForPersonRole(con, personRoleIds);
+        List!(Person) referencedPersons = findPersonForPersonRole(con, personRoleIds);
 
         ps = con.prepareStatement("DELETE FROM person_role WHERE id IN (" + JdbcUtils.createInClause(personRoleIds.size()) + ")");
         for (int i = 1; i <= personRoleIds.size(); i++) {
@@ -245,7 +245,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Person> retrievePersonsWithRole(RoleType roleType, int startingIndex, int requestedCount)
+  public List!(Person) retrievePersonsWithRole(RoleType roleType, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of persons with role %s (from=%s, count=%s)", cast(Object[])[ roleType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -315,7 +315,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Person> retrievePersonsWithRoleForMediaItem(RoleType roleType, Long mediaItemId)
+  public List!(Person) retrievePersonsWithRoleForMediaItem(RoleType roleType, Long mediaItemId)
   {
     log.debug_(String.format("Retrieving list of persons with role %s for MediaItem %s", cast(Object[])[ roleType, mediaItemId ]));
     Connection con = null;
@@ -336,7 +336,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Person> retrievePersonsWithRoleForMusicAlbum(RoleType roleType, Long albumId)
+  public List!(Person) retrievePersonsWithRoleForMusicAlbum(RoleType roleType, Long albumId)
   {
     log.debug_(String.format("Retrieving list of persons with role %s for MusicAlbum %s", cast(Object[])[ roleType, albumId ]));
     Connection con = null;
@@ -357,7 +357,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Person> retrievePersonsForMediaItem(Long mediaItemId)
+  public List!(Person) retrievePersonsForMediaItem(Long mediaItemId)
   {
     log.debug_(String.format("Retrieving list of persons for MediaItem %s", cast(Object[])[ mediaItemId ]));
     Connection con = null;
@@ -377,7 +377,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Person> retrievePersonsForMusicAlbum(Long albumId)
+  public List!(Person) retrievePersonsForMusicAlbum(Long albumId)
   {
     log.debug_(String.format("Retrieving list of persons for MusicAlbum %s", cast(Object[])[ albumId ]));
     Connection con = null;
@@ -459,7 +459,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Long> getRoleIDsForMediaItem(RoleType role, Long mediaItemId)
+  public List!(Long) getRoleIDsForMediaItem(RoleType role, Long mediaItemId)
   {
     if ((mediaItemId is null) || (role is null)) {
       throw new InvalidArgumentException("Cannot get list of roles. Required data is missing.");
@@ -474,7 +474,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ps.setString(2, role.toString());
 
       ResultSet rs = ps.executeQuery();
-      List<Long> result = new ArrayList<Long>();
+      List!(Long) result = new ArrayList!(Long)();
       while (rs.next()) {
         result.add(Long.valueOf(rs.getLong("id")));
       }
@@ -488,7 +488,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<String> retrievePersonInitials(RoleType role, int startingIndex, int requestedCount)
+  public List!(String) retrievePersonInitials(RoleType role, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of person initials (role = %s, from=%s, count=%s)", cast(Object[])[ role, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -499,7 +499,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
       ps.setString(1, role.toString());
       ResultSet rs = ps.executeQuery();
-      List<String> result = new ArrayList<String>();
+      List!(String) result = new ArrayList!(String)();
       while (rs.next()) {
         result.add(rs.getString("letter"));
       }
@@ -538,7 +538,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Person> retrievePersonsForInitial(String initial, RoleType role, int startingIndex, int requestedCount)
+  public List!(Person) retrievePersonsForInitial(String initial, RoleType role, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of persons with initial %s and role %s (from=%s, count=%s)", cast(Object[])[ initial, role, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -602,9 +602,9 @@ public class PersonDAOImpl : AbstractSortableItemDao
     return null;
   }
 
-  protected List<Person> mapResultSet(ResultSet rs)
+  protected List!(Person) mapResultSet(ResultSet rs)
     {
-    List<Person> result = new ArrayList<Person>();
+    List!(Person) result = new ArrayList!(Person)();
     while (rs.next()) {
       result.add(initPerson(rs));
     }
@@ -656,7 +656,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     }
   }
 
-  private List<Person> findPersonForPersonRole(Connection con, List<Long> personRoleIds)
+  private List!(Person) findPersonForPersonRole(Connection con, List!(Long) personRoleIds)
   {
     PreparedStatement ps = null;
     try {

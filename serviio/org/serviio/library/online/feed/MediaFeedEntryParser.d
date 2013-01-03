@@ -138,7 +138,7 @@ public class MediaFeedEntryParser
   }
 
   private class MediaContentComparator
-    : Comparator<MediaContent>
+    : Comparator!(MediaContent)
   {
     private this()
     {

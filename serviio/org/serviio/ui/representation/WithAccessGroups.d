@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 
 public abstract interface WithAccessGroups
 {
-  public abstract LinkedHashSet<Long> getAccessGroupIds();
+  public abstract LinkedHashSet!(Long) getAccessGroupIds();
 }
 
 /* Location:           D:\Program Files\Serviio\lib\serviio.jar

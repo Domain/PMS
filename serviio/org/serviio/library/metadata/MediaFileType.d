@@ -62,8 +62,8 @@ public enum MediaFileType
     return null;
   }
 
-  public static Set<MediaFileType> parseMediaFileTypesFromString(String fileTypesCSV) {
-    Set<MediaFileType> result = new HashSet<MediaFileType>();
+  public static Set!(MediaFileType) parseMediaFileTypesFromString(String fileTypesCSV) {
+    Set!(MediaFileType) result = new HashSet!(MediaFileType)();
     if (ObjectValidator.isNotEmpty(fileTypesCSV)) {
       String[] fileTypes = fileTypesCSV.split(",");
       for (String fileType : fileTypes) {
@@ -73,8 +73,8 @@ public enum MediaFileType
     return result;
   }
 
-  public static String parseMediaFileTypesToString(Set<MediaFileType> fileTypes) {
-    return CollectionUtils.listToCSV(new ArrayList<MediaFileType>(fileTypes), ",", true);
+  public static String parseMediaFileTypesToString(Set!(MediaFileType) fileTypes) {
+    return CollectionUtils.listToCSV(new ArrayList!(MediaFileType)(fileTypes), ",", true);
   }
 }
 

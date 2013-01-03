@@ -12,7 +12,7 @@ import org.serviio.profile.Profile;
 import org.serviio.upnp.service.contentdirectory.ObjectType;
 import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 
-public abstract class AbstractListFlatFoldersByNameCommand : AbstractEntityContainerCommand<Folder>
+public abstract class AbstractListFlatFoldersByNameCommand : AbstractEntityContainerCommand!(Folder)
 {
   protected MediaFileType fileType;
 
@@ -22,14 +22,14 @@ public abstract class AbstractListFlatFoldersByNameCommand : AbstractEntityConta
     this.fileType = fileType;
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   }
 
-  protected List<Folder> retrieveEntityList()
+  protected List!(Folder) retrieveEntityList()
   {
-    List<Folder> folders = FolderService.getListOfFoldersWithMedia(fileType, accessGroup, startIndex, count);
+    List!(Folder) folders = FolderService.getListOfFoldersWithMedia(fileType, accessGroup, startIndex, count);
     return folders;
   }
 

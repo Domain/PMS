@@ -60,8 +60,8 @@ public class CollectionUtils
     return sb.toString();
   }
 
-  public static Map<String, String> CSVToMap(String value, String separator) {
-    Map<String, String> result = new LinkedHashMap<String, String>();
+  public static Map!(String, String) CSVToMap(String value, String separator) {
+    Map!(String, String) result = new LinkedHashMap!(String, String)();
     if (ObjectValidator.isNotEmpty(value)) {
       String[] entries = value.split(separator);
       for (String entry : entries) {
@@ -81,20 +81,20 @@ public class CollectionUtils
   }
 
   @SuppressWarnings("unchecked")
-public static <T> T[] setToArray(Set<T> set, Class<T> elementClass)
+public static !(T) T[] setToArray(Set!(T) set, Class!(T) elementClass)
   {
     if (set !is null) {
       T[] array = cast(T[])Array.newInstance(elementClass, set.size());
-      List<T> list = new ArrayList<T>(set);
+      List!(T) list = new ArrayList!(T)(set);
       return (T[]) list.toArray(array);
     }
     return null;
   }
 
-  public static <T> Set<T> arrayToSet(T[] array)
+  public static !(T) Set!(T) arrayToSet(T[] array)
   {
     if (array !is null) {
-      Set<T> set = new HashSet<T>(array.length);
+      Set!(T) set = new HashSet!(T)(array.length);
       for (T element : array) {
         set.add(element);
       }
@@ -103,16 +103,16 @@ public static <T> T[] setToArray(Set<T> set, Class<T> elementClass)
     return null;
   }
 
-  public static <T> void addUniqueElementToArray(T[] array, T element, Class<T> elementClass)
+  public static !(T) void addUniqueElementToArray(T[] array, T element, Class!(T) elementClass)
   {
-    Set<T> set = arrayToSet(array);
+    Set!(T) set = arrayToSet(array);
     set.add(element);
     array = setToArray(set, elementClass);
   }
 
-  public static <T> void removeElementFromArray(T[] array, T element, Class<T> elementClass)
+  public static !(T) void removeElementFromArray(T[] array, T element, Class!(T) elementClass)
   {
-    Set<T> set = arrayToSet(array);
+    Set!(T) set = arrayToSet(array);
     set.remove(element);
     array = setToArray(set, elementClass);
   }
@@ -131,14 +131,14 @@ public static <T> T[] setToArray(Set<T> set, Class<T> elementClass)
   {
     if (array !is null)
     {
-      Set<Integer> set = new HashSet<Integer>(array.length);
+      Set!(Integer) set = new HashSet!(Integer)(array.length);
       for (int item : array) {
         set.add(Integer.valueOf(item));
       }
       set.add(Integer.valueOf(element));
       int[] newArray = new int[set.size()];
       int i = 0;
-      for (Iterator<Integer> i$ = set.iterator(); i$.hasNext(); ) { int item = ( cast(Integer)i$.next()).intValue();
+      for (Iterator!(Integer) i$ = set.iterator(); i$.hasNext(); ) { int item = ( cast(Integer)i$.next()).intValue();
         newArray[(i++)] = item;
       }
       return newArray;
@@ -150,14 +150,14 @@ public static <T> T[] setToArray(Set<T> set, Class<T> elementClass)
   {
     if (array !is null)
     {
-      Set<Integer> set = new HashSet<Integer>(array.length);
+      Set!(Integer) set = new HashSet!(Integer)(array.length);
       for (int item : array) {
         set.add(Integer.valueOf(item));
       }
       set.remove(Integer.valueOf(element));
       int[] newArray = new int[set.size()];
       int i = 0;
-      for (Iterator<Integer> i$ = set.iterator(); i$.hasNext(); ) { int item = ( cast(Integer)i$.next()).intValue();
+      for (Iterator!(Integer) i$ = set.iterator(); i$.hasNext(); ) { int item = ( cast(Integer)i$.next()).intValue();
         newArray[(i++)] = item;
       }
       return newArray;
@@ -175,7 +175,7 @@ public static <T> T[] setToArray(Set<T> set, Class<T> elementClass)
     return false;
   }
 
-  public static <T> List<T> getSubList(List<T> list, int startIndex, int count)
+  public static !(T) List!(T) getSubList(List!(T) list, int startIndex, int count)
   {
     int endIndex = startIndex + count;
     if (endIndex > list.size()) {
@@ -184,15 +184,15 @@ public static <T> T[] setToArray(Set<T> set, Class<T> elementClass)
     return list.subList(startIndex, endIndex);
   }
 
-  public static <K, V> Map<K, V> getSubMap(Map<K, V> map, int startIndex, int count)
+  public static !(K, V) Map!(K, V) getSubMap(Map!(K, V) map, int startIndex, int count)
   {
     int endIndex = startIndex + count;
     if (endIndex > map.size()) {
       endIndex = map.size();
     }
-    Map<K, V> result = new LinkedHashMap<K, V>();
+    Map!(K, V) result = new LinkedHashMap!(K, V)();
     int i = 0;
-    for (Entry<K, V> entry : map.entrySet()) {
+    for (Entry!(K, V) entry : map.entrySet()) {
       if ((i >= startIndex) && (i < endIndex)) {
         result.put(entry.getKey(), entry.getValue());
       }
@@ -200,8 +200,8 @@ public static <T> T[] setToArray(Set<T> set, Class<T> elementClass)
     return result;
   }
 
-  public static List<Long> extractEntityIDs(List<? : PersistedEntity> entities) {
-    List<Long> ids = new ArrayList<Long>();
+  public static List!(Long) extractEntityIDs(List<? : PersistedEntity> entities) {
+    List!(Long) ids = new ArrayList!(Long)();
     for (PersistedEntity entity : entities) {
       ids.add(entity.getId());
     }

@@ -23,7 +23,7 @@ import org.serviio.profile.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AudioDeliveryEngine : AbstractTranscodingDeliveryEngine<AudioMediaInfo, MusicTrack>
+public class AudioDeliveryEngine : AbstractTranscodingDeliveryEngine!(AudioMediaInfo, MusicTrack)
 {
   private static AudioDeliveryEngine instance;
   private static final Logger log = LoggerFactory.getLogger(AudioDeliveryEngine.class);
@@ -36,11 +36,11 @@ public class AudioDeliveryEngine : AbstractTranscodingDeliveryEngine<AudioMediaI
     return instance;
   }
 
-  protected LinkedHashMap<QualityType, List<AudioMediaInfo>> retrieveOriginalMediaInfo(MusicTrack mediaItem, Profile rendererProfile)
+  protected LinkedHashMap!(QualityType, List!(AudioMediaInfo)) retrieveOriginalMediaInfo(MusicTrack mediaItem, Profile rendererProfile)
     {
-    List<MediaFormatProfile> fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
-    LinkedHashMap<QualityType, List<AudioMediaInfo>> result = new LinkedHashMap<QualityType, List<AudioMediaInfo>>();
-    List<AudioMediaInfo> mediaInfos = new ArrayList<AudioMediaInfo>();
+    List!(MediaFormatProfile) fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
+    LinkedHashMap!(QualityType, List!(AudioMediaInfo)) result = new LinkedHashMap!(QualityType, List!(AudioMediaInfo))();
+    List!(AudioMediaInfo) mediaInfos = new ArrayList!(AudioMediaInfo)();
 
     for (MediaFormatProfile fileProfile : fileProfiles) {
       mediaInfos.add(new AudioMediaInfo(mediaItem.getId(), fileProfile, mediaItem.getFileSize(), false, mediaItem.isLive(), mediaItem.getDuration(), rendererProfile.getMimeType(fileProfile), mediaItem.getChannels(), mediaItem.getSampleFrequency(), mediaItem.getBitrate(), QualityType.ORIGINAL));
@@ -50,12 +50,12 @@ public class AudioDeliveryEngine : AbstractTranscodingDeliveryEngine<AudioMediaI
     return result;
   }
 
-  protected LinkedHashMap<QualityType, List<AudioMediaInfo>> retrieveTranscodedMediaInfo(MusicTrack mediaItem, Profile rendererProfile, Long fileSize)
+  protected LinkedHashMap!(QualityType, List!(AudioMediaInfo)) retrieveTranscodedMediaInfo(MusicTrack mediaItem, Profile rendererProfile, Long fileSize)
   {
-    LinkedHashMap<QualityType, List<AudioMediaInfo>> transcodedMI = new LinkedHashMap<QualityType, List<AudioMediaInfo>>();
-    Map<QualityType, TranscodingDefinition> trDefs = getMatchingTranscodingDefinitions(mediaItem, rendererProfile);
+    LinkedHashMap!(QualityType, List!(AudioMediaInfo)) transcodedMI = new LinkedHashMap!(QualityType, List!(AudioMediaInfo))();
+    Map!(QualityType, TranscodingDefinition) trDefs = getMatchingTranscodingDefinitions(mediaItem, rendererProfile);
     if (trDefs.size() > 0) {
-      for (Entry<QualityType, TranscodingDefinition> trDefEntry : trDefs.entrySet()) {
+      for (Entry!(QualityType, TranscodingDefinition) trDefEntry : trDefs.entrySet()) {
         QualityType qualityType = cast(QualityType)trDefEntry.getKey();
         AudioTranscodingDefinition trDef = cast(AudioTranscodingDefinition)trDefEntry.getValue();
 
@@ -77,15 +77,15 @@ public class AudioDeliveryEngine : AbstractTranscodingDeliveryEngine<AudioMediaI
       return transcodedMI;
     }
     log.warn(String.format("Cannot find matching transcoding definition for file %s", cast(Object[])[ mediaItem.getFileName() ]));
-    return new LinkedHashMap<QualityType, List<AudioMediaInfo>>();
+    return new LinkedHashMap!(QualityType, List!(AudioMediaInfo))();
   }
 
-  protected TranscodingDefinition getMatchingTranscodingDefinition(List<TranscodingDefinition> tDefs, MusicTrack mediaItem)
+  protected TranscodingDefinition getMatchingTranscodingDefinition(List!(TranscodingDefinition) tDefs, MusicTrack mediaItem)
   {
-    Iterator<TranscodingDefinition> i$;
+    Iterator!(TranscodingDefinition) i$;
     if ((tDefs !is null) && (tDefs.size() > 0))
       for (i$ = tDefs.iterator(); i$.hasNext(); ) { TranscodingDefinition tDef = cast(TranscodingDefinition)i$.next();
-        List<AudioTranscodingMatch> matches = ( cast(AudioTranscodingDefinition)tDef).getMatches();
+        List!(AudioTranscodingMatch) matches = ( cast(AudioTranscodingDefinition)tDef).getMatches();
         for (AudioTranscodingMatch match : matches)
           if (match.matches(mediaItem.getContainer(), getOnlineContentType(mediaItem)))
             return (AudioTranscodingDefinition)tDef;

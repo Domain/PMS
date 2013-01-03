@@ -16,9 +16,9 @@ public class ListAlbumsForArtistCommand : AbstractAlbumsRetrievalCommand
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<MusicAlbum> retrieveEntityList()
+  protected List!(MusicAlbum) retrieveEntityList()
   {
-    List<MusicAlbum> albums = AudioService.getListOfAlbumsForTrackRole(new Long(getInternalObjectId()), RoleType.ARTIST, startIndex, count);
+    List!(MusicAlbum) albums = AudioService.getListOfAlbumsForTrackRole(new Long(getInternalObjectId()), RoleType.ARTIST, startIndex, count);
     return albums;
   }
 

@@ -19,9 +19,9 @@ public class ProtocolInfo
     this.additionalInfos = additionalInfos;
   }
 
-  public Set<String> getMediaProtocolInfo(bool transcoded, bool live, MediaFileType fileType, bool durationAvailable)
+  public Set!(String) getMediaProtocolInfo(bool transcoded, bool live, MediaFileType fileType, bool durationAvailable)
   {
-    Set<String> result = new LinkedHashSet<String>();
+    Set!(String) result = new LinkedHashSet!(String)();
     for (ProtocolAdditionalInfo additionalInfo : additionalInfos) {
       String additionalInfoField = additionalInfo.buildMediaProtocolInfo(transcoded, live, fileType, durationAvailable);
       result.add(String.format("%s:%s:%s:%s", cast(Object[])[ protocol, context, mimeType, additionalInfoField ]));
@@ -29,9 +29,9 @@ public class ProtocolInfo
     return result;
   }
 
-  public Set<String> getProfileProtocolInfo(MediaFileType fileType)
+  public Set!(String) getProfileProtocolInfo(MediaFileType fileType)
   {
-    Set<String> result = new LinkedHashSet<String>();
+    Set!(String) result = new LinkedHashSet!(String)();
     for (ProtocolAdditionalInfo additionalInfo : additionalInfos) {
       String additionalInfoField = additionalInfo.buildProfileProtocolInfo(fileType);
       result.add(String.format("%s:%s:%s:%s", cast(Object[])[ protocol, context, mimeType, additionalInfoField ]));

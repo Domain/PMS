@@ -36,7 +36,7 @@ public class OutputBytesReader : OutputReader
     return outputStream;
   }
 
-  public List<String> getResults() {
+  public List!(String) getResults() {
     return null;
   }
 }

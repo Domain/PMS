@@ -118,9 +118,9 @@ public class XPathUtil
     return null;
   }
 
-  public static List<Node> getListOfNodes(NodeList nodeList)
+  public static List!(Node) getListOfNodes(NodeList nodeList)
   {
-    List<Node> result = new ArrayList<Node>();
+    List!(Node) result = new ArrayList!(Node)();
 
     if ((nodeList !is null) && (nodeList.getLength() > 0)) {
       for (int i = 0; i < nodeList.getLength(); i++) {

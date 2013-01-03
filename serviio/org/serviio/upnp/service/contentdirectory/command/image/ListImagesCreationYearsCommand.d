@@ -19,32 +19,32 @@ import org.serviio.upnp.service.contentdirectory.command.CommandExecutionExcepti
 import org.serviio.upnp.service.contentdirectory.command.ObjectValuesBuilder;
 import org.serviio.upnp.service.contentdirectory.definition.Definition;
 
-public class ListImagesCreationYearsCommand : AbstractCommand<Container>
+public class ListImagesCreationYearsCommand : AbstractCommand!(Container)
 {
   public this(String contextIdentifier, ObjectType objectType, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup accessGroup, String idPrefix, int startIndex, int count)
   {
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   }
 
-  protected Set<ObjectType> getSupportedObjectTypes()
+  protected Set!(ObjectType) getSupportedObjectTypes()
   {
     return ObjectType.getContainerTypes();
   }
 
-  protected List<Container> retrieveList()
+  protected List!(Container) retrieveList()
   {
-    List<Container> items = new ArrayList<Container>();
+    List!(Container) items = new ArrayList!(Container)();
 
-    List<Integer> years = ImageService.getListOfImagesCreationYears(accessGroup, startIndex, count);
+    List!(Integer) years = ImageService.getListOfImagesCreationYears(accessGroup, startIndex, count);
 
     for (Integer year : years) {
       String runtimeId = generateRuntimeObjectId(year);
-      Map<ClassProperties, Object> values = ObjectValuesBuilder.instantiateValuesForContainer(year.toString(), runtimeId, getDisplayedContainerId(objectId), objectType, accessGroup);
+      Map!(ClassProperties, Object) values = ObjectValuesBuilder.instantiateValuesForContainer(year.toString(), runtimeId, getDisplayedContainerId(objectId), objectType, accessGroup);
       items.add( cast(Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, null));
     }
     return items;
@@ -52,7 +52,7 @@ public class ListImagesCreationYearsCommand : AbstractCommand<Container>
 
   protected Container retrieveSingleItem()
   {
-    Map<ClassProperties, Object> values = ObjectValuesBuilder.instantiateValuesForContainer(getInternalObjectId(), objectId, Definition.instance().getParentNodeId(objectId), objectType, accessGroup);
+    Map!(ClassProperties, Object) values = ObjectValuesBuilder.instantiateValuesForContainer(getInternalObjectId(), objectId, Definition.instance().getParentNodeId(objectId), objectType, accessGroup);
     return (Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, null);
   }
 

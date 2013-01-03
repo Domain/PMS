@@ -18,7 +18,7 @@ public class OnlineRepositoryService
 {
   private static final Logger log = LoggerFactory.getLogger(OnlineRepositoryService.class);
 
-  public static List<OnlineRepository> getAllRepositories()
+  public static List!(OnlineRepository) getAllRepositories()
   {
     return DAOFactory.getOnlineRepositoryDAO().findAll();
   }
@@ -31,10 +31,10 @@ public class OnlineRepositoryService
     DAOFactory.getOnlineRepositoryDAO().delete(repositoryId);
   }
 
-  public static void saveRepositories(List<OnlineRepository> repositories)
+  public static void saveRepositories(List!(OnlineRepository) repositories)
   {
-    List<OnlineRepository> existingRepositories = getAllRepositories();
-    List<OnlineRepository> repsToRemove = new ArrayList<OnlineRepository>();
+    List!(OnlineRepository) existingRepositories = getAllRepositories();
+    List!(OnlineRepository) repsToRemove = new ArrayList!(OnlineRepository)();
 
     bool repositoryUpdated = false;
 
@@ -70,7 +70,7 @@ public class OnlineRepositoryService
     }
   }
 
-  public static List<OnlineRepository> getListOfRepositories(List<OnlineRepository.OnlineRepositoryType> repoTypes, MediaFileType mediaType, AccessGroup accessGroup, bool onlyEnabled)
+  public static List!(OnlineRepository) getListOfRepositories(List!(OnlineRepository.OnlineRepositoryType) repoTypes, MediaFileType mediaType, AccessGroup accessGroup, bool onlyEnabled)
   {
     return DAOFactory.getOnlineRepositoryDAO().getRepositories(repoTypes, mediaType, accessGroup, onlyEnabled);
   }

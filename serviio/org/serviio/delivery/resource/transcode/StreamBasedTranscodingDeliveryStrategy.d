@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StreamBasedTranscodingDeliveryStrategy : AbstractTranscodingDeliveryStrategy
-  : TranscodingDeliveryStrategy<OutputStream>
+  : TranscodingDeliveryStrategy!(OutputStream)
 {
   private static final int PIPE_BUFFER_BYTES = ApplicationSettings.getIntegerProperty("live_stream_buffer").intValue();
 

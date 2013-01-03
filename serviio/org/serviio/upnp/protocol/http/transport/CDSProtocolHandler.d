@@ -12,7 +12,7 @@ public class CDSProtocolHandler : AbstractProtocolHandler
 {
   public static final String RANGE_HEADER = "Content-Range";
 
-  public void handleResponse(Map<String, String> requestHeaders, Map<String, Object> responseHeaders, HttpMethod httpMethod, ProtocolVersion requestHttpVersion, ResourceInfo resourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, Long streamSize, RangeHeaders range)
+  public void handleResponse(Map!(String, String) requestHeaders, Map!(String, Object) responseHeaders, HttpMethod httpMethod, ProtocolVersion requestHttpVersion, ResourceInfo resourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, Long streamSize, RangeHeaders range)
     {
     if (range !is null)
       responseHeaders.put("Content-Range", range);

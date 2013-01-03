@@ -35,20 +35,20 @@ public class VideoMetadata : LocalItemMetadata
   private Integer audioBitrate;
   private TransportStreamTimestamp timestampType;
   private H264Profile h264Profile;
-  private HashMap<H264LevelType, String> h264Levels = new HashMap<H264LevelType, String>();
+  private HashMap!(H264LevelType, String) h264Levels = new HashMap!(H264LevelType, String)();
   private String ftyp;
   private String sar;
   private String rating;
-  private List<String> actors = new ArrayList<String>();
+  private List!(String) actors = new ArrayList!(String)();
 
-  private List<String> directors = new ArrayList<String>();
+  private List!(String) directors = new ArrayList!(String)();
 
-  private List<String> producers = new ArrayList<String>();
+  private List!(String) producers = new ArrayList!(String)();
   private String seriesName;
   private Integer seasonNumber;
   private Integer episodeNumber;
   private ContentType contentType;
-  private Map<OnlineDBIdentifier, String> onlineIdentifiers = new HashMap<OnlineDBIdentifier, String>();
+  private Map!(OnlineDBIdentifier, String) onlineIdentifiers = new HashMap!(OnlineDBIdentifier, String)();
 
   public void merge(LocalItemMetadata additionalMetadata)
   {
@@ -227,27 +227,27 @@ public class VideoMetadata : LocalItemMetadata
     this.rating = rating;
   }
 
-  public List<String> getActors() {
+  public List!(String) getActors() {
     return actors;
   }
 
-  public void setActors(List<String> actors) {
+  public void setActors(List!(String) actors) {
     this.actors = actors;
   }
 
-  public List<String> getDirectors() {
+  public List!(String) getDirectors() {
     return directors;
   }
 
-  public void setDirectors(List<String> directors) {
+  public void setDirectors(List!(String) directors) {
     this.directors = directors;
   }
 
-  public List<String> getProducers() {
+  public List!(String) getProducers() {
     return producers;
   }
 
-  public void setProducers(List<String> producers) {
+  public void setProducers(List!(String) producers) {
     this.producers = producers;
   }
 
@@ -379,7 +379,7 @@ public class VideoMetadata : LocalItemMetadata
     this.h264Profile = h264Profile;
   }
 
-  public HashMap<H264LevelType, String> getH264Levels() {
+  public HashMap!(H264LevelType, String) getH264Levels() {
     return h264Levels;
   }
 
@@ -391,7 +391,7 @@ public class VideoMetadata : LocalItemMetadata
     this.ftyp = ftyp;
   }
 
-  public Map<OnlineDBIdentifier, String> getOnlineIdentifiers() {
+  public Map!(OnlineDBIdentifier, String) getOnlineIdentifiers() {
     return onlineIdentifiers;
   }
 

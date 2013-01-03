@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class ProfileManager
 {
-  private static List<Profile> profiles = new ArrayList<Profile>();
+  private static List!(Profile) profiles = new ArrayList!(Profile)();
   public static final String DEFAULT_PROFILE_ID = "1";
   private static final String PROFILES_XML_PATH = "/profiles.xml";
   private static final String APP_PROFILES_XML_PATH = "/application-profiles.xml";
@@ -55,7 +55,7 @@ public class ProfileManager
       DetectionDefinition detectionDef = getDetectionDefinitionByType(profile, DetectionDefinition.DetectionType.UPNP_SEARCH);
       if (detectionDef !is null) {
         bool profileMatches = true;
-        for (Entry<String, String> entry : detectionDef.getFieldValues().entrySet()) {
+        for (Entry!(String, String) entry : detectionDef.getFieldValues().entrySet()) {
           if (( cast(String)entry.getKey()).equalsIgnoreCase("FriendlyName"))
             profileMatches = (profileMatches) && (detectionFieldMatches( cast(String)entry.getValue(), friendlyName));
           else if (( cast(String)entry.getKey()).equalsIgnoreCase("ModelName"))
@@ -79,10 +79,10 @@ public class ProfileManager
   }
 
   public static Profile findProfileByHeader(Header[] headers) {
-    for (Iterator<Profile> i$ = profiles.iterator(); i$.hasNext(); ) { Profile profile = cast(Profile)i$.next();
+    for (Iterator!(Profile) i$ = profiles.iterator(); i$.hasNext(); ) { Profile profile = cast(Profile)i$.next();
       DetectionDefinition detectionDef = getDetectionDefinitionByType(profile, DetectionDefinition.DetectionType.HTTP_HEADERS);
       if (detectionDef !is null)
-        for (Entry<String, String> entry : detectionDef.getFieldValues().entrySet())
+        for (Entry!(String, String) entry : detectionDef.getFieldValues().entrySet())
           for (Header header : headers)
             if ((( cast(String)entry.getKey()).trim().equalsIgnoreCase(header.getName().trim())) && (Pattern.compile(( cast(String)entry.getValue()).trim(), 2).matcher(header.getValue().trim()).matches()))
             {
@@ -104,16 +104,16 @@ public class ProfileManager
 
   public static void loadProfiles()
   {
-    profiles = parseProfilesFromFile(PROFILES_XML_PATH, new ArrayList<Profile>());
+    profiles = parseProfilesFromFile(PROFILES_XML_PATH, new ArrayList!(Profile)());
     profiles = parseProfilesFromFile(APP_PROFILES_XML_PATH, profiles);
   }
 
-  public static List<Profile> getAllProfiles() {
+  public static List!(Profile) getAllProfiles() {
     return profiles;
   }
 
-  public static List<Profile> getAllSelectableProfiles() {
-    List<Profile> selectableProfiles = new ArrayList<Profile>();
+  public static List!(Profile) getAllSelectableProfiles() {
+    List!(Profile) selectableProfiles = new ArrayList!(Profile)();
     for (Profile profile : profiles) {
       if (profile.isSelectable()) {
         selectableProfiles.add(profile);
@@ -122,7 +122,7 @@ public class ProfileManager
     return selectableProfiles;
   }
 
-  private static List<Profile> parseProfilesFromFile(String fileName, List<Profile> currentProfiles)
+  private static List!(Profile) parseProfilesFromFile(String fileName, List!(Profile) currentProfiles)
   {
     InputStream definitionStream = ProfileManager.class.getResourceAsStream(fileName);
     try {

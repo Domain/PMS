@@ -16,9 +16,9 @@ public class ListLastViewedVideosCommand : AbstractVideosRetrievalCommand
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<Video> retrieveEntityList()
+  protected List!(Video) retrieveEntityList()
   {
-    List<Video> videos = VideoService.getListOfLastViewedVideos(Configuration.getNumberOfFilesForDynamicCategories().intValue(), accessGroup, startIndex, count);
+    List!(Video) videos = VideoService.getListOfLastViewedVideos(Configuration.getNumberOfFilesForDynamicCategories().intValue(), accessGroup, startIndex, count);
     return videos;
   }
 

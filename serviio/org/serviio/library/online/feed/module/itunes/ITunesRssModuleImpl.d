@@ -12,7 +12,7 @@ public class ITunesRssModuleImpl : ModuleImpl
   private Date releaseDate;
   private String name;
   private String artist;
-  private List<Image> images = new ArrayList<Image>();
+  private List!(Image) images = new ArrayList!(Image)();
   private Integer duration;
 
   public this()
@@ -65,12 +65,12 @@ public class ITunesRssModuleImpl : ModuleImpl
     this.artist = artist;
   }
 
-  public List<Image> getImages()
+  public List!(Image) getImages()
   {
     return images;
   }
 
-  public void setImages(List<Image> images)
+  public void setImages(List!(Image) images)
   {
     this.images = images;
   }

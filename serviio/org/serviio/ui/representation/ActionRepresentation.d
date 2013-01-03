@@ -11,7 +11,7 @@ public class ActionRepresentation
 
   @XStreamImplicit(itemFieldName="parameter")
   @SerializedName("parameter")
-  private final List<String> parameters = new ArrayList<String>();
+  private final List!(String) parameters = new ArrayList!(String)();
 
   public String getName()
   {
@@ -22,7 +22,7 @@ public class ActionRepresentation
     this.name = name;
   }
 
-  public List<String> getParameters() {
+  public List!(String) getParameters() {
     return parameters;
   }
 }

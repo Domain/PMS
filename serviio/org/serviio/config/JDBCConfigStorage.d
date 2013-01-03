@@ -9,10 +9,10 @@ import org.serviio.db.dao.DAOFactory;
 public class JDBCConfigStorage
   : ConfigStorage
 {
-  public Map<String, String> readAllConfigurationValues()
+  public Map!(String, String) readAllConfigurationValues()
   {
-    Map<String, String> values = new HashMap<String, String>();
-    List<ConfigEntry> configEntries = DAOFactory.getConfigEntryDAO().findAllConfigEntries();
+    Map!(String, String) values = new HashMap!(String, String)();
+    List!(ConfigEntry) configEntries = DAOFactory.getConfigEntryDAO().findAllConfigEntries();
     for (ConfigEntry configEntry : configEntries) {
       values.put(configEntry.getName(), configEntry.getValue());
     }

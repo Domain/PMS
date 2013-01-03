@@ -16,7 +16,7 @@ public class ListVideoInitialsCommand : AbstractListInitialsCommand
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<String> getListOfInitials(int startIndex, int count)
+  protected List!(String) getListOfInitials(int startIndex, int count)
   {
     return VideoService.getListOfVideoInitials(accessGroup, startIndex, count);
   }

@@ -79,9 +79,9 @@ public class MultiCastUtils
     return received;
   }
 
-  public static Set<NetworkInterface> findAllAvailableInterfaces()
+  public static Set!(NetworkInterface) findAllAvailableInterfaces()
     {
-    Set<NetworkInterface> ifaceList = new HashSet<NetworkInterface>();
+    Set!(NetworkInterface) ifaceList = new HashSet!(NetworkInterface)();
     for (Enumeration<?> ifaces = NetworkInterface.getNetworkInterfaces(); ifaces.hasMoreElements(); ) {
       NetworkInterface iface = cast(NetworkInterface)ifaces.nextElement();
       if ((!iface.isLoopback()) && (!iface.isVirtual()) && (!iface.isPointToPoint()) && (iface.isUp()) && (iface.supportsMulticast()) && (findIPAddress(iface) !is null))

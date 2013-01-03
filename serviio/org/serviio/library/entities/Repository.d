@@ -10,13 +10,13 @@ import org.serviio.library.metadata.MediaFileType;
 public class Repository : PersistedEntity
 {
   private File folder;
-  private Set<MediaFileType> supportedFileTypes;
+  private Set!(MediaFileType) supportedFileTypes;
   private bool supportsOnlineMetadata;
   private bool keepScanningForUpdates;
   private Date lastScanned;
-  private List<Long> accessGroupIds;
+  private List!(Long) accessGroupIds;
 
-  public this(File folder, Set<MediaFileType> supportedFileTypes, bool supportsOnlineMetadata, bool keepScanningForUpdates)
+  public this(File folder, Set!(MediaFileType) supportedFileTypes, bool supportsOnlineMetadata, bool keepScanningForUpdates)
   {
     this.folder = folder;
     this.supportedFileTypes = supportedFileTypes;
@@ -29,7 +29,7 @@ public class Repository : PersistedEntity
     return folder;
   }
 
-  public Set<MediaFileType> getSupportedFileTypes() {
+  public Set!(MediaFileType) getSupportedFileTypes() {
     return supportedFileTypes;
   }
 
@@ -49,11 +49,11 @@ public class Repository : PersistedEntity
     this.lastScanned = lastScanned;
   }
 
-  public List<Long> getAccessGroupIds() {
+  public List!(Long) getAccessGroupIds() {
     return accessGroupIds;
   }
 
-  public void setAccessGroupIds(List<Long> accessGroupIds) {
+  public void setAccessGroupIds(List!(Long) accessGroupIds) {
     this.accessGroupIds = accessGroupIds;
   }
 

@@ -29,7 +29,7 @@ public class EventDispatcher
 {
   private static final Logger log = LoggerFactory.getLogger(EventDispatcher.class);
   private static final int RESPONSE_TIMEOUT = 500;
-  private static Map<Service, Queue<EventContainer>> eventQueues = new HashMap<Service, Queue<EventContainer>>();
+  private static Map!(Service, Queue!(EventContainer)) eventQueues = new HashMap!(Service, Queue!(EventContainer))();
   private bool workerRunning;
 
   public this()
@@ -41,20 +41,20 @@ public class EventDispatcher
   {
     EventContainer event = new EventContainer(variable, subscription);
     if (isVariableAvailableForSending(variable)) {
-      ((Queue<EventContainer>)eventQueues.get(service)).offer(event);
+      ((Queue!(EventContainer))eventQueues.get(service)).offer(event);
       variable.setLastEventSent(new Date());
     }
   }
 
-  public static void addInitialEvents(Service service, Set<StateVariable> variables, Subscription subscription)
+  public static void addInitialEvents(Service service, Set!(StateVariable) variables, Subscription subscription)
   {
-    Set<EventContainer> events = new HashSet<EventContainer>(variables.size());
+    Set!(EventContainer) events = new HashSet!(EventContainer)(variables.size());
     for (StateVariable variable : variables) {
       events.add(new EventContainer(variable, subscription));
       variable.setLastEventSent(new Date());
     }
 
-    ((Queue<EventContainer>)eventQueues.get(service)).addAll(events);
+    ((Queue!(EventContainer))eventQueues.get(service)).addAll(events);
   }
 
   public void run()
@@ -65,7 +65,7 @@ public class EventDispatcher
       for (Service service : eventQueues.keySet())
       {
         Queue<?> eventsQueue = (Queue<?>)eventQueues.get(service);
-        Set<EventContainer> events = new HashSet<EventContainer>();
+        Set!(EventContainer) events = new HashSet!(EventContainer)();
         while (!eventsQueue.isEmpty())
         {
           EventContainer event = cast(EventContainer)eventsQueue.poll();
@@ -90,7 +90,7 @@ public class EventDispatcher
     workerRunning = false;
   }
 
-  protected static void sendEvents(Subscription subscription, Set<EventContainer> events)
+  protected static void sendEvents(Subscription subscription, Set!(EventContainer) events)
     {
     log.debug_(String.format("Sending event notification #%s for subscription %s to endpoint %s", cast(Object[])[ Long.valueOf(subscription.getKey()), subscription.getUuid(), subscription.getDeliveryURL() ]));
 
@@ -101,7 +101,7 @@ public class EventDispatcher
     request.addHeader("SID", "uuid:" + subscription.getUuid());
     request.addHeader("SEQ", Long.toString(subscription.getKey()));
 
-    Map<String, Object> dataModel = new HashMap<String, Object>();
+    Map!(String, Object) dataModel = new HashMap!(String, Object)();
     dataModel.put("stateVariables", extractVariablesFromEventContainer(events));
     String message = TemplateApplicator.applyTemplate("org/serviio/upnp/protocol/templates/eventNotification.ftl", dataModel);
 
@@ -121,9 +121,9 @@ public class EventDispatcher
     subscription.increaseKey();
   }
 
-  private static Set<EventContainer> filterEventsForSubscriber(Set<EventContainer> events, Subscription subscription)
+  private static Set!(EventContainer) filterEventsForSubscriber(Set!(EventContainer) events, Subscription subscription)
   {
-    Set<EventContainer> filteredEvents = new HashSet<EventContainer>();
+    Set!(EventContainer) filteredEvents = new HashSet!(EventContainer)();
     for (EventContainer event : events) {
       if ((event.getSubscription() is null) || (event.getSubscription().equals(subscription))) {
         filteredEvents.add(event);
@@ -132,9 +132,9 @@ public class EventDispatcher
     return filteredEvents;
   }
 
-  private static Set<StateVariable> extractVariablesFromEventContainer(Set<EventContainer> events)
+  private static Set!(StateVariable) extractVariablesFromEventContainer(Set!(EventContainer) events)
   {
-    Set<StateVariable> variables = new HashSet<StateVariable>();
+    Set!(StateVariable) variables = new HashSet!(StateVariable)();
     for (EventContainer event : events) {
       variables.add(event.getVariable());
     }
@@ -163,7 +163,7 @@ public class EventDispatcher
   static
   {
     for (Service service : Device.getInstance().getServices())
-      eventQueues.put(service, new ConcurrentLinkedQueue<EventContainer>());
+      eventQueues.put(service, new ConcurrentLinkedQueue!(EventContainer)());
   }
 
   private static class EventContainer

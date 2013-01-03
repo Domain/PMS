@@ -22,7 +22,7 @@ public class DLNAProtocolAdditionalInfo
 
   public String buildMediaProtocolInfo(bool transcoded, bool live, MediaFileType fileType, bool durationAvailable)
   {
-    List<String> fieldValues = new ArrayList<String>();
+    List!(String) fieldValues = new ArrayList!(String)();
     if (profileName !is null) {
       fieldValues.add("DLNA.ORG_PN=" + profileName);
     }
@@ -38,7 +38,7 @@ public class DLNAProtocolAdditionalInfo
 
   public String buildProfileProtocolInfo(MediaFileType fileType)
   {
-    List<String> fieldValues = new ArrayList<String>();
+    List!(String) fieldValues = new ArrayList!(String)();
     if (profileName !is null) {
       fieldValues.add("DLNA.ORG_PN=" + profileName);
     }

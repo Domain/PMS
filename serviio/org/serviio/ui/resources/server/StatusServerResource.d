@@ -112,12 +112,12 @@ public class StatusServerResource : AbstractServerResource
 
   private void initRenderers(StatusRepresentation rep)
   {
-    List<RendererRepresentation> renderers = new ArrayList<RendererRepresentation>();
+    List!(RendererRepresentation) renderers = new ArrayList!(RendererRepresentation)();
 
-    List<Renderer> storedRenderers = RendererManager.getInstance().getStoredRenderers();
-    Map<String, ActiveRenderer> activeRenderers = RendererManager.getInstance().getActiveRenderers();
+    List!(Renderer) storedRenderers = RendererManager.getInstance().getStoredRenderers();
+    Map!(String, ActiveRenderer) activeRenderers = RendererManager.getInstance().getActiveRenderers();
 
-    Set<Renderer> mergedRenderers = new HashSet<Renderer>();
+    Set!(Renderer) mergedRenderers = new HashSet!(Renderer)();
     mergedRenderers.addAll(storedRenderers);
     for (ActiveRenderer ar : activeRenderers.values()) {
       mergedRenderers.add(ar.getRenderer());
@@ -156,7 +156,7 @@ public class StatusServerResource : AbstractServerResource
     bool restartRequired = false;
 
     validateRenderers(rep);
-    List<Renderer> storedRenderers = RendererManager.getInstance().getStoredRenderers();
+    List!(Renderer) storedRenderers = RendererManager.getInstance().getStoredRenderers();
 
     for (Renderer existingRenderer : storedRenderers) {
       if (findRendererRepresentationByUuid(rep.getRenderers(), existingRenderer.getUuid()) is null) {
@@ -206,7 +206,7 @@ public class StatusServerResource : AbstractServerResource
         throw new ValidationException(500);
   }
 
-  public RendererRepresentation findRendererRepresentationByUuid(List<RendererRepresentation> reps, String uuid)
+  public RendererRepresentation findRendererRepresentationByUuid(List!(RendererRepresentation) reps, String uuid)
   {
     for (RendererRepresentation rr : reps) {
       if (rr.getUuid().equalsIgnoreCase(uuid)) {

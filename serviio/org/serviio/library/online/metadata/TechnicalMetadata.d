@@ -28,7 +28,7 @@ public class TechnicalMetadata
   private Integer audioBitrate;
   private String ftyp;
   private H264Profile h264Profile;
-  private HashMap<H264LevelType, String> h264Levels = new HashMap<H264LevelType, String>();
+  private HashMap!(H264LevelType, String) h264Levels = new HashMap!(H264LevelType, String)();
   private String sar;
   private Long fileSize;
   private Integer width;
@@ -126,11 +126,11 @@ public class TechnicalMetadata
     this.channels = channels;
   }
 
-  public Map<H264LevelType, String> getH264Levels() {
+  public Map!(H264LevelType, String) getH264Levels() {
     return h264Levels;
   }
 
-  public void setH264Levels(HashMap<H264LevelType, String> h264Levels) {
+  public void setH264Levels(HashMap!(H264LevelType, String) h264Levels) {
     this.h264Levels = h264Levels;
   }
 
@@ -228,7 +228,7 @@ protected TechnicalMetadata clone()
     copy.setVideoStreamIndex(videoStreamIndex !is null ? new Integer(videoStreamIndex.intValue()) : null);
     copy.setWidth(width !is null ? new Integer(width.intValue()) : null);
     copy.setFtyp(ftyp);
-    copy.setH264Levels((HashMap<H264LevelType, String>)h264Levels.clone());
+    copy.setH264Levels((HashMap!(H264LevelType, String))h264Levels.clone());
     copy.setH264Profile(h264Profile);
     copy.setSar(sar);
     return copy;

@@ -172,13 +172,13 @@ public class VideoService
 
       DAOFactory.getVideoDAO().update(updatedVideo);
 
-      List<Long> originalDirectorRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.DIRECTOR, mediaItemId);
-      List<Long> originalProducerRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.PRODUCER, mediaItemId);
-      List<Long> originalActorRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.ACTOR, mediaItemId);
+      List!(Long) originalDirectorRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.DIRECTOR, mediaItemId);
+      List!(Long) originalProducerRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.PRODUCER, mediaItemId);
+      List!(Long) originalActorRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.ACTOR, mediaItemId);
 
-      List<Long> newDirectorRoles = new ArrayList<Long>();
-      List<Long> newProducerRoles = new ArrayList<Long>();
-      List<Long> newActorRoles = new ArrayList<Long>();
+      List!(Long) newDirectorRoles = new ArrayList!(Long)();
+      List!(Long) newProducerRoles = new ArrayList!(Long)();
+      List!(Long) newActorRoles = new ArrayList!(Long)();
 
       if (metadata.getDirectors() !is null) {
         for (String director : metadata.getDirectors()) {
@@ -239,7 +239,7 @@ public class VideoService
     return null;
   }
 
-  public static List<Video> getListOfVideosForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfVideosForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideosForFolder(folderId, accessGroup, startingIndex, requestedCount);
   }
@@ -249,7 +249,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosForFolderCount(folderId, accessGroup);
   }
 
-  public static List<Video> getListOfVideosForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfVideosForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideosForPlaylist(playlistId, accessGroup, startingIndex, requestedCount);
   }
@@ -259,7 +259,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosForPlaylistCount(playlistId, accessGroup);
   }
 
-  public static List<Video> getListOfVideosForGenre(Long genreId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfVideosForGenre(Long genreId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideosForGenre(genreId, accessGroup, startingIndex, requestedCount);
   }
@@ -269,7 +269,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosForGenreCount(genreId, accessGroup);
   }
 
-  public static List<Video> getListOfVideosForPerson(Long personId, RoleType role, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfVideosForPerson(Long personId, RoleType role, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideosForPerson(personId, role, accessGroup, startingIndex, requestedCount);
   }
@@ -279,7 +279,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosForPersonCount(personId, role, accessGroup);
   }
 
-  public static List<Series> getListOfSeries(int startingIndex, int requestedCount)
+  public static List!(Series) getListOfSeries(int startingIndex, int requestedCount)
   {
     return DAOFactory.getSeriesDAO().retrieveSeries(startingIndex, requestedCount);
   }
@@ -289,7 +289,7 @@ public class VideoService
     return DAOFactory.getSeriesDAO().getSeriesCount();
   }
 
-  public static List<Integer> getListOfSeasonsForSeries(Long seriesId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Integer) getListOfSeasonsForSeries(Long seriesId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getSeriesDAO().retrieveSeasonsForSeries(seriesId, accessGroup, startingIndex, requestedCount);
   }
@@ -299,7 +299,7 @@ public class VideoService
     return DAOFactory.getSeriesDAO().getSeasonsForSeriesCount(seriesId, accessGroup);
   }
 
-  public static List<Video> getListOfEpisodesForSeriesSeason(Long seriesId, Integer season, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfEpisodesForSeriesSeason(Long seriesId, Integer season, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideosForSeriesSeason(seriesId, season, accessGroup, startingIndex, requestedCount);
   }
@@ -309,7 +309,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosForSeriesSeasonCount(seriesId, season, accessGroup);
   }
 
-  public static List<String> getListOfVideoInitials(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(String) getListOfVideoInitials(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideoInitials(accessGroup, startingIndex, requestedCount);
   }
@@ -319,7 +319,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideoInitialsCount(accessGroup);
   }
 
-  public static List<Video> getListOfVideosForInitial(String initial, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfVideosForInitial(String initial, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideosForInitial(initial, accessGroup, startingIndex, requestedCount);
   }
@@ -329,7 +329,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosForInitialCount(initial, accessGroup);
   }
 
-  public static List<Video> getListOfAllVideos(AccessGroup userProfile, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfAllVideos(AccessGroup userProfile, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideos(0, userProfile, startingIndex, requestedCount);
   }
@@ -339,7 +339,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosCount(0, userProfile);
   }
 
-  public static List<Video> getListOfMovieVideos(AccessGroup userProfile, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfMovieVideos(AccessGroup userProfile, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveVideos(2, userProfile, startingIndex, requestedCount);
   }
@@ -349,7 +349,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveVideosCount(2, userProfile);
   }
 
-  public static List<Video> getListOfLastViewedVideos(int maxRequested, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfLastViewedVideos(int maxRequested, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveLastViewedVideos(maxRequested, accessGroup, startingIndex, requestedCount);
   }
@@ -359,7 +359,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveLastViewedVideosCount(maxRequested, accessGroup);
   }
 
-  public static List<Video> getListOfLastAddedVideos(int maxRequested, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Video) getListOfLastAddedVideos(int maxRequested, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getVideoDAO().retrieveLastAddedVideos(maxRequested, accessGroup, startingIndex, requestedCount);
   }
@@ -369,7 +369,7 @@ public class VideoService
     return DAOFactory.getVideoDAO().retrieveLastAddedVideosCount(maxRequested, userProfile);
   }
 
-  public static Map<Long, Integer> getLastViewedEpisode(Long seriesId)
+  public static Map!(Long, Integer) getLastViewedEpisode(Long seriesId)
   {
     return DAOFactory.getVideoDAO().retrieveLastViewedEpisode(seriesId);
   }

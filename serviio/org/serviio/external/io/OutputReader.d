@@ -29,7 +29,7 @@ public abstract class OutputReader : Thread
 
   public abstract OutputStream getOutputStream();
 
-  public abstract List<String> getResults();
+  public abstract List!(String) getResults();
 
   public void closeStream()
   {

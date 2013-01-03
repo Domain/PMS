@@ -24,7 +24,7 @@ public abstract class AbstractRequestHandler
   : HttpRequestHandler
 {
   protected final Logger log = LoggerFactory.getLogger(getClass());
-  private Map<String, String> urlParameters;
+  private Map!(String, String) urlParameters;
   private ProtocolVersion httpVersion;
 
   public void handle(HttpRequest request, HttpResponse response, HttpContext context)
@@ -60,9 +60,9 @@ public abstract class AbstractRequestHandler
     return HttpUtils.urlDecode(uri).split("/");
   }
 
-  private Map<String, String> getQueryParameters(HttpRequest request)
+  private Map!(String, String) getQueryParameters(HttpRequest request)
   {
-    Map<String, String> map = new HashMap<String, String>();
+    Map!(String, String) map = new HashMap!(String, String)();
     try {
       String query = new URI(request.getRequestLine().getUri()).getQuery();
       if (query !is null) {
@@ -115,7 +115,7 @@ public abstract class AbstractRequestHandler
     return hasAccess;
   }
 
-  protected final Map<String, String> getUrlParameters()
+  protected final Map!(String, String) getUrlParameters()
   {
     return urlParameters;
   }

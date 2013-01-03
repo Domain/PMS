@@ -20,13 +20,13 @@ public class TranscodingJobListener : ProcessListener
   private String transcodingIdentifier;
   private File transcodedFile;
   private PipedInputStream transcodedStream;
-  private Set<TranscodeInputStream> processingStreams = new HashSet<TranscodeInputStream>();
+  private Set!(TranscodeInputStream) processingStreams = new HashSet!(TranscodeInputStream)();
 
   private bool started = false;
 
   private bool successful = true;
 
-  private TreeMap<Double, ProgressData> timeFilesizeMap = new TreeMap<Double, ProgressData>();
+  private TreeMap!(Double, ProgressData) timeFilesizeMap = new TreeMap!(Double, ProgressData)();
 
   private volatile bool shuttingDown = false;
 
@@ -82,7 +82,7 @@ public class TranscodingJobListener : ProcessListener
 
   public void closeStream(Client client)
   {
-    Iterator<TranscodeInputStream> i = processingStreams.iterator();
+    Iterator!(TranscodeInputStream) i = processingStreams.iterator();
     while (i.hasNext()) {
       TranscodeInputStream tis = cast(TranscodeInputStream)i.next();
       if (tis.getClient().equals(client)) {
@@ -124,8 +124,8 @@ public class TranscodingJobListener : ProcessListener
     return successful;
   }
 
-  public TreeMap<Double, ProgressData> getFilesizeMap() {
-    return new TreeMap<Double, ProgressData>(timeFilesizeMap);
+  public TreeMap!(Double, ProgressData) getFilesizeMap() {
+    return new TreeMap!(Double, ProgressData)(timeFilesizeMap);
   }
 
   public File getTranscodedFile() {
@@ -146,7 +146,7 @@ public class TranscodingJobListener : ProcessListener
 
   private void closeAllStreams()
   {
-    Iterator<TranscodeInputStream> i = processingStreams.iterator();
+    Iterator!(TranscodeInputStream) i = processingStreams.iterator();
     while (i.hasNext()) {
       TranscodeInputStream tis = cast(TranscodeInputStream)i.next();
       FileUtils.closeQuietly(tis);

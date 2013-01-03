@@ -72,7 +72,7 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
         throw new HttpCodeException(400);
       }
       ContentDirectoryEngine engine = ContentDirectoryEngine.getInstance();
-      BrowseItemsHolder<DirectoryObject> itemsHolder = engine.browse(objectId, objectType, browseFlag, "*", startIndex, count, "", ProfileManager.getProfileById(profile), AccessGroup.ANY);
+      BrowseItemsHolder!(DirectoryObject) itemsHolder = engine.browse(objectId, objectType, browseFlag, "*", startIndex, count, "", ProfileManager.getProfileById(profile), AccessGroup.ANY);
 
       return buildResult(itemsHolder);
     } catch (ObjectNotFoundException e) {
@@ -98,10 +98,10 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     profile = ( cast(String)getRequestAttributes().get("profile"));
   }
 
-  private ContentDirectoryRepresentation buildResult(BrowseItemsHolder<DirectoryObject> itemsHolder)
+  private ContentDirectoryRepresentation buildResult(BrowseItemsHolder!(DirectoryObject) itemsHolder)
   {
     ContentDirectoryRepresentation result = new ContentDirectoryRepresentation();
-    List<DirectoryObjectRepresentation> objects = new ArrayList<DirectoryObjectRepresentation>();
+    List!(DirectoryObjectRepresentation) objects = new ArrayList!(DirectoryObjectRepresentation)();
 
     for (DirectoryObject dirObject : itemsHolder.getItems()) {
       DirectoryObjectRepresentation.DirectoryObjectType type = ( cast(Container)dirObject !is null ) ? DirectoryObjectRepresentation.DirectoryObjectType.CONTAINER : DirectoryObjectRepresentation.DirectoryObjectType.ITEM;
@@ -112,7 +112,7 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
         objRep.setChildCount(container.getChildCount());
       } else {
         Item item = cast(Item)dirObject;
-        List<Resource> resources = getSuitableResources(item);
+        List!(Resource) resources = getSuitableResources(item);
         if (resources.size() > 0) {
           Resource defaultQualityResource = cast(Resource)resources.get(0);
           objRep.setThumbnailUrl(getResourceUrl(item.getIcon()));
@@ -159,8 +159,8 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     return result;
   }
 
-  private void storeContentUrls(DirectoryObjectRepresentation objRep, List<Resource> resources) {
-    List<ContentURLRepresentation> urls = new ArrayList<ContentURLRepresentation>();
+  private void storeContentUrls(DirectoryObjectRepresentation objRep, List!(Resource) resources) {
+    List!(ContentURLRepresentation) urls = new ArrayList!(ContentURLRepresentation)();
     QualityType preferredQualityType = findPreferredQualityType(resources);
     bool defaultQualityApplied = false;
     for (Resource resource : resources) {
@@ -179,18 +179,18 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
 
   private void storeOnlineIdentifiers(DirectoryObjectRepresentation objRep, VideoItem videoItem) {
     if ((videoItem.getOnlineIdentifiers() !is null) && (videoItem.getOnlineIdentifiers().size() > 0)) {
-      List<OnlineIdentifierRepresentation> reps = new ArrayList<OnlineIdentifierRepresentation>();
-      for (Entry<OnlineDBIdentifier, String> entry : videoItem.getOnlineIdentifiers().entrySet()) {
+      List!(OnlineIdentifierRepresentation) reps = new ArrayList!(OnlineIdentifierRepresentation)();
+      for (Entry!(OnlineDBIdentifier, String) entry : videoItem.getOnlineIdentifiers().entrySet()) {
         reps.add(new OnlineIdentifierRepresentation(( cast(OnlineDBIdentifier)entry.getKey()).toString(), cast(String)entry.getValue()));
       }
       objRep.setOnlineIdentifiers(reps);
     }
   }
 
-  private QualityType findPreferredQualityType(List<Resource> resources)
+  private QualityType findPreferredQualityType(List!(Resource) resources)
   {
     QualityType preferredQuality = Configuration.getRemotePreferredDeliveryQuality();
-    Set<QualityType> availableQualities = getResourceQualities(resources);
+    Set!(QualityType) availableQualities = getResourceQualities(resources);
     if (availableQualities.contains(preferredQuality)) {
       return preferredQuality;
     }
@@ -206,7 +206,7 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     return findAlternativeQuality(availableQualities, QualityType.MEDIUM, QualityType.LOW);
   }
 
-  private QualityType findAlternativeQuality(Set<QualityType> availableQualities, QualityType firstChoice, QualityType fallbackChoice)
+  private QualityType findAlternativeQuality(Set!(QualityType) availableQualities, QualityType firstChoice, QualityType fallbackChoice)
   {
     if (availableQualities.contains(firstChoice)) {
       return firstChoice;
@@ -214,9 +214,9 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     return fallbackChoice;
   }
 
-  private Set<QualityType> getResourceQualities(List<Resource> resources)
+  private Set!(QualityType) getResourceQualities(List!(Resource) resources)
   {
-    Set<QualityType> qualities = new HashSet<QualityType>();
+    Set!(QualityType) qualities = new HashSet!(QualityType)();
     for (Resource res : resources) {
       qualities.add(res.getQuality());
     }
@@ -234,9 +234,9 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     return new HostInfo(null, null, "/cds/resource");
   }
 
-  private List<Resource> getSuitableResources(Item item)
+  private List!(Resource) getSuitableResources(Item item)
   {
-    List<Resource> resources = new ArrayList<Resource>();
+    List!(Resource) resources = new ArrayList!(Resource)();
     for (Resource res : item.getResources()) {
       if ((res.getResourceType() == Resource.ResourceType.MEDIA_ITEM) && (res.getProtocolInfoIndex().intValue() == 0)) {
         resources.add(res);
@@ -244,8 +244,8 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     }
     Collections.sort(resources, new ResourceComparator());
 
-    Set<QualityType> foundQualities = new HashSet<QualityType>();
-    Iterator<Resource> it = resources.iterator();
+    Set!(QualityType) foundQualities = new HashSet!(QualityType)();
+    Iterator!(Resource) it = resources.iterator();
     while (it.hasNext()) {
       Resource r = cast(Resource)it.next();
       if (foundQualities.contains(r.getQuality()))
@@ -268,7 +268,7 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     }
     return null;
   }
-  private class ResourceComparator : Comparator<Resource> {
+  private class ResourceComparator : Comparator!(Resource) {
     private this() {
     }
 

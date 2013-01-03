@@ -7,7 +7,7 @@ import org.serviio.dlna.AudioContainer;
 public class AudioTranscodingDefinition : AbstractTranscodingDefinition
 {
   private AudioContainer targetContainer;
-  private List<AudioTranscodingMatch> matches = new ArrayList<AudioTranscodingMatch>();
+  private List!(AudioTranscodingMatch) matches = new ArrayList!(AudioTranscodingMatch)();
 
   public this(TranscodingConfiguration parentConfig, AudioContainer targetContainer, Integer audioBitrate, Integer audioSamplerate, bool forceInheritance)
   {
@@ -23,7 +23,7 @@ public class AudioTranscodingDefinition : AbstractTranscodingDefinition
     return targetContainer;
   }
 
-  public List<AudioTranscodingMatch> getMatches() {
+  public List!(AudioTranscodingMatch) getMatches() {
     return matches;
   }
 }

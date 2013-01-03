@@ -13,7 +13,7 @@ public abstract class OnlineResourceContainer<T : OnlineContainerItem<?>, E : Ab
   private String title;
   private String domain;
   private ImageDescriptor thumbnail;
-  private List<T> items = new ArrayList<T>();
+  private List!(T) items = new ArrayList!(T)();
   private E usedExtractor;
 
   public this(Long onlineRepositoryId)
@@ -32,11 +32,11 @@ public abstract class OnlineResourceContainer<T : OnlineContainerItem<?>, E : Ab
     this.title = title;
   }
 
-  public List<T> getItems() {
+  public List!(T) getItems() {
     return items;
   }
 
-  public void setItems(List<T> items) {
+  public void setItems(List!(T) items) {
     this.items = items;
   }
 

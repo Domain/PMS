@@ -20,7 +20,7 @@ public class VideoItem : Item
   protected String date;
   protected Resource subtitlesUrlResource;
   protected Boolean live;
-  protected Map<OnlineDBIdentifier, String> onlineIdentifiers;
+  protected Map!(OnlineDBIdentifier, String) onlineIdentifiers;
   protected ContentType contentType;
 
   public this(String id, String title)
@@ -117,11 +117,11 @@ public class VideoItem : Item
     this.live = live;
   }
 
-  public Map<OnlineDBIdentifier, String> getOnlineIdentifiers() {
+  public Map!(OnlineDBIdentifier, String) getOnlineIdentifiers() {
     return onlineIdentifiers;
   }
 
-  public void setOnlineIdentifiers(Map<OnlineDBIdentifier, String> onlineIdentifiers) {
+  public void setOnlineIdentifiers(Map!(OnlineDBIdentifier, String) onlineIdentifiers) {
     this.onlineIdentifiers = onlineIdentifiers;
   }
 

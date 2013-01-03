@@ -9,16 +9,16 @@ public class BrowseItemsHolder<T : DirectoryObject>
   : Serializable
 {
   private static final long serialVersionUID = -1985812715117276202L;
-  private List<T> items = new ArrayList<T>();
+  private List!(T) items = new ArrayList!(T)();
 
   private int totalMatched = 0;
 
-  public List<T> getItems()
+  public List!(T) getItems()
   {
     return items;
   }
 
-  public void setItems(List<T> items) {
+  public void setItems(List!(T) items) {
     this.items = items;
   }
 

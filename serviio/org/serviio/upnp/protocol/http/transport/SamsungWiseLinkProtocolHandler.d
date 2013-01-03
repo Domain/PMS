@@ -29,7 +29,7 @@ import org.serviio.upnp.service.contentdirectory.command.ResourceValuesBuilder;
 
 public class SamsungWiseLinkProtocolHandler : DLNAProtocolHandler
 {
-  public void handleResponse(Map<String, String> requestHeaders, Map<String, Object> responseHeaders, HttpMethod httpMethod, ProtocolVersion requestHttpVersion, ResourceInfo mediaFileResourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, Long streamSize, RangeHeaders range)
+  public void handleResponse(Map!(String, String) requestHeaders, Map!(String, Object) responseHeaders, HttpMethod httpMethod, ProtocolVersion requestHttpVersion, ResourceInfo mediaFileResourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, Long streamSize, RangeHeaders range)
     {
     super.handleResponse(requestHeaders, responseHeaders, httpMethod, requestHttpVersion, mediaFileResourceInfo, protocolInfoIndex, transferMode, client, streamSize, range);
 

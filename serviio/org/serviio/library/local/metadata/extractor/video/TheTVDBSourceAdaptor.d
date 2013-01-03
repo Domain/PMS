@@ -33,8 +33,8 @@ public class TheTVDBSourceAdaptor : SearchSourceAdaptor
 	private static final String APIKEY = "235C8CA4529142E9";
 	private static final String API_BASE_CONTEXT = "/api/";
 	private static final String MAIN_SERVER_URL = "http://www.thetvdb.com";
-	private static List<String> xmlMirrors = new ArrayList<String>();
-	private static List<String> bannerMirrors = new ArrayList<String>();
+	private static List!(String) xmlMirrors = new ArrayList!(String)();
+	private static List!(String) bannerMirrors = new ArrayList!(String)();
 
 	private static final Logger log = LoggerFactory
 			.getLogger(TheTVDBSourceAdaptor.class);
@@ -369,7 +369,7 @@ public class TheTVDBSourceAdaptor : SearchSourceAdaptor
 		return (String) xmlMirrors.get(index);
 	}
 
-	private List<String> splitMultiValue(String value)
+	private List!(String) splitMultiValue(String value)
 	{
 		if (ObjectValidator.isNotEmpty(value))
 		{

@@ -51,7 +51,7 @@ public class CoverImageService
 
   public static Long getMusicAlbumCoverArt(Long albumId)
   {
-    List<MusicTrack> songs = DAOFactory.getMusicTrackDAO().retrieveMusicTracksForAlbum(albumId, AccessGroup.ANY, 0, 2147483647);
+    List!(MusicTrack) songs = DAOFactory.getMusicTrackDAO().retrieveMusicTracksForAlbum(albumId, AccessGroup.ANY, 0, 2147483647);
     for (MusicTrack song : songs) {
       if (song.getThumbnailId() !is null) {
         return song.getThumbnailId();

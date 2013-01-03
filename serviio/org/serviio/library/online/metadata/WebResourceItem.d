@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WebResourceItem : OnlineContainerItem<WebResource>
+public class WebResourceItem : OnlineContainerItem!(WebResource)
   : Serializable
 {
   private static final long serialVersionUID = 6334150099157949087L;
-  private Map<String, String> additionalInfo = new HashMap<String, String>();
+  private Map!(String, String) additionalInfo = new HashMap!(String, String)();
 
   public this(WebResource parent, int order)
   {
@@ -25,7 +25,7 @@ public class WebResourceItem : OnlineContainerItem<WebResource>
     return item;
   }
 
-  public Map<String, String> getAdditionalInfo()
+  public Map!(String, String) getAdditionalInfo()
   {
     return additionalInfo;
   }

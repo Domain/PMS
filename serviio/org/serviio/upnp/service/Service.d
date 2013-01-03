@@ -17,9 +17,9 @@ public abstract class Service
   protected String scpdURL;
   protected String controlURL;
   protected String eventSubURL;
-  protected Set<StateVariable> stateVariables = new HashSet<StateVariable>();
+  protected Set!(StateVariable) stateVariables = new HashSet!(StateVariable)();
 
-  protected Set<Subscription> eventSubscriptions = new ConcurrentSkipListSet<Subscription>();
+  protected Set!(Subscription) eventSubscriptions = new ConcurrentSkipListSet!(Subscription)();
 
   public this()
   {
@@ -81,9 +81,9 @@ public abstract class Service
     }
   }
 
-  public Set<StateVariable> getStateVariablesWithEventing()
+  public Set!(StateVariable) getStateVariablesWithEventing()
   {
-    Set<StateVariable> variables = new HashSet<StateVariable>();
+    Set!(StateVariable) variables = new HashSet!(StateVariable)();
     for (StateVariable variable : stateVariables) {
       if (variable.isSupportsEventing()) {
         variables.add(variable);
@@ -151,7 +151,7 @@ public abstract class Service
     return serviceType;
   }
 
-  public Set<Subscription> getEventSubscriptions() {
+  public Set!(Subscription) getEventSubscriptions() {
     return eventSubscriptions;
   }
 

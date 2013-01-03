@@ -48,14 +48,14 @@ public class ActionNode : ContainerNode
       throw new ContentDirectoryDefinitionException("Recursive Actions cannot include any children nodes.");
   }
 
-  public BrowseItemsHolder<DirectoryObject> retrieveContainerItems(String containerId, ObjectType objectType, int startIndex, int count, Profile rendererProfile, AccessGroup userProfile)
+  public BrowseItemsHolder!(DirectoryObject) retrieveContainerItems(String containerId, ObjectType objectType, int startIndex, int count, Profile rendererProfile, AccessGroup userProfile)
   {
     if (count == 0) {
       count = 2147483647;
     }
     if (recursive)
     {
-      BrowseItemsHolder<DirectoryObject> holder = executeListAction(containerId, objectType, getCommandClass(), getContainerClass(), getItemClass(), rendererProfile, userProfile, getIdPrefix(), startIndex, count);
+      BrowseItemsHolder!(DirectoryObject) holder = executeListAction(containerId, objectType, getCommandClass(), getContainerClass(), getItemClass(), rendererProfile, userProfile, getIdPrefix(), startIndex, count);
 
       return holder;
     }
@@ -78,7 +78,7 @@ public class ActionNode : ContainerNode
     if (rendererProfile.getContentDirectoryDefinitionFilter() !is null) {
       containerClassType = rendererProfile.getContentDirectoryDefinitionFilter().filterContainerClassType(containerClassType, containerId);
     }
-    Command<T> command = instantiateCommand(containerId, objectType, commandClass, containerClassType, itemClass, rendererProfile, userProfile, idPrefix, 0, 1);
+    Command!(T) command = instantiateCommand(containerId, objectType, commandClass, containerClassType, itemClass, rendererProfile, userProfile, idPrefix, 0, 1);
     try {
       return command.retrieveItem();
     } catch (CommandExecutionException e) {

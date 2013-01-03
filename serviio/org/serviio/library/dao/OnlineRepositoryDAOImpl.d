@@ -132,7 +132,7 @@ public class OnlineRepositoryDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<OnlineRepository> findAll()
+  public List!(OnlineRepository) findAll()
   {
     log.debug_("Reading all OnlineRepositories");
     Connection con = null;
@@ -152,7 +152,7 @@ public class OnlineRepositoryDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<OnlineRepository> getRepositories(List<OnlineRepository.OnlineRepositoryType> repoTypes, MediaFileType fileType, AccessGroup accessGroup, bool onlyEnabled)
+  public List!(OnlineRepository) getRepositories(List!(OnlineRepository.OnlineRepositoryType) repoTypes, MediaFileType fileType, AccessGroup accessGroup, bool onlyEnabled)
   {
     log.debug_(String.format("Retrieving list of %s OnlineRepositories for %s [%s]", cast(Object[])[ repoTypes, fileType, accessGroup ]));
     Connection con = null;
@@ -218,9 +218,9 @@ public class OnlineRepositoryDAOImpl : AbstractAccessibleDao
     return null;
   }
 
-  protected List<OnlineRepository> mapResultSet(ResultSet rs)
+  protected List!(OnlineRepository) mapResultSet(ResultSet rs)
     {
-    List<OnlineRepository> result = new ArrayList<OnlineRepository>();
+    List!(OnlineRepository) result = new ArrayList!(OnlineRepository)();
     while (rs.next()) {
       result.add(initRepository(rs));
     }

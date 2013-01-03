@@ -12,7 +12,7 @@ import org.serviio.profile.Profile;
 import org.serviio.upnp.service.contentdirectory.ObjectType;
 import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 
-public abstract class AbstractListPlaylistsCommand : AbstractEntityContainerCommand<Playlist>
+public abstract class AbstractListPlaylistsCommand : AbstractEntityContainerCommand!(Playlist)
 {
   protected MediaFileType fileType;
 
@@ -22,14 +22,14 @@ public abstract class AbstractListPlaylistsCommand : AbstractEntityContainerComm
     this.fileType = fileType;
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER, ObjectClassType.PLAYLIST_CONTAINER ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER, ObjectClassType.PLAYLIST_CONTAINER ]));
   }
 
-  protected List<Playlist> retrieveEntityList()
+  protected List!(Playlist) retrieveEntityList()
   {
-    List<Playlist> playlists = PlaylistService.getListOfPlaylistsWithMedia(fileType, accessGroup, startIndex, count);
+    List!(Playlist) playlists = PlaylistService.getListOfPlaylistsWithMedia(fileType, accessGroup, startIndex, count);
     return playlists;
   }
 

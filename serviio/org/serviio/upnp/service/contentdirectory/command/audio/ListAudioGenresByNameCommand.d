@@ -13,21 +13,21 @@ import org.serviio.upnp.service.contentdirectory.ObjectType;
 import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 import org.serviio.upnp.service.contentdirectory.command.AbstractEntityContainerCommand;
 
-public class ListAudioGenresByNameCommand : AbstractEntityContainerCommand<Genre>
+public class ListAudioGenresByNameCommand : AbstractEntityContainerCommand!(Genre)
 {
   public this(String objectId, ObjectType objectType, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup accessGroup, String idPrefix, int startIndex, int count)
   {
     super(objectId, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.GENRE, ObjectClassType.MUSIC_GENRE ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.GENRE, ObjectClassType.MUSIC_GENRE ]));
   }
 
-  protected List<Genre> retrieveEntityList()
+  protected List!(Genre) retrieveEntityList()
   {
-    List<Genre> genres = GenreService.getListOfGenres(MediaFileType.AUDIO, startIndex, count);
+    List!(Genre) genres = GenreService.getListOfGenres(MediaFileType.AUDIO, startIndex, count);
     return genres;
   }
 

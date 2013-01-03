@@ -213,9 +213,9 @@ public class ServiceInvoker
     throw new ServiceInvocationException(String.format("Service %s is not registered", cast(Object[])[ serviceName ]));
   }
 
-  private static Object[] castMethodParameters(Map<String, String> stringParameters, Method method)
+  private static Object[] castMethodParameters(Map!(String, String) stringParameters, Method method)
   {
-    List<Object> result = new ArrayList<Object>();
+    List!(Object) result = new ArrayList!(Object)();
     Class<?>[] parameterTypes = method.getParameterTypes();
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();
     int i = 0;
@@ -281,7 +281,7 @@ public class ServiceInvoker
   private static class SOAPOperationVO
   {
     private String operationName;
-    private Map<String, String> parameters = new HashMap<String, String>();
+    private Map!(String, String) parameters = new HashMap!(String, String)();
 
     public String getOperationName() {
       return operationName;
@@ -291,7 +291,7 @@ public class ServiceInvoker
       this.operationName = operationName;
     }
 
-    public Map<String, String> getParameters() {
+    public Map!(String, String) getParameters() {
       return parameters;
     }
   }

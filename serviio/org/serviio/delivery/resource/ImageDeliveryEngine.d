@@ -33,11 +33,11 @@ import org.serviio.util.ImageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ImageDeliveryEngine : AbstractDeliveryEngine<ImageMediaInfo, Image>
+public class ImageDeliveryEngine : AbstractDeliveryEngine!(ImageMediaInfo, Image)
 {
   private static final Logger log = LoggerFactory.getLogger(ImageDeliveryEngine.class);
 
-  private static final List<MediaFormatProfile> JPEG_PROFILES = Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_LRG, MediaFormatProfile.JPEG_MED, MediaFormatProfile.JPEG_SM ]);
+  private static final List!(MediaFormatProfile) JPEG_PROFILES = Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_LRG, MediaFormatProfile.JPEG_MED, MediaFormatProfile.JPEG_SM ]);
 
   private static TranscodingCache transcodingCache = new TranscodingCache();
   private static ImageDeliveryEngine instance;
@@ -50,10 +50,10 @@ public class ImageDeliveryEngine : AbstractDeliveryEngine<ImageMediaInfo, Image>
     return instance;
   }
 
-  protected LinkedHashMap<QualityType, List<ImageMediaInfo>> retrieveTranscodedMediaInfo(Image mediaItem, Profile rendererProfile, Long fileSize)
+  protected LinkedHashMap!(QualityType, List!(ImageMediaInfo)) retrieveTranscodedMediaInfo(Image mediaItem, Profile rendererProfile, Long fileSize)
   {
     log.debug_(String.format("Getting media info for transcoded versions of file %s", cast(Object[])[ mediaItem.getFileName() ]));
-    LinkedHashMap<QualityType, List<ImageMediaInfo>> resourceInfos = new LinkedHashMap<QualityType, List<ImageMediaInfo>>();
+    LinkedHashMap!(QualityType, List!(ImageMediaInfo)) resourceInfos = new LinkedHashMap!(QualityType, List!(ImageMediaInfo))();
     try
     {
       bool originalWillBeTransformed = imageWillBeTransformed(mediaItem, rendererProfile, QualityType.ORIGINAL);
@@ -67,8 +67,8 @@ public class ImageDeliveryEngine : AbstractDeliveryEngine<ImageMediaInfo, Image>
         }
       }
 
-      List<MediaFormatProfile> fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
-      List<MediaFormatProfile> optionalProfiles = ImageTranscodingProfilesProvider.getAvailableTranscodingProfiles(fileProfiles);
+      List!(MediaFormatProfile) fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
+      List!(MediaFormatProfile) optionalProfiles = ImageTranscodingProfilesProvider.getAvailableTranscodingProfiles(fileProfiles);
       if ((optionalProfiles !is null) && (imageIsResizable(mediaItem)))
         for (MediaFormatProfile targetProfile : optionalProfiles)
           if ((!originalWillBeTransformed) || ((originalWillBeTransformed) && (targetProfile != MediaFormatProfile.JPEG_LRG)))
@@ -116,7 +116,7 @@ public class ImageDeliveryEngine : AbstractDeliveryEngine<ImageMediaInfo, Image>
 
   protected bool fileWillBeTranscoded(Image mediaItem, MediaFormatProfile selectedVersion, QualityType selectedQuality, Profile rendererProfile)
     {
-    List<MediaFormatProfile> fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
+    List!(MediaFormatProfile) fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
 
     bool imageWillBeTransformed = imageWillBeTransformed(mediaItem, rendererProfile, selectedQuality);
 
@@ -127,14 +127,14 @@ public class ImageDeliveryEngine : AbstractDeliveryEngine<ImageMediaInfo, Image>
       return true;
     }
 
-    List<MediaFormatProfile> optionalProfiles = ImageTranscodingProfilesProvider.getAvailableTranscodingProfiles(fileProfiles);
+    List!(MediaFormatProfile) optionalProfiles = ImageTranscodingProfilesProvider.getAvailableTranscodingProfiles(fileProfiles);
     if ((optionalProfiles !is null) && (optionalProfiles.size() > 0)) {
       return true;
     }
     return false;
   }
 
-  protected LinkedHashMap<QualityType, List<ImageMediaInfo>> retrieveOriginalMediaInfo(Image image, Profile rendererProfile)
+  protected LinkedHashMap!(QualityType, List!(ImageMediaInfo)) retrieveOriginalMediaInfo(Image image, Profile rendererProfile)
     {
     if (!transcodeNeeded(image, rendererProfile, QualityType.ORIGINAL))
     {
@@ -142,8 +142,8 @@ public class ImageDeliveryEngine : AbstractDeliveryEngine<ImageMediaInfo, Image>
       {
         return null;
       }
-      List<MediaFormatProfile> fileProfiles = MediaFormatProfileResolver.resolve(image);
-      LinkedHashMap<QualityType, List<ImageMediaInfo>> result = new LinkedHashMap<QualityType, List<ImageMediaInfo>>();
+      List!(MediaFormatProfile) fileProfiles = MediaFormatProfileResolver.resolve(image);
+      LinkedHashMap!(QualityType, List!(ImageMediaInfo)) result = new LinkedHashMap!(QualityType, List!(ImageMediaInfo))();
       for (MediaFormatProfile fileProfile : fileProfiles) {
         result.put(QualityType.ORIGINAL, Collections.singletonList(new ImageMediaInfo(image.getId(), fileProfile, image.getFileSize(), image.getWidth(), image.getHeight(), false, rendererProfile.getMimeType(fileProfile), QualityType.ORIGINAL)));
       }
@@ -154,12 +154,12 @@ public class ImageDeliveryEngine : AbstractDeliveryEngine<ImageMediaInfo, Image>
     return null;
   }
 
-  protected TranscodingDefinition getMatchingTranscodingDefinition(List<TranscodingDefinition> tDefs, Image mediaItem)
+  protected TranscodingDefinition getMatchingTranscodingDefinition(List!(TranscodingDefinition) tDefs, Image mediaItem)
   {
-    Iterator<TranscodingDefinition> i$;
+    Iterator!(TranscodingDefinition) i$;
     if ((tDefs !is null) && (tDefs.size() > 0))
       for (i$ = tDefs.iterator(); i$.hasNext(); ) { TranscodingDefinition tDef = cast(TranscodingDefinition)i$.next();
-        List<ImageTranscodingMatch> matches = ( cast(ImageTranscodingDefinition)tDef).getMatches();
+        List!(ImageTranscodingMatch) matches = ( cast(ImageTranscodingDefinition)tDef).getMatches();
         for (ImageTranscodingMatch match : matches)
           if (match.matches(mediaItem.getContainer(), mediaItem.getChromaSubsampling()))
             return (ImageTranscodingDefinition)tDef;

@@ -5,22 +5,22 @@ import org.serviio.library.online.PreferredQuality;
 
 public class RepositoryRepresentation
 {
-  private List<SharedFolder> sharedFolders;
+  private List!(SharedFolder) sharedFolders;
   private Boolean searchHiddenFiles;
   private Boolean searchForUpdates;
   private Boolean automaticLibraryUpdate;
   private Integer automaticLibraryUpdateInterval;
-  private List<OnlineRepository> onlineRepositories;
+  private List!(OnlineRepository) onlineRepositories;
   private Integer maxNumberOfItemsForOnlineFeeds;
   private Integer onlineFeedExpiryInterval;
   private PreferredQuality onlineContentPreferredQuality;
 
-  public List<SharedFolder> getSharedFolders()
+  public List!(SharedFolder) getSharedFolders()
   {
     return sharedFolders;
   }
 
-  public void setSharedFolders(List<SharedFolder> repositories) {
+  public void setSharedFolders(List!(SharedFolder) repositories) {
     sharedFolders = repositories;
   }
 
@@ -56,11 +56,11 @@ public class RepositoryRepresentation
     this.searchForUpdates = searchForUpdates;
   }
 
-  public List<OnlineRepository> getOnlineRepositories() {
+  public List!(OnlineRepository) getOnlineRepositories() {
     return onlineRepositories;
   }
 
-  public void setOnlineRepositories(List<OnlineRepository> onlineRepositories) {
+  public void setOnlineRepositories(List!(OnlineRepository) onlineRepositories) {
     this.onlineRepositories = onlineRepositories;
   }
 

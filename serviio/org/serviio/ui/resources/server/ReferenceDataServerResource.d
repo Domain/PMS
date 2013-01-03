@@ -74,7 +74,7 @@ public class ReferenceDataServerResource : AbstractServerResource
 
   private ReferenceDataRepresentation getProfiles() {
     ReferenceDataRepresentation rep = new ReferenceDataRepresentation();
-    List<Profile> allProfiles = ProfileManager.getAllSelectableProfiles();
+    List!(Profile) allProfiles = ProfileManager.getAllSelectableProfiles();
     Collections.sort(allProfiles);
     for (Profile pd : allProfiles) {
       rep.addValue(pd.getId(), pd.getName());
@@ -142,7 +142,7 @@ public class ReferenceDataServerResource : AbstractServerResource
 
   private ReferenceDataRepresentation getAccessGroups() {
     ReferenceDataRepresentation rep = new ReferenceDataRepresentation();
-    List<AccessGroup> groups = DAOFactory.getAccessGroupDAO().findAll();
+    List!(AccessGroup) groups = DAOFactory.getAccessGroupDAO().findAll();
     for (AccessGroup group : groups) {
       rep.addValue(group.getId().toString(), group.getName());
     }

@@ -14,10 +14,10 @@ public class LocalContentCacheDecorator : AbstractCacheDecorator
     super(regionName);
   }
 
-  public BrowseItemsHolder<DirectoryObject> retrieve(String objectID, ObjectType objectType, String browseFlag, String filter, int startingIndex, int requestedCount, String sortCriteria, Profile rendererProfile, AccessGroup accessGroup)
+  public BrowseItemsHolder!(DirectoryObject) retrieve(String objectID, ObjectType objectType, String browseFlag, String filter, int startingIndex, int requestedCount, String sortCriteria, Profile rendererProfile, AccessGroup accessGroup)
   {
     @SuppressWarnings("unchecked")
-	BrowseItemsHolder<DirectoryObject> object = (BrowseItemsHolder<DirectoryObject>)cache.get(generateKey(objectID, objectType, browseFlag, filter, startingIndex, requestedCount, sortCriteria, rendererProfile, accessGroup));
+	BrowseItemsHolder!(DirectoryObject) object = (BrowseItemsHolder!(DirectoryObject))cache.get(generateKey(objectID, objectType, browseFlag, filter, startingIndex, requestedCount, sortCriteria, rendererProfile, accessGroup));
 
     if (object !is null) {
       log.debug_(String.format("Found entry in the cache (%s), returning it", cast(Object[])[ regionName ]));
@@ -25,7 +25,7 @@ public class LocalContentCacheDecorator : AbstractCacheDecorator
     return object;
   }
 
-  public void store(BrowseItemsHolder<DirectoryObject> object, String objectID, ObjectType objectType, String browseFlag, String filter, int startingIndex, int requestedCount, String sortCriteria, Profile rendererProfile, AccessGroup accessGroup)
+  public void store(BrowseItemsHolder!(DirectoryObject) object, String objectID, ObjectType objectType, String browseFlag, String filter, int startingIndex, int requestedCount, String sortCriteria, Profile rendererProfile, AccessGroup accessGroup)
   {
     try
     {

@@ -16,7 +16,7 @@ public class OutputTextReader : OutputReader
 {
   private static final Logger log = LoggerFactory.getLogger(OutputTextReader.class);
 
-  private List<String> lines = new ArrayList<String>();
+  private List!(String) lines = new ArrayList!(String)();
   private Object linesLock;
   private ProcessExecutor executor;
 
@@ -56,8 +56,8 @@ public class OutputTextReader : OutputReader
     return null;
   }
 
-  public List<String> getResults() {
-    List<String> clonedResults = new ArrayList<String>();
+  public List!(String) getResults() {
+    List!(String) clonedResults = new ArrayList!(String)();
     synchronized (linesLock) {
       clonedResults.addAll(lines);
     }

@@ -6,9 +6,9 @@ import org.apache.http.HttpRequest;
 
 public class DeviceUnavailableMessageBuilder : DeviceAliveMessageBuilder
 {
-  public List<String> generateSSDPMessages(Integer duration, String searchTarget)
+  public List!(String) generateSSDPMessages(Integer duration, String searchTarget)
     {
-    List<String> messages = new ArrayList<String>();
+    List!(String) messages = new ArrayList!(String)();
     messages.addAll(generateRootDeviceMessages(duration));
     messages.addAll(generateServicesMessages(duration));
     return messages;

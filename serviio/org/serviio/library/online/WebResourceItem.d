@@ -6,7 +6,7 @@ import java.util.Map;
 public class WebResourceItem
 {
   private String title;
-  private Map<String, String> additionalInfo;
+  private Map!(String, String) additionalInfo;
   private Date releaseDate = new Date();
 
   public String getTitle() {
@@ -17,11 +17,11 @@ public class WebResourceItem
     this.title = title;
   }
 
-  public Map<String, String> getAdditionalInfo() {
+  public Map!(String, String) getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Map<String, String> additionalInfo) {
+  public void setAdditionalInfo(Map!(String, String) additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

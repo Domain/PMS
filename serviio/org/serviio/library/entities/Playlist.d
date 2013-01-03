@@ -9,13 +9,13 @@ public class Playlist : PersistedEntity
 {
   public static final int TITLE_MAX_LENGTH = 128;
   private String title;
-  private Set<MediaFileType> fileTypes;
+  private Set!(MediaFileType) fileTypes;
   private String filePath;
   private Date dateUpdated;
   private Long repositoryId;
   private bool allItemsFound;
 
-  public this(String title, Set<MediaFileType> fileTypes, String filePath, Date dateUpdated, Long repositoryId)
+  public this(String title, Set!(MediaFileType) fileTypes, String filePath, Date dateUpdated, Long repositoryId)
   {
     this.title = title;
     this.fileTypes = fileTypes;
@@ -33,11 +33,11 @@ public class Playlist : PersistedEntity
     this.title = title;
   }
 
-  public Set<MediaFileType> getFileTypes() {
+  public Set!(MediaFileType) getFileTypes() {
     return fileTypes;
   }
 
-  public void setFileTypes(Set<MediaFileType> fileTypes) {
+  public void setFileTypes(Set!(MediaFileType) fileTypes) {
     this.fileTypes = fileTypes;
   }
 

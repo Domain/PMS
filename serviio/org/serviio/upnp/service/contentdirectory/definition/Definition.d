@@ -110,7 +110,7 @@ public class Definition
   }
 
   public ContainerVisibilityType getContainerVisibility(String objectId) {
-    Map<String, String> itemDef = Configuration.getBrowseMenuItemOptions();
+    Map!(String, String) itemDef = Configuration.getBrowseMenuItemOptions();
     if (!itemDef.containsKey(objectId)) {
       return ContainerVisibilityType.DISPLAYED;
     }
@@ -124,7 +124,7 @@ public class Definition
       {
         return null;
       }
-      List<String> parentTitles = new ArrayList<String>();
+      List!(String) parentTitles = new ArrayList!(String)();
       Definition def = instance();
       DefinitionNode object = getContainer(objectId);
       if (object !is null) {

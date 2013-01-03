@@ -11,21 +11,21 @@ public class TranscodingConfiguration
 {
   private bool keepStreamOpen = true;
 
-  private Map<MediaFileType, List<TranscodingDefinition>> config = new HashMap<MediaFileType, List<TranscodingDefinition>>();
+  private Map!(MediaFileType, List!(TranscodingDefinition)) config = new HashMap!(MediaFileType, List!(TranscodingDefinition))();
 
-  public List<TranscodingDefinition> getDefinitions(MediaFileType fileType)
+  public List!(TranscodingDefinition) getDefinitions(MediaFileType fileType)
   {
-    List<TranscodingDefinition> result = (List<TranscodingDefinition>)config.get(fileType);
+    List!(TranscodingDefinition) result = (List!(TranscodingDefinition))config.get(fileType);
     if (result !is null) {
-      return Collections.unmodifiableList((List<TranscodingDefinition>)config.get(fileType));
+      return Collections.unmodifiableList((List!(TranscodingDefinition))config.get(fileType));
     }
     return Collections.emptyList();
   }
 
-  public List<TranscodingDefinition> getDefinitions()
+  public List!(TranscodingDefinition) getDefinitions()
   {
-    List<TranscodingDefinition> result = new ArrayList<TranscodingDefinition>();
-    for (List<TranscodingDefinition> configs : config.values()) {
+    List!(TranscodingDefinition) result = new ArrayList!(TranscodingDefinition)();
+    for (List!(TranscodingDefinition) configs : config.values()) {
       result.addAll(configs);
     }
     return Collections.unmodifiableList(result);
@@ -33,9 +33,9 @@ public class TranscodingConfiguration
 
   public void addDefinition(MediaFileType fileType, TranscodingDefinition definition) {
     if (!config.containsKey(fileType)) {
-      config.put(fileType, new ArrayList<TranscodingDefinition>());
+      config.put(fileType, new ArrayList!(TranscodingDefinition)());
     }
-    List<TranscodingDefinition> defs = (List<TranscodingDefinition>)config.get(fileType);
+    List!(TranscodingDefinition) defs = (List!(TranscodingDefinition))config.get(fileType);
     defs.add(definition);
   }
 

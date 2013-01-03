@@ -19,7 +19,7 @@ public class RepositoryService
 {
   private static final Logger log = LoggerFactory.getLogger(RepositoryService.class);
 
-  public static List<Repository> getAllRepositories()
+  public static List!(Repository) getAllRepositories()
   {
     return DAOFactory.getRepositoryDAO().findAll();
   }
@@ -28,10 +28,10 @@ public class RepositoryService
     return (Repository)DAOFactory.getRepositoryDAO().read(repositoryId);
   }
 
-  public static bool saveRepositories(List<Repository> repositories)
+  public static bool saveRepositories(List!(Repository) repositories)
   {
-    List<Repository> existingRepositories = getAllRepositories();
-    List<Repository> repsToRemove = new ArrayList<Repository>();
+    List!(Repository) existingRepositories = getAllRepositories();
+    List!(Repository) repsToRemove = new ArrayList!(Repository)();
     bool mediaItemsModified = false;
 
     for (Repository existingRepository : existingRepositories) {
@@ -59,7 +59,7 @@ public class RepositoryService
     return mediaItemsModified;
   }
 
-  public static List<Repository> getListOfRepositories(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Repository) getListOfRepositories(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getRepositoryDAO().getRepositories(mediaType, accessGroup, startingIndex, requestedCount);
   }
@@ -73,14 +73,14 @@ public class RepositoryService
     DAOFactory.getRepositoryDAO().markRepositoryAsScanned(repoId);
   }
 
-  private static bool removeRepositories(List<Repository> repositories)
+  private static bool removeRepositories(List!(Repository) repositories)
   {
     log.debug_(String.format("Found %s repositories to be removed", cast(Object[])[ Integer.valueOf(repositories.size()) ]));
     bool mediaItemsRemoved = false;
     for (Repository repository : repositories) {
       log.debug_(String.format("Removing all items in repository %s", cast(Object[])[ repository.getId() ]));
 
-      List<MediaItem> mediaItems = MediaService.getMediaItemsInRepository(repository.getId());
+      List!(MediaItem) mediaItems = MediaService.getMediaItemsInRepository(repository.getId());
       for (MediaItem mediaItem : mediaItems) {
         if (mediaItem.getFileType() == MediaFileType.AUDIO)
           AudioService.removeMusicTrackFromLibrary(mediaItem.getId());
@@ -92,7 +92,7 @@ public class RepositoryService
         mediaItemsRemoved = true;
       }
 
-      List<Playlist> playlists = PlaylistService.getPlaylistsInRepository(repository.getId());
+      List!(Playlist) playlists = PlaylistService.getPlaylistsInRepository(repository.getId());
       for (Playlist playlist : playlists) {
         PlaylistService.detetePlaylistAndItems(playlist.getId());
       }
@@ -107,11 +107,11 @@ public class RepositoryService
     bool mediaItemsRemoved = false;
     Repository existingRepository = getRepository(repository.getId());
 
-    Set<MediaFileType> existingSupportedFileTypes = existingRepository.getSupportedFileTypes();
+    Set!(MediaFileType) existingSupportedFileTypes = existingRepository.getSupportedFileTypes();
     existingSupportedFileTypes.removeAll(repository.getSupportedFileTypes());
 
     for (MediaFileType unsupportedFileType : existingSupportedFileTypes) {
-      List<MediaItem> mediaItems = MediaService.getMediaItemsInRepository(repository.getId(), unsupportedFileType);
+      List!(MediaItem) mediaItems = MediaService.getMediaItemsInRepository(repository.getId(), unsupportedFileType);
       for (MediaItem mediaItem : mediaItems) {
         if (mediaItem.getFileType() == MediaFileType.AUDIO)
           AudioService.removeMusicTrackFromLibrary(mediaItem.getId());
@@ -125,13 +125,13 @@ public class RepositoryService
 
     }
 
-    List<AccessGroup> existingAccessGroups = AccessGroupService.getAccessGroupsForRepository(repository.getId());
+    List!(AccessGroup) existingAccessGroups = AccessGroupService.getAccessGroupsForRepository(repository.getId());
     if ((existingAccessGroups.size() != repository.getAccessGroupIds().size()) || (!existingAccessGroups.containsAll(repository.getAccessGroupIds()))) {
       mediaItemsRemoved = true;
     }
 
     if (existingRepository.isSupportsOnlineMetadata() != repository.isSupportsOnlineMetadata()) {
-      List<MediaItem> mediaItems = MediaService.getMediaItemsInRepository(repository.getId());
+      List!(MediaItem) mediaItems = MediaService.getMediaItemsInRepository(repository.getId());
       for (MediaItem mediaItem : mediaItems) {
         MediaService.markMediaItemAsDirty(mediaItem.getId());
       }

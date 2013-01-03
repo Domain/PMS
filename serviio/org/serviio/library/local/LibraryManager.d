@@ -141,9 +141,9 @@ public class LibraryManager : AbstractLibraryManager
 
   public LocalItemMetadata extractMetadata(File mediaFile, MediaFileType fileType, Repository repository)
   {
-    List<MetadataExtractor> extractors = MetadataExtractorFactory.getInstance().getExtractors(fileType);
+    List!(MetadataExtractor) extractors = MetadataExtractorFactory.getInstance().getExtractors(fileType);
 
-    List<LocalItemMetadata> metadataList = new ArrayList<LocalItemMetadata>(extractors.size());
+    List!(LocalItemMetadata) metadataList = new ArrayList!(LocalItemMetadata)(extractors.size());
     try {
       for (MetadataExtractor extractor : extractors) {
         try {
@@ -189,7 +189,7 @@ public class LibraryManager : AbstractLibraryManager
     return false;
   }
 
-  protected LocalItemMetadata mergeMetadata(List<LocalItemMetadata> metadataList, MediaFileType fileType)
+  protected LocalItemMetadata mergeMetadata(List!(LocalItemMetadata) metadataList, MediaFileType fileType)
   {
     LocalItemMetadata mergedMetadata = MetadataFactory.getMetadataInstance(fileType);
 

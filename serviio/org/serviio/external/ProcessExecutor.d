@@ -35,7 +35,7 @@ public class ProcessExecutor : Thread
   private bool unlimitedPipe = false;
   private bool useStdOutForTextOutput = false;
 
-  private Set<ProcessListener> listeners = new HashSet<ProcessListener>();
+  private Set!(ProcessListener) listeners = new HashSet!(ProcessListener)();
 
   public this(String[] commandArguments)
   {
@@ -70,7 +70,7 @@ public class ProcessExecutor : Thread
 
       ProcessBuilder processBuilder = new ProcessBuilder(commandArguments);
       if (Platform.isWindows()) {
-        Map<String, String> env = processBuilder.environment();
+        Map!(String, String) env = processBuilder.environment();
         env.putAll(createWindowsRuntimeEnvironmentVariables());
 
         processBuilder.command(commandArguments);
@@ -154,14 +154,14 @@ public class ProcessExecutor : Thread
     return null;
   }
 
-  public List<String> getResults() {
+  public List!(String) getResults() {
     if (useStdOutForTextOutput) {
       return getResultsFromStream(stdoutReader);
     }
     return getResultsFromStream(stderrReader);
   }
 
-  private List<String> getResultsFromStream(OutputReader reader)
+  private List!(String) getResultsFromStream(OutputReader reader)
   {
     if (reader !is null) {
       try {
@@ -184,9 +184,9 @@ public class ProcessExecutor : Thread
       listener.outputUpdated(updatedLine);
   }
 
-  private Map<String, String> createWindowsRuntimeEnvironmentVariables()
+  private Map!(String, String) createWindowsRuntimeEnvironmentVariables()
   {
-    Map<String, String> newEnv = new HashMap<String, String>();
+    Map!(String, String) newEnv = new HashMap!(String, String)();
     newEnv.putAll(System.getenv());
     String[] i18n = new String[commandArguments.length + 2];
     i18n[0] = "cmd";

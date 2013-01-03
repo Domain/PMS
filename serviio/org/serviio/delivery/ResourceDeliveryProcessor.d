@@ -36,7 +36,7 @@ public class ResourceDeliveryProcessor
     this.resourceRetrievalStrategyFactory = resourceRetrievalStrategyFactory;
   }
 
-  public HttpDeliveryContainer deliverContent(String requestUri, HttpMethod method, ProtocolVersion httpVersion, Map<String, String> requestHeaders, RangeHeaders rangeHeaders, ResourceTransportProtocolHandler protocolHandler, Client client)
+  public HttpDeliveryContainer deliverContent(String requestUri, HttpMethod method, ProtocolVersion httpVersion, Map!(String, String) requestHeaders, RangeHeaders rangeHeaders, ResourceTransportProtocolHandler protocolHandler, Client client)
     {
     log.debug_(String.format("Resource request accepted. Using client '%s'", cast(Object[])[ client ]));
     try
@@ -67,9 +67,9 @@ public class ResourceDeliveryProcessor
     }throw new HttpResponseCodeException(500);
   }
 
-  private HttpDeliveryContainer handleHEADRequest(Map<String, String> requestHeaders, ProtocolVersion requestHttpVersion, ResourceInfo resourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, ResourceTransportProtocolHandler protocolHandler)
+  private HttpDeliveryContainer handleHEADRequest(Map!(String, String) requestHeaders, ProtocolVersion requestHttpVersion, ResourceInfo resourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, ResourceTransportProtocolHandler protocolHandler)
     {
-    Map<String, Object> responseHeaders = new LinkedHashMap<String, Object>();
+    Map!(String, Object) responseHeaders = new LinkedHashMap!(String, Object)();
     responseHeaders.put("Content-Type", resourceInfo.getMimeType());
     Long streamSize = computeFileSize(resourceInfo);
 
@@ -78,7 +78,7 @@ public class ResourceDeliveryProcessor
     return new HttpDeliveryContainer(responseHeaders);
   }
 
-  private HttpDeliveryContainer handleGETRequest(ResourceRetrievalStrategy resourceRetrievalStrategy, ResourceInfo resourceInfo, MediaFormatProfile selectedVersion, QualityType quality, Map<String, String> requestHeaders, RangeHeaders requestRangeHeaders, ProtocolVersion requestHttpVersion, Integer protocolInfoIndex, Client client, ResourceTransportProtocolHandler protocolHandler)
+  private HttpDeliveryContainer handleGETRequest(ResourceRetrievalStrategy resourceRetrievalStrategy, ResourceInfo resourceInfo, MediaFormatProfile selectedVersion, QualityType quality, Map!(String, String) requestHeaders, RangeHeaders requestRangeHeaders, ProtocolVersion requestHttpVersion, Integer protocolInfoIndex, Client client, ResourceTransportProtocolHandler protocolHandler)
     {
     bool markAsRead = markAsReadRequired(requestRangeHeaders);
     TransferMode transferMode = getTransferMode(requestHeaders, resourceInfo);
@@ -120,7 +120,7 @@ public class ResourceDeliveryProcessor
                 log.debug_("Unsupported time range request because current filesize is not available, sending back 406");
                 throw new HttpResponseCodeException(406);
               }
-              TreeMap<Double, ProgressData> filesizeMap = jobListener.getFilesizeMap();
+              TreeMap!(Double, ProgressData) filesizeMap = jobListener.getFilesizeMap();
               Long startByte = convertSecondsToBytes(new Double(range.getStart(RangeHeaders.RangeUnit.SECONDS).longValue()), filesizeMap);
               log.debug_(String.format("Delivering bytes %s - %s from transcoded file, based on time range %s - %s", cast(Object[])[ startByte, fileSize, range.getStart(RangeHeaders.RangeUnit.SECONDS), range.getEnd(RangeHeaders.RangeUnit.SECONDS) ]));
               responseContainer = retrieveResource(deliveryContainer, resourceInfo, transferMode, client, startByte.longValue(), fileSize.longValue(), true, true, requestHttpVersion);
@@ -154,12 +154,12 @@ public class ResourceDeliveryProcessor
 
   private HttpDeliveryContainer retrieveResource(DeliveryContainer deliveryContainer, ResourceInfo resourceInfo, TransferMode transferMode, Client client, long skipBytes, long streamSize, bool partialContent, bool deliverStream, ProtocolVersion requestHttpVersion)
     {
-    Map<String, Object> responseHeaders = new LinkedHashMap<String, Object>();
+    Map!(String, Object) responseHeaders = new LinkedHashMap!(String, Object)();
     responseHeaders.put("Content-Type", resourceInfo.getMimeType());
     return prepareContainer(responseHeaders, deliveryContainer, transferMode, Long.valueOf(skipBytes), Long.valueOf(streamSize), partialContent, requestHttpVersion, resourceInfo.isTranscoded(), client.isExpectsClosedConnection(), deliverStream);
   }
 
-  private HttpDeliveryContainer prepareContainer(Map<String, Object> responseHeaders, DeliveryContainer container, TransferMode transferMode, Long skip, Long fileSize, bool partialContent, ProtocolVersion requestHttpVersion, bool transcoded, bool alwaysCloseConnection, bool deliverStream)
+  private HttpDeliveryContainer prepareContainer(Map!(String, Object) responseHeaders, DeliveryContainer container, TransferMode transferMode, Long skip, Long fileSize, bool partialContent, ProtocolVersion requestHttpVersion, bool transcoded, bool alwaysCloseConnection, bool deliverStream)
   {
     InputStream is = deliverStream ? ( cast(StreamDeliveryContainer)container).getFileStream() : new ByteArrayInputStream(new byte[0]);
     Long contentLengthToRead = Long.valueOf(deliverStream ? new Long(fileSize.longValue()).longValue() : 0L);
@@ -211,7 +211,7 @@ public class ResourceDeliveryProcessor
     return null;
   }
 
-  private TransferMode getTransferMode(Map<String, String> headers, ResourceInfo resourceInfo)
+  private TransferMode getTransferMode(Map!(String, String) headers, ResourceInfo resourceInfo)
   {
     String requestedTransferMode = cast(String)headers.get("transferMode.dlna.org");
     if ((requestedTransferMode !is null) && (ObjectValidator.isNotEmpty(requestedTransferMode)))
@@ -241,15 +241,15 @@ public class ResourceDeliveryProcessor
     return null;
   }
 
-  protected Long convertSecondsToBytes(Double seconds, TreeMap<Double, TranscodingJobListener.ProgressData> filesizeMap)
+  protected Long convertSecondsToBytes(Double seconds, TreeMap!(Double, TranscodingJobListener.ProgressData) filesizeMap)
   {
     if (seconds.doubleValue() == 0.0D) {
       return Long.valueOf(0L);
     }
     if (seconds.doubleValue() <= ( cast(Double)filesizeMap.lastKey()).doubleValue())
     {
-      Entry<Double, ProgressData> upperBoundary = filesizeMap.ceilingEntry(seconds);
-      Entry<Double, ProgressData> lowerBoundary = filesizeMap.floorEntry(seconds);
+      Entry!(Double, ProgressData) upperBoundary = filesizeMap.ceilingEntry(seconds);
+      Entry!(Double, ProgressData) lowerBoundary = filesizeMap.floorEntry(seconds);
 
       if (lowerBoundary is null) {
         return convertSecondsToBytes(( cast(TranscodingJobListener.ProgressData)upperBoundary.getValue()).getFileSize(), cast(Double)upperBoundary.getKey(), Long.valueOf(0L), Double.valueOf(0.0D), seconds);
@@ -257,7 +257,7 @@ public class ResourceDeliveryProcessor
       return convertSecondsToBytes(( cast(TranscodingJobListener.ProgressData)upperBoundary.getValue()).getFileSize(), cast(Double)upperBoundary.getKey(), ( cast(TranscodingJobListener.ProgressData)lowerBoundary.getValue()).getFileSize(), cast(Double)lowerBoundary.getKey(), seconds);
     }
 
-    Entry<Double, ProgressData> lastEntry = filesizeMap.lastEntry();
+    Entry!(Double, ProgressData) lastEntry = filesizeMap.lastEntry();
     Double secondsFromLast = Double.valueOf(seconds.doubleValue() - ( cast(Double)lastEntry.getKey()).doubleValue());
     Double approxFileSizeSinceLastEntry = Double.valueOf(( cast(TranscodingJobListener.ProgressData)lastEntry.getValue()).getBitrate().floatValue() * secondsFromLast.doubleValue() / 8.0D * 1024.0D);
     return Long.valueOf(( cast(TranscodingJobListener.ProgressData)lastEntry.getValue()).getFileSize().longValue() + approxFileSizeSinceLastEntry.longValue());

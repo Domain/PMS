@@ -18,24 +18,24 @@ public class AsxParserStrategy : AbstractPlaylistParserStrategy
     {
     String title = FilenameUtils.getBaseName(playlistLocation);
     SAXBuilder builder = new SAXBuilder();
-    List<String> files = new ArrayList<String>();
+    List!(String) files = new ArrayList!(String)();
     try {
       Document doc = builder.build(new ByteArrayInputStream(playlist));
       Element root = doc.getRootElement();
       if ((root !is null) && (StringUtils.localeSafeToLowercase(root.getName()).equals("asx"))) {
         @SuppressWarnings("unchecked")
-		List<Element> children = root.getChildren();
+		List!(Element) children = root.getChildren();
         for (Element entryNode : children) {
           if (StringUtils.localeSafeToLowercase(entryNode.getName()).equals("title")) {
             title = entryNode.getValue();
           }
           if (StringUtils.localeSafeToLowercase(entryNode.getName()).equals("entry")) {
             @SuppressWarnings("unchecked")
-			List<Element> refNodes = entryNode.getChildren();
+			List!(Element) refNodes = entryNode.getChildren();
             for (Element refNode : refNodes) {
               if (StringUtils.localeSafeToLowercase(refNode.getName()).equals("ref")) {
                 @SuppressWarnings("unchecked")
-				List<Attribute> attributes = refNode.getAttributes();
+				List!(Attribute) attributes = refNode.getAttributes();
                 for (Attribute attribute : attributes) {
                   if (StringUtils.localeSafeToLowercase(attribute.getName()).equals("href")) {
                     files.add(attribute.getValue().trim());

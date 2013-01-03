@@ -10,16 +10,16 @@ public class SharedFolder
 {
   private Long id;
   private String folderPath;
-  private Set<MediaFileType> supportedFileTypes;
+  private Set!(MediaFileType) supportedFileTypes;
   private bool descriptiveMetadataSupported;
   private bool scanForUpdates;
-  private LinkedHashSet<Long> accessGroupIds;
+  private LinkedHashSet!(Long) accessGroupIds;
 
   public this()
   {
   }
 
-  public this(String folderPath, Set<MediaFileType> supportedFileTypes, bool descMetadataEnabled, bool scanForUpdates, LinkedHashSet<Long> accessGroupIds)
+  public this(String folderPath, Set!(MediaFileType) supportedFileTypes, bool descMetadataEnabled, bool scanForUpdates, LinkedHashSet!(Long) accessGroupIds)
   {
     this.folderPath = folderPath;
     this.supportedFileTypes = supportedFileTypes;
@@ -40,11 +40,11 @@ public class SharedFolder
     return folderPath;
   }
 
-  public Set<MediaFileType> getSupportedFileTypes() {
+  public Set!(MediaFileType) getSupportedFileTypes() {
     return supportedFileTypes;
   }
 
-  protected void setSupportedFileTypes(Set<MediaFileType> supportedFileTypes) {
+  protected void setSupportedFileTypes(Set!(MediaFileType) supportedFileTypes) {
     this.supportedFileTypes = supportedFileTypes;
   }
 
@@ -64,12 +64,12 @@ public class SharedFolder
     this.scanForUpdates = scanForUpdates;
   }
 
-  public LinkedHashSet<Long> getAccessGroupIds()
+  public LinkedHashSet!(Long) getAccessGroupIds()
   {
     return accessGroupIds;
   }
 
-  public void setAccessGroupIds(LinkedHashSet<Long> accessGroupIds) {
+  public void setAccessGroupIds(LinkedHashSet!(Long) accessGroupIds) {
     this.accessGroupIds = accessGroupIds;
   }
 

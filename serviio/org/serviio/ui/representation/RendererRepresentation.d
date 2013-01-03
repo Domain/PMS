@@ -1,7 +1,7 @@
 module org.serviio.ui.representation.RendererRepresentation;
 
 public class RendererRepresentation
-  : Comparable<RendererRepresentation>
+  : Comparable!(RendererRepresentation)
 {
   private String uuid;
   private String ipAddress;

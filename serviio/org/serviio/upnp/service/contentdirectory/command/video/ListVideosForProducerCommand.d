@@ -16,9 +16,9 @@ public class ListVideosForProducerCommand : AbstractVideosRetrievalCommand
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<Video> retrieveEntityList()
+  protected List!(Video) retrieveEntityList()
   {
-    List<Video> videos = VideoService.getListOfVideosForPerson(new Long(getInternalObjectId()), RoleType.PRODUCER, accessGroup, startIndex, count);
+    List!(Video) videos = VideoService.getListOfVideosForPerson(new Long(getInternalObjectId()), RoleType.PRODUCER, accessGroup, startIndex, count);
     return videos;
   }
 

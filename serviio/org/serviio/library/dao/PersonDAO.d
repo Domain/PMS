@@ -18,33 +18,33 @@ public abstract interface PersonDAO
 
   public abstract void removeAllPersonsFromMusicAlbum(Long paramLong);
 
-  public abstract void removePersonsAndRoles(List<Long> paramList);
+  public abstract void removePersonsAndRoles(List!(Long) paramList);
 
-  public abstract List<Person> retrievePersonsWithRole(RoleType paramRoleType, int paramInt1, int paramInt2);
+  public abstract List!(Person) retrievePersonsWithRole(RoleType paramRoleType, int paramInt1, int paramInt2);
 
   public abstract int getPersonsWithRoleCount(RoleType paramRoleType);
 
   public abstract int getRoleForPersonCount(Long paramLong);
 
-  public abstract List<Person> retrievePersonsWithRoleForMediaItem(RoleType paramRoleType, Long paramLong);
+  public abstract List!(Person) retrievePersonsWithRoleForMediaItem(RoleType paramRoleType, Long paramLong);
 
-  public abstract List<Person> retrievePersonsWithRoleForMusicAlbum(RoleType paramRoleType, Long paramLong);
+  public abstract List!(Person) retrievePersonsWithRoleForMusicAlbum(RoleType paramRoleType, Long paramLong);
 
-  public abstract List<Person> retrievePersonsForMediaItem(Long paramLong);
+  public abstract List!(Person) retrievePersonsForMediaItem(Long paramLong);
 
-  public abstract List<Person> retrievePersonsForMusicAlbum(Long paramLong);
+  public abstract List!(Person) retrievePersonsForMusicAlbum(Long paramLong);
 
   public abstract Long getPersonRoleForMediaItem(RoleType paramRoleType, Long paramLong1, Long paramLong2);
 
   public abstract Long getPersonRoleForMusicAlbum(RoleType paramRoleType, Long paramLong1, Long paramLong2);
 
-  public abstract List<Long> getRoleIDsForMediaItem(RoleType paramRoleType, Long paramLong);
+  public abstract List!(Long) getRoleIDsForMediaItem(RoleType paramRoleType, Long paramLong);
 
-  public abstract List<String> retrievePersonInitials(RoleType paramRoleType, int paramInt1, int paramInt2);
+  public abstract List!(String) retrievePersonInitials(RoleType paramRoleType, int paramInt1, int paramInt2);
 
   public abstract int retrievePersonInitialsCount(RoleType paramRoleType);
 
-  public abstract List<Person> retrievePersonsForInitial(String paramString, RoleType paramRoleType, int paramInt1, int paramInt2);
+  public abstract List!(Person) retrievePersonsForInitial(String paramString, RoleType paramRoleType, int paramInt1, int paramInt2);
 
   public abstract int retrievePersonsForInitialCount(String paramString, RoleType paramRoleType);
 }

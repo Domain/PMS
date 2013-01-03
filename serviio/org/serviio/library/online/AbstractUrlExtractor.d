@@ -101,11 +101,11 @@ public abstract class AbstractUrlExtractor
     return openURL(url, userAgent, null);
   }
 
-  protected final String openURL(URL url, String userAgent, Map<String, String> cookies) {
+  protected final String openURL(URL url, String userAgent, Map!(String, String) cookies) {
     Request request = new Request(Method.GET, url.toString());
 
     if (cookies !is null) {
-      for (Entry<String, String> cookie : cookies.entrySet()) {
+      for (Entry!(String, String) cookie : cookies.entrySet()) {
         request.getCookies().add(new Cookie( cast(String)cookie.getKey(), cast(String)cookie.getValue()));
       }
     }

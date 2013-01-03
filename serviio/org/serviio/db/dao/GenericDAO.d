@@ -1,6 +1,6 @@
 module org.serviio.db.dao.GenericDAO;
 
-public abstract interface GenericDAO<T>
+public abstract interface GenericDAO!(T)
 {
   public abstract long create(T paramT)
     throws InvalidArgumentException, PersistenceException;

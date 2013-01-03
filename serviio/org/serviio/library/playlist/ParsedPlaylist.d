@@ -7,7 +7,7 @@ import java.util.List;
 public class ParsedPlaylist
 {
   private String title;
-  private List<PlaylistItem> items = new ArrayList<PlaylistItem>();
+  private List!(PlaylistItem) items = new ArrayList!(PlaylistItem)();
 
   public this(String title)
   {
@@ -19,7 +19,7 @@ public class ParsedPlaylist
     items.add(new PlaylistItem(path, Integer.valueOf(items.size() + 1)));
   }
 
-  public List<PlaylistItem> getItems()
+  public List!(PlaylistItem) getItems()
   {
     return Collections.unmodifiableList(items);
   }

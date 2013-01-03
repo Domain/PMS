@@ -36,15 +36,15 @@ public class OnlineLibraryManager : AbstractLibraryManager
 {
   private static final Logger log = LoggerFactory.getLogger(OnlineLibraryManager.class);
   private static OnlineLibraryManager instance;
-  private OnlineCacheDecorator<OnlineCachable> onlineCache;
-  private OnlineCacheDecorator<CoverImage> thumbnailCache;
-  private OnlineCacheDecorator<TechnicalMetadata> technicalMetadataCache;
+  private OnlineCacheDecorator!(OnlineCachable) onlineCache;
+  private OnlineCacheDecorator!(CoverImage) thumbnailCache;
+  private OnlineCacheDecorator!(TechnicalMetadata) technicalMetadataCache;
   private FeedParser feedParser;
   private SingleURLParser singleURLParser;
   private WebResourceParser webResourceParser;
   private FeedUpdaterThread feedUpdaterThread;
   private LibraryIndexingListener cdsListener;
-  private Map<String, Date> feedExpiryMonitor = Collections.synchronizedMap(new HashMap<String, Date>());
+  private Map!(String, Date) feedExpiryMonitor = Collections.synchronizedMap(new HashMap!(String, Date)());
 
   public static OnlineLibraryManager getInstance()
   {
@@ -168,7 +168,7 @@ public class OnlineLibraryManager : AbstractLibraryManager
   public void removeFeedFromCache(AbstractUrlExtractor plugin)
   {
     synchronized (feedExpiryMonitor) {
-      Set<String> urls = new HashSet<String>(feedExpiryMonitor.keySet());
+      Set!(String) urls = new HashSet!(String)(feedExpiryMonitor.keySet());
       for (String feedUrl : urls) {
         OnlineResourceContainer<?, ?> resource = (OnlineResourceContainer<?, ?>)onlineCache.retrieve(feedUrl);
         if ((resource !is null) && (resource.getUsedExtractor() !is null) && (resource.getUsedExtractor().equals(plugin))) {

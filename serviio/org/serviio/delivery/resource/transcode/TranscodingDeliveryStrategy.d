@@ -5,7 +5,7 @@ import org.serviio.delivery.Client;
 import org.serviio.delivery.DeliveryListener;
 import org.serviio.library.entities.MediaItem;
 
-public abstract interface TranscodingDeliveryStrategy<T>
+public abstract interface TranscodingDeliveryStrategy!(T)
 {
   public abstract StreamDescriptor createInputStream(TranscodingJobListener paramTranscodingJobListener, Client paramClient)
     throws IOException;

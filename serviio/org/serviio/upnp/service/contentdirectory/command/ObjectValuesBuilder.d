@@ -33,9 +33,9 @@ import org.serviio.util.DateUtils;
 
 public class ObjectValuesBuilder
 {
-  public static Map<ClassProperties, Object> buildObjectValues(PersistedEntity entity, String objectId, String parentId, ObjectType objectType, String title, Profile rendererProfile, AccessGroup accessGroup)
+  public static Map!(ClassProperties, Object) buildObjectValues(PersistedEntity entity, String objectId, String parentId, ObjectType objectType, String title, Profile rendererProfile, AccessGroup accessGroup)
   {
-    Map<ClassProperties, Object> values = null;
+    Map!(ClassProperties, Object) values = null;
     if (( cast(Folder)entity !is null )) {
       values = instantiateValuesForContainer(title, objectId, parentId, objectType, accessGroup);
     } else if (( cast(Person)entity !is null )) {
@@ -104,9 +104,9 @@ public class ObjectValuesBuilder
     return values;
   }
 
-  public static Map<ClassProperties, Object> instantiateValuesForContainer(String containerTitle, String objectId, String parentId, ObjectType objectType, AccessGroup accessGroup)
+  public static Map!(ClassProperties, Object) instantiateValuesForContainer(String containerTitle, String objectId, String parentId, ObjectType objectType, AccessGroup accessGroup)
   {
-    Map<ClassProperties, Object> values = new HashMap<ClassProperties, Object>();
+    Map!(ClassProperties, Object) values = new HashMap!(ClassProperties, Object)();
     values.put(ClassProperties.ID, objectId);
     values.put(ClassProperties.TITLE, getBrowsableTitle(containerTitle, objectId));
     values.put(ClassProperties.PARENT_ID, parentId);
@@ -115,9 +115,9 @@ public class ObjectValuesBuilder
     return values;
   }
 
-  public static Map<ClassProperties, Object> instantiateValuesForItem(String itemTitle, String objectId, String parentId, MediaItem item)
+  public static Map!(ClassProperties, Object) instantiateValuesForItem(String itemTitle, String objectId, String parentId, MediaItem item)
   {
-    Map<ClassProperties, Object> values = new HashMap<ClassProperties, Object>();
+    Map!(ClassProperties, Object) values = new HashMap!(ClassProperties, Object)();
     Resource icon = generateThumbnailResource(item);
     values.put(ClassProperties.ID, objectId);
     values.put(ClassProperties.TITLE, getBrowsableTitle(itemTitle, objectId));

@@ -6,7 +6,7 @@ public enum UPnPServerStatus
 
   STARTED, 
 
-  STOPPED
+  STOPPED;
 }
 
 /* Location:           D:\Program Files\Serviio\lib\serviio.jar

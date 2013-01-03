@@ -16,9 +16,9 @@ public class ListArtistsByNameCommand : AbstractPersonsRetrievalCommand
     super(objectId, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<Person> retrieveEntityList()
+  protected List!(Person) retrieveEntityList()
   {
-    List<Person> artists = PersonService.getListOfPersons(RoleType.ARTIST, startIndex, count);
+    List!(Person) artists = PersonService.getListOfPersons(RoleType.ARTIST, startIndex, count);
     return artists;
   }
 

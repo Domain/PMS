@@ -24,11 +24,11 @@ public class RendererExpirationChecker
     Calendar currentDate = new GregorianCalendar();
     while (workerRunning) {
       currentDate.setTime(new Date());
-      Map<String, ActiveRenderer> renderersMap = RendererManager.getInstance().getActiveRenderers();
-      Set<String> uuids = renderersMap.keySet();
+      Map!(String, ActiveRenderer) renderersMap = RendererManager.getInstance().getActiveRenderers();
+      Set!(String) uuids = renderersMap.keySet();
 
       synchronized (renderersMap) {
-        Iterator<String> i = uuids.iterator();
+        Iterator!(String) i = uuids.iterator();
         while (i.hasNext()) {
           String uuid = cast(String)i.next();
           ActiveRenderer activeRenderer = cast(ActiveRenderer)renderersMap.get(uuid);

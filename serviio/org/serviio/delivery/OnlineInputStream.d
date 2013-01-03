@@ -151,7 +151,7 @@ public class OnlineInputStream : InputStream
       if ((contentSize !is null) && (startByte + byteCount > contentSize.longValue())) {
         byteRange = new Range(startByte, contentSize.longValue() - startByte);
       }
-      List<Range> ranges = Collections.singletonList(byteRange);
+      List!(Range) ranges = Collections.singletonList(byteRange);
       request.setRanges(ranges);
     }
     Response response = restletClient.handle(request);

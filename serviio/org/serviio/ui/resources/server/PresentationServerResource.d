@@ -65,15 +65,15 @@ public class PresentationServerResource : AbstractServerResource
 
   private void initCategories(PresentationRepresentation rep)
   {
-    List<BrowsingCategory> categories = findEditableContainers(Definition.instance().getContainer("0"));
+    List!(BrowsingCategory) categories = findEditableContainers(Definition.instance().getContainer("0"));
 
     rep.getCategories().addAll(categories);
   }
 
-  private List<BrowsingCategory> findEditableContainers(ContainerNode parent)
+  private List!(BrowsingCategory) findEditableContainers(ContainerNode parent)
   {
     Definition def = Definition.instance();
-    List<BrowsingCategory> categories = new ArrayList<BrowsingCategory>();
+    List!(BrowsingCategory) categories = new ArrayList!(BrowsingCategory)();
     for (DefinitionNode node : parent.getChildNodes()) {
       if (( cast(StaticContainerNode)node !is null )) {
         StaticContainerNode container = cast(StaticContainerNode)node;
@@ -91,7 +91,7 @@ public class PresentationServerResource : AbstractServerResource
   {
     if (rep.getCategories() !is null) {
       log.debug_("Updating browsing categories' configuration");
-      Map<String, String> config = new LinkedHashMap<String, String>();
+      Map!(String, String) config = new LinkedHashMap!(String, String)();
       for (BrowsingCategory category : rep.getCategories()) {
         addCategoryToConfig(category, config);
       }
@@ -101,7 +101,7 @@ public class PresentationServerResource : AbstractServerResource
     return false;
   }
 
-  private void addCategoryToConfig(BrowsingCategory category, Map<String, String> config) {
+  private void addCategoryToConfig(BrowsingCategory category, Map!(String, String) config) {
     if (category.getVisibility() != ContainerVisibilityType.DISPLAYED) {
       config.put(category.getId(), category.getVisibility().toString());
     }

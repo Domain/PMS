@@ -45,9 +45,9 @@ public class FolderService
     }
   }
 
-  public static List<Folder> getListOfFoldersWithMedia(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Folder) getListOfFoldersWithMedia(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    List<Folder> folders = DAOFactory.getFolderDAO().retrieveFoldersWithMedia(mediaType, accessGroup, startingIndex, requestedCount);
+    List!(Folder) folders = DAOFactory.getFolderDAO().retrieveFoldersWithMedia(mediaType, accessGroup, startingIndex, requestedCount);
     for (Folder folder : folders) {
       normalizeFolderName(folder);
     }
@@ -63,9 +63,9 @@ public class FolderService
     return DAOFactory.getFolderDAO().getNumberOfFoldersAndMediaItems(fileType, objectType, accessGroup, folderId, repositoryId);
   }
 
-  public static List<Folder> getListOfSubFolders(Long folderId, Long repositoryId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Folder) getListOfSubFolders(Long folderId, Long repositoryId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    List<Folder> folders = DAOFactory.getFolderDAO().retrieveSubFolders(folderId, repositoryId, accessGroup, startingIndex, requestedCount);
+    List!(Folder) folders = DAOFactory.getFolderDAO().retrieveSubFolders(folderId, repositoryId, accessGroup, startingIndex, requestedCount);
     for (Folder folder : folders) {
       normalizeFolderName(folder);
     }
@@ -84,7 +84,7 @@ public class FolderService
 
   private static void normalizeFolderName(Folder folder)
   {
-    if (folder.getName().equals("<virtual>"))
+    if (folder.getName().equals("!(virtual)"))
     {
       Repository repository = RepositoryService.getRepository(folder.getRepositoryId());
       folder.setName(ObjectValidator.isNotEmpty(repository.getFolder().getName()) ? repository.getFolder().getName() : repository.getFolder().getPath());

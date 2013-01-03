@@ -20,7 +20,7 @@ public class LocalAddressResolverStrategy
 {
   private static final String BOUND_ADDRESS = System.getProperty("serviio.boundAddr");
 
-  private static final List<String> INVALID_NIC_NAMES = Arrays.asList(cast(String[])[ "vnic", "wmnet", "vmware", "bluetooth", "virtual" ]);
+  private static final List!(String) INVALID_NIC_NAMES = Arrays.asList(cast(String[])[ "vnic", "wmnet", "vmware", "bluetooth", "virtual" ]);
 
   private static final Logger log = LoggerFactory.getLogger(LocalAddressResolverStrategy.class);
 
@@ -67,7 +67,7 @@ public class LocalAddressResolverStrategy
 
   private InetAddress getFirstSuitableNetworkInterfaceIPAddress()
     {
-    List<NetworkInterface> ifaceList = new ArrayList<NetworkInterface>();
+    List!(NetworkInterface) ifaceList = new ArrayList!(NetworkInterface)();
     for (NetworkInterface iface : MultiCastUtils.findAllAvailableInterfaces()) {
       if ((isValidNICName(iface.getName())) && (isValidNICName(iface.getDisplayName()))) {
         ifaceList.add(iface);

@@ -13,7 +13,7 @@ public class OnlineRepository : PersistedEntity
   private URL thumbnailUrl;
   private String repositoryName;
   private bool enabled = true;
-  private List<Long> accessGroupIds;
+  private List!(Long) accessGroupIds;
   private Integer order;
 
   public this(OnlineRepositoryType repoType, String repositoryUrl, MediaFileType fileType, String repositoryName, Integer order)
@@ -74,12 +74,12 @@ public class OnlineRepository : PersistedEntity
     this.enabled = enabled;
   }
 
-  public List<Long> getAccessGroupIds()
+  public List!(Long) getAccessGroupIds()
   {
     return accessGroupIds;
   }
 
-  public void setAccessGroupIds(List<Long> accessGroupIds) {
+  public void setAccessGroupIds(List!(Long) accessGroupIds) {
     this.accessGroupIds = accessGroupIds;
   }
 

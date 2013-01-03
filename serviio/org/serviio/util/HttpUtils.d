@@ -54,7 +54,7 @@ public class HttpUtils
   public static String headersToString(Header[] headers) {
     StringBuffer sb = new StringBuffer();
     sb.append("[");
-    List<String> headersList = new ArrayList<String>();
+    List!(String) headersList = new ArrayList!(String)();
     for (Header header : headers) {
       headersList.add(header.getName() + ": " + header.getValue());
     }

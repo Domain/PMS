@@ -112,7 +112,7 @@ public class RendererDAOImpl
     }
   }
 
-  public List<Renderer> findByIPAddress(String ipAddress) {
+  public List!(Renderer) findByIPAddress(String ipAddress) {
     log.debug_(String.format("Reading a Renderer with ip address %s", cast(Object[])[ ipAddress ]));
     Connection con = null;
     PreparedStatement ps = null;
@@ -130,7 +130,7 @@ public class RendererDAOImpl
     }
   }
 
-  public List<Renderer> findAll() {
+  public List!(Renderer) findAll() {
     log.debug_("Retrieving list of all stored renderers");
     Connection con = null;
     PreparedStatement ps = null;
@@ -155,9 +155,9 @@ public class RendererDAOImpl
     return null;
   }
 
-  protected List<Renderer> mapResultSet(ResultSet rs)
+  protected List!(Renderer) mapResultSet(ResultSet rs)
     {
-    List<Renderer> result = new ArrayList<Renderer>();
+    List!(Renderer) result = new ArrayList!(Renderer)();
     while (rs.next()) {
       result.add(initRenderer(rs));
     }

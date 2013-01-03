@@ -8,7 +8,7 @@ import org.serviio.licensing.LicensingManager;
 
 public abstract class AbstractProEditionServerResource : AbstractServerResource
 {
-  protected List<Method> getRestrictedMethods()
+  protected List!(Method) getRestrictedMethods()
   {
     return Arrays.asList(cast(Method[])[ Method.GET, Method.POST, Method.PUT, Method.DELETE, Method.HEAD ]);
   }

@@ -50,7 +50,7 @@ public class GenreDAOImpl
     log.debug_(String.format("Deleting a Genre (id = %s)", cast(Object[])[ id ]));
     try
     {
-      new JdbcExecutor<Object>()
+      new JdbcExecutor!(Object)()
       {
         protected PreparedStatement processStatement(Connection con) {
           PreparedStatement ps = con.prepareStatement("DELETE FROM genre WHERE id = ?");
@@ -135,7 +135,7 @@ public class GenreDAOImpl
     }
   }
 
-  public List<Genre> retrieveGenres(MediaFileType fileType, int startingIndex, int requestedCount)
+  public List!(Genre) retrieveGenres(MediaFileType fileType, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of genres for %s (from=%s, count=%s)", cast(Object[])[ fileType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -189,9 +189,9 @@ public class GenreDAOImpl
     return null;
   }
 
-  protected List<Genre> mapResultSet(ResultSet rs)
+  protected List!(Genre) mapResultSet(ResultSet rs)
     {
-    List<Genre> result = new ArrayList<Genre>();
+    List!(Genre) result = new ArrayList!(Genre)();
     while (rs.next()) {
       result.add(initGenre(rs));
     }

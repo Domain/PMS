@@ -25,7 +25,7 @@ public class LoginServerResource : AbstractCDSServerResource
 
   private static final Logger log = LoggerFactory.getLogger(LoginServerResource.class);
 
-  private static Map<String, Date> storedTokens = new HashMap<String, Date>();
+  private static Map!(String, Date) storedTokens = new HashMap!(String, Date)();
 
   public static void storeToken(String token)
   {
@@ -53,7 +53,7 @@ public class LoginServerResource : AbstractCDSServerResource
       throw new AuthenticationException("Cannot log in with an empty password.", 556);
     }
 
-    Map<String, String> requestHeaders = getRequestHeaders(getRequest());
+    Map!(String, String) requestHeaders = getRequestHeaders(getRequest());
     String authHeader = getHeaderStringValue(AUTH_HEADER, requestHeaders);
     if (ObjectValidator.isEmpty(authHeader)) {
       throw new AuthenticationException("Cannot retrieve Auth header from authentication request.", 551);

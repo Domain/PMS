@@ -18,9 +18,9 @@ public class ListEpisodesForSeriesSeasonCommand : AbstractVideosRetrievalCommand
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<Video> retrieveEntityList()
+  protected List!(Video) retrieveEntityList()
   {
-    List<Video> videos = VideoService.getListOfEpisodesForSeriesSeason(getSeriesId(), getSeason(), accessGroup, startIndex, count);
+    List!(Video) videos = VideoService.getListOfEpisodesForSeriesSeason(getSeriesId(), getSeason(), accessGroup, startIndex, count);
     return videos;
   }
 
@@ -60,10 +60,10 @@ public class ListEpisodesForSeriesSeasonCommand : AbstractVideosRetrievalCommand
   }
 
   protected Long getLastViewedEpisode(Long seriesId) {
-    Map<Long, Integer> lastViewed = VideoService.getLastViewedEpisode(seriesId);
+    Map!(Long, Integer) lastViewed = VideoService.getLastViewedEpisode(seriesId);
     if (lastViewed !is null)
     {
-      return (Long)((Entry<Long, Integer>)lastViewed.entrySet().iterator().next()).getKey();
+      return (Long)((Entry!(Long, Integer))lastViewed.entrySet().iterator().next()).getKey();
     }
     return null;
   }

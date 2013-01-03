@@ -21,35 +21,35 @@ import org.serviio.upnp.service.contentdirectory.command.ObjectValuesBuilder;
 import org.serviio.upnp.service.contentdirectory.definition.Definition;
 import org.serviio.upnp.service.contentdirectory.definition.i18n.BrowsingCategoriesMessages;
 
-public class ListSeasonsForSeriesCommand : AbstractCommand<Container>
+public class ListSeasonsForSeriesCommand : AbstractCommand!(Container)
 {
   public this(String contextIdentifier, ObjectType objectType, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup accessGroup, String idPrefix, int startIndex, int count)
   {
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
+    return new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   }
 
-  protected Set<ObjectType> getSupportedObjectTypes()
+  protected Set!(ObjectType) getSupportedObjectTypes()
   {
     return ObjectType.getContainerTypes();
   }
 
-  protected List<Container> retrieveList()
+  protected List!(Container) retrieveList()
   {
-    List<Container> items = new ArrayList<Container>();
+    List!(Container) items = new ArrayList!(Container)();
 
-    List<Integer> seasons = VideoService.getListOfSeasonsForSeries(new Long(getInternalObjectId()), accessGroup, startIndex, count);
+    List!(Integer) seasons = VideoService.getListOfSeasonsForSeries(new Long(getInternalObjectId()), accessGroup, startIndex, count);
 
     Integer lastViewedSeason = getLastViewedSeason(new Long(getInternalObjectId()));
 
     for (Integer seasonNumber : seasons) {
       String runtimeId = generateRuntimeObjectId(seasonNumber);
       String containerTitle = String.format("%s %s%s", cast(Object[])[ BrowsingCategoriesMessages.getMessage("season", new Object[0]), seasonNumber, (lastViewedSeason !is null) && (lastViewedSeason.equals(seasonNumber)) ? " **" : "" ]);
-      Map<ClassProperties, Object> values = ObjectValuesBuilder.instantiateValuesForContainer(containerTitle, runtimeId, getDisplayedContainerId(objectId), objectType, accessGroup);
+      Map!(ClassProperties, Object) values = ObjectValuesBuilder.instantiateValuesForContainer(containerTitle, runtimeId, getDisplayedContainerId(objectId), objectType, accessGroup);
       items.add( cast(Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, null));
     }
     return items;
@@ -63,7 +63,7 @@ public class ListSeasonsForSeriesCommand : AbstractCommand<Container>
     Integer lastViewedSeason = getLastViewedSeason(seriesId);
 
     String containerTitle = String.format("%s %s%s", cast(Object[])[ BrowsingCategoriesMessages.getMessage("season", new Object[0]), seasonNumber, (lastViewedSeason !is null) && (lastViewedSeason.equals(seasonNumber)) ? " **" : "" ]);
-    Map<ClassProperties, Object> values = ObjectValuesBuilder.instantiateValuesForContainer(containerTitle, objectId, Definition.instance().getParentNodeId(objectId), objectType, accessGroup);
+    Map!(ClassProperties, Object) values = ObjectValuesBuilder.instantiateValuesForContainer(containerTitle, objectId, Definition.instance().getParentNodeId(objectId), objectType, accessGroup);
     return (Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, null);
   }
 
@@ -73,10 +73,10 @@ public class ListSeasonsForSeriesCommand : AbstractCommand<Container>
 
   protected Integer getLastViewedSeason(Long seriesId)
   {
-    Map<Long, Integer> lastViewed = VideoService.getLastViewedEpisode(seriesId);
+    Map!(Long, Integer) lastViewed = VideoService.getLastViewedEpisode(seriesId);
     if (lastViewed !is null)
     {
-      return (Integer)((Entry<Long, Integer>)lastViewed.entrySet().iterator().next()).getValue();
+      return (Integer)((Entry!(Long, Integer))lastViewed.entrySet().iterator().next()).getValue();
     }
     return null;
   }

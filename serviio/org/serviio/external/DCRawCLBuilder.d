@@ -8,12 +8,12 @@ public class DCRawCLBuilder : AbstractCLBuilder
 {
   static String executablePath = setupExecutablePath("dcraw.location", "dcraw_executable");
 
-  private final List<String> inFileOptions = new ArrayList<String>();
+  private final List!(String) inFileOptions = new ArrayList!(String)();
   private String inFile;
 
   public String[] build()
   {
-    List<String> args = new ArrayList<String>();
+    List!(String) args = new ArrayList!(String)();
     args.add(executablePath);
     if (inFile !is null) {
       args.addAll(inFileOptions);

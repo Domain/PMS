@@ -38,7 +38,7 @@ public class RendererManager
 
   private static final UPnPDeviceNamespaceContext nsContext = new UPnPDeviceNamespaceContext();
 
-  private Map<String, ActiveRenderer> activeRenderers = Collections.synchronizedMap(new HashMap<String, ActiveRenderer>());
+  private Map!(String, ActiveRenderer) activeRenderers = Collections.synchronizedMap(new HashMap!(String, ActiveRenderer)());
   private RendererExpirationChecker expirationChecker;
   private RendererSearchSender searchSender = new RendererSearchSender(4, 3);
 
@@ -145,7 +145,7 @@ public class RendererManager
   }
 
   public Renderer getStoredRendererByIPAddress(InetAddress ipAddress) {
-    List<Renderer> renderers = rendererDao.findByIPAddress(ipAddress.getHostAddress());
+    List!(Renderer) renderers = rendererDao.findByIPAddress(ipAddress.getHostAddress());
     if (renderers.size() > 0)
     {
       return (Renderer)renderers.get(0);
@@ -161,7 +161,7 @@ public class RendererManager
     return RENDERER_ENABLED_BY_DEFAULT;
   }
 
-  public List<Renderer> getStoredRenderers()
+  public List!(Renderer) getStoredRenderers()
   {
     return rendererDao.findAll();
   }
@@ -202,7 +202,7 @@ public class RendererManager
       expirationChecker.stopWorker();
   }
 
-  public Map<String, ActiveRenderer> getActiveRenderers()
+  public Map!(String, ActiveRenderer) getActiveRenderers()
   {
     return activeRenderers;
   }
@@ -269,7 +269,7 @@ public class RendererManager
 
   private void removeRendererWithIPAddress(String ipAddress)
   {
-    List<Renderer> existingRenderers = rendererDao.findByIPAddress(ipAddress);
+    List!(Renderer) existingRenderers = rendererDao.findByIPAddress(ipAddress);
     for (Renderer existingRenderer : existingRenderers)
       removeRenderer(existingRenderer.getUuid());
   }

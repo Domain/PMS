@@ -2,7 +2,7 @@ module org.serviio.library.online.OnlineCacheDecorator;
 
 import org.serviio.cache.CacheDecorator;
 
-public abstract interface OnlineCacheDecorator<T> : CacheDecorator
+public abstract interface OnlineCacheDecorator!(T) : CacheDecorator
 {
   public abstract void store(String paramString, T paramT);
 

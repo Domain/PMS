@@ -149,7 +149,7 @@ public class RepositoryDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Repository> findAll()
+  public List!(Repository) findAll()
   {
     log.debug_("Reading all Repositories");
     Connection con = null;
@@ -167,7 +167,7 @@ public class RepositoryDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Repository> getRepositories(MediaFileType fileType, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Repository) getRepositories(MediaFileType fileType, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of Repositories for %s (from=%s, count=%s) [%s]", cast(Object[])[ fileType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -249,9 +249,9 @@ public class RepositoryDAOImpl : AbstractAccessibleDao
     return null;
   }
 
-  protected List<Repository> mapResultSet(ResultSet rs)
+  protected List!(Repository) mapResultSet(ResultSet rs)
     {
-    List<Repository> result = new ArrayList<Repository>();
+    List!(Repository) result = new ArrayList!(Repository)();
     while (rs.next()) {
       result.add(initRepository(rs));
     }

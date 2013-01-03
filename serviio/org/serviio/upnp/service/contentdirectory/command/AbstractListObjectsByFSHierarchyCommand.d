@@ -29,7 +29,7 @@ import org.serviio.upnp.service.contentdirectory.classes.Resource;
 import org.serviio.upnp.service.contentdirectory.definition.Definition;
 import org.serviio.util.ObjectValidator;
 
-public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand<DirectoryObject>
+public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand!(DirectoryObject)
 {
   private static final String REPOSITORY_PREFIX = "R";
   private static final String FOLDER_PREFIX = "F";
@@ -42,28 +42,28 @@ public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand<
     this.fileType = fileType;
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(ObjectClassType.values()));
+    return new HashSet!(ObjectClassType)(Arrays.asList(ObjectClassType.values()));
   }
 
-  protected Set<ObjectType> getSupportedObjectTypes()
+  protected Set!(ObjectType) getSupportedObjectTypes()
   {
     return ObjectType.getAllTypes();
   }
 
-  protected List<DirectoryObject> retrieveList()
+  protected List!(DirectoryObject) retrieveList()
   {
-    List<DirectoryObject> objects = new ArrayList<DirectoryObject>();
+    List!(DirectoryObject) objects = new ArrayList!(DirectoryObject)();
     Long repositoryId = getRepositoryId();
     if (repositoryId is null) {
       if (objectType.supportsContainers())
       {
-        List<Repository> repositories = RepositoryService.getListOfRepositories(fileType, accessGroup, startIndex, count);
+        List!(Repository) repositories = RepositoryService.getListOfRepositories(fileType, accessGroup, startIndex, count);
 
         for (Repository repository : repositories) {
           String runtimeId = generateRepositoryObjectId(repository.getId());
-          Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(repository, runtimeId, getDisplayedContainerId(objectId), objectType, getRepositoryName(repository), rendererProfile, accessGroup);
+          Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(repository, runtimeId, getDisplayedContainerId(objectId), objectType, getRepositoryName(repository), rendererProfile, accessGroup);
           objects.add(DirectoryObjectBuilder.createInstance(containerClassType, values, null, repository.getId()));
         }
       }
@@ -76,11 +76,11 @@ public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand<
         existingFoldersCount = FolderService.getNumberOfSubfolders(folderId, repositoryId, accessGroup);
         if (startIndex < existingFoldersCount)
         {
-          List<Folder> folders = FolderService.getListOfSubFolders(folderId, repositoryId, accessGroup, startIndex, count);
+          List!(Folder) folders = FolderService.getListOfSubFolders(folderId, repositoryId, accessGroup, startIndex, count);
 
           for (Folder folder : folders) {
             String runtimeId = generateFolderObjectId(folder.getId());
-            Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(folder, runtimeId, getDisplayedContainerId(objectId), objectType, folder.getName(), rendererProfile, accessGroup);
+            Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(folder, runtimeId, getDisplayedContainerId(objectId), objectType, folder.getName(), rendererProfile, accessGroup);
             objects.add(DirectoryObjectBuilder.createInstance(containerClassType, values, null, folder.getId()));
           }
           returnedFoldersCount = folders.size();
@@ -98,8 +98,8 @@ public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand<
 
           for (MediaItem item : items) {
             String runtimeId = generateItemObjectId(item.getId());
-            Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(item, runtimeId, getDisplayedContainerId(objectId), objectType, getItemTitle(item), rendererProfile, accessGroup);
-            List<Resource> res = ResourceValuesBuilder.buildResources(item, rendererProfile);
+            Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(item, runtimeId, getDisplayedContainerId(objectId), objectType, getItemTitle(item), rendererProfile, accessGroup);
+            List!(Resource) res = ResourceValuesBuilder.buildResources(item, rendererProfile);
             objects.add(DirectoryObjectBuilder.createInstance(itemClassType, values, res, item.getId()));
           }
         }
@@ -115,8 +115,8 @@ public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand<
     {
       MediaItem item = getItem(itemId);
       if (item !is null) {
-        Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(item, objectId, getRecursiveParentId(objectId), objectType, getItemTitle(item), rendererProfile, accessGroup);
-        List<Resource> res = ResourceValuesBuilder.buildResources(item, rendererProfile);
+        Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(item, objectId, getRecursiveParentId(objectId), objectType, getItemTitle(item), rendererProfile, accessGroup);
+        List!(Resource) res = ResourceValuesBuilder.buildResources(item, rendererProfile);
         return DirectoryObjectBuilder.createInstance(itemClassType, values, res, itemId);
       }
       throw new ObjectNotFoundException(String.format("MediaItem with id %s not found in CDS", cast(Object[])[ itemId ]));
@@ -127,7 +127,7 @@ public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand<
     {
       Folder folder = FolderService.getFolder(folderId);
       if (folder !is null) {
-        Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(folder, objectId, getRecursiveParentId(objectId), objectType, folder.getName(), rendererProfile, accessGroup);
+        Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(folder, objectId, getRecursiveParentId(objectId), objectType, folder.getName(), rendererProfile, accessGroup);
         return DirectoryObjectBuilder.createInstance(containerClassType, values, null, folderId);
       }
       throw new ObjectNotFoundException(String.format("Folder with id %s not found in CDS", cast(Object[])[ folderId ]));
@@ -136,7 +136,7 @@ public abstract class AbstractListObjectsByFSHierarchyCommand : AbstractCommand<
     Long repositoryId = getRepositoryId();
     Repository repository = RepositoryService.getRepository(repositoryId);
     if (repository !is null) {
-      Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(repository, objectId, Definition.instance().getParentNodeId(objectId), objectType, getRepositoryName(repository), rendererProfile, accessGroup);
+      Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(repository, objectId, Definition.instance().getParentNodeId(objectId), objectType, getRepositoryName(repository), rendererProfile, accessGroup);
       return DirectoryObjectBuilder.createInstance(containerClassType, values, null, repositoryId);
     }
     throw new ObjectNotFoundException(String.format("Repository with id %s not found in CDS", cast(Object[])[ objectId ]));

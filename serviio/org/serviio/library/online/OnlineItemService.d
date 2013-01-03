@@ -63,7 +63,7 @@ public class OnlineItemService
     return null;
   }
 
-  public static NamedOnlineResource<OnlineItem> findNamedOnlineItemById(Long onlineItemId) {
+  public static NamedOnlineResource!(OnlineItem) findNamedOnlineItemById(Long onlineItemId) {
     OnlineItemId itemId = OnlineItemId.parse(onlineItemId);
     OnlineRepository onlineRepository = OnlineRepositoryService.getRepository(Long.valueOf(itemId.getRepositoryId()));
     if (onlineRepository !is null) {
@@ -73,7 +73,7 @@ public class OnlineItemService
           try {
             OnlineItem resourceItem = cast(OnlineItem)resource.getItems().get(itemId.getSequence() - 1);
             if (resourceItem !is null) {
-              return new NamedOnlineResource<OnlineItem>(resourceItem, resourceItem.getTitle());
+              return new NamedOnlineResource!(OnlineItem)(resourceItem, resourceItem.getTitle());
             }
             return null;
           }
@@ -84,7 +84,7 @@ public class OnlineItemService
       else {
         SingleURLItem item = OnlineLibraryManager.getInstance().findSingleURLItemInCacheOrParse(onlineRepository);
         if (item !is null) {
-          return new NamedOnlineResource<OnlineItem>(item, onlineRepository.getRepositoryName());
+          return new NamedOnlineResource!(OnlineItem)(item, onlineRepository.getRepositoryName());
         }
         return null;
       }
@@ -110,15 +110,15 @@ public class OnlineItemService
     return null;
   }
 
-  public static List<NamedOnlineResource<OnlineItem>> getListOfFeedItems(OnlineResourceContainer<?, ?> resource, MediaFileType itemType, int start, int count)
+  public static List!(NamedOnlineResource!(OnlineItem)) getListOfFeedItems(OnlineResourceContainer<?, ?> resource, MediaFileType itemType, int start, int count)
   {
     List<?> resourceItems = filterContainerResourceItems(resource.getItems(), itemType);
     if (resourceItems.size() >= start) {
       @SuppressWarnings("unchecked")
-	List<OnlineItem> requestedItems = (List<OnlineItem>) CollectionUtils.getSubList(resourceItems, start, count);
-      List<NamedOnlineResource<OnlineItem>> result = new ArrayList<NamedOnlineResource<OnlineItem>>();
+	List!(OnlineItem) requestedItems = (List!(OnlineItem)) CollectionUtils.getSubList(resourceItems, start, count);
+      List!(NamedOnlineResource!(OnlineItem)) result = new ArrayList!(NamedOnlineResource!(OnlineItem))();
       for (OnlineItem item : requestedItems) {
-        result.add(new NamedOnlineResource<OnlineItem>(item, item.getTitle()));
+        result.add(new NamedOnlineResource!(OnlineItem)(item, item.getTitle()));
       }
       return result;
     }
@@ -160,21 +160,21 @@ public class OnlineItemService
     return 0;
   }
 
-  public static List<NamedOnlineResource<OnlineItem>> getListOfSingleURLItems(MediaFileType itemType, AccessGroup accessGroup, int start, int count, bool onlyEnabled)
+  public static List!(NamedOnlineResource!(OnlineItem)) getListOfSingleURLItems(MediaFileType itemType, AccessGroup accessGroup, int start, int count, bool onlyEnabled)
   {
-    List<OnlineRepository> repositories = OnlineRepositoryService.getListOfRepositories(getSingleUrlRepositoryTypes(), itemType, accessGroup, onlyEnabled);
-    List<NamedOnlineResource<OnlineItem>> onlineItems = new ArrayList<NamedOnlineResource<OnlineItem>>();
+    List!(OnlineRepository) repositories = OnlineRepositoryService.getListOfRepositories(getSingleUrlRepositoryTypes(), itemType, accessGroup, onlyEnabled);
+    List!(NamedOnlineResource!(OnlineItem)) onlineItems = new ArrayList!(NamedOnlineResource!(OnlineItem))();
     for (OnlineRepository repo : repositories) {
       SingleURLItem item = onlineLibraryManager.findSingleURLItemInCacheOrParse(repo);
       if (item !is null) {
         SingleURLItem filteredItem = cast(SingleURLItem)filterFeedItem(item, itemType);
         if (filteredItem !is null) {
-          onlineItems.add(new NamedOnlineResource<OnlineItem>(filteredItem, repo.getRepositoryName()));
+          onlineItems.add(new NamedOnlineResource!(OnlineItem)(filteredItem, repo.getRepositoryName()));
         }
       }
     }
     if (onlineItems.size() >= start) {
-      List<NamedOnlineResource<OnlineItem>> requestedItems = CollectionUtils.getSubList(onlineItems, start, count);
+      List!(NamedOnlineResource!(OnlineItem)) requestedItems = CollectionUtils.getSubList(onlineItems, start, count);
       return requestedItems;
     }
     return Collections.emptyList();
@@ -182,8 +182,8 @@ public class OnlineItemService
 
   public static int getCountOfSingleURLItems(MediaFileType itemType, AccessGroup accessGroup, bool onlyEnabled)
   {
-    List<OnlineRepository> repositories = OnlineRepositoryService.getListOfRepositories(getSingleUrlRepositoryTypes(), itemType, accessGroup, onlyEnabled);
-    List<SingleURLItem> onlineItems = convertOnlineRepositories(repositories);
+    List!(OnlineRepository) repositories = OnlineRepositoryService.getListOfRepositories(getSingleUrlRepositoryTypes(), itemType, accessGroup, onlyEnabled);
+    List!(SingleURLItem) onlineItems = convertOnlineRepositories(repositories);
     return filterContainerResourceItems(onlineItems, itemType).size();
   }
 
@@ -194,7 +194,7 @@ public class OnlineItemService
   }
 
   private static List<NamedOnlineResource<OnlineResourceContainer<?, ?>>> getAllParsedContainerResources(MediaFileType itemType, AccessGroup accessGroup, bool onlyEnabled) {
-    List<OnlineRepository> allRepositories = OnlineRepositoryService.getListOfRepositories(getContainerResourceTypes(), itemType, accessGroup, onlyEnabled);
+    List!(OnlineRepository) allRepositories = OnlineRepositoryService.getListOfRepositories(getContainerResourceTypes(), itemType, accessGroup, onlyEnabled);
     List<NamedOnlineResource<OnlineResourceContainer<?, ?>>> result = new ArrayList<NamedOnlineResource<OnlineResourceContainer<?, ?>>>();
     for (OnlineRepository repo : allRepositories)
       try {
@@ -216,9 +216,9 @@ public class OnlineItemService
     return null;
   }
 
-  private static <T : OnlineItem> List<T> filterContainerResourceItems(List<T> items, MediaFileType type)
+  private static <T : OnlineItem> List!(T) filterContainerResourceItems(List!(T) items, MediaFileType type)
   {
-    List<T> filteredItems = new ArrayList<T>();
+    List!(T) filteredItems = new ArrayList!(T)();
     for (OnlineItem feedItem : items) {
       @SuppressWarnings("unchecked")
 	T filteredItem = cast(T) filterFeedItem(feedItem, type);
@@ -237,9 +237,9 @@ public class OnlineItemService
     return null;
   }
 
-  private static List<SingleURLItem> convertOnlineRepositories(List<OnlineRepository> repositories)
+  private static List!(SingleURLItem) convertOnlineRepositories(List!(OnlineRepository) repositories)
   {
-    List<SingleURLItem> onlineItems = new ArrayList<SingleURLItem>();
+    List!(SingleURLItem) onlineItems = new ArrayList!(SingleURLItem)();
     for (OnlineRepository repo : repositories) {
       SingleURLItem item = onlineLibraryManager.findSingleURLItemInCacheOrParse(repo);
       if (item !is null) {
@@ -249,11 +249,11 @@ public class OnlineItemService
     return onlineItems;
   }
 
-  private static List<OnlineRepository.OnlineRepositoryType> getSingleUrlRepositoryTypes() {
+  private static List!(OnlineRepository.OnlineRepositoryType) getSingleUrlRepositoryTypes() {
     return Collections.singletonList(OnlineRepository.OnlineRepositoryType.LIVE_STREAM);
   }
 
-  private static List<OnlineRepository.OnlineRepositoryType> getContainerResourceTypes() {
+  private static List!(OnlineRepository.OnlineRepositoryType) getContainerResourceTypes() {
     return Arrays.asList(cast(OnlineRepository.OnlineRepositoryType[])[ OnlineRepository.OnlineRepositoryType.FEED, OnlineRepository.OnlineRepositoryType.WEB_RESOURCE ]);
   }
 }

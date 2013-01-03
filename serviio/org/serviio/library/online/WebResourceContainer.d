@@ -7,7 +7,7 @@ public class WebResourceContainer
 {
   private String title;
   private String thumbnailUrl;
-  private List<WebResourceItem> items = new ArrayList<WebResourceItem>();
+  private List!(WebResourceItem) items = new ArrayList!(WebResourceItem)();
 
   public String getTitle() {
     return title;
@@ -17,11 +17,11 @@ public class WebResourceContainer
     this.title = title;
   }
 
-  public List<WebResourceItem> getItems() {
+  public List!(WebResourceItem) getItems() {
     return items;
   }
 
-  public void setItems(List<WebResourceItem> items) {
+  public void setItems(List!(WebResourceItem) items) {
     this.items = items;
   }
 

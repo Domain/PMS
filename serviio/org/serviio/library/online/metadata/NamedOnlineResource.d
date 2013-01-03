@@ -1,6 +1,6 @@
 module org.serviio.library.online.metadata.NamedOnlineResource;
 
-public class NamedOnlineResource<T>
+public class NamedOnlineResource!(T)
 {
   private T onlineItem;
   private String repositoryName;

@@ -14,7 +14,7 @@ public abstract interface MetadataExtractorConfigDAO
   public abstract void delete(Long paramLong)
     throws PersistenceException;
 
-  public abstract List<MetadataExtractorConfig> retrieveByMediaFileType(MediaFileType paramMediaFileType)
+  public abstract List!(MetadataExtractorConfig) retrieveByMediaFileType(MediaFileType paramMediaFileType)
     throws PersistenceException;
 }
 

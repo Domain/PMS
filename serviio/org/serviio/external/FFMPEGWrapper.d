@@ -53,9 +53,9 @@ public class FFMPEGWrapper : AbstractExecutableWrapper
 
   private static final long ONLINE_FILE_TIMEOUT = new Long(60000L).longValue();
 
-  private static final List<Integer> validAudioBitrates = Arrays.asList(cast(Integer[])[ Integer.valueOf(32), Integer.valueOf(48), Integer.valueOf(56), Integer.valueOf(64), Integer.valueOf(80), Integer.valueOf(96), Integer.valueOf(112), Integer.valueOf(128), Integer.valueOf(160), Integer.valueOf(192), Integer.valueOf(224), Integer.valueOf(256), Integer.valueOf(320), Integer.valueOf(384), Integer.valueOf(448), Integer.valueOf(512), Integer.valueOf(576), Integer.valueOf(640) ]);
+  private static final List!(Integer) validAudioBitrates = Arrays.asList(cast(Integer[])[ Integer.valueOf(32), Integer.valueOf(48), Integer.valueOf(56), Integer.valueOf(64), Integer.valueOf(80), Integer.valueOf(96), Integer.valueOf(112), Integer.valueOf(128), Integer.valueOf(160), Integer.valueOf(192), Integer.valueOf(224), Integer.valueOf(256), Integer.valueOf(320), Integer.valueOf(384), Integer.valueOf(448), Integer.valueOf(512), Integer.valueOf(576), Integer.valueOf(640) ]);
   private static String ffmpegUserAgent;
-  private static Map<AudioCodec, Integer> maxChannelNumber;
+  private static Map!(AudioCodec, Integer) maxChannelNumber;
 
   public static bool ffmpegPresent()
   {
@@ -75,7 +75,7 @@ public class FFMPEGWrapper : AbstractExecutableWrapper
     return success;
   }
 
-  public static List<String> readMediaFileInformation(String filePath, DeliveryContext context)
+  public static List!(String) readMediaFileInformation(String filePath, DeliveryContext context)
     {
     FFmpegCLBuilder builder = new FFmpegCLBuilder();
 
@@ -333,7 +333,7 @@ public class FFMPEGWrapper : AbstractExecutableWrapper
   }
 
   protected static void addVideoFilters(Video video, Integer maxHeight, DisplayAspectRatio dar, VideoContainer targetContainer, FFmpegCLBuilder builder) {
-    List<String> filters = new ArrayList<String>();
+    List!(String) filters = new ArrayList!(String)();
     ResizeDefinition resizeDefinition = getTargetVideoDimensions(video, maxHeight, dar, targetContainer);
     if (resizeDefinition.changed()) {
       if (resizeDefinition.physicalDimensionsChanged())
@@ -407,7 +407,7 @@ public class FFMPEGWrapper : AbstractExecutableWrapper
     int nearest = -1;
     int bestDistanceFoundYet = 2147483647;
 
-    for (Iterator<Integer> i$ = validAudioBitrates.iterator(); i$.hasNext(); ) { int validRate = ( cast(Integer)i$.next()).intValue();
+    for (Iterator!(Integer) i$ = validAudioBitrates.iterator(); i$.hasNext(); ) { int validRate = ( cast(Integer)i$.next()).intValue();
       int d = Math.abs(itemBitrate.intValue() - validRate);
       if (d < bestDistanceFoundYet) {
         nearest = validRate;
@@ -533,17 +533,17 @@ public class FFMPEGWrapper : AbstractExecutableWrapper
     return new ResizeDefinition(newWidth.intValue(), newHeight.intValue(), newContentWidth.intValue(), newContentHeight.intValue(), darChanged, sarChanged, heightChanged);
   }
 
-  private static Tupple<Integer, Integer> getResolutionForSquarePixels(Integer width, Integer height, String sar)
+  private static Tupple!(Integer, Integer) getResolutionForSquarePixels(Integer width, Integer height, String sar)
   {
     String[] sarRatio = sar.split(":");
     if (sarRatio.length == 2)
       try {
         Float sarFloat = Float.valueOf(Float.parseFloat(sarRatio[0]) / Float.parseFloat(sarRatio[1]));
-        return new Tupple<Integer, Integer>(Integer.valueOf(Math.round(width.intValue() * sarFloat.floatValue())), height);
+        return new Tupple!(Integer, Integer)(Integer.valueOf(Math.round(width.intValue() * sarFloat.floatValue())), height);
       } catch (Exception e) {
       }
     log.debug_(String.format("File's SAR is not valid: %s", cast(Object[])[ sar ]));
-    return new Tupple<Integer, Integer>(width, height);
+    return new Tupple!(Integer, Integer)(width, height);
   }
 
   protected static bool isVideoResolutionChangeRequired(Integer width, Integer height, Integer maxHeight, DisplayAspectRatio dar, VideoContainer targetContainer, bool squarePixels)
@@ -621,7 +621,7 @@ public class FFMPEGWrapper : AbstractExecutableWrapper
   }
 
   private static void setupMaxChannelsMap() {
-    maxChannelNumber = new HashMap<AudioCodec, Integer>();
+    maxChannelNumber = new HashMap!(AudioCodec, Integer)();
     maxChannelNumber.put(AudioCodec.AC3, new Integer(6));
     maxChannelNumber.put(AudioCodec.MP2, new Integer(2));
     maxChannelNumber.put(AudioCodec.MP3, new Integer(2));

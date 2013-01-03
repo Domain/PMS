@@ -39,9 +39,9 @@ public abstract class AbstractOnlineItemParser
     pluginCompiler = null;
   }
 
-  public static Set<AbstractUrlExtractor> getListOfPlugins() {
+  public static Set!(AbstractUrlExtractor) getListOfPlugins() {
     if (pluginCompiler !is null) {
-      return (Set<AbstractUrlExtractor>) pluginCompiler.getUrlExtractors().keySet();
+      return (Set!(AbstractUrlExtractor)) pluginCompiler.getUrlExtractors().keySet();
     }
     return Collections.emptySet();
   }
@@ -58,7 +58,7 @@ public abstract class AbstractOnlineItemParser
   protected AbstractUrlExtractor findSuitableExtractorPlugin(URL feedUrl, OnlineRepositoryType type)
   {
     if ((pluginCompiler !is null) && (pluginCompiler.getUrlExtractors() !is null)) {
-      for (Entry<AbstractUrlExtractor, OnlineRepositoryType> urlExtractorEntry : pluginCompiler.getUrlExtractors().entrySet()) {
+      for (Entry!(AbstractUrlExtractor, OnlineRepositoryType) urlExtractorEntry : pluginCompiler.getUrlExtractors().entrySet()) {
         AbstractUrlExtractor urlExtractor = cast(AbstractUrlExtractor)urlExtractorEntry.getKey();
         try {
           if ((urlExtractorEntry.getValue() == type) && (urlExtractor.extractorMatches(feedUrl))) {

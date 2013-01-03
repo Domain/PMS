@@ -20,9 +20,9 @@ public class NumberUtils
     return start + randomOffset;
   }
 
-  public static List<Integer> getRandomSequenceInInterval(int start, int end, int count)
+  public static List!(Integer) getRandomSequenceInInterval(int start, int end, int count)
   {
-    List<Integer> sequence = new ArrayList<Integer>(count);
+    List!(Integer) sequence = new ArrayList!(Integer)(count);
     int base = start;
     for (int i = 0; i < count; i++) {
       base = getRandomInInterval(base, end);

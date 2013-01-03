@@ -6,10 +6,10 @@ import org.serviio.i18n.Language;
 
 public class MetadataLanguages
 {
-  private static List<Language> languages = new ArrayList<Language>();
+  private static List!(Language) languages = new ArrayList!(Language)();
   public static final String DEFAULT_LANGUAGE_CODE = "en";
 
-  public static List<Language> getLanguages()
+  public static List!(Language) getLanguages()
   {
     return languages;
   }

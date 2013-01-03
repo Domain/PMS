@@ -30,7 +30,7 @@ public class ServiioStatusService : StatusService
     response.setStatus(status);
     if ((status.getThrowable() !is null) && (( cast(AbstractRestfulException)status.getThrowable() !is null ))) {
       int errorCode = ( cast(AbstractRestfulException)status.getThrowable()).getErrorCode();
-      List<String> parameters = ( cast(AbstractRestfulException)status.getThrowable()).getParameters();
+      List!(String) parameters = ( cast(AbstractRestfulException)status.getThrowable()).getParameters();
       ResultRepresentation r = responseError(Integer.valueOf(errorCode), status.getCode(), parameters);
       return buildResultRepresentation(request, r);
     }
@@ -57,7 +57,7 @@ public class ServiioStatusService : StatusService
     return new Status(Status.SERVER_ERROR_INTERNAL, throwable);
   }
 
-  private ResultRepresentation responseError(Integer errorCode, int httpCode, List<String> parameters)
+  private ResultRepresentation responseError(Integer errorCode, int httpCode, List!(String) parameters)
   {
     return new ResultRepresentation(errorCode, httpCode, parameters);
   }
@@ -65,16 +65,16 @@ public class ServiioStatusService : StatusService
   private Representation buildResultRepresentation(Request request, ResultRepresentation r) {
     MediaType mt = null;
 
-    List<Preference<MediaType>> acceptedMediaTypes = request.getClientInfo().getAcceptedMediaTypes();
+    List!(Preference!(MediaType)) acceptedMediaTypes = request.getClientInfo().getAcceptedMediaTypes();
     if ((acceptedMediaTypes !is null) && (acceptedMediaTypes.size() > 0)) {
-      mt = (MediaType)((Preference<MediaType>)acceptedMediaTypes.get(0)).getMetadata();
+      mt = (MediaType)((Preference!(MediaType))acceptedMediaTypes.get(0)).getMetadata();
     }
 
     if ((mt !is null) && (mt.getName().startsWith(MediaType.APPLICATION_JSON.getName())))
     {
-      return new GsonRepresentation<ResultRepresentation>(r);
+      return new GsonRepresentation!(ResultRepresentation)(r);
     }
-    return new ServiioXstreamRepresentation<ResultRepresentation>(mt, r);
+    return new ServiioXstreamRepresentation!(ResultRepresentation)(mt, r);
   }
 }
 

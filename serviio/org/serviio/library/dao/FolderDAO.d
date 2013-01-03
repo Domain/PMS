@@ -8,9 +8,9 @@ import org.serviio.library.entities.Folder;
 import org.serviio.library.metadata.MediaFileType;
 import org.serviio.upnp.service.contentdirectory.ObjectType;
 
-public abstract interface FolderDAO : GenericDAO<Folder>
+public abstract interface FolderDAO : GenericDAO!(Folder)
 {
-  public static final String VIRTUAL_FOLDER_NAME = "<virtual>";
+  public static final String VIRTUAL_FOLDER_NAME = "!(virtual)";
 
   public abstract Long getOrCreateFolder(File paramFile, Long paramLong);
 
@@ -20,11 +20,11 @@ public abstract interface FolderDAO : GenericDAO<Folder>
 
   public abstract int getNumberOfFoldersAndMediaItems(MediaFileType paramMediaFileType, ObjectType paramObjectType, AccessGroup paramAccessGroup, Long paramLong1, Long paramLong2);
 
-  public abstract List<Folder> retrieveFoldersWithMedia(MediaFileType paramMediaFileType, AccessGroup paramAccessGroup, int paramInt1, int paramInt2);
+  public abstract List!(Folder) retrieveFoldersWithMedia(MediaFileType paramMediaFileType, AccessGroup paramAccessGroup, int paramInt1, int paramInt2);
 
   public abstract int getFoldersWithMediaCount(MediaFileType paramMediaFileType, AccessGroup paramAccessGroup);
 
-  public abstract List<Folder> retrieveSubFolders(Long paramLong1, Long paramLong2, AccessGroup paramAccessGroup, int paramInt1, int paramInt2);
+  public abstract List!(Folder) retrieveSubFolders(Long paramLong1, Long paramLong2, AccessGroup paramAccessGroup, int paramInt1, int paramInt2);
 
   public abstract Long retrieveVirtualFolderId(Long paramLong);
 }

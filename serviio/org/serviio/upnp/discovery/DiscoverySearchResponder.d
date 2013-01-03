@@ -35,7 +35,7 @@ public class DiscoverySearchResponder
   {
     if ((timeToRespond >= 1) && 
       (searchTarget !is null)) {
-      List<String> messages = generateMessages();
+      List!(String) messages = generateMessages();
       if (messages.size() > 0) {
         log.debug_(String.format("Sending %s M-SEARCH response message(s) to %s", cast(Object[])[ Integer.valueOf(messages.size()), sourceAddress ]));
 
@@ -44,13 +44,13 @@ public class DiscoverySearchResponder
     }
   }
 
-  protected List<String> generateMessages()
+  protected List!(String) generateMessages()
   {
     SSDPMessageBuilder builder = new SearchResponseMessageBuilder();
     return builder.generateSSDPMessages(Integer.valueOf(advertisementDuration), searchTarget);
   }
 
-  private void sendReply(List<String> messages) {
+  private void sendReply(List!(String) messages) {
     DatagramSocket socket = null;
     int messageTimeout = getTimeToRespond(messages);
     try
@@ -81,7 +81,7 @@ public class DiscoverySearchResponder
     }
   }
 
-  private int getTimeToRespond(List<String> messages)
+  private int getTimeToRespond(List!(String) messages)
   {
     if (timeToRespond > MAX_MX) {
       timeToRespond = MAX_MX;

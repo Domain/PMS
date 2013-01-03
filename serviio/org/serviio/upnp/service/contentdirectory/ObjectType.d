@@ -16,16 +16,16 @@ public enum ObjectType
     return getItemTypes().contains(this);
   }
 
-  public static Set<ObjectType> getItemTypes() {
-    return new HashSet<ObjectType>(Arrays.asList(cast(ObjectType[])[ ITEMS, ALL ]));
+  public static Set!(ObjectType) getItemTypes() {
+    return new HashSet!(ObjectType)(Arrays.asList(cast(ObjectType[])[ ITEMS, ALL ]));
   }
 
-  public static Set<ObjectType> getContainerTypes() {
-    return new HashSet<ObjectType>(Arrays.asList(cast(ObjectType[])[ CONTAINERS, ALL ]));
+  public static Set!(ObjectType) getContainerTypes() {
+    return new HashSet!(ObjectType)(Arrays.asList(cast(ObjectType[])[ CONTAINERS, ALL ]));
   }
 
-  public static Set<ObjectType> getAllTypes() {
-    return new HashSet<ObjectType>(Arrays.asList(cast(ObjectType[])[ CONTAINERS, ITEMS, ALL ]));
+  public static Set!(ObjectType) getAllTypes() {
+    return new HashSet!(ObjectType)(Arrays.asList(cast(ObjectType[])[ CONTAINERS, ITEMS, ALL ]));
   }
 }
 

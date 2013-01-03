@@ -27,7 +27,7 @@ import org.serviio.util.ObjectValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractCommand<DirectoryObject>
+public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractCommand!(DirectoryObject)
 {
   private static final Logger log = LoggerFactory.getLogger(AbstractListOnlineObjectsByHierarchyCommand.class);
   private static final String FOLDER_PREFIX = "FD";
@@ -40,19 +40,19 @@ public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractComm
     this.fileType = fileType;
   }
 
-  protected Set<ObjectClassType> getSupportedClasses()
+  protected Set!(ObjectClassType) getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(ObjectClassType.values()));
+    return new HashSet!(ObjectClassType)(Arrays.asList(ObjectClassType.values()));
   }
 
-  protected Set<ObjectType> getSupportedObjectTypes()
+  protected Set!(ObjectType) getSupportedObjectTypes()
   {
     return ObjectType.getAllTypes();
   }
 
-  protected List<DirectoryObject> retrieveList()
+  protected List!(DirectoryObject) retrieveList()
   {
-    List<DirectoryObject> objects = new ArrayList<DirectoryObject>();
+    List!(DirectoryObject) objects = new ArrayList!(DirectoryObject)();
     Long folderId = getFolderId();
     int returnedFoldersCount = 0;
     int existingFoldersCount = 0;
@@ -66,7 +66,7 @@ public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractComm
         for (NamedOnlineResource<OnlineResourceContainer<?, ?>> folder : resources) {
           OnlineResourceContainer<?, ?> resource = (OnlineResourceContainer<?, ?>)folder.getOnlineItem();
           String runtimeId = generateFolderObjectId(resource.getOnlineRepositoryId());
-          Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(resource.toOnlineRepository(), runtimeId, getDisplayedContainerId(objectId), objectType, getFolderName(resource, folder.getRepositoryName()), rendererProfile, accessGroup);
+          Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(resource.toOnlineRepository(), runtimeId, getDisplayedContainerId(objectId), objectType, getFolderName(resource, folder.getRepositoryName()), rendererProfile, accessGroup);
 
           objects.add(DirectoryObjectBuilder.createInstance(containerClassType, values, null, resource.getOnlineRepositoryId()));
         }
@@ -76,15 +76,15 @@ public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractComm
     if ((count > returnedFoldersCount) && (objectType.supportsItems()))
     {
       int itemStartIndex = startIndex - existingFoldersCount + returnedFoldersCount;
-      List<NamedOnlineResource<OnlineItem>> items = getItemsForMediaType(folderId, itemStartIndex, count - returnedFoldersCount);
+      List!(NamedOnlineResource!(OnlineItem)) items = getItemsForMediaType(folderId, itemStartIndex, count - returnedFoldersCount);
 
-      for (NamedOnlineResource<OnlineItem> namedItem : items) {
+      for (NamedOnlineResource!(OnlineItem) namedItem : items) {
         OnlineItem item = cast(OnlineItem)namedItem.getOnlineItem();
         String runtimeId = generateItemObjectId(item.getId());
         MediaItem mediaItem = item.toMediaItem();
-        Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(mediaItem, runtimeId, getDisplayedContainerId(objectId), objectType, getItemTitle(item, namedItem.getRepositoryName()), rendererProfile, accessGroup);
+        Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(mediaItem, runtimeId, getDisplayedContainerId(objectId), objectType, getItemTitle(item, namedItem.getRepositoryName()), rendererProfile, accessGroup);
 
-        List<Resource> res = ResourceValuesBuilder.buildResources(mediaItem, rendererProfile);
+        List!(Resource) res = ResourceValuesBuilder.buildResources(mediaItem, rendererProfile);
         objects.add(DirectoryObjectBuilder.createInstance(itemClassType, values, res, item.getId()));
       }
     }
@@ -100,9 +100,9 @@ public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractComm
       if (namedItem !is null) {
         OnlineItem item = cast(OnlineItem)namedItem.getOnlineItem();
         MediaItem mediaItem = item.toMediaItem();
-        Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(mediaItem, objectId, getRecursiveParentId(objectId), objectType, getItemTitle(item, namedItem.getRepositoryName()), rendererProfile, accessGroup);
+        Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(mediaItem, objectId, getRecursiveParentId(objectId), objectType, getItemTitle(item, namedItem.getRepositoryName()), rendererProfile, accessGroup);
 
-        List<Resource> res = ResourceValuesBuilder.buildResources(mediaItem, rendererProfile);
+        List!(Resource) res = ResourceValuesBuilder.buildResources(mediaItem, rendererProfile);
         return DirectoryObjectBuilder.createInstance(itemClassType, values, res, itemId);
       }
       throw new ObjectNotFoundException(String.format("OnlineItem with id %s not found in CDS", cast(Object[])[ itemId ]));
@@ -114,7 +114,7 @@ public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractComm
       NamedOnlineResource<?> resource = OnlineItemService.findNamedContainerResourceById(folderId);
       if (resource !is null) {
         OnlineResourceContainer<?, ?> feed = (OnlineResourceContainer<?, ?>)resource.getOnlineItem();
-        Map<ClassProperties, Object> values = ObjectValuesBuilder.buildObjectValues(feed.toOnlineRepository(), objectId, Definition.instance().getParentNodeId(objectId), objectType, getFolderName(feed, resource.getRepositoryName()), rendererProfile, accessGroup);
+        Map!(ClassProperties, Object) values = ObjectValuesBuilder.buildObjectValues(feed.toOnlineRepository(), objectId, Definition.instance().getParentNodeId(objectId), objectType, getFolderName(feed, resource.getRepositoryName()), rendererProfile, accessGroup);
 
         return DirectoryObjectBuilder.createInstance(containerClassType, values, null, folderId);
       }
@@ -187,7 +187,7 @@ public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractComm
     return item.getTitle();
   }
 
-  private List<NamedOnlineResource<OnlineItem>> getItemsForMediaType(Long folderId, int startIndex, int count)
+  private List!(NamedOnlineResource!(OnlineItem)) getItemsForMediaType(Long folderId, int startIndex, int count)
   {
     if (folderId is null) {
       return OnlineItemService.getListOfSingleURLItems(fileType, accessGroup, startIndex, count, true);
@@ -196,7 +196,7 @@ public abstract class AbstractListOnlineObjectsByHierarchyCommand : AbstractComm
     return OnlineItemService.getListOfFeedItems(cachedContainerResource, fileType, startIndex, count);
   }
 
-  private NamedOnlineResource<OnlineItem> getItem(Long itemId)
+  private NamedOnlineResource!(OnlineItem) getItem(Long itemId)
   {
     try {
       return OnlineItemService.findNamedOnlineItemById(itemId);

@@ -31,10 +31,10 @@ public class DirectoryObjectRepresentation
   private Integer originalTrackNumber;
   private Integer duration;
   private String thumbnailUrl;
-  private List<ContentURLRepresentation> contentUrls;
+  private List!(ContentURLRepresentation) contentUrls;
   private String subtitlesUrl;
   private Boolean live;
-  private List<OnlineIdentifierRepresentation> onlineIdentifiers;
+  private List!(OnlineIdentifierRepresentation) onlineIdentifiers;
   private ContentType contentType;
 
   public this(DirectoryObjectType type, String title, String id)
@@ -105,11 +105,11 @@ public class DirectoryObjectRepresentation
     return thumbnailUrl;
   }
 
-  public List<ContentURLRepresentation> getContentUrls() {
+  public List!(ContentURLRepresentation) getContentUrls() {
     return contentUrls;
   }
 
-  public void setContentUrls(List<ContentURLRepresentation> contentUrls) {
+  public void setContentUrls(List!(ContentURLRepresentation) contentUrls) {
     this.contentUrls = contentUrls;
   }
 
@@ -181,11 +181,11 @@ public class DirectoryObjectRepresentation
     this.live = live;
   }
 
-  public List<OnlineIdentifierRepresentation> getOnlineIdentifiers() {
+  public List!(OnlineIdentifierRepresentation) getOnlineIdentifiers() {
     return onlineIdentifiers;
   }
 
-  public void setOnlineIdentifiers(List<OnlineIdentifierRepresentation> onlineIdentifiers) {
+  public void setOnlineIdentifiers(List!(OnlineIdentifierRepresentation) onlineIdentifiers) {
     this.onlineIdentifiers = onlineIdentifiers;
   }
 

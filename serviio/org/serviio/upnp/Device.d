@@ -25,7 +25,7 @@ public class Device
   private String deviceType = "urn:schemas-upnp-org:device:MediaServer:1";
   private InetAddress bindAddress;
   private URL descriptionURL;
-  private List<Service> services;
+  private List!(Service) services;
   private InetSocketAddress multicastGroupAddress;
 
   private this()
@@ -85,7 +85,7 @@ public class Device
 
   public void setupServices()
   {
-    services = new ArrayList<Service>(2);
+    services = new ArrayList!(Service)(2);
     services.add(new ConnectionManager());
     services.add(new ContentDirectory());
     services.add(new MediaReceiverRegistrar());
@@ -127,7 +127,7 @@ public class Device
     return descriptionURL;
   }
 
-  public List<Service> getServices() {
+  public List!(Service) getServices() {
     return services;
   }
 

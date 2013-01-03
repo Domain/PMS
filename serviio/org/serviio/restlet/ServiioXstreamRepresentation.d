@@ -33,7 +33,7 @@ import org.serviio.upnp.service.contentdirectory.rest.representation.ContentURLR
 import org.serviio.upnp.service.contentdirectory.rest.representation.DirectoryObjectRepresentation;
 import org.serviio.upnp.service.contentdirectory.rest.representation.OnlineIdentifierRepresentation;
 
-public class ServiioXstreamRepresentation<T> : XstreamRepresentation<T>
+public class ServiioXstreamRepresentation!(T) : XstreamRepresentation!(T)
 {
   public this(T object)
   {

@@ -20,11 +20,11 @@ public abstract class AbstractSongsForRoleAndAlbumRetrievalCommand : AbstractSon
     this.roleType = roleType;
   }
 
-  protected List<MusicTrack> retrieveEntityList()
+  protected List!(MusicTrack) retrieveEntityList()
   {
     Long artistId = Long.valueOf(Long.parseLong(getInternalObjectId(Definition.instance().getParentNodeId(objectId))));
     Long albumId = Long.valueOf(Long.parseLong(getInternalObjectId()));
-    List<MusicTrack> songs = AudioService.getListOfSongsForTrackRoleAndAlbum(artistId, roleType, albumId, accessGroup, startIndex, count);
+    List!(MusicTrack) songs = AudioService.getListOfSongsForTrackRoleAndAlbum(artistId, roleType, albumId, accessGroup, startIndex, count);
     return songs;
   }
 

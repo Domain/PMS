@@ -6,11 +6,11 @@ import org.serviio.library.entities.AccessGroup;
 import org.serviio.library.entities.OnlineRepository;
 import org.serviio.library.metadata.MediaFileType;
 
-public abstract interface OnlineRepositoryDAO : GenericDAO<OnlineRepository>
+public abstract interface OnlineRepositoryDAO : GenericDAO!(OnlineRepository)
 {
-  public abstract List<OnlineRepository> findAll();
+  public abstract List!(OnlineRepository) findAll();
 
-  public abstract List<OnlineRepository> getRepositories(List<OnlineRepository.OnlineRepositoryType> paramList, MediaFileType paramMediaFileType, AccessGroup paramAccessGroup, bool paramBoolean);
+  public abstract List!(OnlineRepository) getRepositories(List!(OnlineRepository.OnlineRepositoryType) paramList, MediaFileType paramMediaFileType, AccessGroup paramAccessGroup, bool paramBoolean);
 }
 
 /* Location:           D:\Program Files\Serviio\lib\serviio.jar

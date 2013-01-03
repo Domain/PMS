@@ -16,9 +16,9 @@ public class ListImagesForCreationMonthAndYearCommand : AbstractImagesRetrievalC
     super(contextIdentifier, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<Image> retrieveEntityList()
+  protected List!(Image) retrieveEntityList()
   {
-    List<Image> images = ImageService.getListOfImagesForMonthAndYear(getMonth(), getYear(), accessGroup, startIndex, count);
+    List!(Image) images = ImageService.getListOfImagesForMonthAndYear(getMonth(), getYear(), accessGroup, startIndex, count);
     return images;
   }
 

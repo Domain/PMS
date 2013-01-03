@@ -47,7 +47,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
     log.debug_(String.format("Deleting a Folder (id = %s)", cast(Object[])[ id ]));
     try
     {
-      new JdbcExecutor<Object>()
+      new JdbcExecutor!(Object)()
       {
         protected PreparedStatement processStatement(Connection con) {
           PreparedStatement ps = con.prepareStatement("DELETE FROM folder WHERE id = ?");
@@ -91,7 +91,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
     String[] filePathElements = null;
     if (folderPath is null)
     {
-      filePathElements = cast(String[])[ "<virtual>" ];
+      filePathElements = cast(String[])[ "!(virtual)" ];
     } else {
       log.debug_(String.format("Looking for folder hierarchy %s", cast(Object[])[ folderPath.getPath() ]));
       if (folderPath.getPath().endsWith(":" + File.separator))
@@ -177,7 +177,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
       }
       sql = sql + accessGroupConditionForFolder(accessGroup);
       ps = con.prepareStatement(sql);
-      ps.setString(1, "<virtual>");
+      ps.setString(1, "!(virtual)");
 
       ResultSet rs = ps.executeQuery();
       Integer count;
@@ -215,7 +215,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
       sql = sql + "SELECT count(media_item.id) FROM media_item" + accessGroupTable(accessGroup) + " WHERE media_item.file_type = ? ";
       if (folderId is null)
       {
-        sql = sql + "AND media_item.folder_id = (SELECT id FROM folder where name = '" + "<virtual>" + "' " + "AND repository_id = " + repositoryId.toString() + " AND parent_folder_id IS NULL)";
+        sql = sql + "AND media_item.folder_id = (SELECT id FROM folder where name = '" + "!(virtual)" + "' " + "AND repository_id = " + repositoryId.toString() + " AND parent_folder_id IS NULL)";
       }
       else
       {
@@ -223,7 +223,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
       }
       sql = sql + accessGroupConditionForMediaItem(accessGroup);
       ps = con.prepareStatement(sql);
-      ps.setString(1, "<virtual>");
+      ps.setString(1, "!(virtual)");
       ps.setString(2, fileType.toString());
 
       ResultSet rs = ps.executeQuery();
@@ -248,7 +248,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
     Connection con = null;
     try {
       con = DatabaseManager.getConnection();
-      return findFolderById(con, "<virtual>", repositoryId, null);
+      return findFolderById(con, "!(virtual)", repositoryId, null);
     } catch (SQLException e) {
       throw new PersistenceException("Cannot read virtual folder id", e);
     } finally {
@@ -256,7 +256,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Folder> retrieveFoldersWithMedia(MediaFileType fileType, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Folder) retrieveFoldersWithMedia(MediaFileType fileType, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of leaf folders (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -302,7 +302,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
     }
   }
 
-  public List<Folder> retrieveSubFolders(Long folderId, Long repositoryId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Folder) retrieveSubFolders(Long folderId, Long repositoryId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Getting list of sub-Folders in folder %s (from=%s, count=%s) [%s]", cast(Object[])[ folderId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -321,7 +321,7 @@ public class FolderDAOImpl : AbstractAccessibleDao
 
       ps = con.prepareStatement(sql);
       ps.setLong(1, repositoryId.longValue());
-      ps.setString(2, "<virtual>");
+      ps.setString(2, "!(virtual)");
 
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
@@ -341,9 +341,9 @@ public class FolderDAOImpl : AbstractAccessibleDao
     return null;
   }
 
-  protected List<Folder> mapResultSet(ResultSet rs)
+  protected List!(Folder) mapResultSet(ResultSet rs)
     {
-    List<Folder> result = new ArrayList<Folder>();
+    List!(Folder) result = new ArrayList!(Folder)();
     while (rs.next()) {
       result.add(initFolder(rs));
     }

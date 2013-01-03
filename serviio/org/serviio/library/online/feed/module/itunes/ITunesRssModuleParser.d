@@ -36,9 +36,9 @@ public class ITunesRssModuleParser
     Element releaseDate = element.getChild("releaseDate", NS);
     Element artist = element.getChild("artist", NS);
     @SuppressWarnings("unchecked")
-	List<Element> images = element.getChildren("image", NS);
+	List!(Element) images = element.getChildren("image", NS);
     @SuppressWarnings("unchecked")
-	List<Element> links = element.getChildren("link", ATOM_NS);
+	List!(Element) links = element.getChildren("link", ATOM_NS);
 
     if (name !is null) {
       module.setName(name.getTextTrim());

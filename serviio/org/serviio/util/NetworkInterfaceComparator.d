@@ -4,7 +4,7 @@ import java.net.NetworkInterface;
 import java.util.Comparator;
 
 public class NetworkInterfaceComparator
-  : Comparator<NetworkInterface>
+  : Comparator!(NetworkInterface)
 {
   public int compare(NetworkInterface o1, NetworkInterface o2)
   {

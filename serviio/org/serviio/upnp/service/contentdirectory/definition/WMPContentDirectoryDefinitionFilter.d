@@ -26,7 +26,7 @@ public class WMPContentDirectoryDefinitionFilter
     return requestedObjectClass;
   }
 
-  public void filterClassProperties(String objectId, Map<ClassProperties, Object> values)
+  public void filterClassProperties(String objectId, Map!(ClassProperties, Object) values)
   {
   }
 }

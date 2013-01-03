@@ -11,7 +11,7 @@ public class ValidationException : AbstractRestfulException
     super(errorCode);
   }
 
-  public this(int errorCode, List<String> parameters) {
+  public this(int errorCode, List!(String) parameters) {
     super(errorCode, parameters);
   }
 

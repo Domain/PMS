@@ -24,10 +24,10 @@ public class VideoTranscodingMatch
   private AudioCodec audioCodec;
   private H264Profile h264Profile;
   private Float h264LevelGT;
-  private List<String> ftypNotIn = new ArrayList<String>();
+  private List!(String) ftypNotIn = new ArrayList!(String)();
   private OnlineContentType onlineContentType;
   private Boolean squarePixels;
-  private List<String> vFourCC = new ArrayList<String>();
+  private List!(String) vFourCC = new ArrayList!(String)();
   private H264LevelCheckType h264LevelCheckType;
 
   public this(VideoContainer container, VideoCodec videoCodec, AudioCodec audioCodec, H264Profile h264Profile, Float h264LevelGT, String ftypNotIn, OnlineContentType onlineContentType, Boolean squarePixels, String vFourCC, H264LevelCheckType h264LevelCheckType)
@@ -48,7 +48,7 @@ public class VideoTranscodingMatch
     this.h264LevelCheckType = h264LevelCheckType;
   }
 
-  public bool matches(VideoContainer container, VideoCodec videoCodec, AudioCodec audioCodec, H264Profile h264Profile, Map<H264LevelType, String> h264Levels, String ftyp, OnlineContentType onlineContentType, bool squarePixels, String vFourCC)
+  public bool matches(VideoContainer container, VideoCodec videoCodec, AudioCodec audioCodec, H264Profile h264Profile, Map!(H264LevelType, String) h264Levels, String ftyp, OnlineContentType onlineContentType, bool squarePixels, String vFourCC)
   {
     if (((container == this.container) || (this.container == VideoContainer.ANY)) && ((this.videoCodec is null) || (videoCodec == this.videoCodec)) && ((this.audioCodec is null) || (audioCodec == this.audioCodec)) && (checkFtyp(ftyp)) && (checkVFourCC(vFourCC)) && (checkH264Profile(videoCodec, h264Profile, h264Levels)) && ((this.onlineContentType == OnlineContentType.ANY) || (this.onlineContentType == onlineContentType)) && ((this.squarePixels is null) || (this.squarePixels.equals(Boolean.valueOf(squarePixels)))))
     {
@@ -72,7 +72,7 @@ public class VideoTranscodingMatch
     return false;
   }
 
-  private bool checkH264Profile(VideoCodec videoCodec, H264Profile videoH264Profile, Map<H264LevelType, String> videoH264Levels) {
+  private bool checkH264Profile(VideoCodec videoCodec, H264Profile videoH264Profile, Map!(H264LevelType, String) videoH264Levels) {
     if (videoCodec == VideoCodec.H264) {
       if (h264Profile is null)
       {
@@ -97,7 +97,7 @@ public class VideoTranscodingMatch
     return true;
   }
 
-  private String getLevelToMatch(Map<H264LevelType, String> videoH264Levels) {
+  private String getLevelToMatch(Map!(H264LevelType, String) videoH264Levels) {
     if (h264LevelCheckType == H264LevelCheckType.FILE_ATTRIBUTES)
       return (String)videoH264Levels.get(H264LevelType.RF);
     if (h264LevelCheckType == H264LevelCheckType.HEADER) {
@@ -144,7 +144,7 @@ public class VideoTranscodingMatch
     return h264LevelGT;
   }
 
-  public List<String> getFtypNotIn() {
+  public List!(String) getFtypNotIn() {
     return Collections.unmodifiableList(ftypNotIn);
   }
 

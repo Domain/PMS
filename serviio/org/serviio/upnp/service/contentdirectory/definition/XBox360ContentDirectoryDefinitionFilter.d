@@ -45,7 +45,7 @@ public class XBox360ContentDirectoryDefinitionFilter
     return requestedObjectClass;
   }
 
-  public void filterClassProperties(String objectId, Map<ClassProperties, Object> values)
+  public void filterClassProperties(String objectId, Map!(ClassProperties, Object) values)
   {
     if ((objectId.startsWith("A_")) || (objectId.equals("I")))
     {

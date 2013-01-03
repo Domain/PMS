@@ -44,7 +44,7 @@ public class ResourceTransportRequestHandler : AbstractRequestHandler
       Profile rendererProfile = ProfileManager.getProfile(clientIPAddress);
       Client client = new Client(clientIPAddress, rendererProfile);
       String requestUri = getRequestUri(request);
-      Map<String, String> requestHeadersMap = getRequestHeadersMap(request);
+      Map!(String, String) requestHeadersMap = getRequestHeadersMap(request);
       HttpDeliveryContainer container = new ResourceDeliveryProcessor(resourceRetrievalStrategyFactory).deliverContent(requestUri, method, getHttpVersion(), requestHeadersMap, parseRangeHeaders(requestHeadersMap), getProtocolHandler(client), client);
 
       if (method == ResourceDeliveryProcessor.HttpMethod.GET) {
@@ -71,16 +71,16 @@ public class ResourceTransportRequestHandler : AbstractRequestHandler
       throw new MethodNotSupportedException(method + " method not supported");
   }
 
-  private Map<String, String> getRequestHeadersMap(HttpRequest request)
+  private Map!(String, String) getRequestHeadersMap(HttpRequest request)
   {
-    Map<String, String> headers = new CaseInsensitiveMap<String>();
+    Map!(String, String) headers = new CaseInsensitiveMap!(String)();
     for (Header header : request.getAllHeaders()) {
       headers.put(header.getName(), header.getValue());
     }
     return headers;
   }
 
-  private RangeHeaders parseRangeHeaders(Map<String, String> headers) {
+  private RangeHeaders parseRangeHeaders(Map!(String, String) headers) {
     String rangeHeader = cast(String)headers.get("Range");
     String timeSeekHeader = cast(String)headers.get("TimeSeekRange.dlna.org");
     try {
@@ -91,9 +91,9 @@ public class ResourceTransportRequestHandler : AbstractRequestHandler
     }throw new HttpResponseCodeException(400);
   }
 
-  private void saveResponseHeaders(Map<String, Object> headers, HttpResponse response)
+  private void saveResponseHeaders(Map!(String, Object) headers, HttpResponse response)
   {
-    for (Entry<String, Object> header : headers.entrySet())
+    for (Entry!(String, Object) header : headers.entrySet())
       response.addHeader( cast(String)header.getKey(), header.getValue().toString());
   }
 

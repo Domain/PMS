@@ -5,7 +5,7 @@ import org.serviio.upnp.service.contentdirectory.classes.DirectoryObject;
 
 public abstract interface Command<T : DirectoryObject>
 {
-  public abstract BrowseItemsHolder<T> retrieveItemList()
+  public abstract BrowseItemsHolder!(T) retrieveItemList()
     throws CommandExecutionException;
 
   public abstract int retrieveItemCount()

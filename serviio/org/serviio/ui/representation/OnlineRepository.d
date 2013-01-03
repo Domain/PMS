@@ -15,13 +15,13 @@ public class OnlineRepository
   private String thumbnailUrl;
   private String repositoryName;
   private bool enabled;
-  private LinkedHashSet<Long> accessGroupIds;
+  private LinkedHashSet!(Long) accessGroupIds;
 
   public this()
   {
   }
 
-  public this(OnlineRepositoryType repositoryType, String contentUrl, MediaFileType fileType, String thumbnailUrl, String repositoryName, bool enabled, LinkedHashSet<Long> accessGroupIds)
+  public this(OnlineRepositoryType repositoryType, String contentUrl, MediaFileType fileType, String thumbnailUrl, String repositoryName, bool enabled, LinkedHashSet!(Long) accessGroupIds)
   {
     this.repositoryType = repositoryType;
     this.contentUrl = contentUrl;
@@ -98,12 +98,12 @@ public class OnlineRepository
     this.enabled = enabled;
   }
 
-  public LinkedHashSet<Long> getAccessGroupIds()
+  public LinkedHashSet!(Long) getAccessGroupIds()
   {
     return accessGroupIds;
   }
 
-  public void setAccessGroupIds(LinkedHashSet<Long> accessGroupIds) {
+  public void setAccessGroupIds(LinkedHashSet!(Long) accessGroupIds) {
     this.accessGroupIds = accessGroupIds;
   }
 

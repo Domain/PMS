@@ -11,7 +11,7 @@ import org.serviio.library.local.metadata.TransportStreamTimestamp;
 
 public class MediaFormatProfileResolver
 {
-  public static List<MediaFormatProfile> resolve(MediaItem mediaItem)
+  public static List!(MediaFormatProfile) resolve(MediaItem mediaItem)
     {
     if (( cast(Image)mediaItem !is null )) {
       Image image = cast(Image)mediaItem;
@@ -57,7 +57,7 @@ public class MediaFormatProfileResolver
     throw new UnsupportedDLNAMediaFileFormatException(String.format("Music track %s does not match any supported DLNA profile", cast(Object[])[ fileName ]));
   }
 
-  public static List<MediaFormatProfile> resolveVideoFormat(String fileName, VideoContainer container, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate, TransportStreamTimestamp timestampType)
+  public static List!(MediaFormatProfile) resolveVideoFormat(String fileName, VideoContainer container, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate, TransportStreamTimestamp timestampType)
     {
     if (container == VideoContainer.ASF)
       return resolveVideoASFFormat(fileName, videoCodec, audioCodec, width, height, bitrate);
@@ -165,17 +165,17 @@ public class MediaFormatProfileResolver
     return MediaFormatProfile.RAW;
   }
 
-  protected static List<MediaFormatProfile> resolveVideoMPEG1Format(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoMPEG1Format(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     return Collections.singletonList(MediaFormatProfile.MPEG1);
   }
 
-  protected static List<MediaFormatProfile> resolveVideoMPEG2PSFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoMPEG2PSFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     return Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.MPEG_PS_PAL, MediaFormatProfile.MPEG_PS_NTSC ]);
   }
 
-  protected static List<MediaFormatProfile> resolveVideoMPEG2TSFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate, TransportStreamTimestamp timestampType)
+  protected static List!(MediaFormatProfile) resolveVideoMPEG2TSFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate, TransportStreamTimestamp timestampType)
     {
     String suffix = "";
     if (isNoTimestamp(timestampType))
@@ -191,7 +191,7 @@ public class MediaFormatProfileResolver
 
     if (videoCodec == VideoCodec.MPEG2)
     {
-      List<MediaFormatProfile> profiles = Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.valueOf("MPEG_TS_SD_EU" + suffix), MediaFormatProfile.valueOf("MPEG_TS_SD_NA" + suffix), MediaFormatProfile.valueOf("MPEG_TS_SD_KO" + suffix) ]);
+      List!(MediaFormatProfile) profiles = Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.valueOf("MPEG_TS_SD_EU" + suffix), MediaFormatProfile.valueOf("MPEG_TS_SD_NA" + suffix), MediaFormatProfile.valueOf("MPEG_TS_SD_KO" + suffix) ]);
 
       if ((timestampType == TransportStreamTimestamp.VALID) && (audioCodec == AudioCodec.AAC)) {
         profiles.add(MediaFormatProfile.MPEG_TS_JP_T);
@@ -249,7 +249,7 @@ public class MediaFormatProfileResolver
     throw new UnsupportedDLNAMediaFileFormatException(String.format("MPEG2TS video file %s does not match any supported DLNA profile", cast(Object[])[ fileName ]));
   }
 
-  protected static List<MediaFormatProfile> resolveVideoMP4Format(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoMP4Format(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     if (videoCodec == VideoCodec.H264)
     {
@@ -301,22 +301,22 @@ public class MediaFormatProfileResolver
     throw new UnsupportedDLNAMediaFileFormatException(String.format("MP4 video file %s does not match any supported DLNA profile", cast(Object[])[ fileName ]));
   }
 
-  protected static List<MediaFormatProfile> resolveVideoMatroskaFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoMatroskaFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     return Collections.singletonList(MediaFormatProfile.MATROSKA);
   }
 
-  protected static List<MediaFormatProfile> resolveVideoFLVFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoFLVFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     return Collections.singletonList(MediaFormatProfile.FLV);
   }
 
-  protected static List<MediaFormatProfile> resolveVideoWTVFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoWTVFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     return Collections.singletonList(MediaFormatProfile.WTV);
   }
 
-  protected static List<MediaFormatProfile> resolveVideo3GPFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideo3GPFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     if (videoCodec == VideoCodec.H264) {
       if ((audioCodec is null) || (audioCodec == AudioCodec.AAC))
@@ -335,17 +335,17 @@ public class MediaFormatProfileResolver
     throw new UnsupportedDLNAMediaFileFormatException(String.format("3GP video file %s does not match any supported DLNA profile", cast(Object[])[ fileName ]));
   }
 
-  protected static List<MediaFormatProfile> resolveVideoOGGFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoOGGFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     return Collections.singletonList(MediaFormatProfile.OGV);
   }
 
-  protected static List<MediaFormatProfile> resolveVideoAVIFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoAVIFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     return Collections.singletonList(MediaFormatProfile.AVI);
   }
 
-  protected static List<MediaFormatProfile> resolveVideoASFFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
+  protected static List!(MediaFormatProfile) resolveVideoASFFormat(String fileName, VideoCodec videoCodec, AudioCodec audioCodec, Integer width, Integer height, Integer bitrate)
     {
     if ((videoCodec == VideoCodec.WMV) && ((audioCodec is null) || (audioCodec == AudioCodec.WMA) || (audioCodec == AudioCodec.WMA_PRO)))
     {

@@ -38,10 +38,10 @@ public class Video : MediaItem
   private ContentType contentType;
   private TransportStreamTimestamp timestampType;
   private H264Profile h264Profile;
-  private Map<H264LevelType, String> h264Levels = new HashMap<H264LevelType, String>();
+  private Map!(H264LevelType, String) h264Levels = new HashMap!(H264LevelType, String)();
   private String ftyp;
   private String sar;
-  private Map<OnlineDBIdentifier, String> onlineIdentifiers = new HashMap<OnlineDBIdentifier, String>();
+  private Map!(OnlineDBIdentifier, String) onlineIdentifiers = new HashMap!(OnlineDBIdentifier, String)();
 
   public this(String title, VideoContainer container, String fileName, String filePath, Long fileSize, Long folderId, Long repositoryId, Date date)
   {
@@ -239,19 +239,19 @@ public class Video : MediaItem
     this.ftyp = ftyp;
   }
 
-  public Map<OnlineDBIdentifier, String> getOnlineIdentifiers() {
+  public Map!(OnlineDBIdentifier, String) getOnlineIdentifiers() {
     return onlineIdentifiers;
   }
 
-  public void setOnlineIdentifiers(Map<OnlineDBIdentifier, String> onlineIdentifiers) {
+  public void setOnlineIdentifiers(Map!(OnlineDBIdentifier, String) onlineIdentifiers) {
     this.onlineIdentifiers = onlineIdentifiers;
   }
 
-  public Map<H264LevelType, String> getH264Levels() {
+  public Map!(H264LevelType, String) getH264Levels() {
     return h264Levels;
   }
 
-  public void setH264Levels(Map<H264LevelType, String> h264Levels) {
+  public void setH264Levels(Map!(H264LevelType, String) h264Levels) {
     this.h264Levels = h264Levels;
   }
 

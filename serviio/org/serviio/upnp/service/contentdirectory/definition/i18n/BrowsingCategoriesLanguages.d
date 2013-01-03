@@ -7,9 +7,9 @@ import org.serviio.i18n.Language;
 public class BrowsingCategoriesLanguages
 {
   public static final String DEFAULT_LANGUAGE_CODE = "en";
-  private static List<Language> languages = new ArrayList<Language>();
+  private static List!(Language) languages = new ArrayList!(Language)();
 
-  public static List<Language> getLanguages()
+  public static List!(Language) getLanguages()
   {
     return languages;
   }

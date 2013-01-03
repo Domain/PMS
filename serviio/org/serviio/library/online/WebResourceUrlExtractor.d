@@ -8,7 +8,7 @@ public abstract class WebResourceUrlExtractor : AbstractUrlExtractor
   public final WebResourceContainer parseWebResource(final URL resourceUrl, final int maxItemsToRetrieve)
     {
     log("Starting parsing resource: " + resourceUrl);
-    return (WebResourceContainer)new PluginExecutionProcessor<Object>()
+    return (WebResourceContainer)new PluginExecutionProcessor!(Object)()
     {
       protected WebResourceContainer executePluginMethod() {
         return extractItems(resourceUrl, maxItemsToRetrieve);
@@ -21,7 +21,7 @@ public abstract class WebResourceUrlExtractor : AbstractUrlExtractor
     {
     log("Starting extraction of url for item: " + item.getTitle());
 
-    ContentURLContainer result = cast(ContentURLContainer)new PluginExecutionProcessor<Object>()
+    ContentURLContainer result = cast(ContentURLContainer)new PluginExecutionProcessor!(Object)()
     {
       protected ContentURLContainer executePluginMethod() {
         return extractUrl(item, Configuration.getOnlineFeedPreferredQuality());

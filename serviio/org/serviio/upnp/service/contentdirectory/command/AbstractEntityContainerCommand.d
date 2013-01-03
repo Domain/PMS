@@ -15,22 +15,22 @@ import org.serviio.upnp.service.contentdirectory.classes.DirectoryObjectBuilder;
 import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 import org.serviio.upnp.service.contentdirectory.definition.Definition;
 
-public abstract class AbstractEntityContainerCommand<E : PersistedEntity> : AbstractCommand<Container>
+public abstract class AbstractEntityContainerCommand<E : PersistedEntity> : AbstractCommand!(Container)
 {
   public this(String objectId, ObjectType objectType, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup accessGroup, String idPrefix, int startIndex, int count)
   {
     super(objectId, objectType, containerClassType, itemClassType, rendererProfile, accessGroup, idPrefix, startIndex, count);
   }
 
-  protected List<Container> retrieveList()
+  protected List!(Container) retrieveList()
   {
-    List<Container> items = new ArrayList<Container>();
+    List!(Container) items = new ArrayList!(Container)();
 
-    List<E> entities = retrieveEntityList();
+    List!(E) entities = retrieveEntityList();
 
     for (E entity : entities) {
       String runtimeId = generateRuntimeObjectId(entity.getId());
-      Map<ClassProperties, Object> values = generateValuesForEntity(entity, runtimeId, getDisplayedContainerId(objectId), getContainerTitle(entity));
+      Map!(ClassProperties, Object) values = generateValuesForEntity(entity, runtimeId, getDisplayedContainerId(objectId), getContainerTitle(entity));
       items.add( cast(Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, entity.getId()));
     }
     return items;
@@ -41,7 +41,7 @@ public abstract class AbstractEntityContainerCommand<E : PersistedEntity> : Abst
     return 0;
   }
 
-  protected Set<ObjectType> getSupportedObjectTypes()
+  protected Set!(ObjectType) getSupportedObjectTypes()
   {
     return ObjectType.getContainerTypes();
   }
@@ -51,19 +51,19 @@ public abstract class AbstractEntityContainerCommand<E : PersistedEntity> : Abst
     E entity = retrieveSingleEntity(new Long(getInternalObjectId()));
 
     if (entity !is null) {
-      Map<ClassProperties, Object> values = generateValuesForEntity(entity, objectId, Definition.instance().getParentNodeId(objectId), getContainerTitle(entity));
+      Map!(ClassProperties, Object) values = generateValuesForEntity(entity, objectId, Definition.instance().getParentNodeId(objectId), getContainerTitle(entity));
       return (Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, entity.getId());
     }
     throw new ObjectNotFoundException(String.format("Object with id %s not found in CDS", cast(Object[])[ objectId ]));
   }
 
-  protected abstract List<E> retrieveEntityList();
+  protected abstract List!(E) retrieveEntityList();
 
   protected abstract E retrieveSingleEntity(Long paramLong);
 
   protected abstract String getContainerTitle(E paramE);
 
-  protected Map<ClassProperties, Object> generateValuesForEntity(E entity, String objectId, String parentId, String title)
+  protected Map!(ClassProperties, Object) generateValuesForEntity(E entity, String objectId, String parentId, String title)
   {
     return ObjectValuesBuilder.buildObjectValues(entity, objectId, parentId, objectType, title, rendererProfile, accessGroup);
   }

@@ -17,7 +17,7 @@ public class UPnPIconRequestHandler : AbstractDescriptionRequestHandler
   public static final String SMALL_PNG = "smallPNG";
   public static final String LARGE_JPG = "largeJPG";
   public static final String SMALL_JPG = "smallJPG";
-  private static final Map<String, IconDescription> icons = new HashMap<String, IconDescription>();
+  private static final Map!(String, IconDescription) icons = new HashMap!(String, IconDescription)();
 
   protected void handleRequest(HttpRequest request, HttpResponse response, HttpContext context)
     {

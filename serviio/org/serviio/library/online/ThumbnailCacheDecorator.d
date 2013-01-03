@@ -5,7 +5,7 @@ import org.serviio.cache.AbstractCacheDecorator;
 import org.serviio.library.entities.CoverImage;
 
 public class ThumbnailCacheDecorator : AbstractCacheDecorator
-  : OnlineCacheDecorator<CoverImage>
+  : OnlineCacheDecorator!(CoverImage)
 {
   public this(String regionName)
   {

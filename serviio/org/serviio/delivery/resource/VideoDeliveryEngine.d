@@ -26,7 +26,7 @@ import org.serviio.profile.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine<VideoMediaInfo, Video>
+public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine!(VideoMediaInfo, Video)
 {
   private static VideoDeliveryEngine instance;
   private static final Logger log = LoggerFactory.getLogger(VideoDeliveryEngine.class);
@@ -39,11 +39,11 @@ public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine<VideoMediaI
     return instance;
   }
 
-  protected LinkedHashMap<QualityType, List<VideoMediaInfo>> retrieveOriginalMediaInfo(Video mediaItem, Profile rendererProfile)
+  protected LinkedHashMap!(QualityType, List!(VideoMediaInfo)) retrieveOriginalMediaInfo(Video mediaItem, Profile rendererProfile)
     {
-    List<MediaFormatProfile> fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
-    LinkedHashMap<QualityType, List<VideoMediaInfo>> mediaInfoMap = new LinkedHashMap<QualityType, List<VideoMediaInfo>>();
-    List<VideoMediaInfo> mediaInfos = new ArrayList<VideoMediaInfo>();
+    List!(MediaFormatProfile) fileProfiles = MediaFormatProfileResolver.resolve(mediaItem);
+    LinkedHashMap!(QualityType, List!(VideoMediaInfo)) mediaInfoMap = new LinkedHashMap!(QualityType, List!(VideoMediaInfo))();
+    List!(VideoMediaInfo) mediaInfos = new ArrayList!(VideoMediaInfo)();
     for (MediaFormatProfile fileProfile : fileProfiles) {
       mediaInfos.add(new VideoMediaInfo(mediaItem.getId(), fileProfile, mediaItem.getFileSize(), mediaItem.getWidth(), mediaItem.getHeight(), mediaItem.getBitrate(), false, mediaItem.isLive(), mediaItem.getDuration(), rendererProfile.getMimeType(fileProfile), QualityType.ORIGINAL));
     }
@@ -52,12 +52,12 @@ public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine<VideoMediaI
     return mediaInfoMap;
   }
 
-  protected LinkedHashMap<QualityType, List<VideoMediaInfo>> retrieveTranscodedMediaInfo(Video mediaItem, Profile rendererProfile, Long fileSize)
+  protected LinkedHashMap!(QualityType, List!(VideoMediaInfo)) retrieveTranscodedMediaInfo(Video mediaItem, Profile rendererProfile, Long fileSize)
   {
-    LinkedHashMap<QualityType, List<VideoMediaInfo>> transcodedMI = new LinkedHashMap<QualityType, List<VideoMediaInfo>>();
-    Map<QualityType, TranscodingDefinition> trDefs = getMatchingTranscodingDefinitions(mediaItem, rendererProfile);
+    LinkedHashMap!(QualityType, List!(VideoMediaInfo)) transcodedMI = new LinkedHashMap!(QualityType, List!(VideoMediaInfo))();
+    Map!(QualityType, TranscodingDefinition) trDefs = getMatchingTranscodingDefinitions(mediaItem, rendererProfile);
     if (trDefs.size() > 0) {
-      for (Entry<QualityType, TranscodingDefinition> trDefEntry : trDefs.entrySet()) {
+      for (Entry!(QualityType, TranscodingDefinition) trDefEntry : trDefs.entrySet()) {
         QualityType qualityType = cast(QualityType)trDefEntry.getKey();
         VideoTranscodingDefinition trDef = cast(VideoTranscodingDefinition)trDefEntry.getValue();
 
@@ -67,8 +67,8 @@ public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine<VideoMediaI
         ResizeDefinition targetDimensions = FFMPEGWrapper.getTargetVideoDimensions(mediaItem, trDef.getMaxHeight(), trDef.getDar(), trDef.getTargetContainer());
         try
         {
-          List<VideoMediaInfo> mediaInfos = new ArrayList<VideoMediaInfo>();
-          List<MediaFormatProfile> transcodedProfiles = MediaFormatProfileResolver.resolveVideoFormat(mediaItem.getFileName(), trDef.getTargetContainer(), targetVideoCodec, targetAudioCodec, Integer.valueOf(targetDimensions.width), Integer.valueOf(targetDimensions.height), targetBitrate, trDef.getTargetContainer() == VideoContainer.M2TS ? TransportStreamTimestamp.VALID : TransportStreamTimestamp.NONE);
+          List!(VideoMediaInfo) mediaInfos = new ArrayList!(VideoMediaInfo)();
+          List!(MediaFormatProfile) transcodedProfiles = MediaFormatProfileResolver.resolveVideoFormat(mediaItem.getFileName(), trDef.getTargetContainer(), targetVideoCodec, targetAudioCodec, Integer.valueOf(targetDimensions.width), Integer.valueOf(targetDimensions.height), targetBitrate, trDef.getTargetContainer() == VideoContainer.M2TS ? TransportStreamTimestamp.VALID : TransportStreamTimestamp.NONE);
 
           for (MediaFormatProfile transcodedProfile : transcodedProfiles) {
             log.debug_(String.format("Found Format profile for transcoded file %s: %s", cast(Object[])[ mediaItem.getFileName(), transcodedProfile ]));
@@ -84,15 +84,15 @@ public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine<VideoMediaI
       return transcodedMI;
     }
     log.warn(String.format("Cannot find matching transcoding definition for file %s", cast(Object[])[ mediaItem.getFileName() ]));
-    return new LinkedHashMap<QualityType, List<VideoMediaInfo>>();
+    return new LinkedHashMap!(QualityType, List!(VideoMediaInfo))();
   }
 
-  protected TranscodingDefinition getMatchingTranscodingDefinition(List<TranscodingDefinition> tDefs, Video mediaItem)
+  protected TranscodingDefinition getMatchingTranscodingDefinition(List!(TranscodingDefinition) tDefs, Video mediaItem)
   {
-    Iterator<TranscodingDefinition> i$;
+    Iterator!(TranscodingDefinition) i$;
     if ((tDefs !is null) && (tDefs.size() > 0))
       for (i$ = tDefs.iterator(); i$.hasNext(); ) { TranscodingDefinition tDef = cast(TranscodingDefinition)i$.next();
-        List<VideoTranscodingMatch> matches = ( cast(VideoTranscodingDefinition)tDef).getMatches();
+        List!(VideoTranscodingMatch) matches = ( cast(VideoTranscodingDefinition)tDef).getMatches();
         for (VideoTranscodingMatch match : matches)
           if (match.matches(mediaItem.getContainer(), mediaItem.getVideoCodec(), mediaItem.getAudioCodec(), mediaItem.getH264Profile(), mediaItem.getH264Levels(), mediaItem.getFtyp(), getOnlineContentType(mediaItem), mediaItem.hasSquarePixels(), mediaItem.getVideoFourCC()))
           {

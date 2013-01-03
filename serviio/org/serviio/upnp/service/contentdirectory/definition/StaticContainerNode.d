@@ -18,7 +18,7 @@ import org.serviio.util.ObjectValidator;
 public class StaticContainerNode : ContainerNode
   : StaticDefinitionNode
 {
-  private static final Set<ObjectClassType> supportedClasses = new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
+  private static final Set!(ObjectClassType) supportedClasses = new HashSet!(ObjectClassType)(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   private String id;
   private String titleKey;
   private bool browsable = true;
@@ -34,7 +34,7 @@ public class StaticContainerNode : ContainerNode
 
   public DirectoryObject retrieveDirectoryObject(String objectId, ObjectType objectType, Profile rendererProfile, AccessGroup userProfile)
   {
-    Map<ClassProperties, Object> values = new HashMap<ClassProperties, Object>();
+    Map!(ClassProperties, Object) values = new HashMap!(ClassProperties, Object)();
     values.put(ClassProperties.ID, getId());
     values.put(ClassProperties.TITLE, getBrowsableTitle());
     values.put(ClassProperties.CHILD_COUNT, Integer.valueOf(retrieveContainerItemsCount(objectId, objectType, userProfile)));

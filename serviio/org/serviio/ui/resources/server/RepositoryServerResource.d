@@ -97,12 +97,12 @@ public class RepositoryServerResource : AbstractServerResource
 
   private void initSharedFolders(RepositoryRepresentation rep)
   {
-    List<SharedFolder> repositories = new ArrayList<SharedFolder>();
+    List!(SharedFolder) repositories = new ArrayList!(SharedFolder)();
 
-    List<Repository> allRepositories = RepositoryService.getAllRepositories();
+    List!(Repository) allRepositories = RepositoryService.getAllRepositories();
     for (Repository repository : allRepositories) {
-      List<AccessGroup> accessGroups = AccessGroupService.getAccessGroupsForRepository(repository.getId());
-      SharedFolder repoVO = new SharedFolder(repository.getFolder().getPath(), repository.getSupportedFileTypes(), repository.isSupportsOnlineMetadata(), repository.isKeepScanningForUpdates(), new LinkedHashSet<Long>(CollectionUtils.extractEntityIDs(accessGroups)));
+      List!(AccessGroup) accessGroups = AccessGroupService.getAccessGroupsForRepository(repository.getId());
+      SharedFolder repoVO = new SharedFolder(repository.getFolder().getPath(), repository.getSupportedFileTypes(), repository.isSupportsOnlineMetadata(), repository.isKeepScanningForUpdates(), new LinkedHashSet!(Long)(CollectionUtils.extractEntityIDs(accessGroups)));
 
       repoVO.setId(repository.getId());
       repositories.add(repoVO);
@@ -112,12 +112,12 @@ public class RepositoryServerResource : AbstractServerResource
 
   private void initOnlineRepositories(RepositoryRepresentation rep)
   {
-    List<org.serviio.ui.representation.OnlineRepository> repositories = new ArrayList<org.serviio.ui.representation.OnlineRepository>();
+    List!(org.serviio.ui.representation.OnlineRepository) repositories = new ArrayList!(org.serviio.ui.representation.OnlineRepository)();
 
-    List<OnlineRepository> allRepositories = OnlineRepositoryService.getAllRepositories();
+    List!(OnlineRepository) allRepositories = OnlineRepositoryService.getAllRepositories();
     for (OnlineRepository repository : allRepositories) {
-      List<AccessGroup> accessGroups = AccessGroupService.getAccessGroupsForOnlineRepository(repository.getId());
-      org.serviio.ui.representation.OnlineRepository repoVO = new org.serviio.ui.representation.OnlineRepository(repository.getRepoType(), repository.getRepositoryUrl(), repository.getFileType(), repository.getThumbnailUrl() !is null ? repository.getThumbnailUrl().toString() : null, repository.getRepositoryName(), repository.isEnabled(), new LinkedHashSet<Long>(CollectionUtils.extractEntityIDs(accessGroups)));
+      List!(AccessGroup) accessGroups = AccessGroupService.getAccessGroupsForOnlineRepository(repository.getId());
+      org.serviio.ui.representation.OnlineRepository repoVO = new org.serviio.ui.representation.OnlineRepository(repository.getRepoType(), repository.getRepositoryUrl(), repository.getFileType(), repository.getThumbnailUrl() !is null ? repository.getThumbnailUrl().toString() : null, repository.getRepositoryName(), repository.isEnabled(), new LinkedHashSet!(Long)(CollectionUtils.extractEntityIDs(accessGroups)));
 
       repoVO.setId(repository.getId());
       repositories.add(repoVO);
@@ -128,7 +128,7 @@ public class RepositoryServerResource : AbstractServerResource
   private void saveLocalRepositories(RepositoryRepresentation rep)
   {
     if (rep.getSharedFolders() !is null) {
-      List<Repository> reposToSave = new ArrayList<Repository>();
+      List!(Repository) reposToSave = new ArrayList!(Repository)();
       for (SharedFolder repository : rep.getSharedFolders()) {
         Repository repoToSave = new Repository(new File(repository.getFolderPath()), repository.getSupportedFileTypes(), repository.isDescriptiveMetadataSupported(), repository.isScanForUpdates());
 
@@ -146,20 +146,20 @@ public class RepositoryServerResource : AbstractServerResource
     }
   }
 
-  private List<Long> fixAccessGroups(Set<Long> submittedGroups) {
-    Set<Long> fixedGroupIds = new HashSet<Long>();
+  private List!(Long) fixAccessGroups(Set!(Long) submittedGroups) {
+    Set!(Long) fixedGroupIds = new HashSet!(Long)();
 
     fixedGroupIds.add(AccessGroup.NO_LIMIT_ACCESS_GROUP_ID);
 
     if ((LicensingManager.getInstance().isProVersion()) && (submittedGroups !is null)) {
       fixedGroupIds.addAll(submittedGroups);
     }
-    return new ArrayList<Long>(fixedGroupIds);
+    return new ArrayList!(Long)(fixedGroupIds);
   }
 
   private void saveOnlineRepositories(RepositoryRepresentation rep) {
     if (rep.getOnlineRepositories() !is null) {
-      List<OnlineRepository> reposToSave = new ArrayList<OnlineRepository>();
+      List!(OnlineRepository) reposToSave = new ArrayList!(OnlineRepository)();
       for (int i = 0; i < rep.getOnlineRepositories().size(); i++) {
         org.serviio.ui.representation.OnlineRepository repository = (org.serviio.ui.representation.OnlineRepository)rep.getOnlineRepositories().get(i);
         String contentUrl = validateUrl(StringUtils.trim(repository.getContentUrl()), repository.getRepositoryType());

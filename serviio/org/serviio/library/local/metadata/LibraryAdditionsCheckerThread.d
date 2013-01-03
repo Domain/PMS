@@ -36,7 +36,7 @@ public class LibraryAdditionsCheckerThread : AbstractLibraryCheckerThread
 
       notifyListenersResetForAdding();
 
-      List<Repository> repositories = RepositoryService.getAllRepositories();
+      List!(Repository) repositories = RepositoryService.getAllRepositories();
 
       for (Repository repository : repositories) {
         try

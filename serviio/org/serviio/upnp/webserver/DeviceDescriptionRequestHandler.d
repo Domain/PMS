@@ -44,7 +44,7 @@ public class DeviceDescriptionRequestHandler : AbstractDescriptionRequestHandler
 
       prepareSuccessfulHttpResponse(request, response);
 
-      Map<String, Object> dataModel = new HashMap<String, Object>();
+      Map!(String, Object) dataModel = new HashMap!(String, Object)();
       dataModel.put("device", device);
       dataModel.put("deviceDescription", profile.getDeviceDescription());
       dataModel.put("services", device.getServices());

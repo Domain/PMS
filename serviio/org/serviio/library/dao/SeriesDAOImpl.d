@@ -51,7 +51,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
     log.debug_(String.format("Deleting a Series (id = %s)", cast(Object[])[ id ]));
     try
     {
-      new JdbcExecutor<Object>()
+      new JdbcExecutor!(Object)()
       {
         protected PreparedStatement processStatement(Connection con) {
           PreparedStatement ps = con.prepareStatement("DELETE FROM series WHERE id = ?");
@@ -137,7 +137,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Series> retrieveSeries(int startingIndex, int requestedCount)
+  public List!(Series) retrieveSeries(int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of series (from=%s, count=%s)", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
@@ -180,7 +180,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
     }
   }
 
-  public List<Integer> retrieveSeasonsForSeries(Long seriesId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public List!(Integer) retrieveSeasonsForSeries(Long seriesId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     log.debug_(String.format("Retrieving list of seasons for series %s (from=%s, count=%s) [%s]", cast(Object[])[ seriesId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
@@ -191,7 +191,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
 
       ps.setLong(1, seriesId.longValue());
       ResultSet rs = ps.executeQuery();
-      List<Integer> result = new ArrayList<Integer>();
+      List!(Integer) result = new ArrayList!(Integer)();
       while (rs.next()) {
         result.add(Integer.valueOf(rs.getInt("season_number")));
       }
@@ -238,9 +238,9 @@ public class SeriesDAOImpl : AbstractSortableItemDao
     return null;
   }
 
-  protected List<Series> mapResultSet(ResultSet rs)
+  protected List!(Series) mapResultSet(ResultSet rs)
     {
-    List<Series> result = new ArrayList<Series>();
+    List!(Series) result = new ArrayList!(Series)();
     while (rs.next()) {
       result.add(initSeries(rs));
     }

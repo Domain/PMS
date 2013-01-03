@@ -27,7 +27,7 @@ public class EventSubscriptionExpirationChecker
       currentDate.setTime(new Date());
 
       for (Service service : device.getServices()) {
-        Iterator<Subscription> subscrIt = service.getEventSubscriptions().iterator();
+        Iterator!(Subscription) subscrIt = service.getEventSubscriptions().iterator();
         while (subscrIt.hasNext()) {
           Subscription subscription = cast(Subscription)subscrIt.next();
           if (!subscription.getDuration().equals("infinite")) {
@@ -68,7 +68,7 @@ public class EventSubscriptionExpirationChecker
   private void removeAllSubscriptions()
   {
     for (Service service : Device.getInstance().getServices()) {
-      Iterator<Subscription> subscrIt = service.getEventSubscriptions().iterator();
+      Iterator!(Subscription) subscrIt = service.getEventSubscriptions().iterator();
       while (subscrIt.hasNext()) {
         Subscription subscription = cast(Subscription)subscrIt.next();
         subscrIt.remove();

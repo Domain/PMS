@@ -9,7 +9,7 @@ public class BrowsingCategory
   private String id;
   private String title;
   private ContainerVisibilityType visibility;
-  private List<BrowsingCategory> subCategories = new ArrayList<BrowsingCategory>();
+  private List!(BrowsingCategory) subCategories = new ArrayList!(BrowsingCategory)();
 
   public this()
   {
@@ -22,12 +22,12 @@ public class BrowsingCategory
     this.visibility = visibility;
   }
 
-  public List<BrowsingCategory> getSubCategories()
+  public List!(BrowsingCategory) getSubCategories()
   {
     return subCategories;
   }
 
-  public void setSubCategories(List<BrowsingCategory> subCategories) {
+  public void setSubCategories(List!(BrowsingCategory) subCategories) {
     this.subCategories = subCategories;
   }
 

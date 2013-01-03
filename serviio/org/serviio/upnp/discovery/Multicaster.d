@@ -9,9 +9,9 @@ import org.serviio.util.MultiCastUtils;
 
 public abstract class Multicaster
 {
-  protected Set<NetworkInterface> getAvailableNICs()
+  protected Set!(NetworkInterface) getAvailableNICs()
     {
-    Set<NetworkInterface> ifaces = MultiCastUtils.findAllAvailableInterfaces();
+    Set!(NetworkInterface) ifaces = MultiCastUtils.findAllAvailableInterfaces();
     ifaces.add(NetworkInterface.getByInetAddress(Device.getInstance().getBindAddress()));
     CollectionUtils.removeNulls(ifaces);
     return ifaces;

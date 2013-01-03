@@ -1,6 +1,6 @@
 module org.serviio.util.Tupple;
 
-public class Tupple<T, S>
+public class Tupple!(T, S)
 {
   private T valueA;
   private S valueB;

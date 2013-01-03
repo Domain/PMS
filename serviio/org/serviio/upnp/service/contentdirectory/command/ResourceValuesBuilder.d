@@ -29,9 +29,9 @@ public class ResourceValuesBuilder
 {
   private static final Logger log = LoggerFactory.getLogger(ResourceValuesBuilder.class);
 
-  public static List<Resource> buildResources(MediaItem entity, Profile rendererProfile)
+  public static List!(Resource) buildResources(MediaItem entity, Profile rendererProfile)
   {
-    List<Resource> resources = new ArrayList<Resource>();
+    List!(Resource) resources = new ArrayList!(Resource)();
     List<? : ResourceInfo> resourceInfos = MediaResourceRetrievalStrategy.getMediaInfoForAvailableProfiles(entity, rendererProfile);
 
     int i;
@@ -42,7 +42,7 @@ public class ResourceValuesBuilder
         for (Iterator<? : ResourceInfo> i$ = resourceInfos.iterator(); i$.hasNext(); ) { resourceInfo = cast(ResourceInfo)i$.next();
           ImageMediaInfo imageMediaInfo = cast(ImageMediaInfo)resourceInfo;
 
-          Set<String> protocolInfos = rendererProfile.getResourceProtocolInfo(imageMediaInfo.getFormatProfile()).getMediaProtocolInfo(resourceInfo.isTranscoded(), resourceInfo.isLive(), imageMediaInfo.getFormatProfile().getFileType(), false);
+          Set!(String) protocolInfos = rendererProfile.getResourceProtocolInfo(imageMediaInfo.getFormatProfile()).getMediaProtocolInfo(resourceInfo.isTranscoded(), resourceInfo.isLive(), imageMediaInfo.getFormatProfile().getFileType(), false);
 
           i = 0;
           for (String protocolInfo : protocolInfos) {
@@ -67,7 +67,7 @@ public class ResourceValuesBuilder
         for (Iterator<? : ResourceInfo> i$ = resourceInfos.iterator(); i$.hasNext(); ) { resourceInfo = cast(ResourceInfo)i$.next();
           AudioMediaInfo audioMediaInfo = cast(AudioMediaInfo)resourceInfo;
 
-          Set<String> protocolInfos = rendererProfile.getResourceProtocolInfo(audioMediaInfo.getFormatProfile()).getMediaProtocolInfo(audioMediaInfo.isTranscoded(), resourceInfo.isLive(), audioMediaInfo.getFormatProfile().getFileType(), (song.getDuration() !is null) && (song.getDuration().intValue() > 0));
+          Set!(String) protocolInfos = rendererProfile.getResourceProtocolInfo(audioMediaInfo.getFormatProfile()).getMediaProtocolInfo(audioMediaInfo.isTranscoded(), resourceInfo.isLive(), audioMediaInfo.getFormatProfile().getFileType(), (song.getDuration() !is null) && (song.getDuration().intValue() > 0));
 
           i = 0;
           for (String protocolInfo : protocolInfos) {
@@ -91,7 +91,7 @@ public class ResourceValuesBuilder
       Video video = cast(Video)entity;
       for (Iterator<? : ResourceInfo> i$ = resourceInfos.iterator(); i$.hasNext(); ) { resourceInfo = cast(ResourceInfo)i$.next();
         VideoMediaInfo videoMediaInfo = cast(VideoMediaInfo)resourceInfo;
-        Set<String> protocolInfos = rendererProfile.getResourceProtocolInfo(videoMediaInfo.getFormatProfile()).getMediaProtocolInfo(videoMediaInfo.isTranscoded(), resourceInfo.isLive(), videoMediaInfo.getFormatProfile().getFileType(), (video.getDuration() !is null) && (video.getDuration().intValue() > 0));
+        Set!(String) protocolInfos = rendererProfile.getResourceProtocolInfo(videoMediaInfo.getFormatProfile()).getMediaProtocolInfo(videoMediaInfo.isTranscoded(), resourceInfo.isLive(), videoMediaInfo.getFormatProfile().getFileType(), (video.getDuration() !is null) && (video.getDuration().intValue() > 0));
 
         i = 0;
         for (String protocolInfo : protocolInfos) {

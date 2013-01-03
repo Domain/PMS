@@ -15,15 +15,15 @@ public abstract interface MediaItemDAO
 
   public abstract File getFile(Long paramLong);
 
-  public abstract List<MediaItem> getMediaItemsInRepository(Long paramLong);
+  public abstract List!(MediaItem) getMediaItemsInRepository(Long paramLong);
 
-  public abstract List<MediaItem> getMediaItemsInRepository(Long paramLong, MediaFileType paramMediaFileType);
+  public abstract List!(MediaItem) getMediaItemsInRepository(Long paramLong, MediaFileType paramMediaFileType);
 
   public abstract void markMediaItemAsDirty(Long paramLong);
 
   public abstract void markMediaItemsAsDirty(MediaFileType paramMediaFileType);
 
-  public abstract List<MediaItem> getDirtyMediaItemsInRepository(Long paramLong);
+  public abstract List!(MediaItem) getDirtyMediaItemsInRepository(Long paramLong);
 
   public abstract void markMediaItemAsRead(Long paramLong);
 

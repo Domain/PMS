@@ -127,11 +127,11 @@ public class AudioService
 
       DAOFactory.getMusicTrackDAO().update(updatedTrack);
 
-      List<Long> originalArtistRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.ARTIST, mediaItemId);
-      List<Long> originalComposerRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.COMPOSER, mediaItemId);
+      List!(Long) originalArtistRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.ARTIST, mediaItemId);
+      List!(Long) originalComposerRoles = DAOFactory.getPersonDAO().getRoleIDsForMediaItem(RoleType.COMPOSER, mediaItemId);
 
-      List<Long> newArtistRoles = new ArrayList<Long>();
-      List<Long> newComposerRoles = new ArrayList<Long>();
+      List!(Long) newArtistRoles = new ArrayList!(Long)();
+      List!(Long) newComposerRoles = new ArrayList!(Long)();
       if (ObjectValidator.isNotEmpty(metadata.getArtist())) {
         Long artistRoleId = DAOFactory.getPersonDAO().addPersonToMedia(metadata.getArtist(), RoleType.ARTIST, mediaItemId);
         newArtistRoles.add(artistRoleId);
@@ -162,7 +162,7 @@ public class AudioService
     }
   }
 
-  public static List<MusicTrack> getListOfSongsForArtist(Long artistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfSongsForArtist(Long artistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForArtist(artistId, accessGroup, startingIndex, requestedCount);
   }
@@ -172,7 +172,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForArtistCount(artistId, accessGroup);
   }
 
-  public static List<MusicTrack> getListOfSongsForGenre(Long genreId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfSongsForGenre(Long genreId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForGenre(genreId, accessGroup, startingIndex, requestedCount);
   }
@@ -182,7 +182,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForGenreCount(genreId, accessGroup);
   }
 
-  public static List<MusicTrack> getListOfSongsForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfSongsForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForPlaylist(playlistId, accessGroup, startingIndex, requestedCount);
   }
@@ -192,7 +192,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForPlaylistCount(playlistId, accessGroup);
   }
 
-  public static List<String> getListOfSongInitials(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(String) getListOfSongInitials(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksInitials(accessGroup, startingIndex, requestedCount);
   }
@@ -202,7 +202,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksInitialsCount(accessGroup);
   }
 
-  public static List<MusicTrack> getListOfSongsForInitial(String initial, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfSongsForInitial(String initial, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForInitial(initial, accessGroup, startingIndex, requestedCount);
   }
@@ -212,7 +212,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForInitialCount(initial, accessGroup);
   }
 
-  public static List<MusicTrack> getListOfSongsForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfSongsForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForFolder(folderId, accessGroup, startingIndex, requestedCount);
   }
@@ -222,7 +222,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForFolderCount(folderId, accessGroup);
   }
 
-  public static List<MusicTrack> getListOfAllSongs(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfAllSongs(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveAllMusicTracks(accessGroup, startingIndex, requestedCount);
   }
@@ -232,7 +232,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveAllMusicTracksCount(accessGroup);
   }
 
-  public static List<MusicTrack> getListOfRandomSongs(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfRandomSongs(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveRandomMusicTracks(startingIndex, requestedCount, accessGroup);
   }
@@ -250,7 +250,7 @@ public class AudioService
     return null;
   }
 
-  public static List<MusicAlbum> getListOfAlbumsForTrackRole(Long artistId, RoleType role, int startingIndex, int requestedCount)
+  public static List!(MusicAlbum) getListOfAlbumsForTrackRole(Long artistId, RoleType role, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicAlbumDAO().retrieveMusicAlbumsForTrackRole(artistId, role, startingIndex, requestedCount);
   }
@@ -260,7 +260,7 @@ public class AudioService
     return DAOFactory.getMusicAlbumDAO().retrieveMusicAlbumsForTrackRoleCount(artistId, role);
   }
 
-  public static List<MusicAlbum> getListOfAlbumsForAlbumArtist(Long artistId, int startingIndex, int requestedCount)
+  public static List!(MusicAlbum) getListOfAlbumsForAlbumArtist(Long artistId, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicAlbumDAO().retrieveMusicAlbumsForAlbumArtist(artistId, startingIndex, requestedCount);
   }
@@ -270,7 +270,7 @@ public class AudioService
     return DAOFactory.getMusicAlbumDAO().retrieveMusicAlbumsForAlbumArtistCount(artistId);
   }
 
-  public static List<MusicTrack> getListOfSongsForTrackRoleAndAlbum(Long artistId, RoleType role, Long albumId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfSongsForTrackRoleAndAlbum(Long artistId, RoleType role, Long albumId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForTrackRoleAndAlbum(artistId, role, albumId, accessGroup, startingIndex, requestedCount);
   }
@@ -280,7 +280,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForTrackRoleAndAlbumCount(artistId, role, albumId, accessGroup);
   }
 
-  public static List<MusicTrack> getListOfSongsForAlbum(Long albumId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(MusicTrack) getListOfSongsForAlbum(Long albumId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForAlbum(albumId, accessGroup, startingIndex, requestedCount);
   }
@@ -290,7 +290,7 @@ public class AudioService
     return DAOFactory.getMusicTrackDAO().retrieveMusicTracksForAlbumCount(albumId, accessGroup);
   }
 
-  public static List<MusicAlbum> getListOfAllAlbums(int startingIndex, int requestedCount)
+  public static List!(MusicAlbum) getListOfAllAlbums(int startingIndex, int requestedCount)
   {
     return DAOFactory.getMusicAlbumDAO().retrieveAllMusicAlbums(startingIndex, requestedCount);
   }

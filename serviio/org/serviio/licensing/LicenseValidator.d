@@ -32,7 +32,7 @@ public class LicenseValidator
     }
     try
     {
-      Tupple<License, Long> customerLicense = validateLicense(customerLicensebody);
+      Tupple!(License, Long) customerLicense = validateLicense(customerLicensebody);
       return buildServiioLicense(customerLicense); } catch (InvalidLicenseException e) {
     }
     return validateBundledLicense();
@@ -40,11 +40,11 @@ public class LicenseValidator
 
   ServiioLicense validateProvidedLicense(String license)
     {
-    Tupple<License, Long> customerLicense = validateLicense(license);
+    Tupple!(License, Long) customerLicense = validateLicense(license);
     return buildServiioLicense(customerLicense);
   }
 
-  private Tupple<License, Long> validateLicense(String licenseBody)
+  private Tupple!(License, Long) validateLicense(String licenseBody)
     {
     if (licenseBody !is null) {
       log.debug_(String.format("Validating license file (%s bytes)", cast(Object[])[ Integer.valueOf(licenseBody.length()) ]));
@@ -57,7 +57,7 @@ public class LicenseValidator
         v.setIgnoreFloatTime(ignoreFloatTime);
         v.validate();
         Long remainingMillis = v.getTimeRemaining(new Date());
-        return new Tupple<License, Long>(l, remainingMillis);
+        return new Tupple!(License, Long)(l, remainingMillis);
       } catch (IOException e) {
         throw new InvalidLicenseException("Couldn't load license: " + e.getMessage(), e);
       } catch (ImportException e) {
@@ -74,7 +74,7 @@ public class LicenseValidator
 
   private ServiioLicense validateBundledLicense() {
     try {
-      Tupple<License, Long> bundledLicense = validateLicense(bundledLicenseProvider.readLicense());
+      Tupple!(License, Long) bundledLicense = validateLicense(bundledLicenseProvider.readLicense());
       return buildServiioLicense(bundledLicense);
     } catch (InvalidLicenseException e) {
     }
@@ -83,14 +83,14 @@ public class LicenseValidator
 
   private String getFailureDescription(ValidatorException e)
   {
-    List<String> errors = new ArrayList<String>();
+    List!(String) errors = new ArrayList!(String)();
     for (TestResult tr : e.getLicenseState().getFailedTests()) {
       errors.add(tr.getResultDescription());
     }
     return CollectionUtils.listToCSV(errors, ",", true);
   }
 
-  private ServiioLicense buildServiioLicense(Tupple<License, Long> license) {
+  private ServiioLicense buildServiioLicense(Tupple!(License, Long) license) {
     License lic = cast(License)license.getValueA();
     String id = lic.getProperty(LicenseProperties.ID.getName());
     String name = lic.getProperty(LicenseProperties.NAME.getName());

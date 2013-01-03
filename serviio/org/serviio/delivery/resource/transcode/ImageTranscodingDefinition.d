@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ImageTranscodingDefinition : AbstractTranscodingDefinition
 {
-  private List<ImageTranscodingMatch> matches = new ArrayList<ImageTranscodingMatch>();
+  private List!(ImageTranscodingMatch) matches = new ArrayList!(ImageTranscodingMatch)();
 
   public this(TranscodingConfiguration parentConfig, bool forceInheritance)
   {
@@ -13,7 +13,7 @@ public class ImageTranscodingDefinition : AbstractTranscodingDefinition
     this.forceInheritance = forceInheritance;
   }
 
-  public List<ImageTranscodingMatch> getMatches()
+  public List!(ImageTranscodingMatch) getMatches()
   {
     return matches;
   }

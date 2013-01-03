@@ -4,7 +4,7 @@ import org.serviio.db.dao.GenericDAO;
 import org.serviio.library.entities.MetadataDescriptor;
 import org.serviio.library.local.metadata.extractor.ExtractorType;
 
-public abstract interface MetadataDescriptorDAO : GenericDAO<MetadataDescriptor>
+public abstract interface MetadataDescriptorDAO : GenericDAO!(MetadataDescriptor)
 {
   public abstract void removeMetadataDescriptorsForMedia(Long paramLong);
 

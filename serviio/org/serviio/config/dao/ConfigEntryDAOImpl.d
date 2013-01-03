@@ -119,7 +119,7 @@ public class ConfigEntryDAOImpl
     }
   }
 
-  public List<ConfigEntry> findAllConfigEntries()
+  public List!(ConfigEntry) findAllConfigEntries()
   {
     log.debug_("Reading all ConfigEntries");
     Connection con = null;
@@ -145,9 +145,9 @@ public class ConfigEntryDAOImpl
     return null;
   }
 
-  protected List<ConfigEntry> mapResultSet(ResultSet rs)
+  protected List!(ConfigEntry) mapResultSet(ResultSet rs)
     {
-    List<ConfigEntry> result = new ArrayList<ConfigEntry>();
+    List!(ConfigEntry) result = new ArrayList!(ConfigEntry)();
     while (rs.next()) {
       result.add(initConfigEntry(rs));
     }

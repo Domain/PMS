@@ -66,7 +66,7 @@ public class MP3ExtractionStrategy : AudioExtractionStrategy
 
   protected String getGenreString(String genreDefinition)
   {
-    List<String> resultGenre = new ArrayList<String>();
+    List!(String) resultGenre = new ArrayList!(String)();
     String workingGenreDef = "";
 
     if (genreDefinition.indexOf(0) > -1) {

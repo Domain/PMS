@@ -6,7 +6,7 @@ import org.w3c.dom.Document;
 
 public abstract interface ContentDirectoryMessageBuilder
 {
-  public abstract Document buildXML(List<DirectoryObject> paramList);
+  public abstract Document buildXML(List!(DirectoryObject) paramList);
 }
 
 /* Location:           D:\Program Files\Serviio\lib\serviio.jar

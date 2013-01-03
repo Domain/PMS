@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract interface SSDPMessageBuilder
 {
-  public abstract List<String> generateSSDPMessages(Integer paramInteger, String paramString)
+  public abstract List!(String) generateSSDPMessages(Integer paramInteger, String paramString)
     throws InsufficientInformationException;
 }
 

@@ -19,10 +19,10 @@ public abstract interface RendererDAO
   public abstract void delete(String paramString)
     throws PersistenceException;
 
-  public abstract List<Renderer> findByIPAddress(String paramString)
+  public abstract List!(Renderer) findByIPAddress(String paramString)
     throws PersistenceException;
 
-  public abstract List<Renderer> findAll()
+  public abstract List!(Renderer) findAll()
     throws PersistenceException;
 }
 

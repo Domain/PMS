@@ -7,7 +7,7 @@ public class StatusRepresentation
 {
   private UPnPServerStatus serverStatus;
   private String boundIPAddress;
-  private List<RendererRepresentation> renderers;
+  private List!(RendererRepresentation) renderers;
 
   public UPnPServerStatus getServerStatus()
   {
@@ -22,10 +22,10 @@ public class StatusRepresentation
   public void setBoundIPAddress(String boundIPAddress) {
     this.boundIPAddress = boundIPAddress;
   }
-  public List<RendererRepresentation> getRenderers() {
+  public List!(RendererRepresentation) getRenderers() {
     return renderers;
   }
-  public void setRenderers(List<RendererRepresentation> renderers) {
+  public void setRenderers(List!(RendererRepresentation) renderers) {
     this.renderers = renderers;
   }
 }

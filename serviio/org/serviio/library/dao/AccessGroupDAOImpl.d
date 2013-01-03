@@ -52,7 +52,7 @@ public class AccessGroupDAOImpl
     throw new RuntimeException("Operation not implemented");
   }
 
-  public List<AccessGroup> getAccessGroupsForRepository(Long repoId)
+  public List!(AccessGroup) getAccessGroupsForRepository(Long repoId)
   {
     log.debug_(String.format("Reading all AccessGroups for Repository (id = %s)", cast(Object[])[ repoId ]));
     Connection con = null;
@@ -71,7 +71,7 @@ public class AccessGroupDAOImpl
     }
   }
 
-  public List<AccessGroup> getAccessGroupsForOnlineRepository(Long repoId)
+  public List!(AccessGroup) getAccessGroupsForOnlineRepository(Long repoId)
   {
     log.debug_(String.format("Reading all AccessGroups for OnlineRepository (id = %s)", cast(Object[])[ repoId ]));
     Connection con = null;
@@ -90,7 +90,7 @@ public class AccessGroupDAOImpl
     }
   }
 
-  public List<AccessGroup> findAll()
+  public List!(AccessGroup) findAll()
   {
     log.debug_("Reading all AccessGroups");
     Connection con = null;
@@ -116,9 +116,9 @@ public class AccessGroupDAOImpl
     return null;
   }
 
-  protected List<AccessGroup> mapResultSet(ResultSet rs)
+  protected List!(AccessGroup) mapResultSet(ResultSet rs)
     {
-    List<AccessGroup> result = new ArrayList<AccessGroup>();
+    List!(AccessGroup) result = new ArrayList!(AccessGroup)();
     while (rs.next()) {
       result.add(initUserProfile(rs));
     }

@@ -34,10 +34,10 @@ public abstract class AbstractCDSServerResource : AbstractProEditionServerResour
     throw new ServerUnavailableException();
   }
 
-  protected Map<String, String> getRequestHeaders(Request request)
+  protected Map!(String, String) getRequestHeaders(Request request)
   {
     Form form = cast(Form)request.getAttributes().get(ORG_RESTLET_HTTP_HEADERS);
-    Map<String, String> headers = new CaseInsensitiveMap<String>();
+    Map!(String, String) headers = new CaseInsensitiveMap!(String)();
     for (Parameter p : form) {
       headers.put(p.getName(), p.getValue());
     }

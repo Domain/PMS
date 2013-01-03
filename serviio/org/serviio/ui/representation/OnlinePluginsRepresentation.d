@@ -8,9 +8,9 @@ public class OnlinePluginsRepresentation
 {
 
   @XStreamImplicit
-  private Set<OnlinePlugin> plugins = new TreeSet<OnlinePlugin>();
+  private Set!(OnlinePlugin) plugins = new TreeSet!(OnlinePlugin)();
 
-  public Set<OnlinePlugin> getPlugins()
+  public Set!(OnlinePlugin) getPlugins()
   {
     return plugins;
   }

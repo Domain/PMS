@@ -20,7 +20,7 @@ public class DBSchemaUpdateExecutor
   public static void updateDBSchema()
   {
     log.info("Checking if DB schema needs to be updated");
-    List<String> scriptsToRun = new ArrayList<String>();
+    List!(String) scriptsToRun = new ArrayList!(String)();
 
     for (String scriptFile : scripts) {
       bool scriptRun = false;

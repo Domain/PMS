@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Profile
-  : Comparable<Profile>
+  : Comparable!(Profile)
 {
   private static final Logger log = LoggerFactory.getLogger(Profile.class);
   public static final String DETECTION_FIELD_SERVER = "Server";
@@ -28,8 +28,8 @@ public class Profile
   private String name;
   private bool alwaysEnableTranscoding;
   private Class<?> contentDirectoryMessageBuilderClass;
-  private List<DetectionDefinition> detectionDefinitions;
-  private Map<MediaFormatProfile, ProtocolInfo> protocolInfo = new LinkedHashMap<MediaFormatProfile, ProtocolInfo>();
+  private List!(DetectionDefinition) detectionDefinitions;
+  private Map!(MediaFormatProfile, ProtocolInfo) protocolInfo = new LinkedHashMap!(MediaFormatProfile, ProtocolInfo)();
   private DeviceDescription deviceDescription;
   private ResourceTransportProtocolHandler resourceTransportProtocolHandler;
   private String protocolInfoType;
@@ -38,11 +38,11 @@ public class Profile
   private bool automaticImageRotation;
   private bool limitImageResolution;
   private String subtitlesMimeType;
-  private List<DeliveryQuality> deliveryQualities;
+  private List!(DeliveryQuality) deliveryQualities;
   private bool selectable;
   private H264LevelCheckType h264LevelCheck;
 
-  public this(String id, String name, Class<?> contentDirectoryMessageBuilderClass, ResourceTransportProtocolHandler resourceTransportProtocolHandler, List<DetectionDefinition> detectionDefinitions, Map<MediaFormatProfile, ProtocolInfo> protocolInfo, String protocolInfoType, DeviceDescription deviceDescription, ContentDirectoryDefinitionFilter cdDefinitionFilter, TranscodingConfiguration transcodingConfiguration, TranscodingConfiguration onlineTranscodingConfiguration, bool automaticImageRotation, bool limitImageResolution, String subtitlesMimeType, bool alwaysEnableTranscoding, bool selectable, List<DeliveryQuality> deliveryQualities, H264LevelCheckType h264LevelCheck)
+  public this(String id, String name, Class<?> contentDirectoryMessageBuilderClass, ResourceTransportProtocolHandler resourceTransportProtocolHandler, List!(DetectionDefinition) detectionDefinitions, Map!(MediaFormatProfile, ProtocolInfo) protocolInfo, String protocolInfoType, DeviceDescription deviceDescription, ContentDirectoryDefinitionFilter cdDefinitionFilter, TranscodingConfiguration transcodingConfiguration, TranscodingConfiguration onlineTranscodingConfiguration, bool automaticImageRotation, bool limitImageResolution, String subtitlesMimeType, bool alwaysEnableTranscoding, bool selectable, List!(DeliveryQuality) deliveryQualities, H264LevelCheckType h264LevelCheck)
   {
     this.id = id;
     this.name = name;
@@ -123,7 +123,7 @@ public class Profile
     return name;
   }
 
-  public List<DetectionDefinition> getDetectionDefinitions() {
+  public List!(DetectionDefinition) getDetectionDefinitions() {
     return detectionDefinitions;
   }
 
@@ -143,7 +143,7 @@ public class Profile
     return protocolInfoType;
   }
 
-  public Map<MediaFormatProfile, ProtocolInfo> getProtocolInfo() {
+  public Map!(MediaFormatProfile, ProtocolInfo) getProtocolInfo() {
     return protocolInfo;
   }
 
@@ -175,7 +175,7 @@ public class Profile
     return alwaysEnableTranscoding;
   }
 
-  public List<DeliveryQuality> getAlternativeDeliveryQualities() {
+  public List!(DeliveryQuality) getAlternativeDeliveryQualities() {
     return Collections.unmodifiableList(deliveryQualities);
   }
 

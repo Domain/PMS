@@ -27,19 +27,19 @@ public class GenericDLNAMessageBuilder
 {
   private static final Logger log = LoggerFactory.getLogger(GenericDLNAMessageBuilder.class);
   private static DocumentBuilder xmlBuilder;
-  private Set<String> includedFields;
+  private Set!(String) includedFields;
 
   public this(String filter)
   {
     if (!filter.equals("*")) {
-      includedFields = new HashSet<String>();
+      includedFields = new HashSet!(String)();
       String[] fields = filter.split(",");
       for (String field : fields)
         includedFields.add(StringUtils.localeSafeToLowercase(field.trim()));
     }
   }
 
-  public Document buildXML(List<DirectoryObject> objects)
+  public Document buildXML(List!(DirectoryObject) objects)
   {
     Document xml = null;
     synchronized (xmlBuilder) {

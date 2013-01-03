@@ -156,13 +156,13 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 
 	private String searchForMovie(String[] movieNames, Integer releaseYear)
 			{
-		List<Node> returnedMovieNodes = findAllSearchMatches(movieNames, releaseYear);
+		List!(Node) returnedMovieNodes = findAllSearchMatches(movieNames, releaseYear);
 
 		if (returnedMovieNodes.size() > 0)
 		{
 			try
 			{
-				List<Node> moviesWithMatchingName = filterMovieNodesForNameMatch(
+				List!(Node) moviesWithMatchingName = filterMovieNodesForNameMatch(
 						returnedMovieNodes, movieNames);
 				Node matchingMovieNode = null;
 				if (moviesWithMatchingName.size() > 0)
@@ -197,9 +197,9 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 		return null;
 	}
 
-	private List<Node> findAllSearchMatches(String[] movieNames, Integer year)
+	private List!(Node) findAllSearchMatches(String[] movieNames, Integer year)
 			{
-		List<Node> allReturnedNodes = new ArrayList<Node>();
+		List!(Node) allReturnedNodes = new ArrayList!(Node)();
 		String languageCode = Configuration.getMetadataPreferredLanguage();
 		for (String movieName : movieNames)
 		{
@@ -301,9 +301,9 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 		}
 	}
 
-	private List<Node> filterMovieNodesForNameMatch(List<Node> movieNodes,
+	private List!(Node) filterMovieNodesForNameMatch(List!(Node) movieNodes,
 			String[] movieNames) {
-		List<Node> result = new ArrayList<Node>();
+		List!(Node) result = new ArrayList!(Node)();
 		if ((movieNodes !is null) && (movieNodes.size() > 0))
 		{
 			for (int i = 0; i < movieNodes.size(); i++)
@@ -314,7 +314,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 						"original_name");
 				NodeList altNamesNodes = XPathUtil.getNodeSet(movieNode,
 						"alternative_name");
-				List<String> altNames = new ArrayList<String>();
+				List!(String) altNames = new ArrayList!(String)();
 				for (int j = 0; j < altNamesNodes.getLength(); j++)
 				{
 					Node altNameNode = altNamesNodes.item(j);
@@ -347,9 +347,9 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 		return result;
 	}
 
-	private List<String> getCast(NodeList personNodeList)
+	private List!(String) getCast(NodeList personNodeList)
 			{
-		List<String> result = new ArrayList<String>();
+		List!(String) result = new ArrayList!(String)();
 		if ((personNodeList !is null) && (personNodeList.getLength() > 0))
 		{
 			for (int i = 0; i < personNodeList.getLength(); i++)

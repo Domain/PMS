@@ -24,7 +24,7 @@ public class PlaylistService
     return (Playlist)DAOFactory.getPlaylistDAO().read(playlistId);
   }
 
-  public static List<Playlist> getAllPlaylists()
+  public static List!(Playlist) getAllPlaylists()
   {
     return DAOFactory.getPlaylistDAO().findAll();
   }
@@ -38,7 +38,7 @@ public class PlaylistService
   {
     log.debug_(String.format("Adding playlist into database: %s", cast(Object[])[ parsedPlaylist.getTitle() ]));
 
-    Playlist playlist = new Playlist(parsedPlaylist.getTitle(), new HashSet<MediaFileType>(), filePath, lastModified, repository.getId());
+    Playlist playlist = new Playlist(parsedPlaylist.getTitle(), new HashSet!(MediaFileType)(), filePath, lastModified, repository.getId());
     playlist.setAllItemsFound(false);
 
     DAOFactory.getPlaylistDAO().create(playlist);
@@ -49,7 +49,7 @@ public class PlaylistService
     DAOFactory.getPlaylistDAO().delete(playlistId);
   }
 
-  public static List<Playlist> getPlaylistsInRepository(Long repositoryId) {
+  public static List!(Playlist) getPlaylistsInRepository(Long repositoryId) {
     return DAOFactory.getPlaylistDAO().getPlaylistsInRepository(repositoryId);
   }
 
@@ -69,11 +69,11 @@ public class PlaylistService
     DAOFactory.getPlaylistDAO().addPlaylistItem(order, mediaItemId, playlistId);
   }
 
-  public static List<Integer> getPlaylistItemIndices(Long playlistId) {
+  public static List!(Integer) getPlaylistItemIndices(Long playlistId) {
     return DAOFactory.getPlaylistDAO().getPlaylistItemIndices(playlistId);
   }
 
-  public static List<Playlist> getListOfPlaylistsWithMedia(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Playlist) getListOfPlaylistsWithMedia(MediaFileType mediaType, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getPlaylistDAO().retrievePlaylistsWithMedia(mediaType, accessGroup, startingIndex, requestedCount);
   }

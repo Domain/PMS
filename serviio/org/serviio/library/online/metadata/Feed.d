@@ -5,7 +5,7 @@ import org.serviio.library.entities.OnlineRepository;
 import org.serviio.library.entities.OnlineRepository.OnlineRepositoryType;
 import org.serviio.library.online.FeedItemUrlExtractor;
 
-public class Feed : OnlineResourceContainer<FeedItem, FeedItemUrlExtractor>
+public class Feed : OnlineResourceContainer!(FeedItem, FeedItemUrlExtractor)
   : Serializable
 {
   private static final long serialVersionUID = 9081353584351407845L;

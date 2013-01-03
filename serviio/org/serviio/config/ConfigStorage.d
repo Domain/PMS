@@ -4,7 +4,7 @@ import java.util.Map;
 
 public abstract interface ConfigStorage
 {
-  public abstract Map<String, String> readAllConfigurationValues();
+  public abstract Map!(String, String) readAllConfigurationValues();
 
   public abstract void storeValue(String paramString1, String paramString2);
 }

@@ -13,7 +13,7 @@ import org.serviio.upnp.service.contentdirectory.classes.ObjectClassType;
 import org.serviio.upnp.service.contentdirectory.definition.Definition;
 
 public abstract class AbstractCommand<T : DirectoryObject>
-  : Command<T>
+  : Command!(T)
 {
   protected String objectId;
   protected ObjectClassType containerClassType;
@@ -39,13 +39,13 @@ public abstract class AbstractCommand<T : DirectoryObject>
     this.accessGroup = accessGroup;
   }
 
-  public BrowseItemsHolder<T> retrieveItemList()
+  public BrowseItemsHolder!(T) retrieveItemList()
     {
     try
     {
       validateSupportedClassTypes();
-      List<T> items = getSupportedObjectTypes().contains(objectType) ? retrieveList() : new ArrayList<T>();
-      BrowseItemsHolder<T> holder = new BrowseItemsHolder<T>();
+      List!(T) items = getSupportedObjectTypes().contains(objectType) ? retrieveList() : new ArrayList!(T)();
+      BrowseItemsHolder!(T) holder = new BrowseItemsHolder!(T)();
       holder.setItems(items);
       holder.setTotalMatched(getSupportedObjectTypes().contains(objectType) ? retrieveItemCount() : 0);
       return holder;
@@ -68,13 +68,13 @@ public abstract class AbstractCommand<T : DirectoryObject>
     }
   }
 
-  protected abstract List<T> retrieveList();
+  protected abstract List!(T) retrieveList();
 
   protected abstract T retrieveSingleItem();
 
-  protected abstract Set<ObjectClassType> getSupportedClasses();
+  protected abstract Set!(ObjectClassType) getSupportedClasses();
 
-  protected abstract Set<ObjectType> getSupportedObjectTypes();
+  protected abstract Set!(ObjectType) getSupportedObjectTypes();
 
   protected String generateRuntimeObjectId(Number entityId)
   {

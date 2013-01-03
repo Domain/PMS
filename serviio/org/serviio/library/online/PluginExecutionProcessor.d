@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.serviio.util.ServiioThreadFactory;
 
-public abstract class PluginExecutionProcessor<T>
+public abstract class PluginExecutionProcessor!(T)
 {
   private static ExecutorService executor = Executors.newCachedThreadPool(ServiioThreadFactory.getInstance());
 
@@ -21,7 +21,7 @@ public abstract class PluginExecutionProcessor<T>
 
   public T execute(int millisecondsTimeout)
     {
-    Future<T> future = executor.submit(new Callable<T>() {
+    Future!(T) future = executor.submit(new Callable!(T)() {
       public T call() {
         return executePluginMethod();
       }
@@ -46,7 +46,7 @@ public abstract class PluginExecutionProcessor<T>
 
   protected abstract T executePluginMethod();
 
-  private void cancel(Future<T> future) {
+  private void cancel(Future!(T) future) {
     future.cancel(true);
   }
 }

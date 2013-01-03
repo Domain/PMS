@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FileBasedTranscodingDeliveryStrategy : AbstractTranscodingDeliveryStrategy
-  : TranscodingDeliveryStrategy<File>
+  : TranscodingDeliveryStrategy!(File)
 {
   private static final Logger log = LoggerFactory.getLogger(FileBasedTranscodingDeliveryStrategy.class);
 

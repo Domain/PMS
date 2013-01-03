@@ -165,8 +165,8 @@ public class XBMCExtractor : AbstractLocalFileExtractor
       metadata.getOnlineIdentifiers().put(OnlineDBIdentifier.IMDB, imdbId.trim());
   }
 
-  private List<String> getActors(NodeList actorsNodeList) {
-    List<String> result = new ArrayList<String>();
+  private List!(String) getActors(NodeList actorsNodeList) {
+    List!(String) result = new ArrayList!(String)();
     if ((actorsNodeList !is null) && (actorsNodeList.getLength() > 0)) {
       for (int i = 0; i < actorsNodeList.getLength(); i++) {
         Node castNode = actorsNodeList.item(i);

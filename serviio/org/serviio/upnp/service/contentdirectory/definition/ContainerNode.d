@@ -18,22 +18,22 @@ public abstract class ContainerNode : DefinitionNode
 {
   private static final Logger log = LoggerFactory.getLogger(ContainerNode.class);
 
-  protected List<DefinitionNode> childNodes = new ArrayList<DefinitionNode>();
+  protected List!(DefinitionNode) childNodes = new ArrayList!(DefinitionNode)();
 
   public this(ObjectClassType objectClass, DefinitionNode parent, String cacheRegion)
   {
     super(objectClass, parent, cacheRegion);
   }
 
-  public BrowseItemsHolder<DirectoryObject> retrieveContainerItems(String containerId, ObjectType objectType, int startIndex, int count, Profile rendererProfile, AccessGroup userProfile)
+  public BrowseItemsHolder!(DirectoryObject) retrieveContainerItems(String containerId, ObjectType objectType, int startIndex, int count, Profile rendererProfile, AccessGroup userProfile)
   {
-    BrowseItemsHolder<DirectoryObject> resultHolder = new BrowseItemsHolder<DirectoryObject>();
+    BrowseItemsHolder!(DirectoryObject) resultHolder = new BrowseItemsHolder!(DirectoryObject)();
     int[] totalFound = new int[1];
     int[] returned = new int[1];
     if (count == 0) {
       count = 2147483647;
     }
-    List<DirectoryObject> items = findContainerItems(containerId, objectType, Integer.valueOf(startIndex), Integer.valueOf(count), returned, totalFound, rendererProfile, userProfile);
+    List!(DirectoryObject) items = findContainerItems(containerId, objectType, Integer.valueOf(startIndex), Integer.valueOf(count), returned, totalFound, rendererProfile, userProfile);
     resultHolder.setItems(items.size() < count ? items : items.subList(0, count));
     resultHolder.setTotalMatched(totalFound[0]);
     return resultHolder;
@@ -73,9 +73,9 @@ public abstract class ContainerNode : DefinitionNode
       throw new ContentDirectoryDefinitionException("Container class not provided in definition.");
   }
 
-  protected List<DirectoryObject> findContainerItems(String containerId, ObjectType objectType, Integer startIndex, Integer requestedCount, int[] returned, int[] totalFound, Profile rendererProfile, AccessGroup userProfile)
+  protected List!(DirectoryObject) findContainerItems(String containerId, ObjectType objectType, Integer startIndex, Integer requestedCount, int[] returned, int[] totalFound, Profile rendererProfile, AccessGroup userProfile)
   {
-    List<DirectoryObject> items = new ArrayList<DirectoryObject>();
+    List!(DirectoryObject) items = new ArrayList!(DirectoryObject)();
     Definition def = Definition.instance();
     for (DefinitionNode node : childNodes) {
       if (( cast(StaticContainerNode)node !is null )) {
@@ -110,7 +110,7 @@ public abstract class ContainerNode : DefinitionNode
       {
         int from = startIndex.intValue() <= returned[0] ? 0 : startIndex.intValue() - returned[0];
 
-        BrowseItemsHolder<DirectoryObject> holder = executeListAction(containerId, objectType, ( cast(ActionNode)node).getCommandClass(), node.getContainerClass(), node.getItemClass(), rendererProfile, userProfile, ( cast(ActionNode)node).getIdPrefix(), from, requestedCount.intValue() - returned[0]);
+        BrowseItemsHolder!(DirectoryObject) holder = executeListAction(containerId, objectType, ( cast(ActionNode)node).getCommandClass(), node.getContainerClass(), node.getItemClass(), rendererProfile, userProfile, ( cast(ActionNode)node).getIdPrefix(), from, requestedCount.intValue() - returned[0]);
 
         if (holder !is null) {
           totalFound[0] += holder.getTotalMatched();
@@ -123,14 +123,14 @@ public abstract class ContainerNode : DefinitionNode
   }
 
   @SuppressWarnings("unchecked")
-protected <T : DirectoryObject> Command<T> instantiateCommand(String containerId, ObjectType objectType, String commandClass, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup userProfile, String idPrefix, int startIndex, int count)
+protected <T : DirectoryObject> Command!(T) instantiateCommand(String containerId, ObjectType objectType, String commandClass, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup userProfile, String idPrefix, int startIndex, int count)
   {
     try
     {
       Class<?> clazz = Class.forName(commandClass);
       if (Command.class.isAssignableFrom(clazz)) {
         Constructor<?> c = clazz.getConstructor(cast(Class[])[ String.class, ObjectType.class, ObjectClassType.class, ObjectClassType.class, Profile.class, AccessGroup.class, String.class, Integer.TYPE, Integer.TYPE ]);
-        return (Command<T>)c.newInstance(cast(Object[])[ containerId, objectType, containerClassType, itemClassType, rendererProfile, userProfile, idPrefix, Integer.valueOf(startIndex), Integer.valueOf(count) ]);
+        return (Command!(T))c.newInstance(cast(Object[])[ containerId, objectType, containerClassType, itemClassType, rendererProfile, userProfile, idPrefix, Integer.valueOf(startIndex), Integer.valueOf(count) ]);
       }
 
       log.error(String.format("Cannot instantiate Command %s because it doesn't implement Command interface", cast(Object[])[ commandClass ]));
@@ -144,7 +144,7 @@ protected <T : DirectoryObject> Command<T> instantiateCommand(String containerId
 
   protected <T : DirectoryObject> int executeCountAction(String containerId, ObjectType objectType, String commandClass, AccessGroup userProfile, String idPrefix)
   {
-    Command<T> command = instantiateCommand(containerId, objectType, commandClass, null, null, null, userProfile, idPrefix, 0, 0);
+    Command!(T) command = instantiateCommand(containerId, objectType, commandClass, null, null, null, userProfile, idPrefix, 0, 0);
     try {
       return command.retrieveItemCount();
     } catch (CommandExecutionException e) {
@@ -152,13 +152,13 @@ protected <T : DirectoryObject> Command<T> instantiateCommand(String containerId
     }return 0;
   }
 
-  protected <T : DirectoryObject> BrowseItemsHolder<T> executeListAction(String containerId, ObjectType objectType, String commandClass, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup userProfile, String idPrefix, int startIndex, int count)
+  protected <T : DirectoryObject> BrowseItemsHolder!(T) executeListAction(String containerId, ObjectType objectType, String commandClass, ObjectClassType containerClassType, ObjectClassType itemClassType, Profile rendererProfile, AccessGroup userProfile, String idPrefix, int startIndex, int count)
   {
     ObjectClassType filteredContainerClassType = containerClassType;
     if (rendererProfile.getContentDirectoryDefinitionFilter() !is null) {
       filteredContainerClassType = rendererProfile.getContentDirectoryDefinitionFilter().filterContainerClassType(containerClassType, containerId);
     }
-    Command<T> command = instantiateCommand(containerId, objectType, commandClass, filteredContainerClassType, itemClassType, rendererProfile, userProfile, idPrefix, startIndex, count);
+    Command!(T) command = instantiateCommand(containerId, objectType, commandClass, filteredContainerClassType, itemClassType, rendererProfile, userProfile, idPrefix, startIndex, count);
     try {
       return command.retrieveItemList();
     } catch (CommandExecutionException e) {
@@ -167,7 +167,7 @@ protected <T : DirectoryObject> Command<T> instantiateCommand(String containerId
     }
   }
 
-  public List<DefinitionNode> getChildNodes()
+  public List!(DefinitionNode) getChildNodes()
   {
     return childNodes;
   }

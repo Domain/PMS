@@ -5,43 +5,43 @@ import java.util.Comparator;
 
 public final class StringComparators
 {
-  private static final Comparator<String> NATURAL_COMPARATOR_ASCII = new Comparator<String>() {
+  private static final Comparator!(String) NATURAL_COMPARATOR_ASCII = new Comparator!(String)() {
     public int compare(String o1, String o2) {
       return StringComparators.compareNaturalAscii(o1, o2);
     }
   };
 
-  private static final Comparator<String> IGNORE_CASE_NATURAL_COMPARATOR_ASCII = new Comparator<String>() {
+  private static final Comparator!(String) IGNORE_CASE_NATURAL_COMPARATOR_ASCII = new Comparator!(String)() {
     public int compare(String o1, String o2) {
       return StringComparators.compareNaturalIgnoreCaseAscii(o1, o2);
     }
   };
 
-  public static Comparator<String> getNaturalComparator()
+  public static Comparator!(String) getNaturalComparator()
   {
     Collator collator = Collator.getInstance();
     return getNaturalComparator(collator);
   }
 
-  public static Comparator<String> getNaturalComparator(final Collator collator)
+  public static Comparator!(String) getNaturalComparator(final Collator collator)
   {
     if (collator is null)
     {
       throw new NullPointerException("collator must not be null");
     }
-    return new Comparator<String>() {
+    return new Comparator!(String)() {
       public int compare(String o1, String o2) {
         return StringComparators.compareNatural(collator, o1, o2);
       }
     };
   }
 
-  public static Comparator<String> getNaturalComparatorAscii()
+  public static Comparator!(String) getNaturalComparatorAscii()
   {
     return NATURAL_COMPARATOR_ASCII;
   }
 
-  public static Comparator<String> getNaturalComparatorIgnoreCaseAscii()
+  public static Comparator!(String) getNaturalComparatorIgnoreCaseAscii()
   {
     return IGNORE_CASE_NATURAL_COMPARATOR_ASCII;
   }

@@ -51,15 +51,15 @@ public class MediaService
     DAOFactory.getMediaItemDAO().setMediaItemBookmark(mediaItemId, seconds);
   }
 
-  public static List<MediaItem> getMediaItemsInRepository(Long repositoryId) {
+  public static List!(MediaItem) getMediaItemsInRepository(Long repositoryId) {
     return DAOFactory.getMediaItemDAO().getMediaItemsInRepository(repositoryId);
   }
 
-  public static List<MediaItem> getMediaItemsInRepository(Long repositoryId, MediaFileType fileType) {
+  public static List!(MediaItem) getMediaItemsInRepository(Long repositoryId, MediaFileType fileType) {
     return DAOFactory.getMediaItemDAO().getMediaItemsInRepository(repositoryId, fileType);
   }
 
-  public static List<MediaItem> getDirtyMediaItemsInRepository(Long repositoryId) {
+  public static List!(MediaItem) getDirtyMediaItemsInRepository(Long repositoryId) {
     return DAOFactory.getMediaItemDAO().getDirtyMediaItemsInRepository(repositoryId);
   }
 
@@ -67,13 +67,13 @@ public class MediaService
     return DAOFactory.getMetadataDescriptorDAO().retrieveMetadataDescriptorForMedia(mediaItemId, extractorType);
   }
 
-  public static List<MetadataExtractorConfig> getMetadataExtractorConfigs(MediaFileType fileType) {
+  public static List!(MetadataExtractorConfig) getMetadataExtractorConfigs(MediaFileType fileType) {
     return DAOFactory.getMetadataExtractorConfigDAO().retrieveByMediaFileType(fileType);
   }
 
-  public static bool updateMetadataExtractorConfigs(List<ExtractorType> extractors, MediaFileType fileType)
+  public static bool updateMetadataExtractorConfigs(List!(ExtractorType) extractors, MediaFileType fileType)
   {
-    List<MetadataExtractorConfig> existingConfigs = getMetadataExtractorConfigs(fileType);
+    List!(MetadataExtractorConfig) existingConfigs = getMetadataExtractorConfigs(fileType);
 
     bool updateNecessary = false;
 

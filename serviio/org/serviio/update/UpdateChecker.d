@@ -61,7 +61,7 @@ private static void checkForUpdate()
   protected static bool versionGreaterThanCurrent(String releasedVersion, String currentVersion)
   {
     if ((releasedVersion !is null) && (currentVersion !is null)) {
-      Comparator<String> comparator = new VersionStringComparator();
+      Comparator!(String) comparator = new VersionStringComparator();
       return comparator.compare(releasedVersion, currentVersion) > 0;
     }
     return false;
@@ -95,7 +95,7 @@ private static void checkForUpdate()
   }
 
   private static class VersionStringComparator
-    : Comparator<String>
+    : Comparator!(String)
   {
     public int compare(String s1, String s2)
     {

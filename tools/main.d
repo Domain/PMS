@@ -100,6 +100,12 @@ void j2d(string filename, string jdir, string ddir)
 	auto arrayR = regex(r"new\s+([_a-zA-Z][\._a-zA-Z0-9]*\s*\[\s*\])\s*\{([^\}]*)\}", "g");
 	text = std.regex.replace(text, arrayR, "cast($1)[$2]");
 
+	auto templR = regex(r"<(\s*[_a-zA-Z][\.,0-9_a-zA-Z\s]*\s*)>", "g");
+	text = std.regex.replace(text, templR, "!($1)");
+
+	auto templR2 = regex(r"<(\s*[_a-zA-Z][\.,0-9_a-zA-Z!\(\)\s]*\s*)>", "g");
+	text = std.regex.replace(text, templR2, "!($1)");
+
 	dname = dname.replace(".java", ".d");
 	std.file.write(dname, text);
 

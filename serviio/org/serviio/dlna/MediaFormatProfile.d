@@ -944,7 +944,7 @@ public enum MediaFormatProfile
 
   public abstract MediaFileType getFileType();
 
-  public static List<MediaFormatProfile> getSupportedMediaFormatProfiles()
+  public static List!(MediaFormatProfile) getSupportedMediaFormatProfiles()
   {
     return Arrays.asList(values());
   }

@@ -117,7 +117,7 @@ public class ImageService
     return (Image)DAOFactory.getImageDAO().read(imageId);
   }
 
-  public static List<Image> getListOfImagesForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Image) getListOfImagesForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getImageDAO().retrieveImagesForFolder(folderId, accessGroup, startingIndex, requestedCount);
   }
@@ -127,7 +127,7 @@ public class ImageService
     return DAOFactory.getImageDAO().retrieveImagesForFolderCount(folderId, accessGroup);
   }
 
-  public static List<Image> getListOfImagesForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount) {
+  public static List!(Image) getListOfImagesForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount) {
     return DAOFactory.getImageDAO().retrieveImagesForPlaylist(playlistId, accessGroup, startingIndex, requestedCount);
   }
 
@@ -135,7 +135,7 @@ public class ImageService
     return DAOFactory.getImageDAO().retrieveImagesForPlaylistCount(playlistId, accessGroup);
   }
 
-  public static List<Image> getListOfImagesForYear(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Image) getListOfImagesForYear(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getImageDAO().retrieveImagesForYear(year, accessGroup, startingIndex, requestedCount);
   }
@@ -145,7 +145,7 @@ public class ImageService
     return DAOFactory.getImageDAO().retrieveImagesForYearCount(year, accessGroup);
   }
 
-  public static List<Integer> getListOfImagesCreationYears(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Integer) getListOfImagesCreationYears(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getImageDAO().retrieveImagesCreationYears(accessGroup, startingIndex, requestedCount);
   }
@@ -155,7 +155,7 @@ public class ImageService
     return DAOFactory.getImageDAO().retrieveImagesCreationYearsCount(accessGroup);
   }
 
-  public static List<Integer> getListOfImagesCreationMonths(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Integer) getListOfImagesCreationMonths(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getImageDAO().retrieveImagesCreationMonths(year, accessGroup, startingIndex, requestedCount);
   }
@@ -165,7 +165,7 @@ public class ImageService
     return DAOFactory.getImageDAO().retrieveImagesCreationMonthsCount(year, accessGroup);
   }
 
-  public static List<Image> getListOfImagesForMonthAndYear(Integer month, Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Image) getListOfImagesForMonthAndYear(Integer month, Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getImageDAO().retrieveImagesForMonthOfYear(month, year, accessGroup, startingIndex, requestedCount);
   }
@@ -175,7 +175,7 @@ public class ImageService
     return DAOFactory.getImageDAO().retrieveImagesForMonthOfYearCount(month, year, accessGroup);
   }
 
-  public static List<Image> getListOfAllImages(AccessGroup accessGroup, int startingIndex, int requestedCount)
+  public static List!(Image) getListOfAllImages(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
     return DAOFactory.getImageDAO().retrieveAllImages(accessGroup, startingIndex, requestedCount);
   }

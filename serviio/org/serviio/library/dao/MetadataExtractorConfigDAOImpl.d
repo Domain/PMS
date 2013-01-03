@@ -66,7 +66,7 @@ public class MetadataExtractorConfigDAOImpl
     }
   }
 
-  public List<MetadataExtractorConfig> retrieveByMediaFileType(MediaFileType type)
+  public List!(MetadataExtractorConfig) retrieveByMediaFileType(MediaFileType type)
     {
     log.debug_(String.format("Reading a list of Extractor configuration for type %s", cast(Object[])[ type.toString() ]));
     Connection con = null;
@@ -93,9 +93,9 @@ public class MetadataExtractorConfigDAOImpl
     return null;
   }
 
-  protected List<MetadataExtractorConfig> mapResultSet(ResultSet rs)
+  protected List!(MetadataExtractorConfig) mapResultSet(ResultSet rs)
     {
-    List<MetadataExtractorConfig> result = new ArrayList<MetadataExtractorConfig>();
+    List!(MetadataExtractorConfig) result = new ArrayList!(MetadataExtractorConfig)();
     while (rs.next()) {
       result.add(initConfig(rs));
     }

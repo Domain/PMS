@@ -25,7 +25,7 @@ public class NonClosingPipedInputStream : PipedInputStream
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
   private ScheduledFuture<?> scheduledFuture;
   private final ProcessListener processListener;
-  private AtomicReference<Date> lastBytesRead = new AtomicReference<Date>(new Date());
+  private AtomicReference!(Date) lastBytesRead = new AtomicReference!(Date)(new Date());
   private Client client;
   private DeliveryListener deliveryListener;
   private bool forceClosing = false;

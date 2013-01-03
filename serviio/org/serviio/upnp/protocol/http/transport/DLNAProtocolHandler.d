@@ -30,7 +30,7 @@ public class DLNAProtocolHandler : AbstractProtocolHandler
     return false;
   }
 
-  public void handleResponse(Map<String, String> requestHeaders, Map<String, Object> responseHeaders, HttpMethod httpMethod, ProtocolVersion requestHttpVersion, ResourceInfo resourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, Long streamSize, RangeHeaders range)
+  public void handleResponse(Map!(String, String) requestHeaders, Map!(String, Object) responseHeaders, HttpMethod httpMethod, ProtocolVersion requestHttpVersion, ResourceInfo resourceInfo, Integer protocolInfoIndex, TransferMode transferMode, Client client, Long streamSize, RangeHeaders range)
     {
     String contentFeaturesHeader = cast(String)requestHeaders.get("getcontentFeatures.dlna.org");
 
@@ -92,7 +92,7 @@ public class DLNAProtocolHandler : AbstractProtocolHandler
     return null;
   }
 
-  protected void storeContentFeatures(Map<String, Object> responseHeaders, ResourceInfo resourceInfo, Integer protocolInfoIndex, Client client)
+  protected void storeContentFeatures(Map!(String, Object) responseHeaders, ResourceInfo resourceInfo, Integer protocolInfoIndex, Client client)
   {
     if (( cast(MediaFormatProfileResource)resourceInfo !is null )) {
       MediaFormatProfileResource ri = cast(MediaFormatProfileResource)resourceInfo;
@@ -119,7 +119,7 @@ public class DLNAProtocolHandler : AbstractProtocolHandler
     return mediaItem;
   }
 
-  private void setContentLengthResponseHeader(Map<String, Object> responseHeaders, Long fileSize) {
+  private void setContentLengthResponseHeader(Map!(String, Object) responseHeaders, Long fileSize) {
     if (fileSize !is null)
       responseHeaders.put("Content-Length", fileSize.toString());
   }

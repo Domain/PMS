@@ -7,7 +7,7 @@ import org.serviio.upnp.service.contentdirectory.definition.Definition;
 
 public class DirectoryObjectBuilder
 {
-  public static DirectoryObject createInstance(ObjectClassType type, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId)
+  public static DirectoryObject createInstance(ObjectClassType type, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId)
   {
     if (type == ObjectClassType.CONTAINER) {
       Container container = new Container( cast(String)values.get(ClassProperties.ID), cast(String)values.get(ClassProperties.TITLE));
@@ -69,7 +69,7 @@ public class DirectoryObjectBuilder
     return null;
   }
 
-  private static void setupObject(DirectoryObject object, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId)
+  private static void setupObject(DirectoryObject object, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId)
   {
     org.serviio.library.entities.Person creator = (org.serviio.library.entities.Person)values.get(ClassProperties.CREATOR);
     if (creator !is null) {
@@ -80,7 +80,7 @@ public class DirectoryObjectBuilder
     object.setEntityId(entityId);
   }
 
-  private static void setupContainer(Container container, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupContainer(Container container, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupObject(container, values, resources, entityId);
     container.setChildCount( cast(Integer)values.get(ClassProperties.CHILD_COUNT));
     container.setSearchable(( cast(Boolean)values.get(ClassProperties.SEARCHABLE)).boolValue());
@@ -89,14 +89,14 @@ public class DirectoryObjectBuilder
     container.setMediaClass(mediaClass);
   }
 
-  private static void setupItem(Item item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupItem(Item item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupObject(item, values, resources, entityId);
     item.setRefID( cast(String)values.get(ClassProperties.REF_ID));
     item.setIcon( cast(Resource)values.get(ClassProperties.ICON));
     item.setDcmInfo( cast(String)values.get(ClassProperties.DCM_INFO));
   }
 
-  private static void setupAudioItem(AudioItem item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupAudioItem(AudioItem item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupItem(item, values, resources, entityId);
     item.setDescription( cast(String)values.get(ClassProperties.DESCRIPTION));
     org.serviio.library.entities.Genre genre = (org.serviio.library.entities.Genre)values.get(ClassProperties.GENRE);
@@ -111,7 +111,7 @@ public class DirectoryObjectBuilder
     item.setLive( cast(Boolean)values.get(ClassProperties.LIVE));
   }
 
-  private static void setupMusicTrack(MusicTrack item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupMusicTrack(MusicTrack item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupAudioItem(item, values, resources, entityId);
     org.serviio.library.entities.MusicAlbum album = (org.serviio.library.entities.MusicAlbum)values.get(ClassProperties.ALBUM);
     if (album !is null) {
@@ -125,19 +125,19 @@ public class DirectoryObjectBuilder
     item.setOriginalTrackNumber( cast(Integer)values.get(ClassProperties.ORIGINAL_TRACK_NUMBER));
   }
 
-  private static void setupGenre(Genre item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupGenre(Genre item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupContainer(item, values, resources, entityId);
   }
 
-  private static void setupPerson(Person item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupPerson(Person item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupContainer(item, values, resources, entityId);
   }
 
-  private static void setupMusicArtist(MusicArtist item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupMusicArtist(MusicArtist item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupPerson(item, values, resources, entityId);
   }
 
-  private static void setupImageItem(ImageItem item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupImageItem(ImageItem item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupItem(item, values, resources, entityId);
     item.setDescription( cast(String)values.get(ClassProperties.DESCRIPTION));
     item.setLongDescription( cast(String)values.get(ClassProperties.LONG_DESCRIPTION));
@@ -147,12 +147,12 @@ public class DirectoryObjectBuilder
     item.setAlbumArtURIResource( cast(Resource)values.get(ClassProperties.ALBUM_ART_URI));
   }
 
-  private static void setupPhoto(Photo item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupPhoto(Photo item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupImageItem(item, values, resources, entityId);
     item.setAlbum( cast(String)values.get(ClassProperties.ALBUM));
   }
 
-  private static void setupVideoItem(VideoItem item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId)
+  private static void setupVideoItem(VideoItem item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId)
   {
     setupItem(item, values, resources, entityId);
     org.serviio.library.entities.Genre genre = (org.serviio.library.entities.Genre)values.get(ClassProperties.GENRE);
@@ -175,24 +175,24 @@ public class DirectoryObjectBuilder
     item.setOnlineIdentifiers( cast(Map)values.get(ClassProperties.ONLINE_DB_IDENTIFIERS));
   }
 
-  private static void setupMovie(Movie item, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupMovie(Movie item, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupVideoItem(item, values, resources, entityId);
   }
 
-  private static void setupStorageFolder(StorageFolder container, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupStorageFolder(StorageFolder container, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupContainer(container, values, resources, entityId);
   }
 
-  private static void setupMusicAlbum(MusicAlbum container, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupMusicAlbum(MusicAlbum container, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupContainer(container, values, resources, entityId);
     container.setArtist( cast(String)values.get(ClassProperties.ARTIST));
   }
 
-  private static void setupPlaylistContainer(PlaylistContainer container, Map<ClassProperties, Object> values, List<Resource> resources, Long entityId) {
+  private static void setupPlaylistContainer(PlaylistContainer container, Map!(ClassProperties, Object) values, List!(Resource) resources, Long entityId) {
     setupContainer(container, values, resources, entityId);
   }
 
-  private static String[] getPersonsNames(List<org.serviio.library.entities.Person> persons)
+  private static String[] getPersonsNames(List!(org.serviio.library.entities.Person) persons)
   {
     if ((persons !is null) && (persons.size() > 0)) {
       String[] names = new String[persons.size()];

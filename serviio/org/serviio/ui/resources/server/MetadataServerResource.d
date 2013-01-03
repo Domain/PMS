@@ -38,7 +38,7 @@ public class MetadataServerResource : AbstractServerResource
 
   public ResultRepresentation save(MetadataRepresentation representation)
   {
-    List<ExtractorType> newVideoExtractors = createNewVideoExtractors(representation);
+    List!(ExtractorType) newVideoExtractors = createNewVideoExtractors(representation);
     bool audioExtractorsUpdated = MediaService.updateMetadataExtractorConfigs(createNewAudioExtractors(representation), MediaFileType.AUDIO);
     bool videoExtractorsUpdated = MediaService.updateMetadataExtractorConfigs(newVideoExtractors, MediaFileType.VIDEO);
     bool imageExtractorsUpdated = false;
@@ -92,7 +92,7 @@ public class MetadataServerResource : AbstractServerResource
 
   private void initAudioExtractors(MetadataRepresentation representation)
   {
-    List<MetadataExtractorConfig> configs = MediaService.getMetadataExtractorConfigs(MediaFileType.AUDIO);
+    List!(MetadataExtractorConfig) configs = MediaService.getMetadataExtractorConfigs(MediaFileType.AUDIO);
     for (MetadataExtractorConfig config : configs)
       if (config.getExtractorType() == ExtractorType.COVER_IMAGE_IN_FOLDER)
         representation.setAudioLocalArtExtractorEnabled(true);
@@ -100,7 +100,7 @@ public class MetadataServerResource : AbstractServerResource
 
   private void initVideoExtractors(MetadataRepresentation representation)
   {
-    List<MetadataExtractorConfig> configs = MediaService.getMetadataExtractorConfigs(MediaFileType.VIDEO);
+    List!(MetadataExtractorConfig) configs = MediaService.getMetadataExtractorConfigs(MediaFileType.VIDEO);
     bool descriptiveMetadataExtractorSelected = false;
     for (MetadataExtractorConfig config : configs) {
       if (config.getExtractorType() == ExtractorType.COVER_IMAGE_IN_FOLDER) {
@@ -114,18 +114,18 @@ public class MetadataServerResource : AbstractServerResource
       representation.setDescriptiveMetadataExtractor(DESCRIPTIVE_METADATA_EXTRACTOR_NONE);
   }
 
-  private List<ExtractorType> createNewAudioExtractors(MetadataRepresentation rep)
+  private List!(ExtractorType) createNewAudioExtractors(MetadataRepresentation rep)
   {
-    List<ExtractorType> configs = new ArrayList<ExtractorType>();
+    List!(ExtractorType) configs = new ArrayList!(ExtractorType)();
     if (rep.isAudioLocalArtExtractorEnabled()) {
       configs.add(ExtractorType.COVER_IMAGE_IN_FOLDER);
     }
     return configs;
   }
 
-  private List<ExtractorType> createNewVideoExtractors(MetadataRepresentation rep)
+  private List!(ExtractorType) createNewVideoExtractors(MetadataRepresentation rep)
   {
-    List<ExtractorType> configs = new ArrayList<ExtractorType>();
+    List!(ExtractorType) configs = new ArrayList!(ExtractorType)();
     if (rep.isVideoLocalArtExtractorEnabled()) {
       configs.add(ExtractorType.COVER_IMAGE_IN_FOLDER);
     }
