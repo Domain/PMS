@@ -45,7 +45,7 @@ public class FFMPEGWrapper : AbstractExecutableWrapper
 
   private static final String videoQualityFactor = ApplicationSettings.getStringProperty("transcoding_quality_factor");
 
-  private static final Logger log = LoggerFactory.getLogger(FFMPEGWrapper.class);
+  private static final Logger log = LoggerFactory.getLogger(FFMPEGWrapper.class_);
   private static final int DEFAULT_AUDIO_FREQUENCY = 48000;
   private static final int MIN_AUDIO_FREQUENCY = 44100;
   private static final int RTMP_BUFFER_SIZE = 100000000;

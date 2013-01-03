@@ -27,7 +27,7 @@ public class ApplicationSettings
   {
     try
     {
-      properties.load(ApplicationSettings.class.getResourceAsStream("/serviio.properties"));
+      properties.load(ApplicationSettings.class_.getResourceAsStream("/serviio.properties"));
     }
     catch (Exception e)
     {

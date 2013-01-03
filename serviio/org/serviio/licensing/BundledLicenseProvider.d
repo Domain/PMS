@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class BundledLicenseProvider
   : LicenseProvider
 {
-  private static final Logger log = LoggerFactory.getLogger(BundledLicenseProvider.class);
+  private static final Logger log = LoggerFactory.getLogger(BundledLicenseProvider.class_);
 
   private static final String BUNDLED_LICENSE_CONTENT = readBundledLicense();
 
@@ -21,7 +21,7 @@ public class BundledLicenseProvider
   private static String readBundledLicense()
   {
     try {
-      return StringUtils.readStreamAsString(FileUtils.getStreamFromClasspath("/default.lic", LicenseValidator.class), "UTF-8");
+      return StringUtils.readStreamAsString(FileUtils.getStreamFromClasspath("/default.lic", LicenseValidator.class_), "UTF-8");
     } catch (IOException e) {
       log.warn("Cannot find bundled license");
     }return null;

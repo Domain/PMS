@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class FileBasedTranscodingDeliveryStrategy : AbstractTranscodingDeliveryStrategy
   : TranscodingDeliveryStrategy!(File)
 {
-  private static final Logger log = LoggerFactory.getLogger(FileBasedTranscodingDeliveryStrategy.class);
+  private static final Logger log = LoggerFactory.getLogger(FileBasedTranscodingDeliveryStrategy.class_);
 
   public StreamDescriptor createInputStream(TranscodingJobListener jobListener, Client client)
     {

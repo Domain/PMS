@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class TranscodingCache
 {
-  private static final Logger log = LoggerFactory.getLogger(TranscodingCache.class);
+  private static final Logger log = LoggerFactory.getLogger(TranscodingCache.class_);
   private Long mediaItemId;
   private MediaFormatProfile transcodedProfile;
   private byte[] transcodedData;

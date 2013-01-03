@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class OutputBytesReader : OutputReader
 {
-  private static final Logger log = LoggerFactory.getLogger(OutputBytesReader.class);
+  private static final Logger log = LoggerFactory.getLogger(OutputBytesReader.class_);
   private ByteArrayOutputStream outputStream;
 
   public this(InputStream inputStream)

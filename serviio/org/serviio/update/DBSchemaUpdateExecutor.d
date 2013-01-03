@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class DBSchemaUpdateExecutor
 {
-  private static final Logger log = LoggerFactory.getLogger(DBSchemaUpdateExecutor.class);
+  private static final Logger log = LoggerFactory.getLogger(DBSchemaUpdateExecutor.class_);
 
   private static final String[] scripts = { "script-0.1.sql", "script-0.1.1.sql", "script-0.2.sql", "script-0.3.1.sql", "script-0.4.sql", "script-0.4.1.sql", "script-0.4.2.sql", "script-0.5.sql", "script-0.5.1.sql", "script-0.6.sql", "script-0.6.1.sql", "script-0.6.2.sql", "script-1.0.sql", "script-1.1.sql" };
 
@@ -40,7 +40,7 @@ public class DBSchemaUpdateExecutor
 
       for (String scriptFile : scriptsToRun) {
         try {
-          String sql = StringUtils.readStreamAsString(DBSchemaUpdateExecutor.class.getResourceAsStream("/sql/" + scriptFile), "UTF-8");
+          String sql = StringUtils.readStreamAsString(DBSchemaUpdateExecutor.class_.getResourceAsStream("/sql/" + scriptFile), "UTF-8");
           JdbcUtils.executeBatchStatement(sql);
         } catch (IOException e) {
           log.error(String.format("Cannot read script file %s", cast(Object[])[ scriptFile ]));

@@ -17,7 +17,7 @@ public class ITunesRssModuleImpl : ModuleImpl
 
   public this()
   {
-    super(ITunesRssModule.class, "http://itunes.apple.com/rss");
+    super(ITunesRssModule.class_, "http://itunes.apple.com/rss");
   }
 
   public void copyFrom(Object obj)
@@ -32,7 +32,7 @@ public class ITunesRssModuleImpl : ModuleImpl
 
   public Class<?> getInterface()
   {
-    return ITunesRssModule.class;
+    return ITunesRssModule.class_;
   }
 
   public Date getReleaseDate()

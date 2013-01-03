@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractExecutableWrapper
 {
-  private static final Logger log = LoggerFactory.getLogger(AbstractExecutableWrapper.class);
+  private static final Logger log = LoggerFactory.getLogger(AbstractExecutableWrapper.class_);
 
   protected static void executeSynchronously(ProcessExecutor executor)
   {

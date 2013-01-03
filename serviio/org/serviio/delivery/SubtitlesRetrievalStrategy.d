@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class SubtitlesRetrievalStrategy
   : ResourceRetrievalStrategy
 {
-  private static final Logger log = LoggerFactory.getLogger(SubtitlesRetrievalStrategy.class);
+  private static final Logger log = LoggerFactory.getLogger(SubtitlesRetrievalStrategy.class_);
 
   public DeliveryContainer retrieveResource(Long mediaItemId, MediaFormatProfile selectedVersion, QualityType selectedQuality, Double timeOffsetInSeconds, Double durationInSeconds, Client client, bool markAsRead)
     {

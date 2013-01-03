@@ -27,21 +27,21 @@ public class ApiRestletApplication : Application
   {
     Router router = new Router(getContext());
 
-    router.attach("/metadata", MetadataServerResource.class);
-    router.attach("/transcoding", TranscodingServerResource.class);
-    router.attach("/refdata/{name}", ReferenceDataServerResource.class);
-    router.attach("/action", ActionsServerResource.class);
-    router.attach("/library-status", LibraryStatusServerResource.class);
-    router.attach("/repository", RepositoryServerResource.class);
-    router.attach("/status", StatusServerResource.class);
-    router.attach("/service-status", ServiceStatusServerResource.class);
-    router.attach("/application", ApplicationServerResource.class);
-    router.attach("/presentation", PresentationServerResource.class);
-    router.attach("/console-settings", ConsoleSettingsServerResource.class);
-    router.attach("/remote-access", RemoteAccessServerResource.class);
-    router.attach("/license-upload", LicenseUploadServerResource.class);
-    router.attach("/plugins", OnlinePluginsServerResource.class);
-    router.attach("/ping", PingServerResource.class);
+    router.attach("/metadata", MetadataServerResource.class_);
+    router.attach("/transcoding", TranscodingServerResource.class_);
+    router.attach("/refdata/{name}", ReferenceDataServerResource.class_);
+    router.attach("/action", ActionsServerResource.class_);
+    router.attach("/library-status", LibraryStatusServerResource.class_);
+    router.attach("/repository", RepositoryServerResource.class_);
+    router.attach("/status", StatusServerResource.class_);
+    router.attach("/service-status", ServiceStatusServerResource.class_);
+    router.attach("/application", ApplicationServerResource.class_);
+    router.attach("/presentation", PresentationServerResource.class_);
+    router.attach("/console-settings", ConsoleSettingsServerResource.class_);
+    router.attach("/remote-access", RemoteAccessServerResource.class_);
+    router.attach("/license-upload", LicenseUploadServerResource.class_);
+    router.attach("/plugins", OnlinePluginsServerResource.class_);
+    router.attach("/ping", PingServerResource.class_);
 
     return router;
   }

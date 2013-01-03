@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class OnlineVideoSourcesMetadataExtractor : MetadataExtractor
 {
-  private static final Logger log = LoggerFactory.getLogger(OnlineVideoSourcesMetadataExtractor.class);
+  private static final Logger log = LoggerFactory.getLogger(OnlineVideoSourcesMetadataExtractor.class_);
 
   public ExtractorType getExtractorType()
   {

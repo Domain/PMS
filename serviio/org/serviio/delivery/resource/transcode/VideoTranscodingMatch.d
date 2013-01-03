@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class VideoTranscodingMatch
 {
-  private static final Logger log = LoggerFactory.getLogger(VideoTranscodingMatch.class);
+  private static final Logger log = LoggerFactory.getLogger(VideoTranscodingMatch.class_);
   private VideoContainer container;
   private VideoCodec videoCodec;
   private AudioCodec audioCodec;

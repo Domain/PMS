@@ -14,7 +14,7 @@ public class PropertiesFileConfigStorage
   {
     properties = new Properties();
     try {
-      properties.load(PropertiesFileConfigStorage.class.getResourceAsStream("/configuration.properties"));
+      properties.load(PropertiesFileConfigStorage.class_.getResourceAsStream("/configuration.properties"));
     }
     catch (Exception e)
     {

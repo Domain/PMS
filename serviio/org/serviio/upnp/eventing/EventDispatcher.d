@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 public class EventDispatcher
   : Runnable
 {
-  private static final Logger log = LoggerFactory.getLogger(EventDispatcher.class);
+  private static final Logger log = LoggerFactory.getLogger(EventDispatcher.class_);
   private static final int RESPONSE_TIMEOUT = 500;
   private static Map!(Service, Queue!(EventContainer)) eventQueues = new HashMap!(Service, Queue!(EventContainer))();
   private bool workerRunning;

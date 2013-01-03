@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class ApplicationInstanceManager
 {
-  private static final Logger log = LoggerFactory.getLogger(ApplicationInstanceManager.class);
+  private static final Logger log = LoggerFactory.getLogger(ApplicationInstanceManager.class_);
   private static ApplicationInstanceListener subListener;
   public static final int SINGLE_INSTANCE_NETWORK_SOCKET = 44331;
   public static final String SINGLE_INSTANCE_SHARED_KEY = "$$NewInstance$$\n";

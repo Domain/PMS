@@ -28,7 +28,7 @@ public class Definition
   public static Definition instance()
   {
     if (instance is null) {
-      InputStream definitionStream = Definition.class.getResourceAsStream("contentDirectoryDef.xml");
+      InputStream definitionStream = Definition.class_.getResourceAsStream("contentDirectoryDef.xml");
       try {
         instance = ContentDirectoryDefinitionParser.parseDefinition(definitionStream);
       } catch (ContentDirectoryDefinitionException e) {

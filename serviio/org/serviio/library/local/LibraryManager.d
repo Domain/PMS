@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 public class LibraryManager : AbstractLibraryManager
 {
-  private static final Logger log = LoggerFactory.getLogger(LibraryManager.class);
+  private static final Logger log = LoggerFactory.getLogger(LibraryManager.class_);
   private static LibraryManager instance;
   private LibraryUpdatesCheckerThread libraryUpdatesCheckerThread;
   private LibraryAdditionsCheckerThread libraryAdditionsCheckerThread;

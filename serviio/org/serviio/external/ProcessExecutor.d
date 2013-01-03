@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 public class ProcessExecutor : Thread
 {
-  private static final Logger log = LoggerFactory.getLogger(ProcessExecutor.class);
+  private static final Logger log = LoggerFactory.getLogger(ProcessExecutor.class_);
   private static final int OUTPUT_STREAM_TIMEOUT = 5000;
   private String[] commandArguments;
   private bool destroyed = false;

@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine!(VideoMediaInfo, Video)
 {
   private static VideoDeliveryEngine instance;
-  private static final Logger log = LoggerFactory.getLogger(VideoDeliveryEngine.class);
+  private static final Logger log = LoggerFactory.getLogger(VideoDeliveryEngine.class_);
 
   public static VideoDeliveryEngine getInstance()
   {

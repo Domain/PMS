@@ -23,7 +23,7 @@ public class OnlineItemService
 {
   private static OnlineLibraryManager onlineLibraryManager = OnlineLibraryManager.getInstance();
 
-  private static final Logger log = LoggerFactory.getLogger(OnlineItemService.class);
+  private static final Logger log = LoggerFactory.getLogger(OnlineItemService.class_);
 
   public static OnlineResourceContainer<?, ?> findContainerResourceById(Long onlineRepositoryId)
   {

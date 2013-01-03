@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 public class OnlineLibraryManager : AbstractLibraryManager
 {
-  private static final Logger log = LoggerFactory.getLogger(OnlineLibraryManager.class);
+  private static final Logger log = LoggerFactory.getLogger(OnlineLibraryManager.class_);
   private static OnlineLibraryManager instance;
   private OnlineCacheDecorator!(OnlineCachable) onlineCache;
   private OnlineCacheDecorator!(CoverImage) thumbnailCache;

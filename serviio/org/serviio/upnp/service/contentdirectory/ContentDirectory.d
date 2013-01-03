@@ -24,7 +24,7 @@ import org.w3c.dom.Document;
 
 public class ContentDirectory : Service
 {
-  private static final Logger log = LoggerFactory.getLogger(ContentDirectory.class);
+  private static final Logger log = LoggerFactory.getLogger(ContentDirectory.class_);
   private static final String VAR_A_ARG_TYPE_SortCriteria = "A_ARG_TYPE_SortCriteria";
   private static final String VAR_A_ARG_TYPE_UpdateID = "A_ARG_TYPE_UpdateID";
   private static final String VAR_A_ARG_TYPE_SearchCriteria = "A_ARG_TYPE_SearchCriteria";
@@ -220,7 +220,7 @@ public class ContentDirectory : Service
       throw new RuntimeException("MessageBuilder class not defined in Profile");
     try
     {
-      Constructor<?> c = builderClass.getConstructor(cast(Class[])[ String.class ]);
+      Constructor<?> c = builderClass.getConstructor(cast(Class[])[ String.class_ ]);
       return (ContentDirectoryMessageBuilder)c.newInstance(cast(Object[])[ filter ]);
     } catch (Exception e) {
       throw new RuntimeException(String.format("Cannot instantiate ContentDirectoryMessageBuilder. Message: %s", cast(Object[])[ e.getMessage() ]), e);

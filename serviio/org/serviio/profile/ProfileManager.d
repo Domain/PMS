@@ -22,7 +22,7 @@ public class ProfileManager
   public static final String DEFAULT_PROFILE_ID = "1";
   private static final String PROFILES_XML_PATH = "/profiles.xml";
   private static final String APP_PROFILES_XML_PATH = "/application-profiles.xml";
-  private static final Logger log = LoggerFactory.getLogger(ProfileManager.class);
+  private static final Logger log = LoggerFactory.getLogger(ProfileManager.class_);
 
   public static Profile getProfile(InetAddress clientIPAddress)
   {
@@ -124,7 +124,7 @@ public class ProfileManager
 
   private static List!(Profile) parseProfilesFromFile(String fileName, List!(Profile) currentProfiles)
   {
-    InputStream definitionStream = ProfileManager.class.getResourceAsStream(fileName);
+    InputStream definitionStream = ProfileManager.class_.getResourceAsStream(fileName);
     try {
       return ProfilesDefinitionParser.parseDefinition(definitionStream, currentProfiles);
     } catch (ProfilesDefinitionException e) {

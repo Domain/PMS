@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 public class ImageDeliveryEngine : AbstractDeliveryEngine!(ImageMediaInfo, Image)
 {
-  private static final Logger log = LoggerFactory.getLogger(ImageDeliveryEngine.class);
+  private static final Logger log = LoggerFactory.getLogger(ImageDeliveryEngine.class_);
 
   private static final List!(MediaFormatProfile) JPEG_PROFILES = Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_LRG, MediaFormatProfile.JPEG_MED, MediaFormatProfile.JPEG_SM ]);
 

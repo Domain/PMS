@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class ContainerNode : DefinitionNode
 {
-  private static final Logger log = LoggerFactory.getLogger(ContainerNode.class);
+  private static final Logger log = LoggerFactory.getLogger(ContainerNode.class_);
 
   protected List!(DefinitionNode) childNodes = new ArrayList!(DefinitionNode)();
 
@@ -128,8 +128,8 @@ protected <T : DirectoryObject> Command!(T) instantiateCommand(String containerI
     try
     {
       Class<?> clazz = Class.forName(commandClass);
-      if (Command.class.isAssignableFrom(clazz)) {
-        Constructor<?> c = clazz.getConstructor(cast(Class[])[ String.class, ObjectType.class, ObjectClassType.class, ObjectClassType.class, Profile.class, AccessGroup.class, String.class, Integer.TYPE, Integer.TYPE ]);
+      if (Command.class_.isAssignableFrom(clazz)) {
+        Constructor<?> c = clazz.getConstructor(cast(Class[])[ String.class_, ObjectType.class_, ObjectClassType.class_, ObjectClassType.class_, Profile.class_, AccessGroup.class_, String.class_, Integer.TYPE, Integer.TYPE ]);
         return (Command!(T))c.newInstance(cast(Object[])[ containerId, objectType, containerClassType, itemClassType, rendererProfile, userProfile, idPrefix, Integer.valueOf(startIndex), Integer.valueOf(count) ]);
       }
 

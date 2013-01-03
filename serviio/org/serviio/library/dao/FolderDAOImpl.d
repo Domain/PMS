@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public class FolderDAOImpl : AbstractAccessibleDao
   : FolderDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(FolderDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(FolderDAOImpl.class_);
 
   public long create(Folder newInstance)
     {

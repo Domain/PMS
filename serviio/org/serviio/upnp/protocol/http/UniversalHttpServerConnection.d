@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class UniversalHttpServerConnection : DefaultHttpServerConnection
 {
-  private static final Logger log = LoggerFactory.getLogger(UniversalHttpServerConnection.class);
+  private static final Logger log = LoggerFactory.getLogger(UniversalHttpServerConnection.class_);
   private String connectionId;
   private HttpEntity streamedEntity;
 

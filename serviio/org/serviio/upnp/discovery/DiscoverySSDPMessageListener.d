@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 public class DiscoverySSDPMessageListener : AbstractSSDPMessageListener
   : Runnable
 {
-  private static final Logger log = LoggerFactory.getLogger(DiscoverySSDPMessageListener.class);
+  private static final Logger log = LoggerFactory.getLogger(DiscoverySSDPMessageListener.class_);
 
   private bool workerRunning = false;
   private MulticastSocket socket;

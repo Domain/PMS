@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class ServiioStatusService : StatusService
 {
-  private static final Logger log = LoggerFactory.getLogger(ServiioStatusService.class);
+  private static final Logger log = LoggerFactory.getLogger(ServiioStatusService.class_);
 
   public Representation getRepresentation(Status status, Request request, Response response)
   {

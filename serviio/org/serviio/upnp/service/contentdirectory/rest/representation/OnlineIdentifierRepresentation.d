@@ -3,7 +3,7 @@ module org.serviio.upnp.service.contentdirectory.rest.representation.OnlineIdent
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
-@XStreamConverter(value=ToAttributedValueConverter.class, strings={"id"})
+@XStreamConverter(value=ToAttributedValueConverter.class_, strings={"id"})
 public class OnlineIdentifierRepresentation
 {
   private String type;

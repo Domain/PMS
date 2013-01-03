@@ -24,7 +24,7 @@ public class RequestExecutor
 {
   private static HttpParams params = new BasicHttpParams();
 
-  private static final Logger log = LoggerFactory.getLogger(RequestExecutor.class);
+  private static final Logger log = LoggerFactory.getLogger(RequestExecutor.class_);
 
   public static HttpResponse send(HttpRequest request, URL deliveryURL)
     {

@@ -37,7 +37,7 @@ public class TheTVDBSourceAdaptor : SearchSourceAdaptor
 	private static List!(String) bannerMirrors = new ArrayList!(String)();
 
 	private static final Logger log = LoggerFactory
-			.getLogger(TheTVDBSourceAdaptor.class);
+			.getLogger(TheTVDBSourceAdaptor.class_);
 
 	private static final DateFormat firstAiredDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd");

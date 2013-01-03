@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class PluginCompilerThread : Thread
 {
-  private static final Logger log = LoggerFactory.getLogger(PluginCompilerThread.class);
+  private static final Logger log = LoggerFactory.getLogger(PluginCompilerThread.class_);
   private static final int PLUGIN_COMPILER_CHECK_INTERVAL = 10;
   private File pluginsFolder;
   private Map!(AbstractUrlExtractor, OnlineRepositoryType) urlExtractors = new HashMap!(AbstractUrlExtractor, OnlineRepositoryType)();
@@ -107,12 +107,12 @@ public class PluginCompilerThread : Thread
     try {
       log.debug_(String.format("Starting plugin %s compilation", cast(Object[])[ pluginFile.getName() ]));
       Class<?> pluginClass = gcl.parseClass(new GroovyCodeSource(pluginFile), false);
-      if (AbstractUrlExtractor.class.isAssignableFrom(pluginClass)) {
+      if (AbstractUrlExtractor.class_.isAssignableFrom(pluginClass)) {
         bool feedPlugin = true;
         AbstractUrlExtractor pluginInstance = cast(AbstractUrlExtractor)pluginClass.newInstance();
-        if (FeedItemUrlExtractor.class.isAssignableFrom(pluginClass)) {
+        if (FeedItemUrlExtractor.class_.isAssignableFrom(pluginClass)) {
           urlExtractors.put(pluginInstance, OnlineRepositoryType.FEED);
-        } else if (WebResourceUrlExtractor.class.isAssignableFrom(pluginClass)) {
+        } else if (WebResourceUrlExtractor.class_.isAssignableFrom(pluginClass)) {
           urlExtractors.put(pluginInstance, OnlineRepositoryType.WEB_RESOURCE);
           feedPlugin = false;
         } else {
@@ -123,7 +123,7 @@ public class PluginCompilerThread : Thread
         OnlineLibraryManager.getInstance().removeFeedFromCache(pluginInstance);
         log.info(String.format("Added %s plugin %s (%s), version: %d", cast(Object[])[ feedPlugin ? "Feed" : "Web Resouce", pluginInstance.getExtractorName(), pluginFile.getName(), Integer.valueOf(pluginInstance.getVersion()) ]));
       } else {
-        log.warn(String.format("Groovy class %s (%s) doesn't extend %s, it will not be used", cast(Object[])[ pluginClass.getName(), pluginFile.getName(), FeedItemUrlExtractor.class.getName() ]));
+        log.warn(String.format("Groovy class %s (%s) doesn't extend %s, it will not be used", cast(Object[])[ pluginClass.getName(), pluginFile.getName(), FeedItemUrlExtractor.class_.getName() ]));
       }
     }
     catch (CompilationFailedException e) {

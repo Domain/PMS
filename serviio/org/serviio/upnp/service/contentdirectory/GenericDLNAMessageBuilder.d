@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
 public class GenericDLNAMessageBuilder
   : ContentDirectoryMessageBuilder
 {
-  private static final Logger log = LoggerFactory.getLogger(GenericDLNAMessageBuilder.class);
+  private static final Logger log = LoggerFactory.getLogger(GenericDLNAMessageBuilder.class_);
   private static DocumentBuilder xmlBuilder;
   private Set!(String) includedFields;
 
@@ -250,7 +250,7 @@ public class GenericDLNAMessageBuilder
     if (getterMethod !is null) {
       try {
         Class<?>[] parameterTypes = getterMethod.getParameterTypes();
-        if ((parameterTypes !is null) && (parameterTypes.length == 1) && (HostInfo.class.isAssignableFrom(parameterTypes[0]))) {
+        if ((parameterTypes !is null) && (parameterTypes.length == 1) && (HostInfo.class_.isAssignableFrom(parameterTypes[0]))) {
           return getterMethod.invoke(object, cast(Object[])[ getHostInfo() ]);
         }
         return getterMethod.invoke(object, new Object[0]);

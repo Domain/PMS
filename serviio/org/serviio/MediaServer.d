@@ -30,7 +30,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public class MediaServer
 {
-  private static final org.slf4j.Logger log = LoggerFactory.getLogger(MediaServer.class);
+  private static final org.slf4j.Logger log = LoggerFactory.getLogger(MediaServer.class_);
   private static DiscoveryManager discoveryManager;
   private static UPnPServerStatus status = UPnPServerStatus.STOPPED;
   private static Map!(String, Object) arguments = new HashMap!(String, Object)();

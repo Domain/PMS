@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public class ImageDAOImpl : AbstractSortableItemDao
   : ImageDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(ImageDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(ImageDAOImpl.class_);
 
   public long create(Image newInstance)
     {

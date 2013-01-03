@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 public class MediaResourceRetrievalStrategy
   : ResourceRetrievalStrategy
 {
-  private static final Logger log = LoggerFactory.getLogger(MediaResourceRetrievalStrategy.class);
+  private static final Logger log = LoggerFactory.getLogger(MediaResourceRetrievalStrategy.class_);
 
   public static List<? : ResourceInfo> getMediaInfoForAvailableProfiles(MediaItem mediaItem, Profile rendererProfile)
   {

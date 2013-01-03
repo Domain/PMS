@@ -14,7 +14,7 @@ public class MediaBrowserRestletApplication : Application
     Router router = new Router(getContext());
     router.setDefaultMatchingMode(1);
 
-    router.attachDefault(MediaBrowserServerResource.class);
+    router.attachDefault(MediaBrowserServerResource.class_);
     return router;
   }
 }

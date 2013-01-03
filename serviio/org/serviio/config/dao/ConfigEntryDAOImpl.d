@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 public class ConfigEntryDAOImpl
   : ConfigEntryDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(ConfigEntryDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(ConfigEntryDAOImpl.class_);
 
   public long create(ConfigEntry newInstance)
     {

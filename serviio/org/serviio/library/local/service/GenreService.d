@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 public class GenreService
   : Service
 {
-  private static final Logger log = LoggerFactory.getLogger(GenreService.class);
+  private static final Logger log = LoggerFactory.getLogger(GenreService.class_);
 
   public static void removeGenre(Long genreId)
   {

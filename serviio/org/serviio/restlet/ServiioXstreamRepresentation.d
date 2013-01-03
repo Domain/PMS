@@ -56,39 +56,39 @@ public class ServiioXstreamRepresentation!(T) : XstreamRepresentation!(T)
   protected XStream createXstream(MediaType arg0)
   {
     XStream xs = super.createXstream(arg0);
-    xs.alias("serviceStatus", ServiceStatusRepresentation.class);
-    xs.alias("action", ActionRepresentation.class);
-    xs.alias("application", ApplicationRepresentation.class);
-    xs.alias("license", LicenseRepresentation.class);
-    xs.alias("libraryStatus", LibraryStatusRepresentation.class);
-    xs.alias("metadata", MetadataRepresentation.class);
-    xs.alias("refdata", ReferenceDataRepresentation.class);
-    xs.alias("repository", RepositoryRepresentation.class);
-    xs.alias("result", ResultRepresentation.class);
-    xs.alias("status", StatusRepresentation.class);
-    xs.alias("transcoding", TranscodingRepresentation.class);
-    xs.alias("renderer", RendererRepresentation.class);
-    xs.alias("presentation", PresentationRepresentation.class);
-    xs.alias("consoleSettings", ConsoleSettingsRepresentation.class);
-    xs.alias("remoteAccess", RemoteAccessRepresentation.class);
-    xs.alias("plugins", OnlinePluginsRepresentation.class);
+    xs.alias("serviceStatus", ServiceStatusRepresentation.class_);
+    xs.alias("action", ActionRepresentation.class_);
+    xs.alias("application", ApplicationRepresentation.class_);
+    xs.alias("license", LicenseRepresentation.class_);
+    xs.alias("libraryStatus", LibraryStatusRepresentation.class_);
+    xs.alias("metadata", MetadataRepresentation.class_);
+    xs.alias("refdata", ReferenceDataRepresentation.class_);
+    xs.alias("repository", RepositoryRepresentation.class_);
+    xs.alias("result", ResultRepresentation.class_);
+    xs.alias("status", StatusRepresentation.class_);
+    xs.alias("transcoding", TranscodingRepresentation.class_);
+    xs.alias("renderer", RendererRepresentation.class_);
+    xs.alias("presentation", PresentationRepresentation.class_);
+    xs.alias("consoleSettings", ConsoleSettingsRepresentation.class_);
+    xs.alias("remoteAccess", RemoteAccessRepresentation.class_);
+    xs.alias("plugins", OnlinePluginsRepresentation.class_);
 
-    xs.alias("item", DataValue.class);
-    xs.alias("sharedFolder", SharedFolder.class);
-    xs.alias("fileType", MediaFileType.class);
-    xs.alias("browsingCategory", BrowsingCategory.class);
-    xs.alias("onlineRepository", OnlineRepository.class);
-    xs.alias("onlinePlugin", OnlinePlugin.class);
+    xs.alias("item", DataValue.class_);
+    xs.alias("sharedFolder", SharedFolder.class_);
+    xs.alias("fileType", MediaFileType.class_);
+    xs.alias("browsingCategory", BrowsingCategory.class_);
+    xs.alias("onlineRepository", OnlineRepository.class_);
+    xs.alias("onlinePlugin", OnlinePlugin.class_);
 
-    xs.alias("contentDirectory", ContentDirectoryRepresentation.class);
-    xs.alias("object", DirectoryObjectRepresentation.class);
-    xs.alias("contentUrl", ContentURLRepresentation.class);
-    xs.alias("identifier", OnlineIdentifierRepresentation.class);
+    xs.alias("contentDirectory", ContentDirectoryRepresentation.class_);
+    xs.alias("object", DirectoryObjectRepresentation.class_);
+    xs.alias("contentUrl", ContentURLRepresentation.class_);
+    xs.alias("identifier", OnlineIdentifierRepresentation.class_);
 
     ClassAliasingMapper mapper = new ClassAliasingMapper(xs.getMapper());
-    mapper.addClassAlias("id", Long.class);
-    xs.registerLocalConverter(SharedFolder.class, "accessGroupIds", new CollectionConverter(mapper));
-    xs.registerLocalConverter(OnlineRepository.class, "accessGroupIds", new CollectionConverter(mapper));
+    mapper.addClassAlias("id", Long.class_);
+    xs.registerLocalConverter(SharedFolder.class_, "accessGroupIds", new CollectionConverter(mapper));
+    xs.registerLocalConverter(OnlineRepository.class_, "accessGroupIds", new CollectionConverter(mapper));
 
     return xs;
   }

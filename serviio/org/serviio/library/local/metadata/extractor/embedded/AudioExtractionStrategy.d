@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AudioExtractionStrategy
 {
-  private static final Logger log = LoggerFactory.getLogger(AudioExtractionStrategy.class);
+  private static final Logger log = LoggerFactory.getLogger(AudioExtractionStrategy.class_);
 
   public void extractMetadata(AudioMetadata metadata, AudioFile f, AudioHeader header, Tag tag)
     {

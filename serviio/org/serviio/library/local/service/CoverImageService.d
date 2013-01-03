@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class CoverImageService
   : Service
 {
-  private static final Logger log = LoggerFactory.getLogger(CoverImageService.class);
+  private static final Logger log = LoggerFactory.getLogger(CoverImageService.class_);
 
   public static Long createCoverImage(ImageDescriptor image, Integer rotation)
   {

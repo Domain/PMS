@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class ImageMetadataRetriever
 {
-  private static final Logger log = LoggerFactory.getLogger(ImageMetadataRetriever.class);
+  private static final Logger log = LoggerFactory.getLogger(ImageMetadataRetriever.class_);
 
   public static void retrieveImageMetadata(ImageMetadata md, String imageLocation, bool local)
     {

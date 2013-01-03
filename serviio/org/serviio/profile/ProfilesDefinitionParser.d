@@ -51,7 +51,7 @@ import org.w3c.dom.NodeList;
 
 public class ProfilesDefinitionParser
 {
-  private static final Logger log = LoggerFactory.getLogger(ProfilesDefinitionParser.class);
+  private static final Logger log = LoggerFactory.getLogger(ProfilesDefinitionParser.class_);
   private static final String PROFILES_XSD = "Profiles.xsd";
   private static final String TAG_PROFILES = "Profiles";
   private static final String TAG_PROFILE = "Profile";
@@ -180,7 +180,7 @@ public class ProfilesDefinitionParser
     if (ObjectValidator.isNotEmpty(className)) {
       try {
         Class<?> clazz = Class.forName(className.trim());
-        if (!ContentDirectoryMessageBuilder.class.isAssignableFrom(clazz))
+        if (!ContentDirectoryMessageBuilder.class_.isAssignableFrom(clazz))
         {
           throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryMessageBuilder for profile %s is not of a proper type", cast(Object[])[ className, profileId ]));
         }
@@ -198,7 +198,7 @@ public class ProfilesDefinitionParser
     if (ObjectValidator.isNotEmpty(className)) {
       try {
         Class<?> clazz = Class.forName(className);
-        if (!ResourceTransportProtocolHandler.class.isAssignableFrom(clazz))
+        if (!ResourceTransportProtocolHandler.class_.isAssignableFrom(clazz))
         {
           throw new ProfilesDefinitionException(String.format("Class %s defining ResourceTransportProtocolHandler for profile %s is not of a proper type", cast(Object[])[ className, profileId ]));
         }
@@ -220,7 +220,7 @@ public class ProfilesDefinitionParser
     if (ObjectValidator.isNotEmpty(className)) {
       try {
         Class<?> clazz = Class.forName(className);
-        if (!ContentDirectoryDefinitionFilter.class.isAssignableFrom(clazz))
+        if (!ContentDirectoryDefinitionFilter.class_.isAssignableFrom(clazz))
         {
           throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryDefinitionFilter for profile %s is not of a proper type", cast(Object[])[ className, profileId ]));
         }
@@ -692,7 +692,7 @@ public class ProfilesDefinitionParser
 
   private static void validateXML(String profilesXML)
     {
-    URL schemaURL = ProfilesDefinitionParser.class.getResource(PROFILES_XSD);
+    URL schemaURL = ProfilesDefinitionParser.class_.getResource(PROFILES_XSD);
     bool valid = XmlUtils.validateXML(PROFILES_XSD, schemaURL, profilesXML);
     if (!valid)
       throw new ProfilesDefinitionException("Profiles XML file is not valid (according to the schema). Check the log.");

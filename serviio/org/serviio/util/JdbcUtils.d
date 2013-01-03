@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class JdbcUtils
 {
-  private static final Logger log = LoggerFactory.getLogger(JdbcUtils.class);
+  private static final Logger log = LoggerFactory.getLogger(JdbcUtils.class_);
 
   public static void executeBatchStatement(String sqlFile)
   {

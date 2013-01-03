@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
 
 public class XmlUtils
 {
-  private static final Logger log = LoggerFactory.getLogger(XmlUtils.class.getName());
+  private static final Logger log = LoggerFactory.getLogger(XmlUtils.class_.getName());
 
   public static String objectToXMLType(Object object)
   {

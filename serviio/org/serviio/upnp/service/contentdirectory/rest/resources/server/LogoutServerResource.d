@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 public class LogoutServerResource : AbstractRestrictedCDSServerResource
   : LogoutResource
 {
-  private static final Logger log = LoggerFactory.getLogger(LogoutServerResource.class);
+  private static final Logger log = LoggerFactory.getLogger(LogoutServerResource.class_);
 
   public ResultRepresentation logout()
   {

@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class OutputTextReader : OutputReader
 {
-  private static final Logger log = LoggerFactory.getLogger(OutputTextReader.class);
+  private static final Logger log = LoggerFactory.getLogger(OutputTextReader.class_);
 
   private List!(String) lines = new ArrayList!(String)();
   private Object linesLock;

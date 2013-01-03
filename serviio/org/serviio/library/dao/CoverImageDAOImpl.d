@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class CoverImageDAOImpl
   : CoverImageDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(CoverImageDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(CoverImageDAOImpl.class_);
 
   public long create(CoverImage newInstance)
     {

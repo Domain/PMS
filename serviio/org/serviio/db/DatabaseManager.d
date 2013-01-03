@@ -11,7 +11,7 @@ public class DatabaseManager
 {
   private static final int MAX_POOL_CONNECTION = 20;
   private static final long CONNECTION_TIMEOUT = 2000L;
-  private static final Logger log = LoggerFactory.getLogger(DatabaseManager.class);
+  private static final Logger log = LoggerFactory.getLogger(DatabaseManager.class_);
   private static String DB_SCHEMA_URL;
   private static DBConnectionPool pool = new DBConnectionPool("Serviio DB Pool", DB_SCHEMA_URL, MAX_POOL_CONNECTION);
   

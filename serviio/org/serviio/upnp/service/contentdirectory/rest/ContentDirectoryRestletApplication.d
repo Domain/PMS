@@ -19,12 +19,12 @@ public class ContentDirectoryRestletApplication : Application
     Router router = new Router(getContext());
     router.setDefaultMatchingMode(1);
 
-    router.attach("/browse/{profile}/{objectId}/{browseFlag}/{objectType}/{start}/{count}", CDSBrowseServerResource.class);
-    router.attach("/resource", CDSRetrieveMediaServerResource.class);
-    router.attach("/login", LoginServerResource.class);
-    router.attach("/logout", LogoutServerResource.class);
-    router.attach("/application", ApplicationServerResource.class);
-    router.attach("/ping", PingServerResource.class);
+    router.attach("/browse/{profile}/{objectId}/{browseFlag}/{objectType}/{start}/{count}", CDSBrowseServerResource.class_);
+    router.attach("/resource", CDSRetrieveMediaServerResource.class_);
+    router.attach("/login", LoginServerResource.class_);
+    router.attach("/logout", LogoutServerResource.class_);
+    router.attach("/application", ApplicationServerResource.class_);
+    router.attach("/ping", PingServerResource.class_);
 
     return router;
   }

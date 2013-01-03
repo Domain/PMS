@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 public class RestletServer
 {
-  private static final Logger log = LoggerFactory.getLogger(RestletServer.class);
+  private static final Logger log = LoggerFactory.getLogger(RestletServer.class_);
 
   private static Component apiComponent = new Component();
   private static Component cdsComponent = new Component();

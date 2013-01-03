@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class MetadataExtractorConfigDAOImpl
   : MetadataExtractorConfigDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(MetadataExtractorConfigDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(MetadataExtractorConfigDAOImpl.class_);
 
   public long create(MetadataExtractorConfig newInstance)
     {

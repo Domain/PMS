@@ -20,7 +20,7 @@ public class NonClosingPipedInputStream : PipedInputStream
 
   private static final int CLOSE_STREAM_AFTER_READ_INACTIVITY_SEC = ApplicationSettings.getIntegerProperty("transcoded_stream_after_read_inactivity_timeout").intValue();
 
-  private static final Logger log = LoggerFactory.getLogger(NonClosingPipedInputStream.class);
+  private static final Logger log = LoggerFactory.getLogger(NonClosingPipedInputStream.class_);
 
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
   private ScheduledFuture<?> scheduledFuture;

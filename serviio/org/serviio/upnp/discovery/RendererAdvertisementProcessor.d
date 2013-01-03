@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class RendererAdvertisementProcessor
   : Runnable
 {
-  private static final Logger log = LoggerFactory.getLogger(RendererAdvertisementProcessor.class);
+  private static final Logger log = LoggerFactory.getLogger(RendererAdvertisementProcessor.class_);
   private String deviceIPAddress;
   private String nts;
   private int timeToKeep;

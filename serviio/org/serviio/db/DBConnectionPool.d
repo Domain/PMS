@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 class DBConnectionPool
 {
-  private static final Logger log = LoggerFactory.getLogger(DBConnectionPool.class);
+  private static final Logger log = LoggerFactory.getLogger(DBConnectionPool.class_);
   private int checkedOut;
   private Vector!(Connection) freeConnections = new Vector!(Connection)();
   private int maxConn;

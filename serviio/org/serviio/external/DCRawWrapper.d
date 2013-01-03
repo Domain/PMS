@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class DCRawWrapper : AbstractExecutableWrapper
 {
-  private static final Logger log = LoggerFactory.getLogger(DCRawWrapper.class);
+  private static final Logger log = LoggerFactory.getLogger(DCRawWrapper.class_);
 
   protected static AtomicReference!(Boolean) present = new AtomicReference!(Boolean)();
 

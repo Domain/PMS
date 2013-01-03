@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
 public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
   : CDSBrowseResource
 {
-  private static final Logger log = LoggerFactory.getLogger(CDSBrowseServerResource.class);
+  private static final Logger log = LoggerFactory.getLogger(CDSBrowseServerResource.class_);
   private String profile;
   private String objectId;
   private int startIndex;

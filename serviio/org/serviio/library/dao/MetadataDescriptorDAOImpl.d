@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class MetadataDescriptorDAOImpl
   : MetadataDescriptorDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(MetadataDescriptorDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(MetadataDescriptorDAOImpl.class_);
 
   public long create(MetadataDescriptor newInstance)
     {

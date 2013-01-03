@@ -36,7 +36,7 @@ import org.w3c.dom.Node;
 
 public class ServiceInvoker
 {
-  private static final Logger log = LoggerFactory.getLogger(ServiceInvoker.class);
+  private static final Logger log = LoggerFactory.getLogger(ServiceInvoker.class_);
   private static MessageFactory messageFactory;
   private static final String QUERY_STATE_VARIABLE = "QueryStateVariable";
 
@@ -170,7 +170,7 @@ public class ServiceInvoker
           }
           if (method.getParameterTypes().length == operation.getParameters().size() + 1)
           {
-            if (method.getParameterTypes()[(method.getParameterTypes().length - 1)] == Renderer.class) {
+            if (method.getParameterTypes()[(method.getParameterTypes().length - 1)] == Renderer.class_) {
               methodToExecute = method;
               methodIsRendererSensitive = true;
               break;
@@ -221,7 +221,7 @@ public class ServiceInvoker
     int i = 0;
     for (Annotation[] annotations : parameterAnnotations) {
       Class<?> parameterType = parameterTypes[(i++)];
-      if (parameterType != Renderer.class) {
+      if (parameterType != Renderer.class_) {
         String paramValue = null;
         SOAPParameter paramAnnotation = null;
         SOAPParameters groupAnnotation = null;
@@ -257,7 +257,7 @@ public class ServiceInvoker
 
         Object castValue = paramValue;
         if ((paramValue !is null) && (
-          (Integer.class.isAssignableFrom(parameterType)) || (Integer.TYPE.isAssignableFrom(parameterType))))
+          (Integer.class_.isAssignableFrom(parameterType)) || (Integer.TYPE.isAssignableFrom(parameterType))))
         {
           castValue = Integer.valueOf(paramValue);
         }

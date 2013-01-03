@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class PersonDAOImpl : AbstractSortableItemDao
   : PersonDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(PersonDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(PersonDAOImpl.class_);
 
   public Person findPersonByName(String name)
   {

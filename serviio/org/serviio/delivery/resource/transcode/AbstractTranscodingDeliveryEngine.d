@@ -37,7 +37,7 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
   private static TranscodingDeliveryStrategy!(File) fileBasedStrategy = new FileBasedTranscodingDeliveryStrategy();
   private static TranscodingDeliveryStrategy!(OutputStream) streamBasedStrategy = new StreamBasedTranscodingDeliveryStrategy();
 
-  private static final Logger log = LoggerFactory.getLogger(AbstractTranscodingDeliveryEngine.class);
+  private static final Logger log = LoggerFactory.getLogger(AbstractTranscodingDeliveryEngine.class_);
 
   public static void cleanupTranscodingEngine()
   {

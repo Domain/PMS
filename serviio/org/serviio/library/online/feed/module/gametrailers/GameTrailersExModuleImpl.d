@@ -11,7 +11,7 @@ public class GameTrailersExModuleImpl : ModuleImpl
 
   public this()
   {
-    super(GameTrailersExModule.class, "http://www.gametrailers.com/rssexplained.php");
+    super(GameTrailersExModule.class_, "http://www.gametrailers.com/rssexplained.php");
   }
 
   public void copyFrom(Object obj)
@@ -23,7 +23,7 @@ public class GameTrailersExModuleImpl : ModuleImpl
 
   public Class<?> getInterface()
   {
-    return GameTrailersExModule.class;
+    return GameTrailersExModule.class_;
   }
 
   public Long getFileSize()

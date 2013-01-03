@@ -28,7 +28,7 @@ public class ResourceDeliveryProcessor
   private static final Long TRANSCODED_AUDIO_CONTENT_LENGTH = new Long(900000000L);
   private static final Long TRANSCODED_IMAGE_CONTENT_LENGTH = new Long(9000000L);
 
-  private static final Logger log = LoggerFactory.getLogger(ResourceDeliveryProcessor.class);
+  private static final Logger log = LoggerFactory.getLogger(ResourceDeliveryProcessor.class_);
   private ResourceRetrievalStrategyFactory resourceRetrievalStrategyFactory;
 
   public this(ResourceRetrievalStrategyFactory resourceRetrievalStrategyFactory)

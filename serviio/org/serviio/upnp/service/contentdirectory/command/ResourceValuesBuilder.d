@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 public class ResourceValuesBuilder
 {
-  private static final Logger log = LoggerFactory.getLogger(ResourceValuesBuilder.class);
+  private static final Logger log = LoggerFactory.getLogger(ResourceValuesBuilder.class_);
 
   public static List!(Resource) buildResources(MediaItem entity, Profile rendererProfile)
   {

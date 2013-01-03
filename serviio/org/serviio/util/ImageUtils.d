@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class ImageUtils
 {
-  private static final Logger log = LoggerFactory.getLogger(ImageUtils.class);
+  private static final Logger log = LoggerFactory.getLogger(ImageUtils.class_);
 
   public static ImageDescriptor resizeImageAsJPG(byte[] pImageData, int pMaxWidth, int pMaxHeight)
   {

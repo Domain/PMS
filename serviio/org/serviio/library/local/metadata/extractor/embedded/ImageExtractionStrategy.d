@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class ImageExtractionStrategy
 {
-  private static final Logger log = LoggerFactory.getLogger(ImageExtractionStrategy.class);
+  private static final Logger log = LoggerFactory.getLogger(ImageExtractionStrategy.class_);
 
   public void extractMetadata(ImageMetadata metadata, ByteSource f)
     {

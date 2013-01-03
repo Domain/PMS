@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class PipedOutputBytesReader : OutputReader
 {
-  private static final Logger log = LoggerFactory.getLogger(PipedOutputBytesReader.class);
+  private static final Logger log = LoggerFactory.getLogger(PipedOutputBytesReader.class_);
   private PipedOutputStream outputStream;
 
   public this(InputStream inputStream)

@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class MusicAlbumDAOImpl : AbstractSortableItemDao
   : MusicAlbumDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(MusicAlbumDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(MusicAlbumDAOImpl.class_);
 
   public long create(MusicAlbum newInstance)
     {

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class Configuration
 {
-  private static final Logger log = LoggerFactory.getLogger(Configuration.class);
+  private static final Logger log = LoggerFactory.getLogger(Configuration.class_);
   private static final String SEARCH_HIDDEN_FILES = "search_hidden_files";
   private static final String SEARCH_FOR_UPDATED_FILES = "search_updated_files";
   private static final String RETRIEVE_ART_FROM_ONLINE_SOURCES = "retireve_art_from_online_sources";

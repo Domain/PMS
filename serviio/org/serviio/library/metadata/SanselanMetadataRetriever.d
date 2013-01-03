@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 public class SanselanMetadataRetriever
 {
-  private static final Logger log = LoggerFactory.getLogger(EmbeddedMetadataExtractor.class);
+  private static final Logger log = LoggerFactory.getLogger(EmbeddedMetadataExtractor.class_);
 
   public static void retrieveImageMetadata(ImageMetadata md, String imageLocation, bool local)
     {

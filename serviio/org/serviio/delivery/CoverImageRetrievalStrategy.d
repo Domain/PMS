@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class CoverImageRetrievalStrategy
   : ResourceRetrievalStrategy
 {
-  private static final Logger log = LoggerFactory.getLogger(CoverImageRetrievalStrategy.class);
+  private static final Logger log = LoggerFactory.getLogger(CoverImageRetrievalStrategy.class_);
 
   public DeliveryContainer retrieveResource(Long coverImageId, MediaFormatProfile selectedVersion, QualityType selectedQuality, Double timeOffsetInSeconds, Double durationInSeconds, Client client, bool markAsRead)
     {

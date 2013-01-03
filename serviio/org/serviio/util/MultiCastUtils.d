@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class MultiCastUtils
 {
-  private static final Logger log = LoggerFactory.getLogger(MultiCastUtils.class);
+  private static final Logger log = LoggerFactory.getLogger(MultiCastUtils.class_);
 
   public static MulticastSocket startMultiCastSocketForListening(InetSocketAddress group, NetworkInterface networkInterface, int ttl)
     {

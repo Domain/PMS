@@ -32,7 +32,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 	private static final String APIKEY = "33a37a299fe4bef416e347c2fca2494c";
 	private static final String API_BASE_CONTEXT = "http://api.themoviedb.org/2.1/";
 	private static final Logger log = LoggerFactory
-			.getLogger(TheMovieDBSourceAdaptor.class);
+			.getLogger(TheMovieDBSourceAdaptor.class_);
 
 	private static final DateFormat releaseDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd");

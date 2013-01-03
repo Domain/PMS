@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class TemplateApplicator
 {
-  private static final Logger log = LoggerFactory.getLogger(TemplateApplicator.class);
+  private static final Logger log = LoggerFactory.getLogger(TemplateApplicator.class_);
 
   private static Configuration cfg = new Configuration();
 
@@ -40,7 +40,7 @@ public class TemplateApplicator
   {
     try
     {
-      cfg.setClassForTemplateLoading(TemplateApplicator.class, "/");
+      cfg.setClassForTemplateLoading(TemplateApplicator.class_, "/");
 
       cfg.setObjectWrapper(new DefaultObjectWrapper());
       cfg.setOutputEncoding("UTF-8");

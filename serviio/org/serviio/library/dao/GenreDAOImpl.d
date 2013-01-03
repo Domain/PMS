@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 public class GenreDAOImpl
   : GenreDAO
 {
-  private static final Logger log = LoggerFactory.getLogger(GenreDAOImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(GenreDAOImpl.class_);
 
   public long create(Genre newInstance)
     {

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class ProcessUtils
 {
-  private static final Logger log = LoggerFactory.getLogger(ProcessUtils.class);
+  private static final Logger log = LoggerFactory.getLogger(ProcessUtils.class_);
 
   public static void destroy(Process p)
   {

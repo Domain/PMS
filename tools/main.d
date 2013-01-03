@@ -106,6 +106,9 @@ void j2d(string filename, string jdir, string ddir)
 	auto templR2 = regex(r"<(\s*[_a-zA-Z][\.,0-9_a-zA-Z!\(\)\s]*\s*)>", "g");
 	text = std.regex.replace(text, templR2, "!($1)");
 
+	auto classR = regex(r"\.class\b", "g");
+	text = std.regex.replace(text, classR, ".class_");
+
 	dname = dname.replace(".java", ".d");
 	std.file.write(dname, text);
 

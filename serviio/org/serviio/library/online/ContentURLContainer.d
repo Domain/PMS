@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class ContentURLContainer
 {
-  private static final Logger log = LoggerFactory.getLogger(ContentURLContainer.class);
+  private static final Logger log = LoggerFactory.getLogger(ContentURLContainer.class_);
   private String contentUrl;
   private String thumbnailUrl;
   private MediaFileType fileType = MediaFileType.VIDEO;
