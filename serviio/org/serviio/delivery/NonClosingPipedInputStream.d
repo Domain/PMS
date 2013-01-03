@@ -138,7 +138,7 @@ public class NonClosingPipedInputStream : PipedInputStream
     }
     public void run() { if (!getLastBytesRead().after(streamClosed))
       {
-        NonClosingPipedInputStream.this.reallyClose();
+        this.outer.reallyClose();
       }
     }
   }

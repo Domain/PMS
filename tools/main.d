@@ -94,6 +94,9 @@ void j2d(string filename, string jdir, string ddir)
 	auto castR = regex(r"([\(,|&=])\s*(\(\s*(?:byte|short|int|long|float|double|[_a-zA-Z][_a-zA-Z0-9]*(?:\.[_a-zA-Z][_a-zA-Z0-9]*)?)\s*(?:\[\s*\]\s*)?\))(\s*[_a-zA-Z])", "g");
 	text = std.regex.replace(text, castR, "$1 cast$2$3");
 
+	auto outerR = regex(r"\b[_a-zA-Z][_a-zA-Z0-9]*\.this\b", "g");
+	text = std.regex.replace(text, outerR, "this.outer");
+
 	dname = dname.replace(".java", ".d");
 	std.file.write(dname, text);
 
