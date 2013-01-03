@@ -20,7 +20,7 @@ public class LocalAddressResolverStrategy
 {
   private static final String BOUND_ADDRESS = System.getProperty("serviio.boundAddr");
 
-  private static final List<String> INVALID_NIC_NAMES = Arrays.asList(new String[] { "vnic", "wmnet", "vmware", "bluetooth", "virtual" });
+  private static final List<String> INVALID_NIC_NAMES = Arrays.asList(cast(String[])[ "vnic", "wmnet", "vmware", "bluetooth", "virtual" ]);
 
   private static final Logger log = LoggerFactory.getLogger(LocalAddressResolverStrategy.class);
 
@@ -60,7 +60,7 @@ public class LocalAddressResolverStrategy
       return InetAddress.getByName(address);
     }
     catch (UnknownHostException e) {
-      log.warn(String.format("Cannot resolve IP address %s, will try other means", new Object[] { address }));
+      log.warn(String.format("Cannot resolve IP address %s, will try other means", cast(Object[])[ address ]));
     }
     return null;
   }

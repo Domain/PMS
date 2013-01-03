@@ -36,7 +36,7 @@ public class RepositoryService
 
     for (Repository existingRepository : existingRepositories) {
       if (!repositories.contains(existingRepository)) {
-        log.debug_(String.format("Will remove Repository: %s", new Object[] { existingRepository.toString() }));
+        log.debug_(String.format("Will remove Repository: %s", cast(Object[])[ existingRepository.toString() ]));
         repsToRemove.add(existingRepository);
       }
     }
@@ -75,10 +75,10 @@ public class RepositoryService
 
   private static bool removeRepositories(List<Repository> repositories)
   {
-    log.debug_(String.format("Found %s repositories to be removed", new Object[] { Integer.valueOf(repositories.size()) }));
+    log.debug_(String.format("Found %s repositories to be removed", cast(Object[])[ Integer.valueOf(repositories.size()) ]));
     bool mediaItemsRemoved = false;
     for (Repository repository : repositories) {
-      log.debug_(String.format("Removing all items in repository %s", new Object[] { repository.getId() }));
+      log.debug_(String.format("Removing all items in repository %s", cast(Object[])[ repository.getId() ]));
 
       List<MediaItem> mediaItems = MediaService.getMediaItemsInRepository(repository.getId());
       for (MediaItem mediaItem : mediaItems) {

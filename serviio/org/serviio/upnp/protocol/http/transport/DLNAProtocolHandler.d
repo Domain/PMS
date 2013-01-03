@@ -41,10 +41,10 @@ public class DLNAProtocolHandler : AbstractProtocolHandler
 
     if (range !is null) {
       if (range.hasHeaders(RangeHeaders.RangeUnit.SECONDS)) {
-        responseHeaders.put("TimeSeekRange.dlna.org", String.format("npt=%s-%s/%s", new Object[] { range.getStart(RangeHeaders.RangeUnit.SECONDS), range.getEnd(RangeHeaders.RangeUnit.SECONDS), range.getTotal(RangeHeaders.RangeUnit.SECONDS) }));
+        responseHeaders.put("TimeSeekRange.dlna.org", String.format("npt=%s-%s/%s", cast(Object[])[ range.getStart(RangeHeaders.RangeUnit.SECONDS), range.getEnd(RangeHeaders.RangeUnit.SECONDS), range.getTotal(RangeHeaders.RangeUnit.SECONDS) ]));
       } else if (range.hasHeaders(RangeHeaders.RangeUnit.BYTES)) {
         long total = range.getTotal(RangeHeaders.RangeUnit.BYTES).longValue();
-        responseHeaders.put("Content-Range", String.format("bytes %s-%s/%s", new Object[] { range.getStart(RangeHeaders.RangeUnit.BYTES), range.getEnd(RangeHeaders.RangeUnit.BYTES), total == -1L ? "50000000000" : Long.valueOf(total) }));
+        responseHeaders.put("Content-Range", String.format("bytes %s-%s/%s", cast(Object[])[ range.getStart(RangeHeaders.RangeUnit.BYTES), range.getEnd(RangeHeaders.RangeUnit.BYTES), total == -1L ? "50000000000" : Long.valueOf(total) ]));
       }
     }
 

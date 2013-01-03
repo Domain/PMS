@@ -83,9 +83,9 @@ public class RestletServer
 
     for (Entry<String, Application> application : applications.entrySet()) {
       if (ObjectValidator.isNotEmpty(remoteHost))
-        log.info(String.format("Starting Restlet server (%s) exposed on %s:%s", new Object[] { application.getKey(), remoteHost, Integer.valueOf(port) }));
+        log.info(String.format("Starting Restlet server (%s) exposed on %s:%s", cast(Object[])[ application.getKey(), remoteHost, Integer.valueOf(port) ]));
       else {
-        log.info(String.format("Starting Restlet server (%s) exposed on port %s", new Object[] { application.getKey(), Integer.valueOf(port) }));
+        log.info(String.format("Starting Restlet server (%s) exposed on port %s", cast(Object[])[ application.getKey(), Integer.valueOf(port) ]));
       }
       ( cast(Application)application.getValue()).setStatusService(new ServiioStatusService());
       ( cast(Application)application.getValue()).getRangeService().setEnabled(false);

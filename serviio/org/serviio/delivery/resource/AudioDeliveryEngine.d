@@ -66,17 +66,17 @@ public class AudioDeliveryEngine : AbstractTranscodingDeliveryEngine<AudioMediaI
         {
           MediaFormatProfile transcodedProfile = MediaFormatProfileResolver.resolveAudioFormat(mediaItem.getFileName(), trDef.getTargetContainer(), targetBitrate, targetSamplerate, targetChannels);
 
-          log.debug_(String.format("Found Format profile for transcoded file %s: %s", new Object[] { mediaItem.getFileName(), transcodedProfile }));
+          log.debug_(String.format("Found Format profile for transcoded file %s: %s", cast(Object[])[ mediaItem.getFileName(), transcodedProfile ]));
 
           transcodedMI.put(qualityType, Collections.singletonList(new AudioMediaInfo(mediaItem.getId(), transcodedProfile, fileSize, true, mediaItem.isLive(), mediaItem.getDuration(), rendererProfile.getMimeType(transcodedProfile), targetChannels, targetSamplerate, targetBitrate, qualityType)));
         }
         catch (UnsupportedDLNAMediaFileFormatException e) {
-          log.warn(String.format("Cannot get media info for transcoded file %s: %s", new Object[] { mediaItem.getFileName(), e.getMessage() }));
+          log.warn(String.format("Cannot get media info for transcoded file %s: %s", cast(Object[])[ mediaItem.getFileName(), e.getMessage() ]));
         }
       }
       return transcodedMI;
     }
-    log.warn(String.format("Cannot find matching transcoding definition for file %s", new Object[] { mediaItem.getFileName() }));
+    log.warn(String.format("Cannot find matching transcoding definition for file %s", cast(Object[])[ mediaItem.getFileName() ]));
     return new LinkedHashMap<QualityType, List<AudioMediaInfo>>();
   }
 

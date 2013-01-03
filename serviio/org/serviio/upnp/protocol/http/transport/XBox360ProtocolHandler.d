@@ -32,11 +32,11 @@ public class XBox360ProtocolHandler : DLNAProtocolHandler
               log.warn("Cannot validate cover image resource");
             }
           else {
-            throw new FileNotFoundException(String.format("Cover art doesn't exist for item %s", new Object[] { item.getFileName() }));
+            throw new FileNotFoundException(String.format("Cover art doesn't exist for item %s", cast(Object[])[ item.getFileName() ]));
           }
         }
       }
-      throw new InvalidResourceRequestException(String.format("Cannot retrieve resource specified by: %s", new Object[] { requestUri }));
+      throw new InvalidResourceRequestException(String.format("Cannot retrieve resource specified by: %s", cast(Object[])[ requestUri ]));
     }
 
     return super.getRequestedResourceDescription(requestUri);

@@ -34,7 +34,7 @@ public class ActionsServerResource : AbstractServerResource
       log.error("No action name specified, returning 400");
       setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
     } else {
-      log.debug_(String.format("Action with name '%s' was requested", new Object[] { representation.getName() }));
+      log.debug_(String.format("Action with name '%s' was requested", cast(Object[])[ representation.getName() ]));
       if (representation.getName().equals("forceVideoFilesMetadataUpdate"))
         return forceOnlineVideoFilesUpdate(representation);
       if (representation.getName().equals("forceLibraryRefresh"))
@@ -52,7 +52,7 @@ public class ActionsServerResource : AbstractServerResource
       if (representation.getName().equals("checkStreamUrl")) {
         return checkStreamUrl(representation);
       }
-      log.error(String.format("Action with name '%s' is not implemented, returning 400", new Object[] { representation.getName() }));
+      log.error(String.format("Action with name '%s' is not implemented, returning 400", cast(Object[])[ representation.getName() ]));
       setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 

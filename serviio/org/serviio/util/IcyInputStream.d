@@ -32,7 +32,7 @@ public class IcyInputStream : FilterInputStream
     Socket socket = new Socket(url.getHost(), port);
     OutputStream os = socket.getOutputStream();
     String userAgent = "Windows-Media-Player/12.0.7601.17514";
-    String req = String.format("GET %s HTTP/1.0\r\nuser-agent: %s\r\nConnection: keep-alive\r\n\r\n", new Object[] { path, userAgent });
+    String req = String.format("GET %s HTTP/1.0\r\nuser-agent: %s\r\nConnection: keep-alive\r\n\r\n", cast(Object[])[ path, userAgent ]);
     os.write(req.getBytes());
     return socket.getInputStream();
   }

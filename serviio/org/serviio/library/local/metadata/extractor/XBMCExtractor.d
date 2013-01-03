@@ -50,7 +50,7 @@ public class XBMCExtractor : AbstractLocalFileExtractor
         {
           bool validFile = validateXBMCNfoFile(nfoFile);
           if (validFile) {
-            log.debug_(String.format("Found XBMC NFO file %s. Will try to extract metadata from it.", new Object[] { nfoFile.getName() }));
+            log.debug_(String.format("Found XBMC NFO file %s. Will try to extract metadata from it.", cast(Object[])[ nfoFile.getName() ]));
             MetadataFile metadataFile = new MetadataFile(getExtractorType(), FileUtils.getLastModifiedDate(nfoFile), nfoFile.getName(), mediaFile);
 
             return metadataFile;
@@ -84,7 +84,7 @@ public class XBMCExtractor : AbstractLocalFileExtractor
       }
     }
     catch (XPathExpressionException e) {
-      throw new InvalidMediaFormatException(String.format("File '%s' couldn't be parsed: %s", new Object[] { xmlFile.getPath(), e.getMessage() }));
+      throw new InvalidMediaFormatException(String.format("File '%s' couldn't be parsed: %s", cast(Object[])[ xmlFile.getPath(), e.getMessage() ]));
     } finally {
       FileUtils.closeQuietly(xmlStream);
     }
@@ -92,7 +92,7 @@ public class XBMCExtractor : AbstractLocalFileExtractor
 
   protected bool validateXBMCNfoFile(File xmlFile)
     {
-    log.debug_(String.format("Checking if file '%s' is a XBMC NFO file", new Object[] { xmlFile.getName() }));
+    log.debug_(String.format("Checking if file '%s' is a XBMC NFO file", cast(Object[])[ xmlFile.getName() ]));
     InputStream xmlStream = null;
     try {
       xmlStream = new FileInputStream(xmlFile);
@@ -101,16 +101,16 @@ public class XBMCExtractor : AbstractLocalFileExtractor
         Node movieNode = XPathUtil.getNode(rootNode, "//movie");
         Node tvNode = XPathUtil.getNode(rootNode, "//episodedetails");
         if ((movieNode !is null) || (tvNode !is null)) {
-          log.debug_(String.format("File '%s' is a valid XBMC file", new Object[] { xmlFile.getName() }));
+          log.debug_(String.format("File '%s' is a valid XBMC file", cast(Object[])[ xmlFile.getName() ]));
           return true;
         }
       }
-      log.debug_(String.format("File '%s' is not a XBMC file", new Object[] { xmlFile.getName() }));
+      log.debug_(String.format("File '%s' is not a XBMC file", cast(Object[])[ xmlFile.getName() ]));
       return false;
     }
     catch (XPathExpressionException e)
     {
-      log.error(String.format("File '%s' couldn't be parsed:%s", new Object[] { xmlFile.getPath(), e.getMessage() }));
+      log.error(String.format("File '%s' couldn't be parsed:%s", cast(Object[])[ xmlFile.getPath(), e.getMessage() ]));
       return false;
     } finally {
       FileUtils.closeQuietly(xmlStream);
@@ -124,7 +124,7 @@ public class XBMCExtractor : AbstractLocalFileExtractor
       metadata.setGenre(StringUtils.trim(XPathUtil.getNodeValue(movieNode, "genre[1]")));
       metadata.setContentType(ContentType.MOVIE);
     } catch (XPathExpressionException e) {
-      throw new InvalidMediaFormatException(String.format("Error during parsing XBMC movie NFO file: %s", new Object[] { e.getMessage() }));
+      throw new InvalidMediaFormatException(String.format("Error during parsing XBMC movie NFO file: %s", cast(Object[])[ e.getMessage() ]));
     }
   }
 
@@ -149,7 +149,7 @@ public class XBMCExtractor : AbstractLocalFileExtractor
       }
       metadata.setContentType(ContentType.EPISODE);
     } catch (XPathExpressionException e) {
-      throw new InvalidMediaFormatException(String.format("Error during parsing XBMC TV NFO file: %s", new Object[] { e.getMessage() }));
+      throw new InvalidMediaFormatException(String.format("Error during parsing XBMC TV NFO file: %s", cast(Object[])[ e.getMessage() ]));
     }
   }
 
@@ -189,9 +189,9 @@ public class XBMCExtractor : AbstractLocalFileExtractor
           return showNode;
         }
       }
-      throw new IOException(String.format("File '%s' is not a XBMC show file", new Object[] { seriesNfo.getPath() }));
+      throw new IOException(String.format("File '%s' is not a XBMC show file", cast(Object[])[ seriesNfo.getPath() ]));
     } catch (XPathExpressionException e) {
-      throw new IOException(String.format("File '%s' couldn't be parsed: %s", new Object[] { seriesNfo.getPath(), e.getMessage() }));
+      throw new IOException(String.format("File '%s' couldn't be parsed: %s", cast(Object[])[ seriesNfo.getPath(), e.getMessage() ]));
     } finally {
       FileUtils.closeQuietly(xmlStream);
     }
@@ -206,7 +206,7 @@ public class XBMCExtractor : AbstractLocalFileExtractor
       folder = folder.getParentFile();
     }
     if (seriesNfo is null) {
-      throw new IOException(String.format("Cannot find tvshow.nfo file for %s, skipping XBMC metadata extraction", new Object[] { mediaFile.getPath() }));
+      throw new IOException(String.format("Cannot find tvshow.nfo file for %s, skipping XBMC metadata extraction", cast(Object[])[ mediaFile.getPath() ]));
     }
     return seriesNfo;
   }

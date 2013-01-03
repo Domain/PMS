@@ -28,7 +28,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
     if ((newInstance is null) || (ObjectValidator.isEmpty(newInstance.getTitle()))) {
       throw new InvalidArgumentException("Cannot create Series. Required data is missing.");
     }
-    log.debug_(String.format("Creating a new Series (title = %s)", new Object[] { newInstance.getTitle() }));
+    log.debug_(String.format("Creating a new Series (title = %s)", cast(Object[])[ newInstance.getTitle() ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -39,7 +39,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
       ps.executeUpdate();
       return JdbcUtils.retrieveGeneratedID(ps);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot create Series with title %s", new Object[] { newInstance.getTitle() }), e);
+      throw new PersistenceException(String.format("Cannot create Series with title %s", cast(Object[])[ newInstance.getTitle() ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -48,7 +48,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
 
   public void delete(final Long id)
   {
-    log.debug_(String.format("Deleting a Series (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Deleting a Series (id = %s)", cast(Object[])[ id ]));
     try
     {
       new JdbcExecutor<Object>()
@@ -64,13 +64,13 @@ public class SeriesDAOImpl : AbstractSortableItemDao
     }
     catch (SQLException e)
     {
-      throw new PersistenceException(String.format("Cannot delete Series with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot delete Series with id = %s", cast(Object[])[ id ]), e);
     }
   }
 
   public Series read(Long id)
   {
-    log.debug_(String.format("Reading a Series (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Reading a Series (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -80,7 +80,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read Series with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot read Series with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -93,7 +93,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
 
   public Series findSeriesByName(String name)
   {
-    log.debug_(String.format("Reading a Series (name = %s)", new Object[] { name }));
+    log.debug_(String.format("Reading a Series (name = %s)", cast(Object[])[ name ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -103,7 +103,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read Series with name = %s", new Object[] { name }), e);
+      throw new PersistenceException(String.format("Cannot read Series with name = %s", cast(Object[])[ name ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -112,7 +112,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
 
   public int getNumberOfEpisodes(Long seriesId)
   {
-    log.debug_(String.format("Getting number of episodes for series %s", new Object[] { seriesId }));
+    log.debug_(String.format("Getting number of episodes for series %s", cast(Object[])[ seriesId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -130,7 +130,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot get number of episodes for series: %s ", new Object[] { seriesId }), e);
+      throw new PersistenceException(String.format("Cannot get number of episodes for series: %s ", cast(Object[])[ seriesId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -139,7 +139,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
 
   public List<Series> retrieveSeries(int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of series (from=%s, count=%s)", new Object[] { Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) }));
+    log.debug_(String.format("Retrieving list of series (from=%s, count=%s)", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -182,7 +182,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
 
   public List<Integer> retrieveSeasonsForSeries(Long seriesId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of seasons for series %s (from=%s, count=%s) [%s]", new Object[] { seriesId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of seasons for series %s (from=%s, count=%s) [%s]", cast(Object[])[ seriesId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -197,7 +197,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
       }
       return result;
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of seasons for series %s", new Object[] { seriesId }), e);
+      throw new PersistenceException(String.format("Cannot read list of seasons for series %s", cast(Object[])[ seriesId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -206,7 +206,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
 
   public int getSeasonsForSeriesCount(Long seriesId, AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of seasons for series %s [%s]", new Object[] { seriesId, accessGroup }));
+    log.debug_(String.format("Retrieving number of seasons for series %s [%s]", cast(Object[])[ seriesId, accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -223,7 +223,7 @@ public class SeriesDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of seasons for series %s", new Object[] { seriesId }), e);
+      throw new PersistenceException(String.format("Cannot read number of seasons for series %s", cast(Object[])[ seriesId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);

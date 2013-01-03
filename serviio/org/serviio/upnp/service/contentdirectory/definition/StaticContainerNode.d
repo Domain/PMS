@@ -18,7 +18,7 @@ import org.serviio.util.ObjectValidator;
 public class StaticContainerNode : ContainerNode
   : StaticDefinitionNode
 {
-  private static final Set<ObjectClassType> supportedClasses = new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER }));
+  private static final Set<ObjectClassType> supportedClasses = new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   private String id;
   private String titleKey;
   private bool browsable = true;
@@ -69,7 +69,7 @@ public class StaticContainerNode : ContainerNode
   {
     String parentsTitle = Definition.instance().getContentOnlyParentTitles(id);
     if (parentsTitle !is null) {
-      return String.format("%s %s", new Object[] { getTitle(), parentsTitle });
+      return String.format("%s %s", cast(Object[])[ getTitle(), parentsTitle ]);
     }
     return getTitle();
   }

@@ -37,7 +37,7 @@ public class OnlineVideoSourcesMetadataExtractor : MetadataExtractor
           MetadataFile metadataFile = new MetadataFile(getExtractorType(), new Date(), metadataId, adaptor);
           return metadataFile;
         }
-        log.warn(String.format("Online metadata search returned no results for file %s [%s]", new Object[] { mediaFile.getName(), videoDescription.toString() }));
+        log.warn(String.format("Online metadata search returned no results for file %s [%s]", cast(Object[])[ mediaFile.getName(), videoDescription.toString() ]));
         return null;
       }
 

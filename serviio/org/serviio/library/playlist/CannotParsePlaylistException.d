@@ -15,7 +15,7 @@ public class CannotParsePlaylistException : Exception
 
   public String getMessage()
   {
-    return String.format("Cannot parse playlist (%s) '%s' because: %s", new Object[] { type.toString(), playlistLocation, super.getMessage() });
+    return String.format("Cannot parse playlist (%s) '%s' because: %s", cast(Object[])[ type.toString(), playlistLocation, super.getMessage() ]);
   }
 }
 

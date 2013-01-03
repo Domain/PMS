@@ -77,7 +77,7 @@ public class EventDispatcher
             {
               sendEvents(subscription, filterEventsForSubscriber(events, subscription));
             } catch (Exception e) {
-              log.warn(String.format("Couldn't send event message for subscription %s, will keep trying until subscription expires", new Object[] { subscription.getUuid() }));
+              log.warn(String.format("Couldn't send event message for subscription %s, will keep trying until subscription expires", cast(Object[])[ subscription.getUuid() ]));
             }
       }
       ThreadUtils.currentThreadSleep(RESPONSE_TIMEOUT);
@@ -92,7 +92,7 @@ public class EventDispatcher
 
   protected static void sendEvents(Subscription subscription, Set<EventContainer> events)
     {
-    log.debug_(String.format("Sending event notification #%s for subscription %s to endpoint %s", new Object[] { Long.valueOf(subscription.getKey()), subscription.getUuid(), subscription.getDeliveryURL() }));
+    log.debug_(String.format("Sending event notification #%s for subscription %s to endpoint %s", cast(Object[])[ Long.valueOf(subscription.getKey()), subscription.getUuid(), subscription.getDeliveryURL() ]));
 
     BasicHttpEntityEnclosingRequest request = new BasicHttpEntityEnclosingRequest("NOTIFY", subscription.getDeliveryURL().getPath(), HttpVersion.HTTP_1_1);
 
@@ -116,7 +116,7 @@ public class EventDispatcher
     {
       log.debug_("Event notification sent and received successfully");
     }
-    else log.warn(String.format("Error %s received from event subscriber", new Object[] { Integer.valueOf(response.getStatusLine().getStatusCode()) }));
+    else log.warn(String.format("Error %s received from event subscriber", cast(Object[])[ Integer.valueOf(response.getStatusLine().getStatusCode()) ]));
 
     subscription.increaseKey();
   }

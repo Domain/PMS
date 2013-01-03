@@ -23,7 +23,7 @@ public class AnnexBNALUnitReader
       byte[] marker = new byte[4];
       if (src.remaining() >= 4L) {
         src.read(marker);
-        if (Arrays.equals(new byte[] { 0, 0, 0, 1 }, marker)) {
+        if (Arrays.equals(cast(byte[])[ 0, 0, 0, 1 ], marker)) {
           if (start == -1L) {
             start = src.position();
           } else {

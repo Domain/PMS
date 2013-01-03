@@ -19,7 +19,7 @@ public class BufferWrapperImpl : AbstractBufferWrapper
   }
 
   public this(ByteBuffer parent) {
-    parents = new ByteBuffer[] { parent };
+    parents = cast(ByteBuffer[])[ parent ];
   }
 
   public this(ByteBuffer[] parents) {

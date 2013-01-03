@@ -23,7 +23,7 @@ public class CoverImageDAOImpl
     if ((newInstance is null) || (newInstance.getImageBytes() is null)) {
       throw new InvalidArgumentException("Cannot create CoverImage. Required data is missing.");
     }
-    log.debug_(String.format("Creating a new ImageCover (length = %s)", new Object[] { Integer.valueOf(newInstance.getImageBytes().length) }));
+    log.debug_(String.format("Creating a new ImageCover (length = %s)", cast(Object[])[ Integer.valueOf(newInstance.getImageBytes().length) ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -45,7 +45,7 @@ public class CoverImageDAOImpl
   }
 
   public void delete(Long id) {
-    log.debug_(String.format("Deleting a CoverImage (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Deleting a CoverImage (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -54,7 +54,7 @@ public class CoverImageDAOImpl
       ps.setLong(1, id.longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot delete CoverImage with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot delete CoverImage with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -62,7 +62,7 @@ public class CoverImageDAOImpl
   }
 
   public CoverImage read(Long id) {
-    log.debug_(String.format("Reading a CoverImage (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Reading a CoverImage (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -72,7 +72,7 @@ public class CoverImageDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read CoverImage with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot read CoverImage with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);

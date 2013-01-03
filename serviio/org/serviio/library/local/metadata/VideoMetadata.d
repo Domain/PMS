@@ -162,13 +162,13 @@ public class VideoMetadata : LocalItemMetadata
       setRating("Unknown");
     }
     if ((directors is null) || (directors.size() == 0)) {
-      setDirectors(Arrays.asList(new String[] { "Unknown" }));
+      setDirectors(Arrays.asList(cast(String[])[ "Unknown" ]));
     }
     if ((producers is null) || (producers.size() == 0)) {
-      setProducers(Arrays.asList(new String[] { "Unknown" }));
+      setProducers(Arrays.asList(cast(String[])[ "Unknown" ]));
     }
     if ((actors is null) || (actors.size() == 0))
-      setActors(Arrays.asList(new String[] { "Unknown" }));
+      setActors(Arrays.asList(cast(String[])[ "Unknown" ]));
   }
 
   public void validateMetadata()

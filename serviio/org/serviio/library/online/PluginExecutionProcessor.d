@@ -37,7 +37,7 @@ public abstract class PluginExecutionProcessor<T>
     } catch (CancellationException e) {
       throw new RuntimeException("The operation has been cancelled.");
     } catch (TimeoutException e) {
-      throw new RuntimeException(String.format("The operation took more than %s ms and has been cancelled.", new Object[] { Integer.valueOf(millisecondsTimeout) }));
+      throw new RuntimeException(String.format("The operation took more than %s ms and has been cancelled.", cast(Object[])[ Integer.valueOf(millisecondsTimeout) ]));
     }
     finally {
       cancel(future);

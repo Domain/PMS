@@ -15,7 +15,7 @@ public class MP4ExtractionStrategy : AudioExtractionStrategy
     if ((f.getAudioHeader() !is null) && 
       (!f.getAudioHeader().getEncodingType().equalsIgnoreCase("AAC")))
     {
-      throw new InvalidMediaFormatException(String.format("MP4 file '%s' has unsupported codec (%s)", new Object[] { f.getFile(), f.getAudioHeader().getEncodingType() }));
+      throw new InvalidMediaFormatException(String.format("MP4 file '%s' has unsupported codec (%s)", cast(Object[])[ f.getFile(), f.getAudioHeader().getEncodingType() ]));
     }
 
     super.extractMetadata(metadata, f, header, tag);

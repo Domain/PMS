@@ -25,7 +25,7 @@ public class ConfigEntryDAOImpl
     if ((newInstance is null) || (ObjectValidator.isEmpty(newInstance.getName()))) {
       throw new InvalidArgumentException("Cannot create ConfigEntry. Required data is missing.");
     }
-    log.debug_(String.format("Creating a new ConfigEntry (name = %s, value = %s)", new Object[] { newInstance.getName(), newInstance.getValue() }));
+    log.debug_(String.format("Creating a new ConfigEntry (name = %s, value = %s)", cast(Object[])[ newInstance.getName(), newInstance.getValue() ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -36,7 +36,7 @@ public class ConfigEntryDAOImpl
       ps.executeUpdate();
       return JdbcUtils.retrieveGeneratedID(ps);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot create ConfigEntry with name %s", new Object[] { newInstance.getName() }), e);
+      throw new PersistenceException(String.format("Cannot create ConfigEntry with name %s", cast(Object[])[ newInstance.getName() ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -44,7 +44,7 @@ public class ConfigEntryDAOImpl
   }
 
   public void delete(Long id) {
-    log.debug_(String.format("Deleting a ConfigEntry (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Deleting a ConfigEntry (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -53,7 +53,7 @@ public class ConfigEntryDAOImpl
       ps.setLong(1, id.longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot delete ConfigEntry with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot delete ConfigEntry with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -61,7 +61,7 @@ public class ConfigEntryDAOImpl
   }
 
   public ConfigEntry read(Long id) {
-    log.debug_(String.format("Reading a ConfigEntry (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Reading a ConfigEntry (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -71,7 +71,7 @@ public class ConfigEntryDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read ConfigEntry with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot read ConfigEntry with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -83,7 +83,7 @@ public class ConfigEntryDAOImpl
     if ((transientObject is null) || (transientObject.getId() is null) || (ObjectValidator.isEmpty(transientObject.getName()))) {
       throw new InvalidArgumentException("Cannot update ConfigEntry. Required data is missing.");
     }
-    log.debug_(String.format("Updating ConfigEntry (name = %s, value = %s)", new Object[] { transientObject.getName(), transientObject.getValue() }));
+    log.debug_(String.format("Updating ConfigEntry (name = %s, value = %s)", cast(Object[])[ transientObject.getName(), transientObject.getValue() ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -93,7 +93,7 @@ public class ConfigEntryDAOImpl
       ps.setLong(2, transientObject.getId().longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot update ConfigEntry with id %s", new Object[] { transientObject.getId() }), e);
+      throw new PersistenceException(String.format("Cannot update ConfigEntry with id %s", cast(Object[])[ transientObject.getId() ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -102,7 +102,7 @@ public class ConfigEntryDAOImpl
 
   public ConfigEntry findConfigEntryByName(String name)
   {
-    log.debug_(String.format("Reading a ConfigEntry (name = %s)", new Object[] { name }));
+    log.debug_(String.format("Reading a ConfigEntry (name = %s)", cast(Object[])[ name ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -112,7 +112,7 @@ public class ConfigEntryDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read ConfigEntry with name = %s", new Object[] { name }), e);
+      throw new PersistenceException(String.format("Cannot read ConfigEntry with name = %s", cast(Object[])[ name ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);

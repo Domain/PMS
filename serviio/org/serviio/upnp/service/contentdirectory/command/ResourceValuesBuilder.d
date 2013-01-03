@@ -51,7 +51,7 @@ public class ResourceValuesBuilder
             res.setProtocolInfo(protocolInfo);
             res.setColorDepth(image.getColorDepth());
             if ((imageMediaInfo.getWidth() !is null) && (imageMediaInfo.getHeight() !is null)) {
-              res.setResolution(String.format("%sx%s", new Object[] { imageMediaInfo.getWidth(), imageMediaInfo.getHeight() }));
+              res.setResolution(String.format("%sx%s", cast(Object[])[ imageMediaInfo.getWidth(), imageMediaInfo.getHeight() ]));
             }
             resources.add(res);
           }
@@ -101,7 +101,7 @@ public class ResourceValuesBuilder
           res.setProtocolInfo(protocolInfo);
           res.setBitrate(MediaUtils.convertBitrateFromKbpsToByPS(videoMediaInfo.getBitrate()));
           if ((videoMediaInfo.getWidth() !is null) && (videoMediaInfo.getHeight() !is null)) {
-            res.setResolution(String.format("%sx%s", new Object[] { videoMediaInfo.getWidth(), videoMediaInfo.getHeight() }));
+            res.setResolution(String.format("%sx%s", cast(Object[])[ videoMediaInfo.getWidth(), videoMediaInfo.getHeight() ]));
           }
           resources.add(res);
         }
@@ -130,7 +130,7 @@ public class ResourceValuesBuilder
         if (item.isLocalMedia()) {
           CoverImage thumbnail = MediaService.getCoverImage(item.getThumbnailId());
           thRes = new Resource(Resource.ResourceType.COVER_IMAGE, thumbnail.getId(), null, null, null, null);
-          thRes.setResolution(String.format("%sx%s", new Object[] { Integer.valueOf(thumbnail.getWidth()), Integer.valueOf(thumbnail.getHeight()) }));
+          thRes.setResolution(String.format("%sx%s", cast(Object[])[ Integer.valueOf(thumbnail.getWidth()), Integer.valueOf(thumbnail.getHeight()) ]));
         } else {
           thRes = new Resource(Resource.ResourceType.COVER_IMAGE, item.getId(), null, null, null, null);
         }
@@ -153,10 +153,10 @@ public class ResourceValuesBuilder
       if (subtitleFile !is null) {
         try {
           Resource subtitle = new Resource(Resource.ResourceType.SUBTITLE, item.getId(), null, null, null, null);
-          subtitle.setProtocolInfo(String.format("http-get:*:%s:*", new Object[] { rendererProfile.getSubtitlesMimeType() }));
+          subtitle.setProtocolInfo(String.format("http-get:*:%s:*", cast(Object[])[ rendererProfile.getSubtitlesMimeType() ]));
           return subtitle;
         } catch (Exception e) {
-          log.warn(String.format("Unexpected exception while creating subtitle resource: %s", new Object[] { e.getMessage() }));
+          log.warn(String.format("Unexpected exception while creating subtitle resource: %s", cast(Object[])[ e.getMessage() ]));
           return null;
         }
       }

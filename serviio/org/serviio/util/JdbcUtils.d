@@ -47,7 +47,7 @@ public class JdbcUtils
       try {
         s.close();
       } catch (SQLException e) {
-        log.warn(String.format("Cannot close DB Statement", new Object[] { e }));
+        log.warn(String.format("Cannot close DB Statement", cast(Object[])[ e ]));
       }
   }
 
@@ -57,7 +57,7 @@ public class JdbcUtils
     {
       con.rollback();
     } catch (SQLException e) {
-      log.error(String.format("Cannot perform rollback", new Object[] { e }));
+      log.error(String.format("Cannot perform rollback", cast(Object[])[ e ]));
     }
   }
 
@@ -171,7 +171,7 @@ public class JdbcUtils
         ps.setTimestamp(paramNumber, new Timestamp(value.getTime()));
       }
       catch (SQLDataException e) {
-        log.warn(String.format("Incorrect date: %s, using current date instead", new Object[] { value.toString() }), e);
+        log.warn(String.format("Incorrect date: %s, using current date instead", cast(Object[])[ value.toString() ]), e);
         ps.setTimestamp(paramNumber, new Timestamp(System.currentTimeMillis()));
       }
   }

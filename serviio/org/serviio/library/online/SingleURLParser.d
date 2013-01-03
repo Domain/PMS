@@ -31,7 +31,7 @@ public class SingleURLParser : AbstractOnlineItemParser
       item.validateMetadata();
       alterUrlsWithCredentials(credentials, item);
     } catch (InvalidMetadataException e) {
-      log.debug_(String.format("Cannot parse online item %s because of invalid metadata. Message: %s", new Object[] { item.getContentUrl(), e.getMessage() }));
+      log.debug_(String.format("Cannot parse online item %s because of invalid metadata. Message: %s", cast(Object[])[ item.getContentUrl(), e.getMessage() ]));
 
       return null;
     }

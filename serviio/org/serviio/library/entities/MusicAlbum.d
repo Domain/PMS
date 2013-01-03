@@ -32,7 +32,7 @@ public class MusicAlbum : PersistedEntity
 
   public String toString()
   {
-    return String.format("MusicAlbum [title=%s, sortTitle=%s]", new Object[] { title, sortTitle });
+    return String.format("MusicAlbum [title=%s, sortTitle=%s]", cast(Object[])[ title, sortTitle ]);
   }
 }
 

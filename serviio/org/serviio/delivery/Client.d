@@ -76,7 +76,7 @@ public class Client
 
   public String toString()
   {
-    return String.format("IPAddress=%s, Profile=%s", new Object[] { ipAddress, rendererProfile });
+    return String.format("IPAddress=%s, Profile=%s", cast(Object[])[ ipAddress, rendererProfile ]);
   }
 }
 

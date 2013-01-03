@@ -28,11 +28,11 @@ public class TemplateApplicator
       return out.toString();
     }
     catch (IOException e) {
-      log.error(String.format("Cannot find template %s", new Object[] { templateName }), e);
+      log.error(String.format("Cannot find template %s", cast(Object[])[ templateName ]), e);
       return null;
     }
     catch (TemplateException e) {
-      log.error(String.format("Error processing template %s: %s", new Object[] { templateName, e.getMessage() }), e);
+      log.error(String.format("Error processing template %s: %s", cast(Object[])[ templateName, e.getMessage() ]), e);
     }return null;
   }
 

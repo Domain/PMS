@@ -61,7 +61,7 @@ public class ResourceTransportRequestHandler : AbstractRequestHandler
       response.setStatusCode(e.getHttpCode());
     } catch (Exception e) {
       response.setStatusCode(500);
-      log.error(String.format("Error while processing resource, sending back 500 error. Message: %s", new Object[] { e.getMessage() }), e);
+      log.error(String.format("Error while processing resource, sending back 500 error. Message: %s", cast(Object[])[ e.getMessage() ]), e);
     }
   }
 

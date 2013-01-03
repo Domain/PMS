@@ -62,11 +62,11 @@ public abstract class AbstractOnlineItemParser
         AbstractUrlExtractor urlExtractor = cast(AbstractUrlExtractor)urlExtractorEntry.getKey();
         try {
           if ((urlExtractorEntry.getValue() == type) && (urlExtractor.extractorMatches(feedUrl))) {
-            log.debug_(String.format("Found matching url extractor (%s) for resource %s", new Object[] { urlExtractor.getExtractorName(), feedUrl }));
+            log.debug_(String.format("Found matching url extractor (%s) for resource %s", cast(Object[])[ urlExtractor.getExtractorName(), feedUrl ]));
             return urlExtractor;
           }
         } catch (Exception e) {
-          log.debug_(String.format("Unexpected error during url extractor plugin matching (%s): %s", new Object[] { urlExtractor.getExtractorName(), e.getMessage() }));
+          log.debug_(String.format("Unexpected error during url extractor plugin matching (%s): %s", cast(Object[])[ urlExtractor.getExtractorName(), e.getMessage() ]));
         }
       }
     }
@@ -87,7 +87,7 @@ public abstract class AbstractOnlineItemParser
       }
       resourceItem.setPlugin(urlExtractor);
     } else {
-      log.warn(String.format("Plugin %s returned no value for resource item '%s'", new Object[] { urlExtractor.getExtractorName(), resourceItem.getTitle() }));
+      log.warn(String.format("Plugin %s returned no value for resource item '%s'", cast(Object[])[ urlExtractor.getExtractorName(), resourceItem.getTitle() ]));
     }
   }
 
@@ -110,7 +110,7 @@ public abstract class AbstractOnlineItemParser
         {
           URL url = new URL(urlString);
           try {
-            return new URL(String.format("%s://%s:%s@%s%s", new Object[] { url.getProtocol(), credentials[0], credentials[1], url.getHost(), url.getPath(), url.getQuery() })).toString();
+            return new URL(String.format("%s://%s:%s@%s%s", cast(Object[])[ url.getProtocol(), credentials[0], credentials[1], url.getHost(), url.getPath(), url.getQuery() ])).toString();
           }
           catch (MalformedURLException e) {
             log.warn("Cannot construct secure content URL: " + e.getMessage());

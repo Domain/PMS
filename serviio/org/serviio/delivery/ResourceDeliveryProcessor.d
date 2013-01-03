@@ -38,11 +38,11 @@ public class ResourceDeliveryProcessor
 
   public HttpDeliveryContainer deliverContent(String requestUri, HttpMethod method, ProtocolVersion httpVersion, Map<String, String> requestHeaders, RangeHeaders rangeHeaders, ResourceTransportProtocolHandler protocolHandler, Client client)
     {
-    log.debug_(String.format("Resource request accepted. Using client '%s'", new Object[] { client }));
+    log.debug_(String.format("Resource request accepted. Using client '%s'", cast(Object[])[ client ]));
     try
     {
       RequestedResourceDescriptor resourceReq = protocolHandler.getRequestedResourceDescription(requestUri);
-      log.debug_(String.format("Request for resource %s and type '%s' received", new Object[] { resourceReq.getResourceId(), resourceReq.getResourceType().toString() }));
+      log.debug_(String.format("Request for resource %s and type '%s' received", cast(Object[])[ resourceReq.getResourceId(), resourceReq.getResourceType().toString() ]));
 
       ResourceRetrievalStrategy resourceRetrievalStrategy = resourceRetrievalStrategyFactory.instantiateResourceRetrievalStrategy(resourceReq.getResourceType());
       if (method == HttpMethod.GET)
@@ -57,7 +57,7 @@ public class ResourceDeliveryProcessor
       return handleHEADRequest(requestHeaders, httpVersion, resourceInfo, resourceReq.getProtocolInfoIndex(), transferMode, client, protocolHandler);
     }
     catch (FileNotFoundException e) {
-      log.warn(String.format("Error while processing resource, sending back 404 error. Message: %s", new Object[] { e.getMessage() }));
+      log.warn(String.format("Error while processing resource, sending back 404 error. Message: %s", cast(Object[])[ e.getMessage() ]));
       throw new HttpResponseCodeException(404);
     } catch (InvalidResourceRequestException e) {
       log.warn("Invalid request, sending back 400 error", e);
@@ -122,13 +122,13 @@ public class ResourceDeliveryProcessor
               }
               TreeMap<Double, ProgressData> filesizeMap = jobListener.getFilesizeMap();
               Long startByte = convertSecondsToBytes(new Double(range.getStart(RangeHeaders.RangeUnit.SECONDS).longValue()), filesizeMap);
-              log.debug_(String.format("Delivering bytes %s - %s from transcoded file, based on time range %s - %s", new Object[] { startByte, fileSize, range.getStart(RangeHeaders.RangeUnit.SECONDS), range.getEnd(RangeHeaders.RangeUnit.SECONDS) }));
+              log.debug_(String.format("Delivering bytes %s - %s from transcoded file, based on time range %s - %s", cast(Object[])[ startByte, fileSize, range.getStart(RangeHeaders.RangeUnit.SECONDS), range.getEnd(RangeHeaders.RangeUnit.SECONDS) ]));
               responseContainer = retrieveResource(deliveryContainer, resourceInfo, transferMode, client, startByte.longValue(), fileSize.longValue(), true, true, requestHttpVersion);
             }
           }
           else
           {
-            log.debug_(String.format("Delivering bytes %s - %s from native file, based on time range %s - %s", new Object[] { range.getStart(RangeHeaders.RangeUnit.BYTES), range.getEnd(RangeHeaders.RangeUnit.BYTES), range.getStart(RangeHeaders.RangeUnit.SECONDS), range.getEnd(RangeHeaders.RangeUnit.SECONDS) }));
+            log.debug_(String.format("Delivering bytes %s - %s from native file, based on time range %s - %s", cast(Object[])[ range.getStart(RangeHeaders.RangeUnit.BYTES), range.getEnd(RangeHeaders.RangeUnit.BYTES), range.getStart(RangeHeaders.RangeUnit.SECONDS), range.getEnd(RangeHeaders.RangeUnit.SECONDS) ]));
             responseContainer = retrieveResource(resourceRetrievalStrategy, resourceInfo, selectedVersion, quality, transferMode, client, markAsRead, range.getStart(RangeHeaders.RangeUnit.BYTES).longValue(), range.getEnd(RangeHeaders.RangeUnit.BYTES).longValue() - range.getStart(RangeHeaders.RangeUnit.BYTES).longValue() + 1L, null, null, true, true, requestHttpVersion);
           }
         }
@@ -168,7 +168,7 @@ public class ResourceDeliveryProcessor
       contentLengthToRead = Long.valueOf(-1L);
       log.debug_("Entity will be consumed till the end");
     }
-    log.debug_(String.format("Stream entity has length: %s", new Object[] { contentLengthToRead }));
+    log.debug_(String.format("Stream entity has length: %s", cast(Object[])[ contentLengthToRead ]));
     seekInInputStream(is, skip);
     return new HttpDeliveryContainer(responseHeaders, is, partialContent, requestHttpVersion, transferMode, transcoded, contentLengthToRead);
   }
@@ -204,7 +204,7 @@ public class ResourceDeliveryProcessor
       try {
         return MediaFormatProfile.valueOf(profileName);
       } catch (IllegalArgumentException e) {
-        log.warn(String.format("Requested DLNA media format profile %s is not supported, using original profile of the media", new Object[] { profileName }));
+        log.warn(String.format("Requested DLNA media format profile %s is not supported, using original profile of the media", cast(Object[])[ profileName ]));
         return null;
       }
     }

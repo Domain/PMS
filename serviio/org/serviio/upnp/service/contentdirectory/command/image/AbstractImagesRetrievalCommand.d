@@ -20,7 +20,7 @@ public abstract class AbstractImagesRetrievalCommand : AbstractEntityItemCommand
 
   protected final Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.IMAGE_ITEM, ObjectClassType.PHOTO }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.IMAGE_ITEM, ObjectClassType.PHOTO ]));
   }
 
   protected Image retrieveSingleEntity(Long entityId)

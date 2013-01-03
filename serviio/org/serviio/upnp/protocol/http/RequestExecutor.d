@@ -42,7 +42,7 @@ public class RequestExecutor
     context.setAttribute("http.target_host", host);
     try
     {
-      log.debug_(String.format("Sending HTTP request to %s:%s", new Object[] { host.getHostName(), Integer.valueOf(host.getPort()) }));
+      log.debug_(String.format("Sending HTTP request to %s:%s", cast(Object[])[ host.getHostName(), Integer.valueOf(host.getPort()) ]));
       Socket socket = new Socket(host.getHostName(), host.getPort());
       conn.bind(socket, params);
 

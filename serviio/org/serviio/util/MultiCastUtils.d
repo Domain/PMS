@@ -104,7 +104,7 @@ public class MultiCastUtils
 
   public static String getInterfaceName(NetworkInterface iface) {
     if (iface !is null) {
-      return String.format("%s (%s)", new Object[] { iface.getName(), iface.getDisplayName() });
+      return String.format("%s (%s)", cast(Object[])[ iface.getName(), iface.getDisplayName() ]);
     }
     return "Unknown";
   }

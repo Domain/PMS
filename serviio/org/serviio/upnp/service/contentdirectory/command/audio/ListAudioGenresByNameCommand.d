@@ -22,7 +22,7 @@ public class ListAudioGenresByNameCommand : AbstractEntityContainerCommand<Genre
 
   protected Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.GENRE, ObjectClassType.MUSIC_GENRE }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.GENRE, ObjectClassType.MUSIC_GENRE ]));
   }
 
   protected List<Genre> retrieveEntityList()

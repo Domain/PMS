@@ -28,7 +28,7 @@ public class ListImagesCreationYearsCommand : AbstractCommand<Container>
 
   protected Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   }
 
   protected Set<ObjectType> getSupportedObjectTypes()

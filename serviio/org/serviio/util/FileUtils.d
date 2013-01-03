@@ -64,7 +64,7 @@ public class FileUtils
   {
     String drive = filePath.substring(0, filePath.indexOf(58) + 1);
     String path = filePath.substring(drive.length());
-    return new String[] { drive, path };
+    return cast(String[])[ drive, path ];
   }
 
   @SuppressWarnings("resource")
@@ -74,7 +74,7 @@ public static byte[] readFileBytes(File f) {
     long length = f.length();
 
     if (length > 2147483647L) {
-      throw new IOException(String.format("File %s is too long", new Object[] { f.getAbsolutePath() }));
+      throw new IOException(String.format("File %s is too long", cast(Object[])[ f.getAbsolutePath() ]));
     }
     return readFileBytes(is, 0, cast(int)length);
   }
@@ -152,7 +152,7 @@ public static byte[] readFileBytes(File f) {
       }
       return new File(relativeDir);
     }
-    throw new RuntimeException(String.format("The provided file path %s doesn't belong to root %s", new Object[] { filePath, rootDir }));
+    throw new RuntimeException(String.format("The provided file path %s doesn't belong to root %s", cast(Object[])[ filePath, rootDir ]));
   }
 
   public static void closeQuietly(InputStream is)
@@ -177,7 +177,7 @@ public static byte[] readFileBytes(File f) {
   public static InputStream getStreamFromClasspath(String filePath, Class<?> clazz) {
     InputStream is = clazz.getResourceAsStream(filePath);
     if (is is null) {
-      throw new FileNotFoundException(String.format("File %s doesn't exist on the classpath", new Object[] { filePath }));
+      throw new FileNotFoundException(String.format("File %s doesn't exist on the classpath", cast(Object[])[ filePath ]));
     }
     return is;
   }

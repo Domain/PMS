@@ -13,7 +13,7 @@ public class TranscodingCache
 
   public void storeInCache(Long mediaItemId, MediaFormatProfile transcodedProfile, byte[] transcodedData)
   {
-    log.debug_(String.format("Storing media item %s with profile %s to cache", new Object[] { mediaItemId, transcodedProfile.toString() }));
+    log.debug_(String.format("Storing media item %s with profile %s to cache", cast(Object[])[ mediaItemId, transcodedProfile.toString() ]));
     this.mediaItemId = mediaItemId;
     this.transcodedProfile = transcodedProfile;
     this.transcodedData = transcodedData;
@@ -31,7 +31,7 @@ public class TranscodingCache
   public byte[] getCachedBytes()
   {
     if (transcodedData !is null) {
-      log.debug_(String.format("Retrieving media item %s with profile %s from cache", new Object[] { mediaItemId, transcodedProfile.toString() }));
+      log.debug_(String.format("Retrieving media item %s with profile %s from cache", cast(Object[])[ mediaItemId, transcodedProfile.toString() ]));
       byte[] dst = new byte[transcodedData.length];
       System.arraycopy(transcodedData, 0, dst, 0, transcodedData.length);
       return dst;

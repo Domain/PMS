@@ -17,7 +17,7 @@ public class DBLogDAOImpl
 
   public bool isScriptPresent(String fileScript)
     {
-    log.debug_(String.format("Checking if script '%s' has been run", new Object[] { fileScript }));
+    log.debug_(String.format("Checking if script '%s' has been run", cast(Object[])[ fileScript ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -33,7 +33,7 @@ public class DBLogDAOImpl
       return false;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot check if script '%s' has been run", new Object[] { fileScript }), e);
+      throw new PersistenceException(String.format("Cannot check if script '%s' has been run", cast(Object[])[ fileScript ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);

@@ -6,7 +6,7 @@ public enum PlaylistType
 	override
 	public String[] supportedFileExtensions()
 	{
-		return new String[] { "asx", "wax", "wvx" };
+		return cast(String[])[ "asx", "wax", "wvx" ];
 	}
 }, 
 
@@ -14,7 +14,7 @@ public enum PlaylistType
 	override
 	public String[] supportedFileExtensions()
 	{
-		return new String[] { "m3u", "m3u8" };
+		return cast(String[])[ "m3u", "m3u8" ];
 	}
 }, 
 
@@ -22,7 +22,7 @@ public enum PlaylistType
 	override
 	public String[] supportedFileExtensions()
 	{
-		return new String[] { "pls" };
+		return cast(String[])[ "pls" ];
 	}
 }, 
 
@@ -30,7 +30,7 @@ public enum PlaylistType
 	override
 	public String[] supportedFileExtensions()
 	{
-		return new String[] { "wpl" };
+		return cast(String[])[ "wpl" ];
 	}
 };
 

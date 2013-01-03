@@ -17,15 +17,15 @@ public enum ObjectType
   }
 
   public static Set<ObjectType> getItemTypes() {
-    return new HashSet<ObjectType>(Arrays.asList(new ObjectType[] { ITEMS, ALL }));
+    return new HashSet<ObjectType>(Arrays.asList(cast(ObjectType[])[ ITEMS, ALL ]));
   }
 
   public static Set<ObjectType> getContainerTypes() {
-    return new HashSet<ObjectType>(Arrays.asList(new ObjectType[] { CONTAINERS, ALL }));
+    return new HashSet<ObjectType>(Arrays.asList(cast(ObjectType[])[ CONTAINERS, ALL ]));
   }
 
   public static Set<ObjectType> getAllTypes() {
-    return new HashSet<ObjectType>(Arrays.asList(new ObjectType[] { CONTAINERS, ITEMS, ALL }));
+    return new HashSet<ObjectType>(Arrays.asList(cast(ObjectType[])[ CONTAINERS, ITEMS, ALL ]));
   }
 }
 

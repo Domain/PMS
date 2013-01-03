@@ -16,7 +16,7 @@ public class WebResourceParser : AbstractOnlineItemParser
 {
   public WebResource parse(URL resourceUrl, Long onlineRepositoryId, MediaFileType fileType)
     {
-    log.debug_(String.format("Parsing web resource '%s'", new Object[] { resourceUrl }));
+    log.debug_(String.format("Parsing web resource '%s'", cast(Object[])[ resourceUrl ]));
     WebResource resource = new WebResource(onlineRepositoryId);
 
     WebResourceUrlExtractor suitablePlugin = cast(WebResourceUrlExtractor)findSuitableExtractorPlugin(resourceUrl, OnlineRepositoryType.WEB_RESOURCE);
@@ -25,7 +25,7 @@ public class WebResourceParser : AbstractOnlineItemParser
       try {
         container = suitablePlugin.parseWebResource(resourceUrl, Configuration.getMaxNumberOfItemsForOnlineFeeds().intValue());
       } catch (Throwable e) {
-        throw new IOException(String.format("Unexpected error while invoking plugin (%s): %s", new Object[] { suitablePlugin.getExtractorName(), e.getMessage() }), e);
+        throw new IOException(String.format("Unexpected error while invoking plugin (%s): %s", cast(Object[])[ suitablePlugin.getExtractorName(), e.getMessage() ]), e);
       }
       if (container !is null)
       {
@@ -50,7 +50,7 @@ public class WebResourceParser : AbstractOnlineItemParser
         return null;
       }
     } else {
-      throw new InvalidMetadataException(String.format("No plugin for web resource %s has been found.", new Object[] { resourceUrl.toString() }));
+      throw new InvalidMetadataException(String.format("No plugin for web resource %s has been found.", cast(Object[])[ resourceUrl.toString() ]));
     }
     return resource;
   }
@@ -66,7 +66,7 @@ public class WebResourceParser : AbstractOnlineItemParser
       {
         extractContentUrlViaPlugin(suitablePlugin, resourceItem, item);
       } catch (Throwable e) {
-        log.debug_(String.format("Unexpected error during url extractor plugin invocation (%s) for item %s: %s", new Object[] { suitablePlugin.getExtractorName(), resourceItem.getTitle(), e.getMessage() }));
+        log.debug_(String.format("Unexpected error during url extractor plugin invocation (%s) for item %s: %s", cast(Object[])[ suitablePlugin.getExtractorName(), resourceItem.getTitle(), e.getMessage() ]));
 
         return false;
       }
@@ -76,15 +76,15 @@ public class WebResourceParser : AbstractOnlineItemParser
         resourceItem.fillInUnknownEntries();
         resourceItem.validateMetadata();
 
-        log.debug_(String.format("Added resource item %s: '%s' (%s)", new Object[] { Integer.valueOf(order), resourceItem.getTitle(), resourceItem.getContentUrl() }));
+        log.debug_(String.format("Added resource item %s: '%s' (%s)", cast(Object[])[ Integer.valueOf(order), resourceItem.getTitle(), resourceItem.getContentUrl() ]));
         resource.getItems().add(resourceItem);
         return true;
       }
-      log.debug_(String.format("Skipping web resource item '%s' because it's not of type %s", new Object[] { resourceItem.getTitle(), fileType }));
+      log.debug_(String.format("Skipping web resource item '%s' because it's not of type %s", cast(Object[])[ resourceItem.getTitle(), fileType ]));
       return false;
     }
     catch (InvalidMetadataException e) {
-      log.debug_(String.format("Cannot add item of web resource %s because of invalid metadata. Message: %s", new Object[] { resource.getTitle(), e.getMessage() }));
+      log.debug_(String.format("Cannot add item of web resource %s because of invalid metadata. Message: %s", cast(Object[])[ resource.getTitle(), e.getMessage() ]));
     }
     return false;
   }
@@ -103,7 +103,7 @@ public class WebResourceParser : AbstractOnlineItemParser
         ImageDescriptor thumbnail = new ImageDescriptor(new URL(container.getThumbnailUrl()));
         resource.setThumbnail(thumbnail);
       } catch (MalformedURLException e) {
-        log.warn(String.format("Malformed url of a web resource thumbnail (%s), skipping this thumbnail", new Object[] { container.getThumbnailUrl() }));
+        log.warn(String.format("Malformed url of a web resource thumbnail (%s), skipping this thumbnail", cast(Object[])[ container.getThumbnailUrl() ]));
       }
   }
 }

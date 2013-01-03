@@ -20,7 +20,7 @@ public abstract class AbstractSongsRetrievalCommand : AbstractEntityItemCommand<
 
   protected final Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.AUDIO_ITEM, ObjectClassType.MUSIC_TRACK }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.AUDIO_ITEM, ObjectClassType.MUSIC_TRACK ]));
   }
 
   protected MusicTrack retrieveSingleEntity(Long entityId)

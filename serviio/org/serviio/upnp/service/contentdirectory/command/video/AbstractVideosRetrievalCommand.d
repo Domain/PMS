@@ -21,7 +21,7 @@ public abstract class AbstractVideosRetrievalCommand : AbstractEntityItemCommand
 
   protected final Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.VIDEO_ITEM, ObjectClassType.MOVIE }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.VIDEO_ITEM, ObjectClassType.MOVIE ]));
   }
 
   protected Video retrieveSingleEntity(Long entityId)
@@ -34,7 +34,7 @@ public abstract class AbstractVideosRetrievalCommand : AbstractEntityItemCommand
   {
     if (video.getSeriesId() !is null) {
       Series series = VideoService.getSeries(video.getSeriesId());
-      return String.format("%s (%s/%02d): %s", new Object[] { series.getTitle(), video.getSeasonNumber(), video.getEpisodeNumber(), video.getTitle() });
+      return String.format("%s (%s/%02d): %s", cast(Object[])[ series.getTitle(), video.getSeasonNumber(), video.getEpisodeNumber(), video.getTitle() ]);
     }
 
     return video.getTitle();

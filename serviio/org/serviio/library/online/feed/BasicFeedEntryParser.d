@@ -66,7 +66,7 @@ public class BasicFeedEntryParser
     try {
       item.getLinks().put(key, new URL(url));
     } catch (MalformedURLException e) {
-      log.debug_(String.format("Invalid link href URL (%s), skipping", new Object[] { url }));
+      log.debug_(String.format("Invalid link href URL (%s), skipping", cast(Object[])[ url ]));
     }
   }
 }

@@ -28,11 +28,11 @@ public class PipedOutputBytesReader : OutputReader
         try {
           outputStream.write(buf, 0, n);
         } catch (IOException e) {
-          log.trace(String.format("Error writing bytes to piped output stream: %s", new Object[] { e.getMessage() }));
+          log.trace(String.format("Error writing bytes to piped output stream: %s", cast(Object[])[ e.getMessage() ]));
         }
     }
     catch (IOException e) {
-      log.warn(String.format("Error reading bytes stream from external process: %s", new Object[] { e.getMessage() }));
+      log.warn(String.format("Error reading bytes stream from external process: %s", cast(Object[])[ e.getMessage() ]));
     }
   }
 

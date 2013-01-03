@@ -89,7 +89,7 @@ public class Resource
       int hours = duration.intValue() / 3600;
       int minutes = hours > 0 ? duration.intValue() % (hours * 3600) / 60 : duration.intValue() / 60;
       int seconds = duration.intValue() - (hours * 3600 + minutes * 60);
-      return String.format("%d:%02d:%02d.000", new Object[] { Integer.valueOf(hours), Integer.valueOf(minutes), Integer.valueOf(seconds) });
+      return String.format("%d:%02d:%02d.000", cast(Object[])[ Integer.valueOf(hours), Integer.valueOf(minutes), Integer.valueOf(seconds) ]);
     }
     return null;
   }

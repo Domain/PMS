@@ -34,7 +34,7 @@ public class RequestedResourceDescriptor
         quality = QualityType.valueOf(requestFields[3]);
       }
     } catch (Exception e) {
-      throw new InvalidResourceRequestException(String.format("Invalid incoming request: %s", new Object[] { requestUri }), e);
+      throw new InvalidResourceRequestException(String.format("Invalid incoming request: %s", cast(Object[])[ requestUri ]), e);
     }
   }
 

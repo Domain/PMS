@@ -10,7 +10,7 @@ public abstract class AbstractProEditionServerResource : AbstractServerResource
 {
   protected List<Method> getRestrictedMethods()
   {
-    return Arrays.asList(new Method[] { Method.GET, Method.POST, Method.PUT, Method.DELETE, Method.HEAD });
+    return Arrays.asList(cast(Method[])[ Method.GET, Method.POST, Method.PUT, Method.DELETE, Method.HEAD ]);
   }
 
   protected Representation doConditionalHandle()

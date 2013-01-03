@@ -50,7 +50,7 @@ public abstract class AbstractCommand<T : DirectoryObject>
       holder.setTotalMatched(getSupportedObjectTypes().contains(objectType) ? retrieveItemCount() : 0);
       return holder;
     } catch (Exception e) {
-      throw new CommandExecutionException(String.format("Cannot execute library command for list: %s", new Object[] { e.getMessage() }), e);
+      throw new CommandExecutionException(String.format("Cannot execute library command for list: %s", cast(Object[])[ e.getMessage() ]), e);
     }
   }
 
@@ -64,7 +64,7 @@ public abstract class AbstractCommand<T : DirectoryObject>
       if (( cast(ObjectNotFoundException)e !is null )) {
         throw ( cast(ObjectNotFoundException)e);
       }
-      throw new CommandExecutionException(String.format("Cannot execute library command for single item: %s", new Object[] { e.getMessage() }), e);
+      throw new CommandExecutionException(String.format("Cannot execute library command for single item: %s", cast(Object[])[ e.getMessage() ]), e);
     }
   }
 
@@ -113,11 +113,11 @@ public abstract class AbstractCommand<T : DirectoryObject>
   private void validateSupportedClassTypes()
     {
     if ((containerClassType !is null) && (!getSupportedClasses().contains(containerClassType))) {
-      throw new CommandExecutionException(String.format("Class %s is not supported by the Command %s", new Object[] { containerClassType.toString(), getClass().getName() }));
+      throw new CommandExecutionException(String.format("Class %s is not supported by the Command %s", cast(Object[])[ containerClassType.toString(), getClass().getName() ]));
     }
 
     if ((itemClassType !is null) && (!getSupportedClasses().contains(itemClassType)))
-      throw new CommandExecutionException(String.format("Class %s is not supported by the Command %s", new Object[] { itemClassType.toString(), getClass().getName() }));
+      throw new CommandExecutionException(String.format("Class %s is not supported by the Command %s", cast(Object[])[ itemClassType.toString(), getClass().getName() ]));
   }
 
   public String getContextIdentifier()

@@ -72,7 +72,7 @@ public class FeedUpdaterThread : AbstractLibraryCheckerThread
                   notifyListenersUpdate("Online item");
                 }
               } catch (IOException e) {
-                log.warn(String.format("Failed to retrieve online item information for %s. It might not play.", new Object[] { feedItem.getContentUrl().toString() }), e);
+                log.warn(String.format("Failed to retrieve online item information for %s. It might not play.", cast(Object[])[ feedItem.getContentUrl().toString() ]), e);
               } catch (Exception e) {
                 log.warn("An error occured while scanning for online item information, will remove the item from the feed and will continue", e);
 
@@ -138,7 +138,7 @@ public class FeedUpdaterThread : AbstractLibraryCheckerThread
           }
         if (onlineItem.getType() == MediaFileType.VIDEO) {
           VideoMetadata md = new VideoMetadata();
-          log.debug_(String.format("Retrieving information about the video stream '%s'", new Object[] { onlineItem.getTitle() }));
+          log.debug_(String.format("Retrieving information about the video stream '%s'", cast(Object[])[ onlineItem.getTitle() ]));
           retrieveMetadata(md, onlineItem);
           onlineItem.getTechnicalMD().setAudioBitrate(md.getAudioBitrate());
           onlineItem.getTechnicalMD().setAudioCodec(md.getAudioCodec());
@@ -213,7 +213,7 @@ public class FeedUpdaterThread : AbstractLibraryCheckerThread
               onlineItem.setContentUrl(container.getContentUrl());
           }
           catch (Throwable t) {
-            log.debug_(String.format("Unexpected error during url extractor plugin invocation (%s) for item %s: %s", new Object[] { containerItem.getPlugin().getExtractorName(), containerItem.getTitle(), t.getMessage() }));
+            log.debug_(String.format("Unexpected error during url extractor plugin invocation (%s) for item %s: %s", cast(Object[])[ containerItem.getPlugin().getExtractorName(), containerItem.getTitle(), t.getMessage() ]));
 
             onlineItem.setValidEssence(false);
           }

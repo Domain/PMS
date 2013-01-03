@@ -23,7 +23,7 @@ public abstract class AbstractCDSServerResource : AbstractProEditionServerResour
 
   protected void doInit()
     {
-    getResponse().setCacheDirectives(Arrays.asList(new CacheDirective[] { new CacheDirective("no-cache") }));
+    getResponse().setCacheDirectives(Arrays.asList(cast(CacheDirective[])[ new CacheDirective("no-cache") ]));
   }
 
   protected Representation doConditionalHandle()

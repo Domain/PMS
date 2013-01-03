@@ -63,7 +63,7 @@ public class SamsungWiseLinkProtocolHandler : DLNAProtocolHandler
           durationInSeconds = Integer.valueOf(18000);
         }
         if (durationInSeconds !is null)
-          responseHeaders.put("MediaInfo.sec", String.format("SEC_Duration=%s;", new Object[] { Integer.valueOf(durationInSeconds.intValue() * 1000) }));
+          responseHeaders.put("MediaInfo.sec", String.format("SEC_Duration=%s;", cast(Object[])[ Integer.valueOf(durationInSeconds.intValue() * 1000) ]));
       }
     }
   }

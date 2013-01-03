@@ -68,7 +68,7 @@ public class WebServer
 			socketBuffer = 65535;
 		}
 		log.info(String.format("Socket buffer set to %s bytes",
-				new Object[] { Integer.valueOf(socketBuffer) }));
+				cast(Object[])[ Integer.valueOf(socketBuffer) ]));
 	}
 
 	static class WorkerThread : Thread
@@ -92,7 +92,7 @@ public class WebServer
 			{
 				WebServer.log.debug_(String.format(
 						"Incoming connection from %s",
-						new Object[] { remoteIpAddress }));
+						cast(Object[])[ remoteIpAddress ]));
 				while ((!Thread.interrupted()) && (conn.isOpen()))
 				{
 					httpservice.handleRequest(conn, context);
@@ -204,7 +204,7 @@ public class WebServer
 					{
 						WebServer.log.error(String.format(
 								"I/O error initialising connection thread: %s",
-								new Object[] { e.getMessage() }), e);
+								cast(Object[])[ e.getMessage() ]), e);
 					}
 				}
 				else 

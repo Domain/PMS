@@ -12,7 +12,7 @@ public class DeviceAliveMessageBuilder : SSDPRequestMessageBuilder
   public List<String> generateSSDPMessages(Integer duration, String searchTarget)
     {
     if ((duration is null) || (duration.intValue() < 0)) {
-      throw new InsufficientInformationException(String.format("Message duration includes invalid value: %s", new Object[] { duration }));
+      throw new InsufficientInformationException(String.format("Message duration includes invalid value: %s", cast(Object[])[ duration ]));
     }
 
     List<String> messages = new ArrayList<String>();

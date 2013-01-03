@@ -43,7 +43,7 @@ public class Person : PersistedEntity
 
   public String toString()
   {
-    return String.format("Person [name=%s, sortName=%s]", new Object[] { name, sortName });
+    return String.format("Person [name=%s, sortName=%s]", cast(Object[])[ name, sortName ]);
   }
 
   public static enum RoleType

@@ -107,7 +107,7 @@ public class DLNAProtocolAdditionalInfo
 
   protected String generateFlagsHexNumber(long primaryFlags)
   {
-    return String.format("%08X%s", new Object[] { Long.valueOf(primaryFlags), "000000000000000000000000" });
+    return String.format("%08X%s", cast(Object[])[ Long.valueOf(primaryFlags), "000000000000000000000000" ]);
   }
 }
 

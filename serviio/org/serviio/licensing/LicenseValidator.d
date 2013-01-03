@@ -47,7 +47,7 @@ public class LicenseValidator
   private Tupple<License, Long> validateLicense(String licenseBody)
     {
     if (licenseBody !is null) {
-      log.debug_(String.format("Validating license file (%s bytes)", new Object[] { Integer.valueOf(licenseBody.length()) }));
+      log.debug_(String.format("Validating license file (%s bytes)", cast(Object[])[ Integer.valueOf(licenseBody.length()) ]));
       License l = null;
       try {
         l = LicenseIO.importLicense(licenseBody);

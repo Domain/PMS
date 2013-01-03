@@ -68,7 +68,7 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
     {
       Profile rendererProfile = ProfileManager.getProfileById(profile);
       if (rendererProfile is null) {
-        log.warn(String.format("Profile with id %s doesn't exist", new Object[] { profile }));
+        log.warn(String.format("Profile with id %s doesn't exist", cast(Object[])[ profile ]));
         throw new HttpCodeException(400);
       }
       ContentDirectoryEngine engine = ContentDirectoryEngine.getInstance();
@@ -76,13 +76,13 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
 
       return buildResult(itemsHolder);
     } catch (ObjectNotFoundException e) {
-      log.warn(String.format("Object with id %s doesn't exist", new Object[] { objectId }));
+      log.warn(String.format("Object with id %s doesn't exist", cast(Object[])[ objectId ]));
       throw new HttpCodeException(404);
     } catch (InvalidBrowseFlagException e) {
       log.warn(e.getMessage());
       throw new ValidationException(700);
     } catch (Exception e) {
-      log.warn(String.format("Browse for object id %s failed with exception: %s", new Object[] { objectId, e.getMessage() }), e);
+      log.warn(String.format("Browse for object id %s failed with exception: %s", cast(Object[])[ objectId, e.getMessage() ]), e);
       throw new RuntimeException(e);
     }
   }
@@ -261,7 +261,7 @@ public class CDSBrowseServerResource : AbstractRestrictedCDSServerResource
   {
     if (resource !is null) {
       try {
-        return String.format("%s,%s", new Object[] { resource.getGeneratedURL(hostInfo).toString(), profile });
+        return String.format("%s,%s", cast(Object[])[ resource.getGeneratedURL(hostInfo).toString(), profile ]);
       } catch (InvalidResourceException e) {
         log.warn("Cannot generate resource URL because the resource is invalid.");
       }

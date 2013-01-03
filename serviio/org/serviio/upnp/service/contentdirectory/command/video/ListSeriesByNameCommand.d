@@ -21,7 +21,7 @@ public class ListSeriesByNameCommand : AbstractEntityContainerCommand<Series>
 
   protected Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   }
 
   protected List<Series> retrieveEntityList()

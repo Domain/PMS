@@ -63,10 +63,10 @@ public class XmlUtils
       validator.validate(xmlFile);
       return true;
     } catch (SAXException e) {
-      log.error(String.format("XML %s didn't pass validation, reason: %s", new Object[] { xmlId, e.getLocalizedMessage() }));
+      log.error(String.format("XML %s didn't pass validation, reason: %s", cast(Object[])[ xmlId, e.getLocalizedMessage() ]));
       return false;
     } catch (IOException e) {
-      log.error(String.format("Cannot validate XML %s, reason: %s", new Object[] { xmlId, e.getMessage() }));
+      log.error(String.format("Cannot validate XML %s, reason: %s", cast(Object[])[ xmlId, e.getMessage() ]));
     }return false;
   }
 

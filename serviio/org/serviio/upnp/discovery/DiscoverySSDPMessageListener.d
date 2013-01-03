@@ -42,7 +42,7 @@ public class DiscoverySSDPMessageListener : AbstractSSDPMessageListener
         NetworkInterface iface = NetworkInterface.getByInetAddress(Device.getInstance().getBindAddress());
         socket = MultiCastUtils.startMultiCastSocketForListening(Device.getInstance().getMulticastGroupAddress(), iface, 4);
 
-        log.info(String.format("Starting DiscoverySSDPMessageListener using interface %s and address %s, timeout = %s", new Object[] { MultiCastUtils.getInterfaceName(iface), Device.getInstance().getBindAddress().getHostAddress(), Integer.valueOf(socket.getSoTimeout()) }));
+        log.info(String.format("Starting DiscoverySSDPMessageListener using interface %s and address %s, timeout = %s", cast(Object[])[ MultiCastUtils.getInterfaceName(iface), Device.getInstance().getBindAddress().getHostAddress(), Integer.valueOf(socket.getSoTimeout()) ]));
 
         workerRunning = true;
       } catch (IOException e) {
@@ -111,7 +111,7 @@ public class DiscoverySSDPMessageListener : AbstractSSDPMessageListener
         int timeToRespond = Integer.valueOf(headerMX.getValue()).intValue();
         String searchTarget = headerST !is null ? headerST.getValue() : null;
         if (log.isDebugEnabled()) {
-          log.debug_(String.format("Received a valid M-SEARCH message for search target %s from address %s", new Object[] { searchTarget, receivedPacket.getSocketAddress().toString() }));
+          log.debug_(String.format("Received a valid M-SEARCH message for search target %s from address %s", cast(Object[])[ searchTarget, receivedPacket.getSocketAddress().toString() ]));
         }
 
         InetSocketAddress remoteAddress = cast(InetSocketAddress)receivedPacket.getSocketAddress();
@@ -120,11 +120,11 @@ public class DiscoverySSDPMessageListener : AbstractSSDPMessageListener
           ThreadExecutor.execute(new DiscoverySearchResponder(receivedPacket.getSocketAddress(), advertisementDuration, timeToRespond, searchTarget));
         }
         else
-          log.debug_(String.format("Not responding to M-SEARCH message because renderer with IP %s has disabled access.", new Object[] { remoteAddress.getAddress().toString() }));
+          log.debug_(String.format("Not responding to M-SEARCH message because renderer with IP %s has disabled access.", cast(Object[])[ remoteAddress.getAddress().toString() ]));
       }
       catch (NumberFormatException e)
       {
-        log.warn(String.format("Provided MX value is invalid: %s. Will not respond to the request.", new Object[] { headerMX.getValue() }));
+        log.warn(String.format("Provided MX value is invalid: %s. Will not respond to the request.", cast(Object[])[ headerMX.getValue() ]));
       }
     }
     else
@@ -153,11 +153,11 @@ public class DiscoverySSDPMessageListener : AbstractSSDPMessageListener
           ThreadExecutor.execute(new RendererAdvertisementProcessor(receivedPacket.getSocketAddress(), deviceUuid, nts, timeToKeep, descriptionURL, server));
         }
         else {
-          log.warn(String.format("Provided USN value is invalid: %s. Will not respond to the request.", new Object[] { headerUSN.getValue() }));
+          log.warn(String.format("Provided USN value is invalid: %s. Will not respond to the request.", cast(Object[])[ headerUSN.getValue() ]));
         }
       }
       catch (NumberFormatException e) {
-        log.warn(String.format("Invalid header value: %s. Will not respond to the request.", new Object[] { e.getMessage() }));
+        log.warn(String.format("Invalid header value: %s. Will not respond to the request.", cast(Object[])[ e.getMessage() ]));
       }
     }
   }

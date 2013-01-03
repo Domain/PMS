@@ -114,7 +114,7 @@ public class ProfilesDefinitionParser
       }
       return profiles;
     } catch (IOException e) {
-      throw new ProfilesDefinitionException(String.format("Cannot read Profiles XML. Reason: %s", new Object[] { e.getMessage() })); } catch (XPathExpressionException e) {
+      throw new ProfilesDefinitionException(String.format("Cannot read Profiles XML. Reason: %s", cast(Object[])[ e.getMessage() ])); } catch (XPathExpressionException e) {
     }
     throw new ProfilesDefinitionException("Cannot read Profiles XML. The file is corrupted.");
   }
@@ -123,16 +123,16 @@ public class ProfilesDefinitionParser
     {
     String id = XPathUtil.getNodeValue(profileNode, "@id");
     if (ObjectValidator.isNotEmpty(id)) {
-      log.debug_(String.format("Parsing profile definition for profile %s", new Object[] { id }));
+      log.debug_(String.format("Parsing profile definition for profile %s", cast(Object[])[ id ]));
       if (getProfileById(profiles, id) !is null) {
-        throw new ProfilesDefinitionException(String.format("Duplicate profile id %s", new Object[] { id }));
+        throw new ProfilesDefinitionException(String.format("Duplicate profile id %s", cast(Object[])[ id ]));
       }
       Profile parentProfile = null;
       String extendsProfileId = XPathUtil.getNodeValue(profileNode, "@extendsProfileId");
       if (ObjectValidator.isNotEmpty(extendsProfileId)) {
         parentProfile = getProfileById(profiles, extendsProfileId);
         if (parentProfile is null) {
-          throw new ProfilesDefinitionException(String.format("Profile %s cannot find profile with id %s to extend from. The parent profile must be defined before this profile.", new Object[] { id, extendsProfileId }));
+          throw new ProfilesDefinitionException(String.format("Profile %s cannot find profile with id %s to extend from. The parent profile must be defined before this profile.", cast(Object[])[ id, extendsProfileId ]));
         }
       }
       String h264LevelCheckTypeValue = XPathUtil.getNodeValue(profileNode, TAG_H264_LEVEL_CHECK);
@@ -165,7 +165,7 @@ public class ProfilesDefinitionParser
       Profile profile = new Profile(id, name, (cdMessageBuilderClass is null) && (parentProfile !is null) ? parentProfile.getContentDirectoryMessageBuilder() : cdMessageBuilderClass, (resourceTrasportProtocolHandler is null) && (parentProfile !is null) ? parentProfile.getResourceTransportProtocolHandler() : resourceTrasportProtocolHandler, detectionDefinitions, protocolInfos, protocolInfoType, deviceDescription, (contentDirectoryDefinitionFilter is null) && (parentProfile !is null) ? parentProfile.getContentDirectoryDefinitionFilter() : contentDirectoryDefinitionFilter, transcodeConfig, onlineTranscodeConfig, (ObjectValidator.isEmpty(automaticImageRotation)) && (parentProfile !is null) ? parentProfile.isAutomaticImageRotation() : Boolean.parseBoolean(automaticImageRotation), (ObjectValidator.isEmpty(limitImageResolution)) && (parentProfile !is null) ? parentProfile.isLimitImageResolution() : Boolean.parseBoolean(limitImageResolution), (subtitlesMimeType is null) && (parentProfile !is null) ? parentProfile.getSubtitlesMimeType() : subtitlesMimeType, Boolean.parseBoolean(alwaysEnableTranscoding), selectable !is null ? Boolean.parseBoolean(selectable) : true, getAlternativeDeliveryQualities(id, profileNode, h264LevelCheckType), h264LevelCheckType);
 
       if (validateProfile(profile)) {
-        log.info(String.format("Added profile '%s' (id=%s)", new Object[] { name, id }));
+        log.info(String.format("Added profile '%s' (id=%s)", cast(Object[])[ name, id ]));
         return profile;
       }
       throw new ProfilesDefinitionException("Profile validation failed. Check the log.");
@@ -182,11 +182,11 @@ public class ProfilesDefinitionParser
         Class<?> clazz = Class.forName(className.trim());
         if (!ContentDirectoryMessageBuilder.class.isAssignableFrom(clazz))
         {
-          throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryMessageBuilder for profile %s is not of a proper type", new Object[] { className, profileId }));
+          throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryMessageBuilder for profile %s is not of a proper type", cast(Object[])[ className, profileId ]));
         }
         return clazz;
       } catch (ClassNotFoundException e) {
-        throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryMessageBuilder of profile %s does not exist", new Object[] { className, profileId }));
+        throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryMessageBuilder of profile %s does not exist", cast(Object[])[ className, profileId ]));
       }
     }
     return null;
@@ -200,15 +200,15 @@ public class ProfilesDefinitionParser
         Class<?> clazz = Class.forName(className);
         if (!ResourceTransportProtocolHandler.class.isAssignableFrom(clazz))
         {
-          throw new ProfilesDefinitionException(String.format("Class %s defining ResourceTransportProtocolHandler for profile %s is not of a proper type", new Object[] { className, profileId }));
+          throw new ProfilesDefinitionException(String.format("Class %s defining ResourceTransportProtocolHandler for profile %s is not of a proper type", cast(Object[])[ className, profileId ]));
         }
         return (ResourceTransportProtocolHandler)clazz.newInstance();
       } catch (ClassNotFoundException e) {
-        throw new ProfilesDefinitionException(String.format("Class %s defining ResourceTransportProtocolHandler of profile %s does not exist", new Object[] { className, profileId }));
+        throw new ProfilesDefinitionException(String.format("Class %s defining ResourceTransportProtocolHandler of profile %s does not exist", cast(Object[])[ className, profileId ]));
       } catch (InstantiationException e) {
-        throw new ProfilesDefinitionException(String.format("Cannot instantiate ResourceTransportProtocolHandler of profile %s", new Object[] { profileId }));
+        throw new ProfilesDefinitionException(String.format("Cannot instantiate ResourceTransportProtocolHandler of profile %s", cast(Object[])[ profileId ]));
       } catch (IllegalAccessException e) {
-        throw new ProfilesDefinitionException(String.format("Cannot instantiate ResourceTransportProtocolHandler of profile %s", new Object[] { profileId }));
+        throw new ProfilesDefinitionException(String.format("Cannot instantiate ResourceTransportProtocolHandler of profile %s", cast(Object[])[ profileId ]));
       }
     }
     return null;
@@ -222,15 +222,15 @@ public class ProfilesDefinitionParser
         Class<?> clazz = Class.forName(className);
         if (!ContentDirectoryDefinitionFilter.class.isAssignableFrom(clazz))
         {
-          throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryDefinitionFilter for profile %s is not of a proper type", new Object[] { className, profileId }));
+          throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryDefinitionFilter for profile %s is not of a proper type", cast(Object[])[ className, profileId ]));
         }
         return (ContentDirectoryDefinitionFilter)clazz.newInstance();
       } catch (ClassNotFoundException e) {
-        throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryDefinitionFilter of profile %s does not exist", new Object[] { className, profileId }));
+        throw new ProfilesDefinitionException(String.format("Class %s defining ContentDirectoryDefinitionFilter of profile %s does not exist", cast(Object[])[ className, profileId ]));
       } catch (InstantiationException e) {
-        throw new ProfilesDefinitionException(String.format("Cannot instantiate ContentDirectoryDefinitionFilter of profile %s", new Object[] { profileId }));
+        throw new ProfilesDefinitionException(String.format("Cannot instantiate ContentDirectoryDefinitionFilter of profile %s", cast(Object[])[ profileId ]));
       } catch (IllegalAccessException e) {
-        throw new ProfilesDefinitionException(String.format("Cannot instantiate ContentDirectoryDefinitionFilter of profile %s", new Object[] { profileId }));
+        throw new ProfilesDefinitionException(String.format("Cannot instantiate ContentDirectoryDefinitionFilter of profile %s", cast(Object[])[ profileId ]));
       }
     }
     return null;
@@ -272,7 +272,7 @@ public class ProfilesDefinitionParser
         String number = ObjectValidator.isEmpty(modelNumber) ? MediaServer.VERSION : modelNumber;
         return new DeviceDescription(friendlyName, modelName, number, manufacturer, extraElements);
       }
-      throw new ProfilesDefinitionException(String.format("Profile %s has incomplete device description", new Object[] { profileId }));
+      throw new ProfilesDefinitionException(String.format("Profile %s has incomplete device description", cast(Object[])[ profileId ]));
     }
 
     return parentProfile.getDeviceDescription();
@@ -343,7 +343,7 @@ public class ProfilesDefinitionParser
 
         VideoContainer targetContainer = VideoContainer.getByFFmpegValue(XPathUtil.getNodeValue(videoNode, "@targetContainer"), null);
         if (targetContainer is null) {
-          throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target container in video transcoding definition", new Object[] { profileId }));
+          throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target container in video transcoding definition", cast(Object[])[ profileId ]));
         }
         String vCodecName = XPathUtil.getNodeValue(videoNode, "@targetVCodec");
         String aCodecName = XPathUtil.getNodeValue(videoNode, "@targetACodec");
@@ -368,13 +368,13 @@ public class ProfilesDefinitionParser
         if (ObjectValidator.isNotEmpty(vCodecName)) {
           targetVCodec = VideoCodec.getByFFmpegValue(vCodecName);
           if (targetVCodec is null) {
-            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target video codec '%s' in transcoding definition", new Object[] { profileId, vCodecName }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target video codec '%s' in transcoding definition", cast(Object[])[ profileId, vCodecName ]));
           }
         }
         if (ObjectValidator.isNotEmpty(aCodecName)) {
           targetACodec = AudioCodec.getByFFmpegDecoderName(aCodecName);
           if (targetACodec is null) {
-            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target audio codec '%s' in transcoding definition", new Object[] { profileId, aCodecName }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target audio codec '%s' in transcoding definition", cast(Object[])[ profileId, aCodecName ]));
           }
         }
         if (ObjectValidator.isNotEmpty(maxVideoBitrateValue)) {
@@ -409,7 +409,7 @@ public class ProfilesDefinitionParser
 
           VideoContainer container = VideoContainer.getByFFmpegValue(XPathUtil.getNodeValue(matcherNode, "@container"), null);
           if (container is null) {
-            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported matcher video container in transcoding definition", new Object[] { profileId }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported matcher video container in transcoding definition", cast(Object[])[ profileId ]));
           }
           String vcName = XPathUtil.getNodeValue(matcherNode, "@vCodec");
           String acName = XPathUtil.getNodeValue(matcherNode, "@aCodec");
@@ -429,13 +429,13 @@ public class ProfilesDefinitionParser
           if (ObjectValidator.isNotEmpty(vcName)) {
             vCodec = VideoCodec.getByFFmpegValue(vcName);
             if (vCodec is null) {
-              throw new ProfilesDefinitionException(String.format("Profile %s has unsupported video codec '%s' in transcoding definition", new Object[] { profileId, vcName }));
+              throw new ProfilesDefinitionException(String.format("Profile %s has unsupported video codec '%s' in transcoding definition", cast(Object[])[ profileId, vcName ]));
             }
           }
           if (ObjectValidator.isNotEmpty(acName)) {
             aCodec = AudioCodec.getByFFmpegDecoderName(acName);
             if (aCodec is null) {
-              throw new ProfilesDefinitionException(String.format("Profile %s has unsupported audio codec '%s' in transcoding definition", new Object[] { profileId, acName }));
+              throw new ProfilesDefinitionException(String.format("Profile %s has unsupported audio codec '%s' in transcoding definition", cast(Object[])[ profileId, acName ]));
             }
           }
           if (ObjectValidator.isNotEmpty(h264ProfileName)) {
@@ -466,7 +466,7 @@ public class ProfilesDefinitionParser
 
         AudioContainer targetContainer = AudioContainer.getByName(XPathUtil.getNodeValue(audioNode, "@targetContainer"));
         if (targetContainer is null) {
-          throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target container in audio transcoding definition", new Object[] { profileId }));
+          throw new ProfilesDefinitionException(String.format("Profile %s has unsupported target container in audio transcoding definition", cast(Object[])[ profileId ]));
         }
         String audioBitrateValue = XPathUtil.getNodeValue(audioNode, "@aBitrate");
         String audioSampleRateValue = XPathUtil.getNodeValue(audioNode, "@aSamplerate");
@@ -491,7 +491,7 @@ public class ProfilesDefinitionParser
 
           AudioContainer container = AudioContainer.getByName(XPathUtil.getNodeValue(matcherNode, "@container"));
           if (container is null) {
-            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported matcher audio container in transcoding definition", new Object[] { profileId }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported matcher audio container in transcoding definition", cast(Object[])[ profileId ]));
           }
           String onlineContentTypeValue = XPathUtil.getNodeValue(matcherNode, "@contentType");
           OnlineContentType onlineContentType = OnlineContentType.ANY;
@@ -524,7 +524,7 @@ public class ProfilesDefinitionParser
 
           ImageContainer container = ImageContainer.getByName(XPathUtil.getNodeValue(matcherNode, "@container"));
           if (container is null) {
-            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported matcher image container in transcoding definition", new Object[] { profileId }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has unsupported matcher image container in transcoding definition", cast(Object[])[ profileId ]));
           }
           String subsamplingValue = XPathUtil.getNodeValue(matcherNode, "@subsampling");
           SamplingMode samplingMode = null;
@@ -575,10 +575,10 @@ public class ProfilesDefinitionParser
           String mimeType = XPathUtil.getNodeValue(formatNode, "@mime-type");
           String formatName = XPathUtil.getNodeValue(formatNode, ".");
           if (ObjectValidator.isEmpty(mimeType)) {
-            throw new ProfilesDefinitionException(String.format("Profile %s has invalid (missing mime-type) media format profile", new Object[] { profileId }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has invalid (missing mime-type) media format profile", cast(Object[])[ profileId ]));
           }
           if (ObjectValidator.isEmpty(formatName))
-            throw new ProfilesDefinitionException(String.format("Profile %s has invalid (missing value) media format profile", new Object[] { profileId }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has invalid (missing value) media format profile", cast(Object[])[ profileId ]));
           try
           {
             MediaFormatProfile formatProfile = MediaFormatProfile.valueOf(formatName);
@@ -588,7 +588,7 @@ public class ProfilesDefinitionParser
             protocolInfos.put(formatProfile, new ProtocolInfo(mimeType, protocolAdditionalInfos));
           }
           catch (IllegalArgumentException e) {
-            throw new ProfilesDefinitionException(String.format("Profile %s has invalid media format profile %s", new Object[] { profileId, formatName }));
+            throw new ProfilesDefinitionException(String.format("Profile %s has invalid media format profile %s", cast(Object[])[ profileId, formatName ]));
           }
         }
 
@@ -634,7 +634,7 @@ public class ProfilesDefinitionParser
       return protocolAdditionalInfos;
     }
 
-    throw new ProfilesDefinitionException(String.format("Profile %s has invalid (%s) type of ProtocolInfo", new Object[] { profileId }));
+    throw new ProfilesDefinitionException(String.format("Profile %s has invalid (%s) type of ProtocolInfo", cast(Object[])[ profileId ]));
   }
 
   private static Profile getProfileById(List<Profile> profiles, String profileId)
@@ -704,7 +704,7 @@ public class ProfilesDefinitionParser
     {
       COMP_NAME = InetAddress.getLocalHost().getHostName();
     } catch (UnknownHostException e) {
-      log.warn(String.format("Cannot get name of the local computer: %s", new Object[] { e.getMessage() }));
+      log.warn(String.format("Cannot get name of the local computer: %s", cast(Object[])[ e.getMessage() ]));
     }
   }
 }

@@ -26,7 +26,7 @@ public class AudioService
   {
     Long mediaItemId;
     if (metadata !is null) {
-      log.debug_(String.format("Adding music track into database: %s", new Object[] { metadata.getTitle() }));
+      log.debug_(String.format("Adding music track into database: %s", cast(Object[])[ metadata.getTitle() ]));
 
       Long albumId = findOrCreateAlbum(metadata);
 
@@ -73,7 +73,7 @@ public class AudioService
   {
     MusicTrack track = getSong(mediaItemId);
     if (track !is null) {
-      log.debug_(String.format("Removing music track from database: %s", new Object[] { track.getTitle() }));
+      log.debug_(String.format("Removing music track from database: %s", cast(Object[])[ track.getTitle() ]));
 
       DAOFactory.getPersonDAO().removeAllPersonsFromMedia(mediaItemId);
 
@@ -99,7 +99,7 @@ public class AudioService
   public static void updateMusicTrackInLibrary(AudioMetadata metadata, Long mediaItemId)
   {
     if (metadata !is null) {
-      log.debug_(String.format("Updating music track in database: %s", new Object[] { metadata.getTitle() }));
+      log.debug_(String.format("Updating music track in database: %s", cast(Object[])[ metadata.getTitle() ]));
 
       MusicTrack track = getSong(mediaItemId);
 
@@ -329,7 +329,7 @@ public class AudioService
       MusicAlbum album = DAOFactory.getMusicAlbumDAO().findAlbum(metadata.getAlbum(), albumArtist);
 
       if (album is null) {
-        log.debug_(String.format("Album %s (%s) not found, creating a new one", new Object[] { metadata.getAlbum(), albumArtist }));
+        log.debug_(String.format("Album %s (%s) not found, creating a new one", cast(Object[])[ metadata.getAlbum(), albumArtist ]));
 
         album = new MusicAlbum(metadata.getAlbum());
         Long albumId = Long.valueOf(DAOFactory.getMusicAlbumDAO().create(album));
@@ -337,7 +337,7 @@ public class AudioService
         DAOFactory.getPersonDAO().addPersonToMusicAlbum(metadata.getAlbumArtist(), RoleType.ALBUM_ARTIST, albumId);
         return albumId;
       }
-      log.debug_(String.format("Album %s found, attaching the music track to it", new Object[] { album.getTitle() }));
+      log.debug_(String.format("Album %s found, attaching the music track to it", cast(Object[])[ album.getTitle() ]));
       return album.getId();
     }
 

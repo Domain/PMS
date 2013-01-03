@@ -53,7 +53,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 				{
 					throw new IOException(String.format(
 							"Problem retrieving metadata for movie with id %s",
-							new Object[] { movieId }));
+							cast(Object[])[ movieId ]));
 				}
 				Integer numberReturned = Integer
 						.valueOf(Integer.parseInt(XPathUtil
@@ -66,7 +66,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 					throw new IOException(
 							String.format(
 									"Metadata of movie with id %s (as returned from search) cannot be retrieved",
-									new Object[] { movieId }));
+									cast(Object[])[ movieId ]));
 				}
 
 				videoMetadata.setTitle(getMovieTitle(movieNode));
@@ -120,19 +120,19 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 									videoMetadata.setCoverImage(image);
 									log.debug_(String.format(
 											"Retrieved poster: %s",
-											new Object[] { posterURL }));
+											cast(Object[])[ posterURL ]));
 								}
 								catch (FileNotFoundException e)
 								{
 									log.warn(String
 											.format("Poster '%s' doesn't exist, will try another one",
-													new Object[] { posterURL }));
+													cast(Object[])[ posterURL ]));
 								}
 								catch (Exception e)
 								{
 									log.warn(String.format(
 											"Cannot retrieve movie poster: %s",
-											new Object[] { e.getMessage() }));
+											cast(Object[])[ e.getMessage() ]));
 								}
 						}
 					}
@@ -142,7 +142,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 			{
 				throw new IOException(String.format(
 						"Metadata XML for movie id %s is corrupt. ",
-						new Object[] { movieId }));
+						cast(Object[])[ movieId ]));
 			}
 		else
 			throw new IOException("Metadata XML file is missing");
@@ -179,7 +179,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 							"id");
 					log.debug_(String.format(
 							"Found a suitable movie match, id = %s",
-							new Object[] { movieId }));
+							cast(Object[])[ movieId ]));
 					return movieId;
 				}
 			}
@@ -187,7 +187,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 			{
 				throw new IOException(String.format(
 						"Cannot retrieve movie search results: %s",
-						new Object[] { e.getMessage() }));
+						cast(Object[])[ e.getMessage() ]));
 			}
 		}
 		else
@@ -207,19 +207,19 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 			{
 				log.debug_(String.format(
 						"Searching for movie '%s' %s (language: %s)",
-						new Object[] { movieName, year !is null ? year : "",
-								languageCode }));
+						cast(Object[])[ movieName, year !is null ? year : "",
+								languageCode ]));
 				try
 				{
-					String searchTerm = String.format("%s%s", new Object[] {
-							movieName, year !is null ? " " + year : "" });
+					String searchTerm = String.format("%s%s", cast(Object[])[
+							movieName, year !is null ? " " + year : "" ]);
 
 					String moviesSearchPath = String.format(
-							"%sMovie.search/%s/xml/%s/%s", new Object[] {
+							"%sMovie.search/%s/xml/%s/%s", cast(Object[])[
 									API_BASE_CONTEXT,
 									languageCode,
 									APIKEY,
-									URLEncoder.encode(searchTerm, "UTF-8") });
+									URLEncoder.encode(searchTerm, "UTF-8") ]);
 
 					String searchResultXML = HttpClient
 							.retrieveTextFileFromURL(moviesSearchPath, "UTF-8");
@@ -234,7 +234,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 												"OpenSearchDescription/opensearch:totalResults",
 												namespaceContext)));
 						log.debug_(String.format("Found %s matches",
-								new Object[] { numberReturned }));
+								cast(Object[])[ numberReturned ]));
 						if (numberReturned.intValue() > 0)
 						{
 							NodeList movieNodes = XPathUtil.getNodeSet(
@@ -258,7 +258,7 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 				{
 					throw new IOException(String.format(
 							"Cannot retrieve movie search results: %s",
-							new Object[] { e.getMessage() }));
+							cast(Object[])[ e.getMessage() ]));
 				}
 			}
 		}
@@ -269,13 +269,13 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 		String languageCode = Configuration.getMetadataPreferredLanguage();
 		log.debug_(String.format(
 				"Retrieving details of movie (movieId = %s, language = %s)",
-				new Object[] { movieId, languageCode }));
+				cast(Object[])[ movieId, languageCode ]));
 		try
 		{
 			String movieDetailsPath = String.format(
-					"%sMovie.getInfo/%s/xml/%s/%s", new Object[] {
+					"%sMovie.getInfo/%s/xml/%s/%s", cast(Object[])[
 							API_BASE_CONTEXT, languageCode,
-							APIKEY, movieId });
+							APIKEY, movieId ]);
 			String movieXML = HttpClient.retrieveTextFileFromURL(
 					movieDetailsPath, "UTF-8");
 			if ((ObjectValidator.isNotEmpty(movieXML))
@@ -291,13 +291,13 @@ public class TheMovieDBSourceAdaptor : SearchSourceAdaptor
 			throw new IOException(
 					String.format(
 							"Cannot retrieve movie details (movieId = %s), file not found",
-							new Object[] { movieId }));
+							cast(Object[])[ movieId ]));
 		}
 		catch (Exception e)
 		{
 			throw new IOException(String.format(
 					"Cannot retrieve movie details (movieId = %s) : %s",
-					new Object[] { movieId , e.getMessage()}));
+					cast(Object[])[ movieId , e.getMessage()]));
 		}
 	}
 

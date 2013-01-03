@@ -44,7 +44,7 @@ public class OnlineItemService
       }
       return null;
     } catch (IOException e) {
-      log.warn(String.format("Unexpected error retrieving resource %s: %s", new Object[] { onlineRepositoryId, e.getMessage() }));
+      log.warn(String.format("Unexpected error retrieving resource %s: %s", cast(Object[])[ onlineRepositoryId, e.getMessage() ]));
     }return null;
   }
 
@@ -254,7 +254,7 @@ public class OnlineItemService
   }
 
   private static List<OnlineRepository.OnlineRepositoryType> getContainerResourceTypes() {
-    return Arrays.asList(new OnlineRepository.OnlineRepositoryType[] { OnlineRepository.OnlineRepositoryType.FEED, OnlineRepository.OnlineRepositoryType.WEB_RESOURCE });
+    return Arrays.asList(cast(OnlineRepository.OnlineRepositoryType[])[ OnlineRepository.OnlineRepositoryType.FEED, OnlineRepository.OnlineRepositoryType.WEB_RESOURCE ]);
   }
 }
 

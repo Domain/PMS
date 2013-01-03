@@ -40,7 +40,7 @@ public class OnlineRepositoryService
 
     for (OnlineRepository existingRepository : existingRepositories) {
       if (!repositories.contains(existingRepository)) {
-        log.debug_(String.format("Will remove OnlineRepository: %s", new Object[] { existingRepository.toString() }));
+        log.debug_(String.format("Will remove OnlineRepository: %s", cast(Object[])[ existingRepository.toString() ]));
         repsToRemove.add(existingRepository);
       }
     }

@@ -51,7 +51,7 @@ public class ProcessUtils
   private static void kill(Process p, Integer pid, int signal)
   {
     log.debug_("Sending kill -" + signal + " to the Unix process: " + pid);
-    ProcessExecutor pw = new ProcessExecutor(new String[] { "kill", "-" + signal, pid.toString() });
+    ProcessExecutor pw = new ProcessExecutor(cast(String[])[ "kill", "-" + signal, pid.toString() ]);
     pw.addListener(new TaskKillProcessListener(p));
     pw.run();
   }

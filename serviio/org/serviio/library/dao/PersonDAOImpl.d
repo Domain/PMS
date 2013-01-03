@@ -24,7 +24,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public Person findPersonByName(String name)
   {
-    log.debug_(String.format("Reading a Person (name = %s)", new Object[] { name }));
+    log.debug_(String.format("Reading a Person (name = %s)", cast(Object[])[ name ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -34,7 +34,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read Person with name = %s", new Object[] { name }), e);
+      throw new PersistenceException(String.format("Cannot read Person with name = %s", cast(Object[])[ name ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -43,7 +43,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public Person findPersonById(Long id)
   {
-    log.debug_(String.format("Reading a Person (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Reading a Person (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -53,7 +53,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read Person with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot read Person with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -66,7 +66,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       log.debug_("Cannot add person to media item. Required data is missing.");
       return null;
     }
-    log.debug_(String.format("Adding a Person %s to media item %s as %s", new Object[] { personName, mediaItemId, role.toString() }));
+    log.debug_(String.format("Adding a Person %s to media item %s as %s", cast(Object[])[ personName, mediaItemId, role.toString() ]));
 
     Person person = findPersonByName(personName);
 
@@ -94,7 +94,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       return roleId;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot add Person with name %s to media item %s", new Object[] { personName, mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot add Person with name %s to media item %s", cast(Object[])[ personName, mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -106,7 +106,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       log.debug_("Cannot add person to media item. Required data is missing.");
       return null;
     }
-    log.debug_(String.format("Adding a Person %s to album %s as %s", new Object[] { personName, albumId, role.toString() }));
+    log.debug_(String.format("Adding a Person %s to album %s as %s", cast(Object[])[ personName, albumId, role.toString() ]));
 
     Person person = findPersonByName(personName);
 
@@ -134,7 +134,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       return roleId;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot add Person with name %s to music album %s", new Object[] { personName, albumId }), e);
+      throw new PersistenceException(String.format("Cannot add Person with name %s to music album %s", cast(Object[])[ personName, albumId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -146,11 +146,11 @@ public class PersonDAOImpl : AbstractSortableItemDao
     if (mediaItemId is null) {
       throw new InvalidArgumentException("Cannot remove person from media item. Required data is missing.");
     }
-    log.debug_(String.format("Removing all Persons from media item %s", new Object[] { mediaItemId }));
+    log.debug_(String.format("Removing all Persons from media item %s", cast(Object[])[ mediaItemId ]));
 
     List<Person> persons = retrievePersonsForMediaItem(mediaItemId);
 
-    log.debug_(String.format("Found all Persons (%s) for media item %s", new Object[] { Integer.valueOf(persons.size()), mediaItemId }));
+    log.debug_(String.format("Found all Persons (%s) for media item %s", cast(Object[])[ Integer.valueOf(persons.size()), mediaItemId ]));
 
     Connection con = null;
     PreparedStatement ps = null;
@@ -170,7 +170,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       }
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot remove all Persons from media item %s", new Object[] { mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot remove all Persons from media item %s", cast(Object[])[ mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -182,7 +182,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     if (albumId is null) {
       throw new InvalidArgumentException("Cannot remove person from music album. Required data is missing.");
     }
-    log.debug_(String.format("Removing all Persons from album %s", new Object[] { albumId }));
+    log.debug_(String.format("Removing all Persons from album %s", cast(Object[])[ albumId ]));
 
     List<Person> persons = retrievePersonsForMusicAlbum(albumId);
 
@@ -204,7 +204,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       }
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot remove all Persons from musicalbum %s", new Object[] { albumId }), e);
+      throw new PersistenceException(String.format("Cannot remove all Persons from musicalbum %s", cast(Object[])[ albumId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -247,7 +247,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public List<Person> retrievePersonsWithRole(RoleType roleType, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of persons with role %s (from=%s, count=%s)", new Object[] { roleType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) }));
+    log.debug_(String.format("Retrieving list of persons with role %s (from=%s, count=%s)", cast(Object[])[ roleType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -258,7 +258,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of  persons with role %s", new Object[] { roleType }), e);
+      throw new PersistenceException(String.format("Cannot read list of  persons with role %s", cast(Object[])[ roleType ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -267,7 +267,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public int getPersonsWithRoleCount(RoleType roleType)
   {
-    log.debug_(String.format("Retrieving number of persons with role %s", new Object[] { roleType }));
+    log.debug_(String.format("Retrieving number of persons with role %s", cast(Object[])[ roleType ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -283,7 +283,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of  persons with role %s", new Object[] { roleType }), e);
+      throw new PersistenceException(String.format("Cannot read number of  persons with role %s", cast(Object[])[ roleType ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -292,7 +292,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public int getRoleForPersonCount(Long personId)
   {
-    log.debug_(String.format("Retrieving number of roles for person %s", new Object[] { personId }));
+    log.debug_(String.format("Retrieving number of roles for person %s", cast(Object[])[ personId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -308,7 +308,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of roles for person %s", new Object[] { personId }), e);
+      throw new PersistenceException(String.format("Cannot read number of roles for person %s", cast(Object[])[ personId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -317,7 +317,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public List<Person> retrievePersonsWithRoleForMediaItem(RoleType roleType, Long mediaItemId)
   {
-    log.debug_(String.format("Retrieving list of persons with role %s for MediaItem %s", new Object[] { roleType, mediaItemId }));
+    log.debug_(String.format("Retrieving list of persons with role %s for MediaItem %s", cast(Object[])[ roleType, mediaItemId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -329,7 +329,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of persons with role %s for media item %s", new Object[] { roleType, mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot read list of persons with role %s for media item %s", cast(Object[])[ roleType, mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -338,7 +338,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public List<Person> retrievePersonsWithRoleForMusicAlbum(RoleType roleType, Long albumId)
   {
-    log.debug_(String.format("Retrieving list of persons with role %s for MusicAlbum %s", new Object[] { roleType, albumId }));
+    log.debug_(String.format("Retrieving list of persons with role %s for MusicAlbum %s", cast(Object[])[ roleType, albumId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -350,7 +350,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of persons with role %s for music album %s", new Object[] { roleType, albumId }), e);
+      throw new PersistenceException(String.format("Cannot read list of persons with role %s for music album %s", cast(Object[])[ roleType, albumId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -359,7 +359,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public List<Person> retrievePersonsForMediaItem(Long mediaItemId)
   {
-    log.debug_(String.format("Retrieving list of persons for MediaItem %s", new Object[] { mediaItemId }));
+    log.debug_(String.format("Retrieving list of persons for MediaItem %s", cast(Object[])[ mediaItemId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -370,7 +370,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of persons for media item %s", new Object[] { mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot read list of persons for media item %s", cast(Object[])[ mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -379,7 +379,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public List<Person> retrievePersonsForMusicAlbum(Long albumId)
   {
-    log.debug_(String.format("Retrieving list of persons for MusicAlbum %s", new Object[] { albumId }));
+    log.debug_(String.format("Retrieving list of persons for MusicAlbum %s", cast(Object[])[ albumId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -390,7 +390,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of persons for music album %s", new Object[] { albumId }), e);
+      throw new PersistenceException(String.format("Cannot read list of persons for music album %s", cast(Object[])[ albumId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -402,7 +402,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     if ((personId is null) || (mediaItemId is null) || (role is null)) {
       throw new InvalidArgumentException("Cannot check for person role. Required data is missing.");
     }
-    log.debug_(String.format("Checking if person %s has a role %s for media item %s", new Object[] { personId, role.toString(), mediaItemId }));
+    log.debug_(String.format("Checking if person %s has a role %s for media item %s", cast(Object[])[ personId, role.toString(), mediaItemId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -420,7 +420,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       }
       return roleId;
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot check if person %s has a role %s for media item %s", new Object[] { personId, role.toString(), mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot check if person %s has a role %s for media item %s", cast(Object[])[ personId, role.toString(), mediaItemId ]), e);
     }
     finally {
       JdbcUtils.closeStatement(ps);
@@ -433,7 +433,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     if ((personId is null) || (albumId is null) || (role is null)) {
       throw new InvalidArgumentException("Cannot check for person role. Required data is missing.");
     }
-    log.debug_(String.format("Checking if person %s has a role %s for album %s", new Object[] { personId, role.toString(), albumId }));
+    log.debug_(String.format("Checking if person %s has a role %s for album %s", cast(Object[])[ personId, role.toString(), albumId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -451,7 +451,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       }
       return roleId;
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot check if person %s has a role %s for music album %s", new Object[] { personId, role.toString(), albumId }), e);
+      throw new PersistenceException(String.format("Cannot check if person %s has a role %s for music album %s", cast(Object[])[ personId, role.toString(), albumId ]), e);
     }
     finally {
       JdbcUtils.closeStatement(ps);
@@ -480,7 +480,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       }
       return result;
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot retrieve list or role IDs for role %s for media item %s", new Object[] { role.toString(), mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot retrieve list or role IDs for role %s for media item %s", cast(Object[])[ role.toString(), mediaItemId ]), e);
     }
     finally {
       JdbcUtils.closeStatement(ps);
@@ -490,7 +490,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public List<String> retrievePersonInitials(RoleType role, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of person initials (role = %s, from=%s, count=%s)", new Object[] { role, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) }));
+    log.debug_(String.format("Retrieving list of person initials (role = %s, from=%s, count=%s)", cast(Object[])[ role, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -505,7 +505,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       }
       return result;
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of person initials for role %s", new Object[] { role }), e);
+      throw new PersistenceException(String.format("Cannot read list of person initials for role %s", cast(Object[])[ role ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -514,7 +514,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public int retrievePersonInitialsCount(RoleType role)
   {
-    log.debug_(String.format("Retrieving number of person initials for role %s", new Object[] { role }));
+    log.debug_(String.format("Retrieving number of person initials for role %s", cast(Object[])[ role ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -531,7 +531,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of person initials for role %s", new Object[] { role }), e);
+      throw new PersistenceException(String.format("Cannot read number of person initials for role %s", cast(Object[])[ role ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -540,7 +540,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public List<Person> retrievePersonsForInitial(String initial, RoleType role, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of persons with initial %s and role %s (from=%s, count=%s)", new Object[] { initial, role, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) }));
+    log.debug_(String.format("Retrieving list of persons with initial %s and role %s (from=%s, count=%s)", cast(Object[])[ initial, role, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -552,7 +552,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of persons with initial %s and role %s", new Object[] { initial, role }), e);
+      throw new PersistenceException(String.format("Cannot read list of persons with initial %s and role %s", cast(Object[])[ initial, role ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -561,7 +561,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
 
   public int retrievePersonsForInitialCount(String initial, RoleType role)
   {
-    log.debug_(String.format("Retrieving number of persons with initial %s and role %s", new Object[] { initial, role }));
+    log.debug_(String.format("Retrieving number of persons with initial %s and role %s", cast(Object[])[ initial, role ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -579,7 +579,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of persons with initial %s and role %s", new Object[] { initial, role }), e);
+      throw new PersistenceException(String.format("Cannot read number of persons with initial %s and role %s", cast(Object[])[ initial, role ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -625,7 +625,7 @@ public class PersonDAOImpl : AbstractSortableItemDao
     if ((newInstance is null) || (ObjectValidator.isEmpty(newInstance.getName()))) {
       throw new InvalidArgumentException("Cannot create Person. Required data is missing.");
     }
-    log.debug_(String.format("Creating a new Person (name = %s)", new Object[] { newInstance.getName() }));
+    log.debug_(String.format("Creating a new Person (name = %s)", cast(Object[])[ newInstance.getName() ]));
     PreparedStatement ps = null;
     try {
       ps = con.prepareStatement("INSERT INTO person (name,sort_name, initial) VALUES (?,?,?)", 1);
@@ -636,21 +636,21 @@ public class PersonDAOImpl : AbstractSortableItemDao
       ps.executeUpdate();
       return JdbcUtils.retrieveGeneratedID(ps);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot create Person with name %s", new Object[] { newInstance.getName() }), e);
+      throw new PersistenceException(String.format("Cannot create Person with name %s", cast(Object[])[ newInstance.getName() ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
     }
   }
 
   private void deletePerson(Connection con, Long personId) {
-    log.debug_(String.format("Deleting a Person (id = %s)", new Object[] { personId }));
+    log.debug_(String.format("Deleting a Person (id = %s)", cast(Object[])[ personId ]));
     PreparedStatement ps = null;
     try {
       ps = con.prepareStatement("DELETE FROM person WHERE id = ?");
       ps.setLong(1, personId.longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot delete Person with id = %s", new Object[] { personId }), e);
+      throw new PersistenceException(String.format("Cannot delete Person with id = %s", cast(Object[])[ personId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
     }

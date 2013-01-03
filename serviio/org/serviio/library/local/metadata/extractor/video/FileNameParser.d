@@ -65,7 +65,7 @@ public class FileNameParser
       int episodeNumber = Integer.parseInt(m.group(2));
       String fileBasedName = getVideoName(videoFile, pattern, SERIES_YEAR_PATTERN.pattern(), true, false);
       String folderBasedName = getParentFolderBasedName(videoFile, repository);
-      return new VideoDescription(VideoDescription.VideoType.EPISODE, true, new String[] { fileBasedName, folderBasedName }, Integer.valueOf(seasonNumber), Integer.valueOf(episodeNumber), year);
+      return new VideoDescription(VideoDescription.VideoType.EPISODE, true, cast(String[])[ fileBasedName, folderBasedName ], Integer.valueOf(seasonNumber), Integer.valueOf(episodeNumber), year);
     }
     return new VideoDescription(VideoDescription.VideoType.EPISODE, false);
   }
@@ -75,7 +75,7 @@ public class FileNameParser
     Integer year = getYearFromFileName(MOVIE_YEAR_PATTERN, videoFile);
     String fileBasedName = getVideoName(videoFile, null, MOVIE_YEAR_PATTERN.pattern(), false, false);
     String folderBasedName = getParentFolderBasedName(videoFile, repository);
-    return new VideoDescription(VideoDescription.VideoType.FILM, true, new String[] { fileBasedName, folderBasedName }, year);
+    return new VideoDescription(VideoDescription.VideoType.FILM, true, cast(String[])[ fileBasedName, folderBasedName ], year);
   }
 
   private static Integer getYearFromFileName(Pattern pattern, File videoFile)

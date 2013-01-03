@@ -39,11 +39,11 @@ public class EventSubscriptionExpirationChecker
               if (expirationDate.compareTo(currentDate) < 0)
               {
                 subscrIt.remove();
-                log.debug_(String.format("Removed expired subscription %s from service %s", new Object[] { subscription.getUuid(), service.getServiceId() }));
+                log.debug_(String.format("Removed expired subscription %s from service %s", cast(Object[])[ subscription.getUuid(), service.getServiceId() ]));
               }
             }
             catch (NumberFormatException e) {
-              log.warn(String.format("Provided subscription duration is not a number (%s), cancelling the subscription", new Object[] { subscription.getDuration() }));
+              log.warn(String.format("Provided subscription duration is not a number (%s), cancelling the subscription", cast(Object[])[ subscription.getDuration() ]));
 
               subscrIt.remove();
             }
@@ -72,7 +72,7 @@ public class EventSubscriptionExpirationChecker
       while (subscrIt.hasNext()) {
         Subscription subscription = cast(Subscription)subscrIt.next();
         subscrIt.remove();
-        log.debug_(String.format("Removed subscription %s from service %s", new Object[] { subscription.getUuid(), service.getServiceId() }));
+        log.debug_(String.format("Removed subscription %s from service %s", cast(Object[])[ subscription.getUuid(), service.getServiceId() ]));
       }
     }
   }

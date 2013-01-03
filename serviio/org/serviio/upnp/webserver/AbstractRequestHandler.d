@@ -110,7 +110,7 @@ public abstract class AbstractRequestHandler
     InetAddress callerIp = getCallerIPAddress(context);
     bool hasAccess = RendererManager.getInstance().rendererHasAccess(callerIp);
     if (!hasAccess) {
-      log.debug_(String.format("Device %s does not have access to the server, returning 403", new Object[] { callerIp.toString() }));
+      log.debug_(String.format("Device %s does not have access to the server, returning 403", cast(Object[])[ callerIp.toString() ]));
     }
     return hasAccess;
   }

@@ -52,13 +52,13 @@ public class JPEGExtractionStrategy : ImageExtractionStrategy
         metadata.setChromaSubsampling(SamplingMode.UNKNOWN);
       }
     } catch (ImageReadException e) {
-      log.debug_(String.format("Cannot read file %s for metadata extraction. Message: %s", new Object[] { f.getFilename(), e.getMessage() }));
+      log.debug_(String.format("Cannot read file %s for metadata extraction. Message: %s", cast(Object[])[ f.getFilename(), e.getMessage() ]));
     } catch (ParseException e) {
     }
     catch (OutOfMemoryError e) {
-      log.debug_(String.format("Cannot get metadata of file %s because of OutOfMemory error. The file is dodgy, but will still be added to the library.", new Object[] { f.getFilename() }));
+      log.debug_(String.format("Cannot get metadata of file %s because of OutOfMemory error. The file is dodgy, but will still be added to the library.", cast(Object[])[ f.getFilename() ]));
     } catch (IOException e) {
-      log.debug_(String.format("Cannot read EXIF metadata for file %s. Message: %s", new Object[] { f.getFilename(), e.getMessage() }));
+      log.debug_(String.format("Cannot read EXIF metadata for file %s. Message: %s", cast(Object[])[ f.getFilename(), e.getMessage() ]));
     }
   }
 

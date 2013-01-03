@@ -156,7 +156,7 @@ public class ObjectValuesBuilder
   protected static final String generateDcmInfo(MediaItem item)
   {
     if (item.getBookmark() !is null) {
-      return String.format("CREATIONDATE=0,YEAR=%s,BM=%s", new Object[] { Integer.valueOf(DateUtils.getYear(item.getDate())), item.getBookmark() });
+      return String.format("CREATIONDATE=0,YEAR=%s,BM=%s", cast(Object[])[ Integer.valueOf(DateUtils.getYear(item.getDate())), item.getBookmark() ]);
     }
     return null;
   }
@@ -164,7 +164,7 @@ public class ObjectValuesBuilder
   private static String getBrowsableTitle(String itemTitle, String objectId) {
     String parentsTitle = Definition.instance().getContentOnlyParentTitles(objectId);
     if (parentsTitle !is null) {
-      return String.format("%s %s", new Object[] { itemTitle, parentsTitle });
+      return String.format("%s %s", cast(Object[])[ itemTitle, parentsTitle ]);
     }
     return itemTitle;
   }

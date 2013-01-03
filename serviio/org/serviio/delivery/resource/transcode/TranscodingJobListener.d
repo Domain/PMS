@@ -37,7 +37,7 @@ public class TranscodingJobListener : ProcessListener
 
   public void processEnded(bool success)
   {
-    log.debug_(String.format("Transcoding finished; successful: %s", new Object[] { Boolean.valueOf(success) }));
+    log.debug_(String.format("Transcoding finished; successful: %s", cast(Object[])[ Boolean.valueOf(success) ]));
 
     for (TranscodeInputStream stream : processingStreams) {
       stream.setTranscodeFinished(true);
@@ -73,7 +73,7 @@ public class TranscodingJobListener : ProcessListener
               timeFilesizeMap.put(txTime, new ProgressData(Long.valueOf(Long.parseLong(size)), Float.valueOf(Float.parseFloat(bitrate))));
             }
           } catch (NumberFormatException e) {
-            log.debug_(String.format("Error updating FFmpeg output for line '%s': %s", new Object[] { updatedLine, e.getMessage() }));
+            log.debug_(String.format("Error updating FFmpeg output for line '%s': %s", cast(Object[])[ updatedLine, e.getMessage() ]));
           }
         }
       }
@@ -107,7 +107,7 @@ public class TranscodingJobListener : ProcessListener
 
       if (getTranscodedFile() !is null) {
         bool deleted = getTranscodedFile().delete();
-        log.debug_(String.format("Deleted temp file '%s': %s", new Object[] { getTranscodedFile(), Boolean.valueOf(deleted) }));
+        log.debug_(String.format("Deleted temp file '%s': %s", cast(Object[])[ getTranscodedFile(), Boolean.valueOf(deleted) ]));
       }
     }
   }

@@ -74,9 +74,9 @@ public class MP3ExtractionStrategy : AudioExtractionStrategy
       for (String token : tokens)
         if (NumberUtils.isNumber(token))
         {
-          workingGenreDef = String.format("%s(%s)", new Object[] { workingGenreDef, token.trim() });
+          workingGenreDef = String.format("%s(%s)", cast(Object[])[ workingGenreDef, token.trim() ]);
         }
-        else workingGenreDef = String.format("%s%s", new Object[] { workingGenreDef, token.trim() });
+        else workingGenreDef = String.format("%s%s", cast(Object[])[ workingGenreDef, token.trim() ]);
     }
     else
     {

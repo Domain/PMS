@@ -70,10 +70,10 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
     if (trDef !is null) {
       String transcodingIdentifier = null;
       if (timeOffsetInSeconds !is null) {
-        transcodingIdentifier = String.format("transcoding-temp-%s-%s-%s-%s-%s%s", new Object[] { mediaItem.getId(), client.getRendererProfile().getId(), selectedQuality.toString(), timeOffsetInSeconds, Double.valueOf(durationInSeconds !is null ? durationInSeconds.doubleValue() : 0.0D), TRANSCODED_FILE_EXTENSION });
+        transcodingIdentifier = String.format("transcoding-temp-%s-%s-%s-%s-%s%s", cast(Object[])[ mediaItem.getId(), client.getRendererProfile().getId(), selectedQuality.toString(), timeOffsetInSeconds, Double.valueOf(durationInSeconds !is null ? durationInSeconds.doubleValue() : 0.0D), TRANSCODED_FILE_EXTENSION ]);
       }
       else {
-        transcodingIdentifier = String.format("transcoding-temp-%s-%s-%s%s", new Object[] { mediaItem.getId(), client.getRendererProfile().getId(), selectedQuality.toString(), TRANSCODED_FILE_EXTENSION });
+        transcodingIdentifier = String.format("transcoding-temp-%s-%s-%s%s", cast(Object[])[ mediaItem.getId(), client.getRendererProfile().getId(), selectedQuality.toString(), TRANSCODED_FILE_EXTENSION ]);
       }
 
       TranscodingJobListener jobListener = startTranscodeJob(mediaItem, transcodingIdentifier, timeOffsetInSeconds, durationInSeconds, client, trDef);
@@ -83,12 +83,12 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
       MediaFormatProfileResource transcodedMediaInfo = findMediaInfoForFileProfile((Collection<RI>)transcodedMediaInfos.get(selectedQuality), selectedVersion);
       return new StreamDeliveryContainer(new BufferedInputStream(stream.getStream(), 65536), transcodedMediaInfo, jobListener);
     }
-    throw new IOException(String.format("Cannot find transcoding definition for %s quality", new Object[] { selectedQuality.toString() }));
+    throw new IOException(String.format("Cannot find transcoding definition for %s quality", cast(Object[])[ selectedQuality.toString() ]));
   }
 
   protected RI retrieveTranscodedMediaInfoForVersion(MI mediaItem, MediaFormatProfile selectedVersion, QualityType selectedQuality, Profile rendererProfile)
     {
-    log.debug_(String.format("Getting media info for transcoded version of file %s", new Object[] { mediaItem.getFileName() }));
+    log.debug_(String.format("Getting media info for transcoded version of file %s", cast(Object[])[ mediaItem.getFileName() ]));
     LinkedHashMap<QualityType, List<RI>> mediaInfos = retrieveTranscodedMediaInfo(mediaItem, rendererProfile, null);
     return findMediaInfoForFileProfile((Collection<RI>)mediaInfos.get(selectedQuality), selectedVersion);
   }
@@ -132,10 +132,10 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
         {
           if (getCountOfListenerUsers(existingJobListener) <= 1)
           {
-            log.debug_(String.format("No other client uses transcoding job of file '%s', will stop the job", new Object[] { existingJobListener.getTranscodingIdentifier() }));
+            log.debug_(String.format("No other client uses transcoding job of file '%s', will stop the job", cast(Object[])[ existingJobListener.getTranscodingIdentifier() ]));
             closeStream = true;
           } else {
-            log.debug_(String.format("Removing the client from transcoding job of file '%s'", new Object[] { existingJobListener.getTranscodingIdentifier() }));
+            log.debug_(String.format("Removing the client from transcoding job of file '%s'", cast(Object[])[ existingJobListener.getTranscodingIdentifier() ]));
 
             existingJobListener.closeStream(client);
           }
@@ -144,7 +144,7 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
       else closeStream = true;
 
       if (closeStream) {
-        log.debug_(String.format("Stopping previous transcoding job of file '%s'", new Object[] { existingJobListener.getTranscodingIdentifier() }));
+        log.debug_(String.format("Stopping previous transcoding job of file '%s'", cast(Object[])[ existingJobListener.getTranscodingIdentifier() ]));
 
         existingJobListener.releaseResources();
 
@@ -174,14 +174,14 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
     for (TranscodingJobListener listener : availableListeners) {
       if (listener.getTranscodingIdentifier().equals(transcodingIdentifier))
       {
-        log.debug_(String.format("A suitable transcoding job already exists, re-use it for client '%s'", new Object[] { client }));
+        log.debug_(String.format("A suitable transcoding job already exists, re-use it for client '%s'", cast(Object[])[ client ]));
         newListener = listener;
         break;
       }
     }
 
     if (newListener is null) {
-      log.debug_(String.format("No suitable transcoding job exists yet, start one for client '%s'", new Object[] { client }));
+      log.debug_(String.format("No suitable transcoding job exists yet, start one for client '%s'", cast(Object[])[ client ]));
 
       updateFeedUrl(mediaItem);
 
@@ -217,7 +217,7 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
   {
     File transcodeFolder = getTranscodingFolder();
     if ((transcodeFolder.exists()) && (transcodeFolder.isDirectory())) {
-      log.debug_(String.format("Deleting temporary transcoded files from: %s", new Object[] { transcodeFolder }));
+      log.debug_(String.format("Deleting temporary transcoded files from: %s", cast(Object[])[ transcodeFolder ]));
       File[] transcodedFiles = transcodeFolder.listFiles(new class() FilenameFilter {
         public bool accept(File dir, String name)
         {
@@ -229,7 +229,7 @@ public abstract class AbstractTranscodingDeliveryEngine<RI : MediaFormatProfileR
       });
       for (File f : transcodedFiles) {
         bool result = f.delete();
-        log.debug_(String.format("Deleted file %s: %s", new Object[] { f, Boolean.valueOf(result) }));
+        log.debug_(String.format("Deleted file %s: %s", cast(Object[])[ f, Boolean.valueOf(result) ]));
       }
     }
   }

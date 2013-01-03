@@ -20,7 +20,7 @@ public abstract class AbstractAlbumsRetrievalCommand : AbstractEntityContainerCo
 
   protected Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.MUSIC_ALBUM }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.MUSIC_ALBUM ]));
   }
 
   protected MusicAlbum retrieveSingleEntity(Long entityId)

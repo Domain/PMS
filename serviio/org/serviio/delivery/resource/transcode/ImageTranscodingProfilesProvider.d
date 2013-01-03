@@ -27,11 +27,11 @@ public class ImageTranscodingProfilesProvider
 
   static
   {
-    transcodingConfig.put(MediaFormatProfile.JPEG_MED, Arrays.asList(new MediaFormatProfile[] { MediaFormatProfile.JPEG_SM }));
-    transcodingConfig.put(MediaFormatProfile.JPEG_LRG, Arrays.asList(new MediaFormatProfile[] { MediaFormatProfile.JPEG_SM, MediaFormatProfile.JPEG_MED }));
-    transcodingConfig.put(MediaFormatProfile.PNG_LRG, Arrays.asList(new MediaFormatProfile[] { MediaFormatProfile.JPEG_LRG }));
-    transcodingConfig.put(MediaFormatProfile.GIF_LRG, Arrays.asList(new MediaFormatProfile[] { MediaFormatProfile.JPEG_LRG }));
-    transcodingConfig.put(MediaFormatProfile.RAW, Arrays.asList(new MediaFormatProfile[] { MediaFormatProfile.JPEG_SM, MediaFormatProfile.JPEG_MED, MediaFormatProfile.JPEG_LRG }));
+    transcodingConfig.put(MediaFormatProfile.JPEG_MED, Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_SM ]));
+    transcodingConfig.put(MediaFormatProfile.JPEG_LRG, Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_SM, MediaFormatProfile.JPEG_MED ]));
+    transcodingConfig.put(MediaFormatProfile.PNG_LRG, Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_LRG ]));
+    transcodingConfig.put(MediaFormatProfile.GIF_LRG, Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_LRG ]));
+    transcodingConfig.put(MediaFormatProfile.RAW, Arrays.asList(cast(MediaFormatProfile[])[ MediaFormatProfile.JPEG_SM, MediaFormatProfile.JPEG_MED, MediaFormatProfile.JPEG_LRG ]));
   }
 }
 

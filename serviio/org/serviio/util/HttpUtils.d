@@ -92,7 +92,7 @@ public class HttpUtils
 
     String user = m.group(2);
     String password = m.group(3);
-    return new String[] { user, password };
+    return cast(String[])[ user, password ];
   }
 
   public static URLConnection getUrlConnection(URL url, String[] credentials)

@@ -28,7 +28,7 @@ public class DCRawMetadataRetriever
       md.setCoverImage(imageDesc);
       imageBytes = null;
     } else {
-      throw new InvalidMediaFormatException(String.format("Cannot read raw image file %s using dcraw", new Object[] { imageLocation }));
+      throw new InvalidMediaFormatException(String.format("Cannot read raw image file %s using dcraw", cast(Object[])[ imageLocation ]));
     }
   }
 }

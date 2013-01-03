@@ -30,7 +30,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     if (newInstance is null) {
       throw new InvalidArgumentException("Cannot create Image. Required data is missing.");
     }
-    log.debug_(String.format("Creating a new Image (name = %s)", new Object[] { newInstance.getTitle() }));
+    log.debug_(String.format("Creating a new Image (name = %s)", cast(Object[])[ newInstance.getTitle() ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -58,7 +58,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ps.executeUpdate();
       return JdbcUtils.retrieveGeneratedID(ps);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot create Image with name %s", new Object[] { newInstance.getTitle() }), e);
+      throw new PersistenceException(String.format("Cannot create Image with name %s", cast(Object[])[ newInstance.getTitle() ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -66,7 +66,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
   }
 
   public void delete(Long id) {
-    log.debug_(String.format("Deleting an Image (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Deleting an Image (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -75,7 +75,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ps.setLong(1, id.longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot delete Image with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot delete Image with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -83,7 +83,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
   }
 
   public Image read(Long id) {
-    log.debug_(String.format("Reading an Image (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Reading an Image (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -94,7 +94,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read Image with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot read Image with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -106,7 +106,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
     {
       throw new InvalidArgumentException("Cannot update Image. Required data is missing.");
     }
-    log.debug_(String.format("Updating Image (id = %s)", new Object[] { transientObject.getId() }));
+    log.debug_(String.format("Updating Image (id = %s)", cast(Object[])[ transientObject.getId() ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -134,7 +134,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ps.setLong(18, transientObject.getId().longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot update Image with id %s", new Object[] { transientObject.getId() }), e);
+      throw new PersistenceException(String.format("Cannot update Image with id %s", cast(Object[])[ transientObject.getId() ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -143,7 +143,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public List<Image> retrieveImagesForFolder(Long folderId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of images for folder %s (from=%s, count=%s) [%s]", new Object[] { folderId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of images for folder %s (from=%s, count=%s) [%s]", cast(Object[])[ folderId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -155,7 +155,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of images for folder %s", new Object[] { folderId }), e);
+      throw new PersistenceException(String.format("Cannot read list of images for folder %s", cast(Object[])[ folderId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -164,7 +164,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public int retrieveImagesForFolderCount(Long folderId, AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of images for folder %s [%s]", new Object[] { folderId, accessGroup }));
+    log.debug_(String.format("Retrieving number of images for folder %s [%s]", cast(Object[])[ folderId, accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -182,7 +182,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of images for folder %s", new Object[] { folderId }), e);
+      throw new PersistenceException(String.format("Cannot read number of images for folder %s", cast(Object[])[ folderId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -191,7 +191,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public List<Image> retrieveImagesForPlaylist(Long playlistId, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of images for Playlist %s (from=%s, count=%s) [%s]", new Object[] { playlistId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of images for Playlist %s (from=%s, count=%s) [%s]", cast(Object[])[ playlistId, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -203,7 +203,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of images for playlist %s", new Object[] { playlistId }), e);
+      throw new PersistenceException(String.format("Cannot read list of images for playlist %s", cast(Object[])[ playlistId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -212,7 +212,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public int retrieveImagesForPlaylistCount(Long playlistId, AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of images for playlist %s [%s]", new Object[] { playlistId, accessGroup }));
+    log.debug_(String.format("Retrieving number of images for playlist %s [%s]", cast(Object[])[ playlistId, accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -230,7 +230,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of images for playlist %s", new Object[] { playlistId }), e);
+      throw new PersistenceException(String.format("Cannot read number of images for playlist %s", cast(Object[])[ playlistId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -239,7 +239,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public List<Integer> retrieveImagesCreationYears(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of images' years (from=%s, count=%s) [%s]", new Object[] { Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of images' years (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -263,7 +263,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public int retrieveImagesCreationYearsCount(AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of images' years [%s]", new Object[] { accessGroup }));
+    log.debug_(String.format("Retrieving number of images' years [%s]", cast(Object[])[ accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -289,7 +289,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public List<Image> retrieveImagesForYear(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of images for year %s (from=%s, count=%s) [%s]", new Object[] { year, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of images for year %s (from=%s, count=%s) [%s]", cast(Object[])[ year, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -301,7 +301,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of images for year %s", new Object[] { year }), e);
+      throw new PersistenceException(String.format("Cannot read list of images for year %s", cast(Object[])[ year ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -310,7 +310,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public int retrieveImagesForYearCount(Integer year, AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of images for year %s [%s]", new Object[] { year, accessGroup }));
+    log.debug_(String.format("Retrieving number of images for year %s [%s]", cast(Object[])[ year, accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -328,7 +328,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of images for year %s", new Object[] { year }), e);
+      throw new PersistenceException(String.format("Cannot read number of images for year %s", cast(Object[])[ year ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -337,7 +337,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public List<Integer> retrieveImagesCreationMonths(Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of creation date months for year %s (from=%s, count=%s) [%s]", new Object[] { year, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of creation date months for year %s (from=%s, count=%s) [%s]", cast(Object[])[ year, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -353,7 +353,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       }
       return months;
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of creation date months for year %s", new Object[] { year }), e);
+      throw new PersistenceException(String.format("Cannot read list of creation date months for year %s", cast(Object[])[ year ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -362,7 +362,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public int retrieveImagesCreationMonthsCount(Integer year, AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of  creation date months for year %s [%s]", new Object[] { year, accessGroup }));
+    log.debug_(String.format("Retrieving number of  creation date months for year %s [%s]", cast(Object[])[ year, accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -380,7 +380,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of creation date months for year %s", new Object[] { year }), e);
+      throw new PersistenceException(String.format("Cannot read number of creation date months for year %s", cast(Object[])[ year ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -389,7 +389,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public List<Image> retrieveImagesForMonthOfYear(Integer month, Integer year, AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of images for year %s and month %s (from=%s, count=%s) [%s]", new Object[] { year, month, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of images for year %s and month %s (from=%s, count=%s) [%s]", cast(Object[])[ year, month, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -402,7 +402,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of images for year %s and month %s", new Object[] { year, month }), e);
+      throw new PersistenceException(String.format("Cannot read list of images for year %s and month %s", cast(Object[])[ year, month ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -411,7 +411,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public int retrieveImagesForMonthOfYearCount(Integer month, Integer year, AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of images for year %s and month %s [%s]", new Object[] { year, month, accessGroup }));
+    log.debug_(String.format("Retrieving number of images for year %s and month %s [%s]", cast(Object[])[ year, month, accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -430,7 +430,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of images for year %s and month %s", new Object[] { year, month }), e);
+      throw new PersistenceException(String.format("Cannot read number of images for year %s and month %s", cast(Object[])[ year, month ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -439,7 +439,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public List<Image> retrieveAllImages(AccessGroup accessGroup, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of all images (from=%s, count=%s) [%s]", new Object[] { Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup }));
+    log.debug_(String.format("Retrieving list of all images (from=%s, count=%s) [%s]", cast(Object[])[ Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -459,7 +459,7 @@ public class ImageDAOImpl : AbstractSortableItemDao
 
   public int retrieveAllImagesCount(AccessGroup accessGroup)
   {
-    log.debug_(String.format("Retrieving number of all images [%s]", new Object[] { accessGroup }));
+    log.debug_(String.format("Retrieving number of all images [%s]", cast(Object[])[ accessGroup ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {

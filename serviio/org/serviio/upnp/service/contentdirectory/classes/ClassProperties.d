@@ -12,7 +12,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:class" };
+		return cast(String[])[ "upnp:class" ];
 	}
 }, 
 
@@ -26,7 +26,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "@id" };
+		return cast(String[])[ "@id" ];
 	}
 }, 
 
@@ -40,7 +40,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "@parentID" };
+		return cast(String[])[ "@parentID" ];
 	}
 }, 
 
@@ -54,7 +54,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "dc:title" };
+		return cast(String[])[ "dc:title" ];
 	}
 }, 
 
@@ -68,7 +68,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "dc:creator" };
+		return cast(String[])[ "dc:creator" ];
 	}
 }, 
 
@@ -82,7 +82,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:genre" };
+		return cast(String[])[ "upnp:genre" ];
 	}
 }, 
 
@@ -96,7 +96,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "@childCount" };
+		return cast(String[])[ "@childCount" ];
 	}
 }, 
 
@@ -110,7 +110,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "@refID" };
+		return cast(String[])[ "@refID" ];
 	}
 }, 
 
@@ -124,7 +124,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "dc:description" };
+		return cast(String[])[ "dc:description" ];
 	}
 }, 
 
@@ -138,7 +138,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:longDescription" };
+		return cast(String[])[ "upnp:longDescription" ];
 	}
 }, 
 
@@ -152,7 +152,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "dc:language" };
+		return cast(String[])[ "dc:language" ];
 	}
 }, 
 
@@ -166,7 +166,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "dc:publisher" };
+		return cast(String[])[ "dc:publisher" ];
 	}
 }, 
 
@@ -180,7 +180,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:actor" };
+		return cast(String[])[ "upnp:actor" ];
 	}
 }, 
 
@@ -194,7 +194,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:director" };
+		return cast(String[])[ "upnp:director" ];
 	}
 }, 
 
@@ -208,7 +208,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:producer" };
+		return cast(String[])[ "upnp:producer" ];
 	}
 }, 
 
@@ -222,7 +222,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:artist" };
+		return cast(String[])[ "upnp:artist" ];
 	}
 }, 
 
@@ -236,7 +236,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "dc:rights" };
+		return cast(String[])[ "dc:rights" ];
 	}
 }, 
 
@@ -250,7 +250,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:rating" };
+		return cast(String[])[ "upnp:rating" ];
 	}
 }, 
 
@@ -264,7 +264,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "@restricted" };
+		return cast(String[])[ "@restricted" ];
 	}
 }, 
 
@@ -278,7 +278,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "@searchable" };
+		return cast(String[])[ "@searchable" ];
 	}
 }, 
 
@@ -292,7 +292,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:album" };
+		return cast(String[])[ "upnp:album" ];
 	}
 }, 
 
@@ -306,7 +306,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res" };
+		return cast(String[])[ "res" ];
 	}
 }, 
 
@@ -320,7 +320,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@size" };
+		return cast(String[])[ "res@size" ];
 	}
 }, 
 
@@ -334,7 +334,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@duration" };
+		return cast(String[])[ "res@duration" ];
 	}
 }, 
 
@@ -348,7 +348,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@bitrate" };
+		return cast(String[])[ "res@bitrate" ];
 	}
 }, 
 
@@ -362,7 +362,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@protocolInfo" };
+		return cast(String[])[ "res@protocolInfo" ];
 	}
 }, 
 
@@ -376,7 +376,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@nrAudioChannels" };
+		return cast(String[])[ "res@nrAudioChannels" ];
 	}
 }, 
 
@@ -390,7 +390,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@sampleFrequency" };
+		return cast(String[])[ "res@sampleFrequency" ];
 	}
 }, 
 
@@ -404,7 +404,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@resolution" };
+		return cast(String[])[ "res@resolution" ];
 	}
 }, 
 
@@ -418,7 +418,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "res@colorDepth" };
+		return cast(String[])[ "res@colorDepth" ];
 	}
 }, 
 
@@ -432,7 +432,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:originalTrackNumber" };
+		return cast(String[])[ "upnp:originalTrackNumber" ];
 	}
 }, 
 
@@ -446,7 +446,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "dc:date" };
+		return cast(String[])[ "dc:date" ];
 	}
 }, 
 
@@ -460,7 +460,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:albumArtURI" };
+		return cast(String[])[ "upnp:albumArtURI" ];
 	}
 }, 
 
@@ -474,7 +474,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "upnp:icon" };
+		return cast(String[])[ "upnp:icon" ];
 	}
 }, 
 
@@ -488,7 +488,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "sec:CaptionInfoEx", "res@pv:subtitleFileUri" };
+		return cast(String[])[ "sec:CaptionInfoEx", "res@pv:subtitleFileUri" ];
 	}
 }, 
 
@@ -502,7 +502,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "sec:dcmInfo" };
+		return cast(String[])[ "sec:dcmInfo" ];
 	}
 }, 
 
@@ -516,7 +516,7 @@ public enum ClassProperties
 	override
 	public String[] getPropertyFilterNames()
 	{
-		return new String[] { "av:mediaClass" };
+		return cast(String[])[ "av:mediaClass" ];
 	}
 }, 
 

@@ -38,7 +38,7 @@ public class RendererExpirationChecker
           expirationDate.add(13, ttl);
           if (expirationDate.compareTo(currentDate) < 0)
           {
-            log.debug_(String.format("Removing renderer %s from list of active renderers (expired)", new Object[] { uuid }));
+            log.debug_(String.format("Removing renderer %s from list of active renderers (expired)", cast(Object[])[ uuid ]));
             i.remove();
           }
         }

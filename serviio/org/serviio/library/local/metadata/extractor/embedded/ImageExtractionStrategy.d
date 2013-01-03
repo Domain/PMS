@@ -17,7 +17,7 @@ public abstract class ImageExtractionStrategy
 
   public void extractMetadata(ImageMetadata metadata, ByteSource f)
     {
-    log.debug_(String.format("Extracting metadata of image file: %s", new Object[] { f.getFilename() }));
+    log.debug_(String.format("Extracting metadata of image file: %s", cast(Object[])[ f.getFilename() ]));
     try
     {
       ImageInfo imageInfo = Sanselan.getImageInfo(f.getInputStream(), f.getFilename());
@@ -30,11 +30,11 @@ public abstract class ImageExtractionStrategy
 
       metadata.setContainer(getContainer());
     } catch (ImageReadException e) {
-      throw new IOException(String.format("Cannot read file %s for metadata extraction: %s", new Object[] { f.getFilename(), e.getMessage() }), e);
+      throw new IOException(String.format("Cannot read file %s for metadata extraction: %s", cast(Object[])[ f.getFilename(), e.getMessage() ]), e);
     }
     catch (OutOfMemoryError e)
     {
-      throw new IOException(String.format("Cannot read file %s for metadata extraction because of out-of-memory error", new Object[] { f.getFilename() }), e);
+      throw new IOException(String.format("Cannot read file %s for metadata extraction because of out-of-memory error", cast(Object[])[ f.getFilename() ]), e);
     }
   }
 

@@ -37,7 +37,7 @@ public class DiscoverySearchResponder
       (searchTarget !is null)) {
       List<String> messages = generateMessages();
       if (messages.size() > 0) {
-        log.debug_(String.format("Sending %s M-SEARCH response message(s) to %s", new Object[] { Integer.valueOf(messages.size()), sourceAddress }));
+        log.debug_(String.format("Sending %s M-SEARCH response message(s) to %s", cast(Object[])[ Integer.valueOf(messages.size()), sourceAddress ]));
 
         sendReply(messages);
       }

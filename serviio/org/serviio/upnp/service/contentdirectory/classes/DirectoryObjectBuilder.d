@@ -119,7 +119,7 @@ public class DirectoryObjectBuilder
     }
     org.serviio.library.entities.Person artist = (org.serviio.library.entities.Person)values.get(ClassProperties.ARTIST);
     if (artist !is null) {
-      item.setArtist(new String[] { artist.getName() });
+      item.setArtist(cast(String[])[ artist.getName() ]);
     }
     item.setDate( cast(String)values.get(ClassProperties.DATE));
     item.setOriginalTrackNumber( cast(Integer)values.get(ClassProperties.ORIGINAL_TRACK_NUMBER));

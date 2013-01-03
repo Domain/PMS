@@ -1192,7 +1192,6 @@
      <File path="org\serviio\util\XPathUtil.d" />
      <File path="org\serviio\util\ZipUtils.d" />
     </Folder>
-    <File path="org\serviio\all.d" />
     <File path="org\serviio\ApplicationInstanceListener.d" />
     <File path="org\serviio\ApplicationInstanceManager.d" />
     <File path="org\serviio\ApplicationSettings.d" />

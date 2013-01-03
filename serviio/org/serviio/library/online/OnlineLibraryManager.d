@@ -118,7 +118,7 @@ public class OnlineLibraryManager : AbstractLibraryManager
 
     if ((!onlyCached) && ((resource is null) || (isResourceExpired(resourceUrl, resource))))
     {
-      log.debug_(String.format("Resource %s not in cache yet, loading it", new Object[] { resourceUrl.toString() }));
+      log.debug_(String.format("Resource %s not in cache yet, loading it", cast(Object[])[ resourceUrl.toString() ]));
       try {
         if (onlineRepository.getRepoType() == OnlineRepositoryType.FEED)
           resource = feedParser.parse(resourceUrl, onlineRepository.getId(), onlineRepository.getFileType());
@@ -131,7 +131,7 @@ public class OnlineLibraryManager : AbstractLibraryManager
 
         storeResourceExpiryDate(resourceUrl, resource);
       } catch (InvalidMetadataException e) {
-        throw new IOException(String.format("Cannot parse resource from %s. Message: %s", new Object[] { resourceUrl.toString(), e.getMessage() }));
+        throw new IOException(String.format("Cannot parse resource from %s. Message: %s", cast(Object[])[ resourceUrl.toString(), e.getMessage() ]));
       }
     }
     return resource;
@@ -172,7 +172,7 @@ public class OnlineLibraryManager : AbstractLibraryManager
       for (String feedUrl : urls) {
         OnlineResourceContainer<?, ?> resource = (OnlineResourceContainer<?, ?>)onlineCache.retrieve(feedUrl);
         if ((resource !is null) && (resource.getUsedExtractor() !is null) && (resource.getUsedExtractor().equals(plugin))) {
-          log.debug_(String.format("Removing feed %s generated via %s from cache", new Object[] { feedUrl, plugin.getExtractorName() }));
+          log.debug_(String.format("Removing feed %s generated via %s from cache", cast(Object[])[ feedUrl, plugin.getExtractorName() ]));
           removeOnlineContentFromCache(feedUrl);
         }
       }
@@ -201,16 +201,16 @@ public class OnlineLibraryManager : AbstractLibraryManager
         if (coverImage is null) {
           try
           {
-            log.debug_(String.format("Thumbnail %s not in cache yet, loading it", new Object[] { thumbnail.getImageUrl().toString() }));
+            log.debug_(String.format("Thumbnail %s not in cache yet, loading it", cast(Object[])[ thumbnail.getImageUrl().toString() ]));
             byte[] imageBytes = HttpClient.retrieveBinaryFileFromURL(thumbnail.getImageUrl().toString());
             ImageDescriptor clonedImage = new ImageDescriptor(imageBytes, null);
             coverImage = CoverImageService.prepareCoverImage(clonedImage, null);
             if (coverImage is null) {
-              throw new CannotRetrieveThumbnailException(String.format("An error accured when resizing thumbnail %s", new Object[] { thumbnail.getImageUrl().toString() }));
+              throw new CannotRetrieveThumbnailException(String.format("An error accured when resizing thumbnail %s", cast(Object[])[ thumbnail.getImageUrl().toString() ]));
             }
             thumbnailCache.store(thumbnail.getImageUrl().toString(), coverImage);
           } catch (IOException e) {
-            throw new CannotRetrieveThumbnailException(String.format("Failed to download thumbnail %s.", new Object[] { thumbnail.getImageUrl().toString() }), e);
+            throw new CannotRetrieveThumbnailException(String.format("Failed to download thumbnail %s.", cast(Object[])[ thumbnail.getImageUrl().toString() ]), e);
           }
         }
         return coverImage;
@@ -235,7 +235,7 @@ public class OnlineLibraryManager : AbstractLibraryManager
           }
         }
         if (resourceExpired) {
-          log.debug_(String.format("Online resource %s expired, will reload it", new Object[] { resourceUrl.toString() }));
+          log.debug_(String.format("Online resource %s expired, will reload it", cast(Object[])[ resourceUrl.toString() ]));
         }
         return resourceExpired;
       }
@@ -286,7 +286,7 @@ public class OnlineLibraryManager : AbstractLibraryManager
       feedExpiryMonitor.put(feedUrl.toString(), newExpiryDate);
 
       Date itemExpiryDate = getEarliestItemExpiryDate(resource);
-      log.debug_(String.format("Resource %s will expire in the cache on %s", new Object[] { feedUrl, (itemExpiryDate !is null) && (itemExpiryDate.before(newExpiryDate)) ? itemExpiryDate : newExpiryDate }));
+      log.debug_(String.format("Resource %s will expire in the cache on %s", cast(Object[])[ feedUrl, (itemExpiryDate !is null) && (itemExpiryDate.before(newExpiryDate)) ? itemExpiryDate : newExpiryDate ]));
     }
   }
 }

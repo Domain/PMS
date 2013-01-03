@@ -82,7 +82,7 @@ public class ActionNode : ContainerNode
     try {
       return command.retrieveItem();
     } catch (CommandExecutionException e) {
-      log.error(String.format("Cannot retrieve results of action command: %s", new Object[] { e.getMessage() }), e);
+      log.error(String.format("Cannot retrieve results of action command: %s", cast(Object[])[ e.getMessage() ]), e);
     }return null;
   }
 

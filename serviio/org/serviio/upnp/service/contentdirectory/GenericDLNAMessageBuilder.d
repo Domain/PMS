@@ -166,7 +166,7 @@ public class GenericDLNAMessageBuilder
         }
 
         if (mandatory) {
-          throw new RuntimeException(String.format("Missing required class attribute '%s'", new Object[] { classAttribute }));
+          throw new RuntimeException(String.format("Missing required class attribute '%s'", cast(Object[])[ classAttribute ]));
         }
         return null;
       }
@@ -195,7 +195,7 @@ public class GenericDLNAMessageBuilder
         return true;
       }
       if (mandatory) {
-        throw new RuntimeException(String.format("Missing required class attribute '%s' on object: %s", new Object[] { classAttribute, object.toString() }));
+        throw new RuntimeException(String.format("Missing required class attribute '%s' on object: %s", cast(Object[])[ classAttribute, object.toString() ]));
       }
 
     }
@@ -245,20 +245,20 @@ public class GenericDLNAMessageBuilder
         getterMethod = findGetter(objectClass, "is" + propertyName);
       }
     } catch (SecurityException e) {
-      log.error(String.format("Cannot access getter for class attribute %s: %s", new Object[] { classAttribute, e.getMessage() }));
+      log.error(String.format("Cannot access getter for class attribute %s: %s", cast(Object[])[ classAttribute, e.getMessage() ]));
     }
     if (getterMethod !is null) {
       try {
         Class<?>[] parameterTypes = getterMethod.getParameterTypes();
         if ((parameterTypes !is null) && (parameterTypes.length == 1) && (HostInfo.class.isAssignableFrom(parameterTypes[0]))) {
-          return getterMethod.invoke(object, new Object[] { getHostInfo() });
+          return getterMethod.invoke(object, cast(Object[])[ getHostInfo() ]);
         }
         return getterMethod.invoke(object, new Object[0]);
       }
       catch (InvocationTargetException e) {
-        log.error(String.format("Getter for class attribute %s cannot be invoked: %s", new Object[] { classAttribute, e.getTargetException().getMessage() }));
+        log.error(String.format("Getter for class attribute %s cannot be invoked: %s", cast(Object[])[ classAttribute, e.getTargetException().getMessage() ]));
       } catch (Exception e) {
-        log.error(String.format("Getter for class attribute %s cannot be invoked: %s", new Object[] { classAttribute, e.getMessage() }));
+        log.error(String.format("Getter for class attribute %s cannot be invoked: %s", cast(Object[])[ classAttribute, e.getMessage() ]));
       }
     }
     return null;

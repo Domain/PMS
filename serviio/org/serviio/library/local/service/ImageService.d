@@ -25,7 +25,7 @@ public class ImageService
   {
     Long mediaItemId;
     if (metadata !is null) {
-      log.debug_(String.format("Adding image into database: %s", new Object[] { metadata.getTitle() }));
+      log.debug_(String.format("Adding image into database: %s", cast(Object[])[ metadata.getTitle() ]));
 
       Long folderId = FolderService.createOrReadFolder(repository, metadata.getFilePath());
 
@@ -58,7 +58,7 @@ public class ImageService
   {
     Image image = getImage(mediaItemId);
     if (image !is null) {
-      log.debug_(String.format("Removing image from database: %s", new Object[] { image.getTitle() }));
+      log.debug_(String.format("Removing image from database: %s", cast(Object[])[ image.getTitle() ]));
 
       PlaylistService.removeMediaItemFromPlaylists(mediaItemId);
 
@@ -77,7 +77,7 @@ public class ImageService
   public static void updateImageInLibrary(ImageMetadata metadata, Long mediaItemId)
   {
     if (metadata !is null) {
-      log.debug_(String.format("Updating image in database: %s", new Object[] { metadata.getTitle() }));
+      log.debug_(String.format("Updating image in database: %s", cast(Object[])[ metadata.getTitle() ]));
 
       Image image = getImage(mediaItemId);
 
@@ -203,7 +203,7 @@ public class ImageService
 
         return CoverImageService.createCoverImage(coverImage, metadata.getExifRotation());
       } catch (Throwable e) {
-        log.warn(String.format("Cannot convert image to JPG. Message: %s", new Object[] { e.getMessage() }));
+        log.warn(String.format("Cannot convert image to JPG. Message: %s", cast(Object[])[ e.getMessage() ]));
         return null;
       }
     }

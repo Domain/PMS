@@ -31,7 +31,7 @@ public class ListEpisodesForSeriesSeasonCommand : AbstractVideosRetrievalCommand
 
   protected String getItemTitle(Video video, bool markedItem)
   {
-    return String.format("%02d. %s%s", new Object[] { video.getEpisodeNumber(), markedItem ? "** " : "", video.getTitle() });
+    return String.format("%02d. %s%s", cast(Object[])[ video.getEpisodeNumber(), markedItem ? "** " : "", video.getTitle() ]);
   }
 
   protected Long findMarkedItemId(bool forSingleItem)

@@ -55,7 +55,7 @@ public class ContentDirectoryDefinitionParser
         if (childNode.getLocalName().equals(TAG_ACTION))
           childDefinitionNode = createActionNode(childNode, parentDefinitionNode);
         else
-          throw new ContentDirectoryDefinitionException(String.format("Unsupported tag encountered: %s", new Object[] { childNode.getLocalName() }));
+          throw new ContentDirectoryDefinitionException(String.format("Unsupported tag encountered: %s", cast(Object[])[ childNode.getLocalName() ]));
       }
       parentDefinitionNode.getChildNodes().add(childDefinitionNode);
       if (( cast(ContainerNode)childDefinitionNode !is null ))
@@ -74,7 +74,7 @@ public class ContentDirectoryDefinitionParser
     String nodeEditable = XPathUtil.getNodeValue(node, "@editable");
     String nodeCacheRegion = XPathUtil.getNodeValue(node, "@cacheRegion");
 
-    log.debug_(String.format("Found Container node with attributes: id=%s, titleKey=%s, class=%s, cacheRegion=%s, browsable = %s, editable = %s", new Object[] { nodeId, nodeTitleKey, nodeContainerClass, nodeCacheRegion, nodeBrowsable, nodeEditable }));
+    log.debug_(String.format("Found Container node with attributes: id=%s, titleKey=%s, class=%s, cacheRegion=%s, browsable = %s, editable = %s", cast(Object[])[ nodeId, nodeTitleKey, nodeContainerClass, nodeCacheRegion, nodeBrowsable, nodeEditable ]));
     try
     {
       StaticContainerNode container = new StaticContainerNode(nodeId, nodeTitleKey, ObjectClassType.valueOf(nodeContainerClass), parent, nodeCacheRegion);
@@ -89,7 +89,7 @@ public class ContentDirectoryDefinitionParser
       return container;
     }
     catch (IllegalArgumentException e) {
-      throw new ContentDirectoryDefinitionException(String.format("Object class %s doesn't exist", new Object[] { nodeContainerClass }), e);
+      throw new ContentDirectoryDefinitionException(String.format("Object class %s doesn't exist", cast(Object[])[ nodeContainerClass ]), e);
     }
   }
 
@@ -102,7 +102,7 @@ public class ContentDirectoryDefinitionParser
     bool recursive = Boolean.valueOf(XPathUtil.getNodeValue(node, "@recursive")).boolValue();
     String nodeCacheRegion = XPathUtil.getNodeValue(node, "@cacheRegion");
 
-    log.debug_(String.format("Found Action node with attributes: command=%s, containerClass=%s, itemClass=%s, idPrefix=%s, recursive=%s, cacheRegion=%s", new Object[] { nodeCommandClass, nodeContainerClass, nodeItemClass, nodeIdPrefix, Boolean.valueOf(recursive), nodeCacheRegion }));
+    log.debug_(String.format("Found Action node with attributes: command=%s, containerClass=%s, itemClass=%s, idPrefix=%s, recursive=%s, cacheRegion=%s", cast(Object[])[ nodeCommandClass, nodeContainerClass, nodeItemClass, nodeIdPrefix, Boolean.valueOf(recursive), nodeCacheRegion ]));
     try
     {
       ObjectClassType containerClassType = ObjectValidator.isNotEmpty(nodeContainerClass) ? ObjectClassType.valueOf(nodeContainerClass) : null;
@@ -112,7 +112,7 @@ public class ContentDirectoryDefinitionParser
       return action;
     }
     catch (IllegalArgumentException e) {
-      throw new ContentDirectoryDefinitionException(String.format("Object class doesn't exist: %s", new Object[] { e.getMessage() }), e);
+      throw new ContentDirectoryDefinitionException(String.format("Object class doesn't exist: %s", cast(Object[])[ e.getMessage() ]), e);
     }
   }
 }

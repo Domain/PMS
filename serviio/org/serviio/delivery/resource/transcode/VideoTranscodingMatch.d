@@ -88,7 +88,7 @@ public class VideoTranscodingMatch
         return (videoH264Profile !is null) && (videoH264Level !is null) && (h264Profile == videoH264Profile) && (new Float(videoH264Level).floatValue() > h264LevelGT.floatValue());
       }
       catch (NumberFormatException e) {
-        log.warn(String.format("H264 level of the file is not a valid number: %s", new Object[] { videoH264Level }));
+        log.warn(String.format("H264 level of the file is not a valid number: %s", cast(Object[])[ videoH264Level ]));
         return false;
       }
 

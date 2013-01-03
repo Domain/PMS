@@ -73,10 +73,10 @@ public class ContentDirectory : Service
   public OperationResult Browse(@SOAPParameters({@SOAPParameter("ObjectID"), @SOAPParameter("ContainerID")}) String objectID, @SOAPParameter("BrowseFlag") String browseFlag, @SOAPParameter("Filter") String filter, @SOAPParameter("StartingIndex") int startingIndex, @SOAPParameter("RequestedCount") int requestedCount, @SOAPParameter("SortCriteria") String sortCriteria, Renderer renderer)
   {
     if (renderer !is null) {
-      log.debug_(String.format("Browse() called for renderer %s (profile %s) with parameters: objectID = %s, browseFlag = %s, filter = %s, startIndex = %s, count = %s, sortCriteria = %s", new Object[] { renderer.getName(), renderer.getProfileId(), objectID, browseFlag, filter, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), sortCriteria }));
+      log.debug_(String.format("Browse() called for renderer %s (profile %s) with parameters: objectID = %s, browseFlag = %s, filter = %s, startIndex = %s, count = %s, sortCriteria = %s", cast(Object[])[ renderer.getName(), renderer.getProfileId(), objectID, browseFlag, filter, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), sortCriteria ]));
     }
     else {
-      log.debug_(String.format("Browse() called for unknown renderer with parameters: objectID = %s, browseFlag = %s, filter = %s, startIndex = %s, count = %s, sortCriteria = %s", new Object[] { objectID, browseFlag, filter, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), sortCriteria }));
+      log.debug_(String.format("Browse() called for unknown renderer with parameters: objectID = %s, browseFlag = %s, filter = %s, startIndex = %s, count = %s, sortCriteria = %s", cast(Object[])[ objectID, browseFlag, filter, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), sortCriteria ]));
     }
 
     OperationResult result = new OperationResult();
@@ -87,14 +87,14 @@ public class ContentDirectory : Service
       BrowseItemsHolder<DirectoryObject> itemsHolder = engine.browse(objectID, ObjectType.ALL, browseFlag, filter, startingIndex, requestedCount, sortCriteria, rendererProfile, userProfile);
       setupSuccessfulResult(result, itemsHolder, filter, rendererProfile);
     } catch (ObjectNotFoundException e) {
-      log.warn(String.format("Object with id %s doesn't exist", new Object[] { objectID }));
+      log.warn(String.format("Object with id %s doesn't exist", cast(Object[])[ objectID ]));
       result.setError(InvocationError.CON_MAN_NO_SUCH_OBJECT);
     } catch (InvalidBrowseFlagException e) {
       log.warn(e.getMessage());
       result.setError(InvocationError.INVALID_ARGS);
       return result;
     } catch (Exception e) {
-      log.warn(String.format("Browse for object id %s failed with exception: %s", new Object[] { objectID, e.getMessage() }), e);
+      log.warn(String.format("Browse for object id %s failed with exception: %s", cast(Object[])[ objectID, e.getMessage() ]), e);
       result.setError(InvocationError.ACTION_FAILED);
     }
     return result;
@@ -102,7 +102,7 @@ public class ContentDirectory : Service
 
   public OperationResult Search(@SOAPParameter("ContainerID") String containerID, @SOAPParameter("SearchCriteria") String searchCriteria, @SOAPParameter("Filter") String filter, @SOAPParameter("StartingIndex") int startingIndex, @SOAPParameter("RequestedCount") int requestedCount, @SOAPParameter("SortCriteria") String sortCriteria, Renderer renderer)
   {
-    log.debug_(String.format("Search() called for renderer %s with parameters: containerID = %s, searchCriteria = %s, filter = %s, startIndex = %s, count = %s, sortCriteria = %s", new Object[] { renderer !is null ? renderer.getName() : "Unknown", containerID, searchCriteria, filter, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), sortCriteria }));
+    log.debug_(String.format("Search() called for renderer %s with parameters: containerID = %s, searchCriteria = %s, filter = %s, startIndex = %s, count = %s, sortCriteria = %s", cast(Object[])[ renderer !is null ? renderer.getName() : "Unknown", containerID, searchCriteria, filter, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount), sortCriteria ]));
 
     OperationResult result = new OperationResult();
 
@@ -116,7 +116,7 @@ public class ContentDirectory : Service
       ContainerNode container = Definition.instance().getContainer(containerID);
       if (container is null)
       {
-        log.warn(String.format("Object with id %s doesn't exist", new Object[] { containerID }));
+        log.warn(String.format("Object with id %s doesn't exist", cast(Object[])[ containerID ]));
         result.setError(InvocationError.CON_MAN_NO_SUCH_OBJECT);
         return result;
       }
@@ -125,10 +125,10 @@ public class ContentDirectory : Service
       setupSuccessfulResult(result, itemsHolder, filter, rendererProfile);
     }
     catch (ObjectNotFoundException e) {
-      log.warn(String.format("Container with id %s doesn't exist", new Object[] { containerID }));
+      log.warn(String.format("Container with id %s doesn't exist", cast(Object[])[ containerID ]));
       result.setError(InvocationError.CON_MAN_NO_SUCH_OBJECT);
     } catch (Exception e) {
-      log.warn(String.format("Search in container %s failed with exception: %s", new Object[] { containerID, e.getMessage() }), e);
+      log.warn(String.format("Search in container %s failed with exception: %s", cast(Object[])[ containerID, e.getMessage() ]), e);
       result.setError(InvocationError.ACTION_FAILED);
     }
     return result;
@@ -145,7 +145,7 @@ public class ContentDirectory : Service
       ContainerNode container = Definition.instance().getContainer(objectID);
       if (container is null)
       {
-        log.warn(String.format("Object with id %s doesn't exist", new Object[] { objectID }));
+        log.warn(String.format("Object with id %s doesn't exist", cast(Object[])[ objectID ]));
         result.setError(InvocationError.CON_MAN_NO_SUCH_OBJECT);
       } else {
         Profile rendererProfile = ProfileManager.getProfile(renderer);
@@ -159,7 +159,7 @@ public class ContentDirectory : Service
             engine.clearAllCacheRegions();
           }
         }
-        else log.warn(String.format("ObjectId %s is not recognized, will not bookmark the last viewed position", new Object[] { objectID }));
+        else log.warn(String.format("ObjectId %s is not recognized, will not bookmark the last viewed position", cast(Object[])[ objectID ]));
       }
     }
 
@@ -220,10 +220,10 @@ public class ContentDirectory : Service
       throw new RuntimeException("MessageBuilder class not defined in Profile");
     try
     {
-      Constructor<?> c = builderClass.getConstructor(new Class[] { String.class });
-      return (ContentDirectoryMessageBuilder)c.newInstance(new Object[] { filter });
+      Constructor<?> c = builderClass.getConstructor(cast(Class[])[ String.class ]);
+      return (ContentDirectoryMessageBuilder)c.newInstance(cast(Object[])[ filter ]);
     } catch (Exception e) {
-      throw new RuntimeException(String.format("Cannot instantiate ContentDirectoryMessageBuilder. Message: %s", new Object[] { e.getMessage() }), e);
+      throw new RuntimeException(String.format("Cannot instantiate ContentDirectoryMessageBuilder. Message: %s", cast(Object[])[ e.getMessage() ]), e);
     }
   }
 }

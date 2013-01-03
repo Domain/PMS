@@ -129,15 +129,15 @@ protected <T : DirectoryObject> Command<T> instantiateCommand(String containerId
     {
       Class<?> clazz = Class.forName(commandClass);
       if (Command.class.isAssignableFrom(clazz)) {
-        Constructor<?> c = clazz.getConstructor(new Class[] { String.class, ObjectType.class, ObjectClassType.class, ObjectClassType.class, Profile.class, AccessGroup.class, String.class, Integer.TYPE, Integer.TYPE });
-        return (Command<T>)c.newInstance(new Object[] { containerId, objectType, containerClassType, itemClassType, rendererProfile, userProfile, idPrefix, Integer.valueOf(startIndex), Integer.valueOf(count) });
+        Constructor<?> c = clazz.getConstructor(cast(Class[])[ String.class, ObjectType.class, ObjectClassType.class, ObjectClassType.class, Profile.class, AccessGroup.class, String.class, Integer.TYPE, Integer.TYPE ]);
+        return (Command<T>)c.newInstance(cast(Object[])[ containerId, objectType, containerClassType, itemClassType, rendererProfile, userProfile, idPrefix, Integer.valueOf(startIndex), Integer.valueOf(count) ]);
       }
 
-      log.error(String.format("Cannot instantiate Command %s because it doesn't implement Command interface", new Object[] { commandClass }));
+      log.error(String.format("Cannot instantiate Command %s because it doesn't implement Command interface", cast(Object[])[ commandClass ]));
     }
     catch (Exception e)
     {
-      log.error(String.format("Cannot instantiate Command %s: %s", new Object[] { commandClass, e.getMessage() }));
+      log.error(String.format("Cannot instantiate Command %s: %s", cast(Object[])[ commandClass, e.getMessage() ]));
     }
     return null;
   }
@@ -148,7 +148,7 @@ protected <T : DirectoryObject> Command<T> instantiateCommand(String containerId
     try {
       return command.retrieveItemCount();
     } catch (CommandExecutionException e) {
-      log.error(String.format("Cannot retrieve results of action count command: %s", new Object[] { e.getMessage() }), e);
+      log.error(String.format("Cannot retrieve results of action count command: %s", cast(Object[])[ e.getMessage() ]), e);
     }return 0;
   }
 
@@ -162,7 +162,7 @@ protected <T : DirectoryObject> Command<T> instantiateCommand(String containerId
     try {
       return command.retrieveItemList();
     } catch (CommandExecutionException e) {
-      log.error(String.format("Cannot retrieve results of action command: %s", new Object[] { e.getMessage() }), e);
+      log.error(String.format("Cannot retrieve results of action command: %s", cast(Object[])[ e.getMessage() ]), e);
       throw new RuntimeException(e);
     }
   }

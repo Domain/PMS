@@ -139,7 +139,7 @@ public class OnlineInputStream : InputStream
 
   private byte[] readFileChunk(long startByte, long byteCount)
     {
-    log.debug_(String.format("Reading %s bytes starting at %s", new Object[] { Long.valueOf(byteCount), Long.valueOf(startByte) }));
+    log.debug_(String.format("Reading %s bytes starting at %s", cast(Object[])[ Long.valueOf(byteCount), Long.valueOf(startByte) ]));
     Request request = new Request(Method.GET, contentURL.toString());
     if (credentials !is null) {
       ChallengeScheme scheme = ChallengeScheme.HTTP_BASIC;
@@ -157,24 +157,24 @@ public class OnlineInputStream : InputStream
     Response response = restletClient.handle(request);
     if ((Status.SUCCESS_OK.equals(response.getStatus())) || (new Status(-1).equals(response.getStatus())))
     {
-      log.debug_(String.format("Byte range not supported for %s, returning the whole stream", new Object[] { contentURL.toString() }));
+      log.debug_(String.format("Byte range not supported for %s, returning the whole stream", cast(Object[])[ contentURL.toString() ]));
       wholeStream = getResponseStream(response);
       throw new RangeNotSupportedException();
     }if (Status.SUCCESS_PARTIAL_CONTENT.equals(response.getStatus())) {
       InputStream content = getResponseStream(response);
       byte[] bytes = FileUtils.readFileBytes(content);
-      log.debug_(String.format("Returning %s bytes from partial content response", new Object[] { Integer.valueOf(bytes.length) }));
+      log.debug_(String.format("Returning %s bytes from partial content response", cast(Object[])[ Integer.valueOf(bytes.length) ]));
       return bytes;
     }if (response.getStatus().isRedirection()) {
       contentURL = response.getLocationRef().toUrl();
-      log.debug_(String.format("302 returned, redirecting to %s", new Object[] { contentURL }));
+      log.debug_(String.format("302 returned, redirecting to %s", cast(Object[])[ contentURL ]));
       return readFileChunk(startByte, byteCount);
     }if (response.getStatus().equals(Status.CLIENT_ERROR_REQUESTED_RANGE_NOT_SATISFIABLE)) {
       wholeStream = getResponseStream(response);
-      log.debug_(String.format("Byte range not satisfiable for %s, returning the whole stream", new Object[] { contentURL.toString() }));
+      log.debug_(String.format("Byte range not satisfiable for %s, returning the whole stream", cast(Object[])[ contentURL.toString() ]));
       throw new RangeNotSupportedException();
     }
-    throw new IOException(String.format("Status '%s' received from '%s', cancelling transfer", new Object[] { response.getStatus(), contentURL.toString() }));
+    throw new IOException(String.format("Status '%s' received from '%s', cancelling transfer", cast(Object[])[ response.getStatus(), contentURL.toString() ]));
   }
 
   private InputStream getResponseStream(Response response)
@@ -195,7 +195,7 @@ public class OnlineInputStream : InputStream
         }
       }
     }
-    throw new IOException(String.format("Cannot open stream from '%s', possibly incorrect URL or invalid HTTP response", new Object[] { contentURL.toString() }));
+    throw new IOException(String.format("Cannot open stream from '%s', possibly incorrect URL or invalid HTTP response", cast(Object[])[ contentURL.toString() ]));
   }
 }
 

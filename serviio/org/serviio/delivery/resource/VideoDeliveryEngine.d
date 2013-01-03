@@ -71,19 +71,19 @@ public class VideoDeliveryEngine : AbstractTranscodingDeliveryEngine<VideoMediaI
           List<MediaFormatProfile> transcodedProfiles = MediaFormatProfileResolver.resolveVideoFormat(mediaItem.getFileName(), trDef.getTargetContainer(), targetVideoCodec, targetAudioCodec, Integer.valueOf(targetDimensions.width), Integer.valueOf(targetDimensions.height), targetBitrate, trDef.getTargetContainer() == VideoContainer.M2TS ? TransportStreamTimestamp.VALID : TransportStreamTimestamp.NONE);
 
           for (MediaFormatProfile transcodedProfile : transcodedProfiles) {
-            log.debug_(String.format("Found Format profile for transcoded file %s: %s", new Object[] { mediaItem.getFileName(), transcodedProfile }));
+            log.debug_(String.format("Found Format profile for transcoded file %s: %s", cast(Object[])[ mediaItem.getFileName(), transcodedProfile ]));
 
             mediaInfos.add(new VideoMediaInfo(mediaItem.getId(), transcodedProfile, fileSize, Integer.valueOf(targetDimensions.width), Integer.valueOf(targetDimensions.height), targetBitrate, true, mediaItem.isLive(), mediaItem.getDuration(), rendererProfile.getMimeType(transcodedProfile), qualityType));
           }
 
           transcodedMI.put(qualityType, mediaInfos);
         } catch (UnsupportedDLNAMediaFileFormatException e) {
-          log.warn(String.format("Cannot get media info for transcoded file %s: %s", new Object[] { mediaItem.getFileName(), e.getMessage() }));
+          log.warn(String.format("Cannot get media info for transcoded file %s: %s", cast(Object[])[ mediaItem.getFileName(), e.getMessage() ]));
         }
       }
       return transcodedMI;
     }
-    log.warn(String.format("Cannot find matching transcoding definition for file %s", new Object[] { mediaItem.getFileName() }));
+    log.warn(String.format("Cannot find matching transcoding definition for file %s", cast(Object[])[ mediaItem.getFileName() ]));
     return new LinkedHashMap<QualityType, List<VideoMediaInfo>>();
   }
 

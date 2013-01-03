@@ -42,12 +42,12 @@ public class SanselanMetadataRetriever
       else if (imageFormat == ImageFormat.IMAGE_FORMAT_GIF)
         strategy = new GIFExtractionStrategy();
       else {
-        throw new InvalidMediaFormatException(String.format("File %s has unsupported image format", new Object[] { byteSource.getFilename() }));
+        throw new InvalidMediaFormatException(String.format("File %s has unsupported image format", cast(Object[])[ byteSource.getFilename() ]));
       }
 
       strategy.extractMetadata(md, byteSource);
     } catch (ImageReadException e) {
-      log.warn(String.format("Cannot read image file %s", new Object[] { imageLocation }));
+      log.warn(String.format("Cannot read image file %s", cast(Object[])[ imageLocation ]));
       throw new InvalidMediaFormatException(e.getMessage(), e);
     }
   }

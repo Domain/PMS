@@ -508,11 +508,11 @@ public class Configuration
       Class<?> storageClass = Class.forName(ApplicationSettings.getStringProperty("configuration_storage_class"));
       storage = cast(ConfigStorage)storageClass.newInstance();
     } catch (ClassNotFoundException e) {
-      log.error(String.format("Cannot instantiate Profile. Message: %s", new Object[] { e.getMessage() }));
+      log.error(String.format("Cannot instantiate Profile. Message: %s", cast(Object[])[ e.getMessage() ]));
     } catch (InstantiationException e) {
-      log.error(String.format("Cannot instantiate Profile. Message: %s", new Object[] { e.getMessage() }));
+      log.error(String.format("Cannot instantiate Profile. Message: %s", cast(Object[])[ e.getMessage() ]));
     } catch (IllegalAccessException e) {
-      log.error(String.format("Cannot instantiate Profile. Message: %s", new Object[] { e.getMessage() }));
+      log.error(String.format("Cannot instantiate Profile. Message: %s", cast(Object[])[ e.getMessage() ]));
     }
   }
 

@@ -28,7 +28,7 @@ public class GenreDAOImpl
     if ((newInstance is null) || (ObjectValidator.isEmpty(newInstance.getName()))) {
       throw new InvalidArgumentException("Cannot create Genre. Required data is missing.");
     }
-    log.debug_(String.format("Creating a new Genre (name = %s)", new Object[] { newInstance.getName() }));
+    log.debug_(String.format("Creating a new Genre (name = %s)", cast(Object[])[ newInstance.getName() ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -39,7 +39,7 @@ public class GenreDAOImpl
       ps.executeUpdate();
       return JdbcUtils.retrieveGeneratedID(ps);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot create Genre with name %s", new Object[] { newInstance.getName() }), e);
+      throw new PersistenceException(String.format("Cannot create Genre with name %s", cast(Object[])[ newInstance.getName() ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -47,7 +47,7 @@ public class GenreDAOImpl
   }
 
   public void delete(final Long id) {
-    log.debug_(String.format("Deleting a Genre (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Deleting a Genre (id = %s)", cast(Object[])[ id ]));
     try
     {
       new JdbcExecutor<Object>()
@@ -63,12 +63,12 @@ public class GenreDAOImpl
     }
     catch (SQLException e)
     {
-      throw new PersistenceException(String.format("Cannot delete Genre with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot delete Genre with id = %s", cast(Object[])[ id ]), e);
     }
   }
 
   public Genre read(Long id) {
-    log.debug_(String.format("Reading a Genre (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Reading a Genre (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -78,7 +78,7 @@ public class GenreDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read Genre with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot read Genre with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -91,7 +91,7 @@ public class GenreDAOImpl
 
   public Genre findGenreByName(String name)
   {
-    log.debug_(String.format("Reading a Genre (name = %s)", new Object[] { name }));
+    log.debug_(String.format("Reading a Genre (name = %s)", cast(Object[])[ name ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -101,7 +101,7 @@ public class GenreDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read Genre with name = %s", new Object[] { name }), e);
+      throw new PersistenceException(String.format("Cannot read Genre with name = %s", cast(Object[])[ name ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -110,7 +110,7 @@ public class GenreDAOImpl
 
   public int getNumberOfMediaItems(Long genreId)
   {
-    log.debug_(String.format("Getting number of media items for genre %s", new Object[] { genreId }));
+    log.debug_(String.format("Getting number of media items for genre %s", cast(Object[])[ genreId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -128,7 +128,7 @@ public class GenreDAOImpl
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot get number of media items for genre: %s ", new Object[] { genreId }), e);
+      throw new PersistenceException(String.format("Cannot get number of media items for genre: %s ", cast(Object[])[ genreId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -137,7 +137,7 @@ public class GenreDAOImpl
 
   public List<Genre> retrieveGenres(MediaFileType fileType, int startingIndex, int requestedCount)
   {
-    log.debug_(String.format("Retrieving list of genres for %s (from=%s, count=%s)", new Object[] { fileType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) }));
+    log.debug_(String.format("Retrieving list of genres for %s (from=%s, count=%s)", cast(Object[])[ fileType, Integer.valueOf(startingIndex), Integer.valueOf(requestedCount) ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -148,7 +148,7 @@ public class GenreDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read list of genres for %s", new Object[] { fileType }), e);
+      throw new PersistenceException(String.format("Cannot read list of genres for %s", cast(Object[])[ fileType ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -157,7 +157,7 @@ public class GenreDAOImpl
 
   public int getGenreCount(MediaFileType fileType)
   {
-    log.debug_(String.format("Retrieving number of genres for %s", new Object[] { fileType }));
+    log.debug_(String.format("Retrieving number of genres for %s", cast(Object[])[ fileType ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -174,7 +174,7 @@ public class GenreDAOImpl
       return 0;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read number of genres for %s", new Object[] { fileType }), e);
+      throw new PersistenceException(String.format("Cannot read number of genres for %s", cast(Object[])[ fileType ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);

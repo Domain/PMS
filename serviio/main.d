@@ -1,9 +1,9 @@
 module main;
 
-import std.stdio;
+import org.serviio.MediaServer;
 
 int main(string[] argv)
 {
-   writeln("Hello D-World!");
+   MediaServer.main(argv);
    return 0;
 }

@@ -29,19 +29,19 @@ public class MediaItemDAOImpl
     if (mediaFile is null) {
       throw new InvalidArgumentException("Cannot check item presence. Required data is missing.");
     }
-    log.debug_(String.format("Checking if DB already contains media item %s", new Object[] { mediaFile.getName() }));
+    log.debug_(String.format("Checking if DB already contains media item %s", cast(Object[])[ mediaFile.getName() ]));
     MediaItem mi = getMediaItem(FileUtils.getProperFilePath(mediaFile), Platform.isWindows());
     if (mi !is null) {
-      log.debug_(String.format("Media item %s already exists in DB", new Object[] { mediaFile.getName() }));
+      log.debug_(String.format("Media item %s already exists in DB", cast(Object[])[ mediaFile.getName() ]));
       return true;
     }
-    log.debug_(String.format("Media item %s doesn't exist in DB yet", new Object[] { mediaFile.getName() }));
+    log.debug_(String.format("Media item %s doesn't exist in DB yet", cast(Object[])[ mediaFile.getName() ]));
     return false;
   }
 
   public MediaItem getMediaItem(String filePath, bool ignoreCase)
   {
-    log.debug_(String.format("Looking up a media item for file path: %s, ignore case: %s", new Object[] { filePath, Boolean.valueOf(ignoreCase) }));
+    log.debug_(String.format("Looking up a media item for file path: %s, ignore case: %s", cast(Object[])[ filePath, Boolean.valueOf(ignoreCase) ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -52,7 +52,7 @@ public class MediaItemDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot find media item by file path: %s ", new Object[] { filePath }), e);
+      throw new PersistenceException(String.format("Cannot find media item by file path: %s ", cast(Object[])[ filePath ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -61,7 +61,7 @@ public class MediaItemDAOImpl
 
   public MediaItem read(Long id)
   {
-    log.debug_(String.format("Reading a MediaItem (id = %s)", new Object[] { id }));
+    log.debug_(String.format("Reading a MediaItem (id = %s)", cast(Object[])[ id ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -72,7 +72,7 @@ public class MediaItemDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapSingleResult(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read MediaItem with id = %s", new Object[] { id }), e);
+      throw new PersistenceException(String.format("Cannot read MediaItem with id = %s", cast(Object[])[ id ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -81,7 +81,7 @@ public class MediaItemDAOImpl
 
   public File getFile(Long mediaItemId)
   {
-    log.debug_(String.format("Getting file of media item %s", new Object[] { mediaItemId }));
+    log.debug_(String.format("Getting file of media item %s", cast(Object[])[ mediaItemId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -97,7 +97,7 @@ public class MediaItemDAOImpl
       return null;
     }
     catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot get file of media item: %s ", new Object[] { mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot get file of media item: %s ", cast(Object[])[ mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -106,7 +106,7 @@ public class MediaItemDAOImpl
 
   public List<MediaItem> getMediaItemsInRepository(Long repositoryId)
   {
-    log.debug_(String.format("Reading MediaItems for Repository (id = %s)", new Object[] { repositoryId }));
+    log.debug_(String.format("Reading MediaItems for Repository (id = %s)", cast(Object[])[ repositoryId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -117,7 +117,7 @@ public class MediaItemDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read MediaItems for Repository with id = %s", new Object[] { repositoryId }), e);
+      throw new PersistenceException(String.format("Cannot read MediaItems for Repository with id = %s", cast(Object[])[ repositoryId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -126,7 +126,7 @@ public class MediaItemDAOImpl
 
   public List<MediaItem> getMediaItemsInRepository(Long repositoryId, MediaFileType fileType)
   {
-    log.debug_(String.format("Reading MediaItems (%s) for Repository (id = %s)", new Object[] { fileType, repositoryId }));
+    log.debug_(String.format("Reading MediaItems (%s) for Repository (id = %s)", cast(Object[])[ fileType, repositoryId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -138,7 +138,7 @@ public class MediaItemDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read MediaItems (%s) for Repository with id = %s", new Object[] { fileType, repositoryId }), e);
+      throw new PersistenceException(String.format("Cannot read MediaItems (%s) for Repository with id = %s", cast(Object[])[ fileType, repositoryId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -150,7 +150,7 @@ public class MediaItemDAOImpl
     if (mediaItemId is null) {
       throw new InvalidArgumentException("Cannot mark MediaItem as dirty. Required data is missing.");
     }
-    log.debug_(String.format("Marking MediaItem (id = %s) as dirty", new Object[] { mediaItemId }));
+    log.debug_(String.format("Marking MediaItem (id = %s) as dirty", cast(Object[])[ mediaItemId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -159,7 +159,7 @@ public class MediaItemDAOImpl
       ps.setLong(1, mediaItemId.longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot mark MediaItem %s as dirty", new Object[] { mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot mark MediaItem %s as dirty", cast(Object[])[ mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -171,7 +171,7 @@ public class MediaItemDAOImpl
     if (fileType is null) {
       throw new InvalidArgumentException("Cannot mark MediaItems as dirty. Required data is missing.");
     }
-    log.debug_(String.format("Marking MediaItems (type = %s) as dirty", new Object[] { fileType }));
+    log.debug_(String.format("Marking MediaItems (type = %s) as dirty", cast(Object[])[ fileType ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -180,7 +180,7 @@ public class MediaItemDAOImpl
       ps.setString(1, fileType.toString());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot mark MediaItems of type %s as dirty", new Object[] { fileType }), e);
+      throw new PersistenceException(String.format("Cannot mark MediaItems of type %s as dirty", cast(Object[])[ fileType ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -192,7 +192,7 @@ public class MediaItemDAOImpl
     if ((mediaItemId is null) || (seconds is null)) {
       throw new InvalidArgumentException("Cannot set MediaItem bookmark. Required data is missing.");
     }
-    log.debug_(String.format("Bookmarking MediaItem (id = %s) at %s seconds", new Object[] { mediaItemId, seconds }));
+    log.debug_(String.format("Bookmarking MediaItem (id = %s) at %s seconds", cast(Object[])[ mediaItemId, seconds ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -202,7 +202,7 @@ public class MediaItemDAOImpl
       ps.setLong(2, mediaItemId.longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot set bookmark for MediaItem %s", new Object[] { mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot set bookmark for MediaItem %s", cast(Object[])[ mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -211,7 +211,7 @@ public class MediaItemDAOImpl
 
   public List<MediaItem> getDirtyMediaItemsInRepository(Long repositoryId)
   {
-    log.debug_(String.format("Reading dirty MediaItems for Repository (id = %s)", new Object[] { repositoryId }));
+    log.debug_(String.format("Reading dirty MediaItems for Repository (id = %s)", cast(Object[])[ repositoryId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -222,7 +222,7 @@ public class MediaItemDAOImpl
       ResultSet rs = ps.executeQuery();
       return mapResultSet(rs);
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot read dirty MediaItems for Repository with id = %s", new Object[] { repositoryId }), e);
+      throw new PersistenceException(String.format("Cannot read dirty MediaItems for Repository with id = %s", cast(Object[])[ repositoryId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);
@@ -234,7 +234,7 @@ public class MediaItemDAOImpl
     if (mediaItemId is null) {
       throw new InvalidArgumentException("Cannot mark MediaItem as read. Required data is missing.");
     }
-    log.debug_(String.format("Marking MediaItem (id = %s) as read", new Object[] { mediaItemId }));
+    log.debug_(String.format("Marking MediaItem (id = %s) as read", cast(Object[])[ mediaItemId ]));
     Connection con = null;
     PreparedStatement ps = null;
     try {
@@ -243,7 +243,7 @@ public class MediaItemDAOImpl
       ps.setLong(1, mediaItemId.longValue());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new PersistenceException(String.format("Cannot mark MediaItem %s as read", new Object[] { mediaItemId }), e);
+      throw new PersistenceException(String.format("Cannot mark MediaItem %s as read", cast(Object[])[ mediaItemId ]), e);
     } finally {
       JdbcUtils.closeStatement(ps);
       DatabaseManager.releaseConnection(con);

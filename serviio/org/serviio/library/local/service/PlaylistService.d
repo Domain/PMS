@@ -36,7 +36,7 @@ public class PlaylistService
 
   public static void addPlaylistToLibrary(ParsedPlaylist parsedPlaylist, Repository repository, String filePath, Date lastModified)
   {
-    log.debug_(String.format("Adding playlist into database: %s", new Object[] { parsedPlaylist.getTitle() }));
+    log.debug_(String.format("Adding playlist into database: %s", cast(Object[])[ parsedPlaylist.getTitle() ]));
 
     Playlist playlist = new Playlist(parsedPlaylist.getTitle(), new HashSet<MediaFileType>(), filePath, lastModified, repository.getId());
     playlist.setAllItemsFound(false);

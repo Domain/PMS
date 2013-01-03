@@ -20,7 +20,7 @@ public class AccessGroupService
     AccessGroup profile = cast(AccessGroup)DAOFactory.getAccessGroupDAO().read(renderer.getAccessGroupId());
     if (profile is null)
     {
-      log.debug_(String.format("Could not find a access group with id '%s' for renderer. Using ANY.", new Object[] { renderer.getAccessGroupId() }));
+      log.debug_(String.format("Could not find a access group with id '%s' for renderer. Using ANY.", cast(Object[])[ renderer.getAccessGroupId() ]));
       return AccessGroup.ANY;
     }
     return profile;

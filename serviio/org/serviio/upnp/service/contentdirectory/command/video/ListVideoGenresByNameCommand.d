@@ -22,7 +22,7 @@ public class ListVideoGenresByNameCommand : AbstractEntityContainerCommand<Genre
 
   protected Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.GENRE, ObjectClassType.STORAGE_FOLDER }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.GENRE, ObjectClassType.STORAGE_FOLDER ]));
   }
 
   protected List<Genre> retrieveEntityList()

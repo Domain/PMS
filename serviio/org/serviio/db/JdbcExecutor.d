@@ -9,7 +9,7 @@ import org.serviio.util.JdbcUtils;
 
 public abstract class JdbcExecutor<T>
 {
-  private static final List<String> lockErrorCodes = Arrays.asList(new String[] { "40XL1", "40XL2", "40001" });
+  private static final List<String> lockErrorCodes = Arrays.asList(cast(String[])[ "40XL1", "40XL2", "40001" ]);
 
   public void executeUpdate() {
     Connection con = null;

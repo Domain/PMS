@@ -37,7 +37,7 @@ public class BrowsingCategoriesMessages
 
   public static void loadLocale(Locale locale) {
     selectedRb = ResourceBundle.getBundle(BUNDLE, locale, control);
-    log.info(String.format("Loaded browsing categories message bundle for locale: %s", new Object[] { locale.toString() }));
+    log.info(String.format("Loaded browsing categories message bundle for locale: %s", cast(Object[])[ locale.toString() ]));
   }
 
   static

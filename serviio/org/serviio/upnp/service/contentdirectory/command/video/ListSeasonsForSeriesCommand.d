@@ -30,7 +30,7 @@ public class ListSeasonsForSeriesCommand : AbstractCommand<Container>
 
   protected Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.STORAGE_FOLDER ]));
   }
 
   protected Set<ObjectType> getSupportedObjectTypes()
@@ -48,7 +48,7 @@ public class ListSeasonsForSeriesCommand : AbstractCommand<Container>
 
     for (Integer seasonNumber : seasons) {
       String runtimeId = generateRuntimeObjectId(seasonNumber);
-      String containerTitle = String.format("%s %s%s", new Object[] { BrowsingCategoriesMessages.getMessage("season", new Object[0]), seasonNumber, (lastViewedSeason !is null) && (lastViewedSeason.equals(seasonNumber)) ? " **" : "" });
+      String containerTitle = String.format("%s %s%s", cast(Object[])[ BrowsingCategoriesMessages.getMessage("season", new Object[0]), seasonNumber, (lastViewedSeason !is null) && (lastViewedSeason.equals(seasonNumber)) ? " **" : "" ]);
       Map<ClassProperties, Object> values = ObjectValuesBuilder.instantiateValuesForContainer(containerTitle, runtimeId, getDisplayedContainerId(objectId), objectType, accessGroup);
       items.add( cast(Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, null));
     }
@@ -62,7 +62,7 @@ public class ListSeasonsForSeriesCommand : AbstractCommand<Container>
 
     Integer lastViewedSeason = getLastViewedSeason(seriesId);
 
-    String containerTitle = String.format("%s %s%s", new Object[] { BrowsingCategoriesMessages.getMessage("season", new Object[0]), seasonNumber, (lastViewedSeason !is null) && (lastViewedSeason.equals(seasonNumber)) ? " **" : "" });
+    String containerTitle = String.format("%s %s%s", cast(Object[])[ BrowsingCategoriesMessages.getMessage("season", new Object[0]), seasonNumber, (lastViewedSeason !is null) && (lastViewedSeason.equals(seasonNumber)) ? " **" : "" ]);
     Map<ClassProperties, Object> values = ObjectValuesBuilder.instantiateValuesForContainer(containerTitle, objectId, Definition.instance().getParentNodeId(objectId), objectType, accessGroup);
     return (Container)DirectoryObjectBuilder.createInstance(containerClassType, values, null, null);
   }

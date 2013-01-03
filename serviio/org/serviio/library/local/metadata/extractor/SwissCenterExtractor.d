@@ -76,7 +76,7 @@ public class SwissCenterExtractor : AbstractLocalFileExtractor
       }
     }
     catch (XPathExpressionException e) {
-      throw new InvalidMediaFormatException(String.format("File '%s' couldn't be parsed: %s", new Object[] { xmlFile.getPath(), e.getMessage() }));
+      throw new InvalidMediaFormatException(String.format("File '%s' couldn't be parsed: %s", cast(Object[])[ xmlFile.getPath(), e.getMessage() ]));
     } finally {
       FileUtils.closeQuietly(xmlStream);
     }
@@ -84,7 +84,7 @@ public class SwissCenterExtractor : AbstractLocalFileExtractor
 
   private bool validateSwisscenterFile(File xmlFile)
     {
-    log.debug_(String.format("Checking if file '%s' is a Swisscenter file", new Object[] { xmlFile.getName() }));
+    log.debug_(String.format("Checking if file '%s' is a Swisscenter file", cast(Object[])[ xmlFile.getName() ]));
     InputStream xmlStream = null;
     try {
       xmlStream = new FileInputStream(xmlFile);
@@ -93,16 +93,16 @@ public class SwissCenterExtractor : AbstractLocalFileExtractor
         Node movieNode = XPathUtil.getNode(rootNode, "sc:movie", namespaceContext);
         Node tvNode = XPathUtil.getNode(rootNode, "sc:tv", namespaceContext);
         if ((movieNode !is null) || (tvNode !is null)) {
-          log.debug_(String.format("File '%s' is a valid Swisscenter file", new Object[] { xmlFile.getName() }));
+          log.debug_(String.format("File '%s' is a valid Swisscenter file", cast(Object[])[ xmlFile.getName() ]));
           return true;
         }
       }
-      log.debug_(String.format("File '%s' is not a Swisscenter file", new Object[] { xmlFile.getName() }));
+      log.debug_(String.format("File '%s' is not a Swisscenter file", cast(Object[])[ xmlFile.getName() ]));
       return false;
     }
     catch (XPathExpressionException e)
     {
-      log.error(String.format("File '%s' couldn't be parsed:%s", new Object[] { xmlFile.getPath(), e.getMessage() }));
+      log.error(String.format("File '%s' couldn't be parsed:%s", cast(Object[])[ xmlFile.getPath(), e.getMessage() ]));
       return false;
     } finally {
       FileUtils.closeQuietly(xmlStream);
@@ -115,7 +115,7 @@ public class SwissCenterExtractor : AbstractLocalFileExtractor
       retrieveSharedData(metadata, movieNode);
       metadata.setContentType(ContentType.MOVIE);
     } catch (XPathExpressionException e) {
-      throw new InvalidMediaFormatException(String.format("Error during parsing SwissCenter movie XML file: %s", new Object[] { e.getMessage() }));
+      throw new InvalidMediaFormatException(String.format("Error during parsing SwissCenter movie XML file: %s", cast(Object[])[ e.getMessage() ]));
     }
   }
 
@@ -131,7 +131,7 @@ public class SwissCenterExtractor : AbstractLocalFileExtractor
       metadata.setEpisodeNumber(ObjectValidator.isNotEmpty(episodeNumber) ? Integer.valueOf(episodeNumber) : null);
       metadata.setContentType(ContentType.EPISODE);
     } catch (XPathExpressionException e) {
-      throw new InvalidMediaFormatException(String.format("Error during parsing SwissCenter TV XML file: %s", new Object[] { e.getMessage() }));
+      throw new InvalidMediaFormatException(String.format("Error during parsing SwissCenter TV XML file: %s", cast(Object[])[ e.getMessage() ]));
     }
   }
 

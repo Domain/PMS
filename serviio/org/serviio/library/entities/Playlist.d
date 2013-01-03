@@ -75,7 +75,7 @@ public class Playlist : PersistedEntity
 
   public String toString()
   {
-    return String.format("Playlist [id=%s, title=%s]", new Object[] { id, title });
+    return String.format("Playlist [id=%s, title=%s]", cast(Object[])[ id, title ]);
   }
 }
 

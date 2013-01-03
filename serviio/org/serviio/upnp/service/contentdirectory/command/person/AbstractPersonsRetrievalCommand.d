@@ -21,7 +21,7 @@ public abstract class AbstractPersonsRetrievalCommand : AbstractEntityContainerC
 
   protected Set<ObjectClassType> getSupportedClasses()
   {
-    return new HashSet<ObjectClassType>(Arrays.asList(new ObjectClassType[] { ObjectClassType.CONTAINER, ObjectClassType.PERSON, ObjectClassType.MUSIC_ARTIST, ObjectClassType.STORAGE_FOLDER }));
+    return new HashSet<ObjectClassType>(Arrays.asList(cast(ObjectClassType[])[ ObjectClassType.CONTAINER, ObjectClassType.PERSON, ObjectClassType.MUSIC_ARTIST, ObjectClassType.STORAGE_FOLDER ]));
   }
 
   protected Person retrieveSingleEntity(Long entityId)

@@ -13,7 +13,7 @@ public enum MediaFileType
 	override
 	public String[] supportedFileExtensions()
 	{
-		return new String[] { "jpg", "jpeg", "png", "gif", "arw", "cr2", "crw", "dng", "raf", "raw", "rw2", "mrw", "nef", "nrw", "pef", "srf", "orf" };
+		return cast(String[])[ "jpg", "jpeg", "png", "gif", "arw", "cr2", "crw", "dng", "raf", "raw", "rw2", "mrw", "nef", "nrw", "pef", "srf", "orf" ];
 	}
 }, 
 
@@ -21,7 +21,7 @@ public enum MediaFileType
 	override
 	public String[] supportedFileExtensions()
 	{
-		return new String[] { "mpg", "mpeg", "vob", "avi", "mp4", "m4v", "ts", "wmv", "asf", "mkv", "divx", "m2ts", "mts", "mov", "mod", "tp", "trp", "vdr", "flv", "f4v", "dvr", "dvr-ms", "wtv", "ogv", "ogm", "3gp", "rm", "rmvb" };
+		return cast(String[])[ "mpg", "mpeg", "vob", "avi", "mp4", "m4v", "ts", "wmv", "asf", "mkv", "divx", "m2ts", "mts", "mov", "mod", "tp", "trp", "vdr", "flv", "f4v", "dvr", "dvr-ms", "wtv", "ogv", "ogm", "3gp", "rm", "rmvb" ];
 	}
 }, 
 
@@ -29,7 +29,7 @@ public enum MediaFileType
 	override
 	public String[] supportedFileExtensions()
 	{
-		return new String[] { "mp3", "wma", "m4a", "flac", "ogg", "oga" };
+		return cast(String[])[ "mp3", "wma", "m4a", "flac", "ogg", "oga" ];
 	}
 };
 

@@ -28,9 +28,9 @@ public abstract class AbstractCacheDecorator
     try
     {
       cache.clear();
-      log.debug_(String.format("Cleared cache (%s)", new Object[] { regionName }));
+      log.debug_(String.format("Cleared cache (%s)", cast(Object[])[ regionName ]));
     } catch (CacheException e) {
-      log.warn(String.format("Could not clean local cache (%s): %s", new Object[] { regionName, e.getMessage() }));
+      log.warn(String.format("Could not clean local cache (%s): %s", cast(Object[])[ regionName, e.getMessage() ]));
     }
   }
 

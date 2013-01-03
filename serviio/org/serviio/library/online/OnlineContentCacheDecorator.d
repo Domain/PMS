@@ -23,9 +23,9 @@ public class OnlineContentCacheDecorator : AbstractCacheDecorator
     try
     {
       cache.put(url, cachedValue);
-      log.debug_(String.format("Stored online content '%s' in the cache (%s), returning it", new Object[] { url, regionName }));
+      log.debug_(String.format("Stored online content '%s' in the cache (%s), returning it", cast(Object[])[ url, regionName ]));
     } catch (CacheException e) {
-      log.warn(String.format("Could not store object to local cache (%s): %s", new Object[] { regionName, e.getMessage() }));
+      log.warn(String.format("Could not store object to local cache (%s): %s", cast(Object[])[ regionName, e.getMessage() ]));
     }
   }
 
@@ -34,9 +34,9 @@ public class OnlineContentCacheDecorator : AbstractCacheDecorator
     try
     {
       cache.remove(url);
-      log.debug_(String.format("Removed online content '%s' from cache (%s)", new Object[] { url, regionName }));
+      log.debug_(String.format("Removed online content '%s' from cache (%s)", cast(Object[])[ url, regionName ]));
     } catch (CacheException e) {
-      log.warn(String.format("Could not remove feed %s from cache (%s): %s", new Object[] { url, regionName, e.getMessage() }));
+      log.warn(String.format("Could not remove feed %s from cache (%s): %s", cast(Object[])[ url, regionName, e.getMessage() ]));
     }
   }
 }

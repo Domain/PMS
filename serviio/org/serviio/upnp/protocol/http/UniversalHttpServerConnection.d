@@ -19,7 +19,7 @@ public class UniversalHttpServerConnection : DefaultHttpServerConnection
   {
     this.connectionId = connectionId;
 
-    log.trace(String.format("Initializing connection %s", new Object[] { connectionId }));
+    log.trace(String.format("Initializing connection %s", cast(Object[])[ connectionId ]));
   }
 
   protected HttpRequestFactory createHttpRequestFactory()
@@ -45,13 +45,13 @@ public class UniversalHttpServerConnection : DefaultHttpServerConnection
     try
     {
       if ((streamedEntity !is null) && (streamedEntity.getContent() !is null)) {
-        log.trace(String.format("Closing input stream for connection %s", new Object[] { connectionId }));
+        log.trace(String.format("Closing input stream for connection %s", cast(Object[])[ connectionId ]));
         streamedEntity.getContent().close();
         streamedEntity = null;
       }
     }
     catch (IOException e) {
-      log.warn(String.format("Cannot close input stream for connection %s: %s", new Object[] { connectionId, e.getMessage() }));
+      log.warn(String.format("Cannot close input stream for connection %s: %s", cast(Object[])[ connectionId, e.getMessage() ]));
     }
   }
 }
