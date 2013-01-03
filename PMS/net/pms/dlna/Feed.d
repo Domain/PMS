@@ -18,20 +18,20 @@
  */
 module net.pms.dlna.Feed;
 
-import com.sun.syndication.feed.synd.SyndCategory;
-import com.sun.syndication.feed.synd.SyndEnclosure;
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
+//import com.sun.syndication.feed.synd.SyndCategory;
+//import com.sun.syndication.feed.synd.SyndEnclosure;
+//import com.sun.syndication.feed.synd.SyndEntry;
+//import com.sun.syndication.feed.synd.SyndFeed;
+//import com.sun.syndication.io.SyndFeedInput;
+//import com.sun.syndication.io.XmlReader;
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Content;
-import org.jdom.Element;
+//import org.jdom.Content;
+//import org.jdom.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;

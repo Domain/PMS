@@ -22,7 +22,7 @@ module net.pms.util.Iso639;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Map : Entry;
 
 import net.pms.PMS;
 import net.pms.dlna.DLNAMediaLang;

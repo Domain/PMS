@@ -11,7 +11,7 @@ import net.pms.io.ProcessWrapperImpl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 public class RAWThumbnailer : Player {

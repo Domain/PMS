@@ -30,11 +30,11 @@ import org.slf4j.LoggerFactory;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import java.lang.exceptions;
+//import java.net.NetworkInterface;
+//import java.net.SocketException;
 import java.net.URI;
-import java.net.URISyntaxException;
+//import java.net.URISyntaxException;
 
 /**
  * Base implementation for the SystemUtils class for the generic cases.

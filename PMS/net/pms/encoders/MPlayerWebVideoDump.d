@@ -29,7 +29,7 @@ import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 import net.pms.network.HTTPResource;
 
-import java.io.IOException;
+import java.lang.exceptions;
 
 public class MPlayerWebVideoDump : MPlayerAudio {
 	public this(PmsConfiguration configuration) {

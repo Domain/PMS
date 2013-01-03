@@ -20,7 +20,7 @@ module net.pms.encoders.FFMpegAviSynthVideo;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;

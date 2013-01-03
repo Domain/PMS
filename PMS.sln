@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2012
 Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "PMS", "PMS\PMS.visualdproj", "{9262C4E9-FA57-4CAC-8296-D0B7A5228099}"
 EndProject
 Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "tools", "tools\tools.visualdproj", "{7DFCF5DE-EC93-448B-928E-FF0186927D12}"
@@ -14,6 +14,8 @@ EndProject
 Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "mozilla", "mozilla\mozilla.visualdproj", "{3B21C261-3AFB-4B70-A52F-F876855F6497}"
 EndProject
 Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "slf4j", "slf4j\slf4j.visualdproj", "{1B3B8358-FE7E-4D24-A9B4-3087E61951E6}"
+EndProject
+Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "serviio", "serviio\serviio.visualdproj", "{2185D12B-2E23-491E-8DAF-5B9E30A7476E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{1B3B8358-FE7E-4D24-A9B4-3087E61951E6}.Debug|Win32.Build.0 = Debug|Win32
 		{1B3B8358-FE7E-4D24-A9B4-3087E61951E6}.Release|Win32.ActiveCfg = Release|Win32
 		{1B3B8358-FE7E-4D24-A9B4-3087E61951E6}.Release|Win32.Build.0 = Release|Win32
+		{2185D12B-2E23-491E-8DAF-5B9E30A7476E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2185D12B-2E23-491E-8DAF-5B9E30A7476E}.Debug|Win32.Build.0 = Debug|Win32
+		{2185D12B-2E23-491E-8DAF-5B9E30A7476E}.Release|Win32.ActiveCfg = Release|Win32
+		{2185D12B-2E23-491E-8DAF-5B9E30A7476E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

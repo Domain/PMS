@@ -3,7 +3,7 @@ module net.pms.dlna.LibMediaInfoParser;
 import net.pms.configuration.FormatConfiguration;
 import net.pms.formats.v2.SubtitleType;
 
-import org.apache.commons.codec.binary.Base64;
+//import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;

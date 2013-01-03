@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.TracesTab;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.configuration.PmsConfiguration;
 import net.pms.logging.LoggingConfigFileLoader;
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 //import java.awt.event.MouseAdapter;
 //import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.HashMap;
 import java.util.Locale;
 //import javax.swing.text.DefaultCaret;

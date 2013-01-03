@@ -3,7 +3,7 @@ module net.pms.update.AutoUpdaterServerProperties;
 import net.pms.util.PmsProperties;
 import net.pms.util.Version;
 
-import java.io.IOException;
+import java.lang.exceptions;
 
 /**
  * Data provided by the server for us to update with.  Must be synchronized externally.

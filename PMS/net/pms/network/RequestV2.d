@@ -20,7 +20,7 @@ module net.pms.network.RequestV2;
 
 import org.apache.commons.lang.StringUtils : isNotBlank;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;

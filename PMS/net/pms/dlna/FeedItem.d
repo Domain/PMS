@@ -18,7 +18,7 @@
  */
 module net.pms.dlna.FeedItem;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 public class FeedItem : DLNAResource {

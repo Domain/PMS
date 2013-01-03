@@ -24,7 +24,7 @@ import net.pms.dlna.DLNAResource;
 import net.pms.formats.FormatFactory;
 import net.pms.network.HTTPResource;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.ArrayList;
 

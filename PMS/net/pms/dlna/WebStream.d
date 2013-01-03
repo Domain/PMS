@@ -20,7 +20,7 @@ module net.pms.dlna.WebStream;
 
 import net.pms.network.HTTPResourceAuthenticator;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;

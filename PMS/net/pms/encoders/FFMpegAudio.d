@@ -18,10 +18,10 @@
  */
 module net.pms.encoders.FFMpegAudio;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+////import com.jgoodies.forms.builder.PanelBuilder;
+////import com.jgoodies.forms.factories.Borders;
+////import com.jgoodies.forms.layout.CellConstraints;
+////import com.jgoodies.forms.layout.FormLayout;
 
 import net.pms.configuration.PmsConfiguration;
 import net.pms.dlna.DLNAMediaInfo;
@@ -37,7 +37,7 @@ import net.pms.PMS;
 ////import java.awt.*;
 //import java.awt.event.ItemEvent;
 //import java.awt.event.ItemListener;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 ////import javax.swing.*;

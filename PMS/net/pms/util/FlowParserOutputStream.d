@@ -1,6 +1,6 @@
 module net.pms.util.FlowParserOutputStream;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;

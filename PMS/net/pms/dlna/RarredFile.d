@@ -18,15 +18,15 @@
  */
 module net.pms.dlna.RarredFile;
 
-import com.github.junrar.Archive;
-import com.github.junrar.exception.RarException;
-import com.github.junrar.rarfile.FileHeader;
+//import com.github.junrar.Archive;
+//import com.github.junrar.exception.RarException;
+//import com.github.junrar.rarfile.FileHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.List;
 

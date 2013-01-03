@@ -18,10 +18,10 @@
  */
 module net.pms.encoders.FFMpegDVRMSRemux;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.PMS;
 import net.pms.configuration.PmsConfiguration;
@@ -38,7 +38,7 @@ import org.apache.commons.lang.StringUtils;
 ////import java.awt.*;
 //import java.awt.event.KeyEvent;
 //import java.awt.event.KeyListener;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 

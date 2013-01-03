@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.AboutTab;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.PMS;
 import net.pms.util.PropertiesUtil;
@@ -33,7 +33,7 @@ import javax.imageio.ImageIO;
 //import java.awt.event.MouseEvent;
 //import java.awt.event.MouseListener;
 //import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.lang.exceptions;
 
 public class AboutTab {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!AboutTab();

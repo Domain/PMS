@@ -18,8 +18,8 @@
  */
 module net.pms.newgui.LooksFrame;
 
-//import com.jgoodies.looks.Options;
-//import com.jgoodies.looks.plastic.PlasticLookAndFeel;
+////import com.jgoodies.looks.Options;
+////import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import com.sun.jna.Platform;
 import net.pms.Messages;
 import net.pms.PMS;

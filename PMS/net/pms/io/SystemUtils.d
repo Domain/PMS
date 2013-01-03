@@ -3,8 +3,8 @@ module net.pms.io.SystemUtils;
 import net.pms.newgui.LooksFrame;
 
 import java.io.File;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+//import java.net.NetworkInterface;
+//import java.net.SocketException;
 
 public interface SystemUtils {
 

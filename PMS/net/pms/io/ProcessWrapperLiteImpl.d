@@ -20,7 +20,7 @@ module net.pms.io.ProcessWrapperLiteImpl;
 
 import net.pms.util.ProcessUtil;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.ArrayList;
 

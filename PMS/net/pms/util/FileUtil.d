@@ -60,7 +60,7 @@ public class FileUtil {
 	}
 
 	public static File getFileNameWithAddedExtension(File parent, File f, String ext) {
-		File ff = new File(parent, f.getName() + ext);
+		File ff = new File(parent, f.getName() ~ ext);
 
 		if (ff.exists()) {
 			return ff;

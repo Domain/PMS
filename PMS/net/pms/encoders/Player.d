@@ -19,7 +19,7 @@
 module net.pms.encoders.Player;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

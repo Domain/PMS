@@ -1,8 +1,8 @@
 module net.pms.util.ImagesUtil;
 
-import mediautil.gen.Log;
-import mediautil.image.jpeg.LLJTran;
-import mediautil.image.jpeg.LLJTranException;
+//import mediautil.gen.Log;
+//import mediautil.image.jpeg.LLJTran;
+//import mediautil.image.jpeg.LLJTranException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

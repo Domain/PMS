@@ -3,7 +3,7 @@ module net.pms.util.H264AnnexBInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 public class H264AnnexBInputStream : InputStream {

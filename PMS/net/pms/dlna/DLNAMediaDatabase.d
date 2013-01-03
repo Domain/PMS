@@ -24,19 +24,19 @@ import net.pms.PMS;
 import net.pms.configuration.FormatConfiguration;
 import net.pms.formats.v2.SubtitleType;
 
-import org.h2.engine.Constants;
-import org.h2.jdbcx.JdbcConnectionPool;
-import org.h2.jdbcx.JdbcDataSource;
-import org.h2.store.fs.FileUtils;
-import org.h2.tools.DeleteDbFiles;
-import org.h2.tools.RunScript;
-import org.h2.tools.Script;
+//import org.h2.engine.Constants;
+//import org.h2.jdbcx.JdbcConnectionPool;
+//import org.h2.jdbcx.JdbcDataSource;
+//import org.h2.store.fs.FileUtils;
+//import org.h2.tools.DeleteDbFiles;
+//import org.h2.tools.RunScript;
+//import org.h2.tools.Script;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //import java.awt.Component;
 import java.io.File;
-import java.sql.all;
+//import java.sql.all;
 import java.util.ArrayList;
 
 //import javax.swing.JFrame;

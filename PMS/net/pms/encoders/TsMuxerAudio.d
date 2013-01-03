@@ -25,7 +25,7 @@ import net.pms.formats.Format;
 import net.pms.io.OutputParams;
 import net.pms.io.ProcessWrapper;
 
-import java.io.IOException;
+import java.lang.exceptions;
 
 public class TsMuxerAudio : TSMuxerVideo {
 	public static const String ID = "tsmuxeraudio";

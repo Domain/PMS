@@ -21,7 +21,7 @@ module net.pms.io.UnusedInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 public abstract class UnusedInputStream : InputStream {

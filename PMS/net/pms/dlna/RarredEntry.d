@@ -18,8 +18,8 @@
  */
 module net.pms.dlna.RarredEntry;
 
-import com.github.junrar.Archive;
-import com.github.junrar.rarfile.FileHeader;
+//import com.github.junrar.Archive;
+//import com.github.junrar.rarfile.FileHeader;
 
 import net.pms.formats.Format;
 import net.pms.util.FileUtil;
@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.OutputStream;
 

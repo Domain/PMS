@@ -18,16 +18,16 @@
  */
 module net.pms.logging.LoggingConfigFileLoader;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.Appender;
-import ch.qos.logback.core.FileAppender;
-import ch.qos.logback.core.joran.spi.JoranException;
-import ch.qos.logback.core.util.StatusPrinter;
+//import ch.qos.logback.classic.Logger;
+//import ch.qos.logback.classic.LoggerContext;
+//import ch.qos.logback.classic.joran.JoranConfigurator;
+//import ch.qos.logback.classic.spi.ILoggingEvent;
+//import ch.qos.logback.core.Appender;
+//import ch.qos.logback.core.FileAppender;
+//import ch.qos.logback.core.joran.spi.JoranException;
+//import ch.qos.logback.core.util.StatusPrinter;
 import net.pms.util.PropertiesUtil;
-import org.slf4j.ILoggerFactory;
+//import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;

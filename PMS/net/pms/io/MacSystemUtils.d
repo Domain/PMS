@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.io.IOException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import java.lang.exceptions;
+//import java.net.NetworkInterface;
+//import java.net.SocketException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.HelpTab;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 //import javax.swing.event.HyperlinkListener;
 ////import java.awt.*;
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;

@@ -1,6 +1,6 @@
 module net.pms.util.PmsProperties;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;

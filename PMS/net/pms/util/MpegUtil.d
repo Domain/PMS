@@ -1,7 +1,7 @@
 module net.pms.util.MpegUtil;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.Iterator;

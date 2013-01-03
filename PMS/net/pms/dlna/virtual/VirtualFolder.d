@@ -21,7 +21,7 @@ module net.pms.dlna.virtual.VirtualFolder;
 import net.pms.dlna.DLNAResource;
 import net.pms.network.HTTPResource;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 /**

@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.TreeNodeSettings;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.encoders.Player;
 import net.pms.encoders.PlayerFactory;
@@ -32,7 +32,7 @@ import javax.imageio.ImageIO;
 //import javax.swing.tree.DefaultMutableTreeNode;
 ////import java.awt.*;
 //import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.lang.exceptions;
 
 public class TreeNodeSettings : DefaultMutableTreeNode {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!TreeNodeSettings();

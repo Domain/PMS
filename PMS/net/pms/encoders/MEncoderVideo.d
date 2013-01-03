@@ -18,12 +18,12 @@
  */
 module net.pms.encoders.MEncoderVideo;
 
-import bsh.EvalError;
-import bsh.Interpreter;
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import bsh.EvalError;
+//import bsh.Interpreter;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import com.sun.jna.Platform;
 import net.pms.Messages;
 import net.pms.PMS;
@@ -48,13 +48,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.PrintWriter;
 import java.util.all;
 import java.util.List;
 
-import net.pms.formats.v2.AudioUtils.getLPCMChannelMappingForMencoder;
-import org.apache.commons.lang.BooleanUtils.isTrue;
+import net.pms.formats.v2.AudioUtils : getLPCMChannelMappingForMencoder;
+import org.apache.commons.lang.BooleanUtils : isTrue;
 import org.apache.commons.lang.StringUtils : isBlank, isNotBlank, isEmpty, isNotEmpty;
 
 public class MEncoderVideo : Player {
@@ -101,12 +101,12 @@ public class MEncoderVideo : Player {
 	private JCheckBox fribidi;
 	private immutable PmsConfiguration configuration;
 
-	private static const String[] INVALID_CUSTOM_OPTIONS = {
+	private static const String[] INVALID_CUSTOM_OPTIONS = [
 		"-of",
 		"-oac",
 		"-ovc",
 		"-mpegopts"
-	};
+	];
 
 	private static immutable String INVALID_CUSTOM_OPTIONS_LIST = Arrays.toString(INVALID_CUSTOM_OPTIONS);
 
@@ -121,7 +121,7 @@ public class MEncoderVideo : Player {
 	protected bool dvd;
 
 	deprecated
-	protected String overriddenMainArgs[];
+	protected String[] overriddenMainArgs;
 
 	protected bool dtsRemux;
 	protected bool pcm;
@@ -2538,7 +2538,7 @@ public class MEncoderVideo : Player {
 			if (types !is null) {
 				foreach (String type ; types) {
 					int r = rank++;
-					interpreter.set("" + type, r);
+					interpreter.set("" ~ type, r);
 					String secondaryType = "dummy";
 
 					if ("matroska".opEquals(type)) {
@@ -2650,7 +2650,7 @@ public class MEncoderVideo : Player {
 			}
 		}
 
-		String definitiveArgs[] = new String[args.size()];
+		String[] definitiveArgs = new String[args.size()];
 		args.toArray(definitiveArgs);
 
 		return definitiveArgs;

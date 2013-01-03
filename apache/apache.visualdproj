@@ -195,10 +195,14 @@
      </Folder>
      <Folder name="io">
       <File path="org\apache\commons\io\FilenameUtils.d" />
+      <File path="org\apache\commons\io\FileUtils.d" />
       <File path="org\apache\commons\io\IOUtils.d" />
+      <File path="org\apache\commons\io\LineIterator.d" />
      </Folder>
      <Folder name="lang">
+      <File path="org\apache\commons\lang\BooleanUtils.d" />
       <File path="org\apache\commons\lang\StringUtils.d" />
+      <File path="org\apache\commons\lang\WordUtils.d" />
      </Folder>
     </Folder>
    </Folder>

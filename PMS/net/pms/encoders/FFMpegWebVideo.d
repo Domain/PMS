@@ -36,7 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 ////import javax.swing.*;
-import java.io.exceptions;
+import java.lang.exceptions;
 
 public class FFMpegWebVideo : FFMpegVideo {
 	private static immutable Logger LOGGER = LoggerFactory.getLogger!FFMpegWebVideo();

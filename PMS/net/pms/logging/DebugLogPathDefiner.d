@@ -21,7 +21,7 @@ module net.pms.logging.DebugLogPathDefiner;
 import ch.qos.logback.core.PropertyDefinerBase;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 
 import net.pms.util.FileUtil;
 

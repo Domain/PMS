@@ -22,7 +22,7 @@ module net.pms.encoders.FFMpegVideo;
 //import java.awt.event.KeyEvent;
 //import java.awt.event.KeyListener;
 //import java.awt.Font;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,10 +48,10 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Pure FFmpeg video player.

@@ -207,13 +207,18 @@
     <File path="java\io\ByteArrayInputStream.d" />
     <File path="java\io\ByteArrayOutputStream.d" />
     <File path="java\io\File.d" />
+    <File path="java\io\FileFilter.d" />
     <File path="java\io\FileInputStream.d" />
     <File path="java\io\FileOutputStream.d" />
     <File path="java\io\InputStream.d" />
+    <File path="java\io\InputStreamReader.d" />
     <File path="java\io\OutputStream.d" />
+    <File path="java\io\PipedInputStream.d" />
+    <File path="java\io\PipedOutputStream.d" />
     <File path="java\io\PrintStream.d" />
     <File path="java\io\PrintWriter.d" />
     <File path="java\io\PushbackReader.d" />
+    <File path="java\io\RandomAccessFile.d" />
     <File path="java\io\Reader.d" />
     <File path="java\io\StringReader.d" />
     <File path="java\io\StringWriter.d" />
@@ -262,8 +267,18 @@
    </Folder>
    <Folder name="net">
     <File path="java\net\all.d" />
+    <File path="java\net\Authenticator.d" />
+    <File path="java\net\InetAddress.d" />
     <File path="java\net\MalformedURLException.d" />
+    <File path="java\net\PasswordAuthentication.d" />
+    <File path="java\net\URI.d" />
     <File path="java\net\URL.d" />
+    <File path="java\net\URLClassLoader.d" />
+    <File path="java\net\URLConnection.d" />
+    <File path="java\net\URLEncoder.d" />
+   </Folder>
+   <Folder name="nio">
+    <File path="java\nio\CharBuffer.d" />
    </Folder>
    <Folder name="nonstandard">
     <File path="java\nonstandard\all.d" />
@@ -281,14 +296,19 @@
     <File path="java\text\AttributedCharacterIterator.d" />
     <File path="java\text\CharacterIterator.d" />
     <File path="java\text\Collator.d" />
+    <File path="java\text\DecimalFormat.d" />
     <File path="java\text\FieldPosition.d" />
     <File path="java\text\Format.d" />
     <File path="java\text\MessageFormat.d" />
     <File path="java\text\NumberFormat.d" />
     <File path="java\text\ParseException.d" />
     <File path="java\text\ParsePosition.d" />
+    <File path="java\text\SimpleDateFormat.d" />
    </Folder>
    <Folder name="util">
+    <Folder name="prefs">
+     <File path="java\util\prefs\Preferences.d" />
+    </Folder>
     <Folder name="regex">
      <File path="java\util\regex\all.d" />
      <File path="java\util\regex\Matcher.d" />
@@ -299,6 +319,10 @@
      <File path="java\util\zip\all.d" />
      <File path="java\util\zip\DeflaterOutputStream.d" />
      <File path="java\util\zip\InflaterInputStream.d" />
+     <File path="java\util\zip\ZipEntry.d" />
+     <File path="java\util\zip\ZipException.d" />
+     <File path="java\util\zip\ZipFile.d" />
+     <File path="java\util\zip\ZipInputStream.d" />
     </Folder>
     <File path="java\util\AbstractCollection.d" />
     <File path="java\util\AbstractList.d" />
@@ -328,6 +352,8 @@
     <File path="java\util\Locale.d" />
     <File path="java\util\Map.d" />
     <File path="java\util\MissingResourceException.d" />
+    <File path="java\util\Observable.d" />
+    <File path="java\util\Observer.d" />
     <File path="java\util\Random.d" />
     <File path="java\util\ResourceBundle.d" />
     <File path="java\util\Set.d" />

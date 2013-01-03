@@ -191,6 +191,7 @@
    <Folder name="mozilla">
     <Folder name="universalchardet">
      <File path="org\mozilla\universalchardet\Constants.d" />
+     <File path="org\mozilla\universalchardet\UniversalDetector.d" />
     </Folder>
    </Folder>
   </Folder>

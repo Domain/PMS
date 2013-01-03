@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.all;
 import java.util.Observable;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+//import java.util.concurrent.Executor;
+//import java.util.concurrent.Executors;
 
 /**
  * Checks for and downloads new versions of PMS.

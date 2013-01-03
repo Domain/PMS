@@ -1,6 +1,6 @@
 module net.pms.util.PCMAudioOutputStream;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.OutputStream;
 
 public class PCMAudioOutputStream : FlowParserOutputStream {

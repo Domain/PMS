@@ -28,7 +28,7 @@ import net.pms.io.PipeProcess;
 import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -29,7 +29,7 @@ import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.all;
+//import java.util.concurrent.all;
 
 /**
  * Network speed tester class. This can be used in an asynchronous way, as it returns Future objects.

@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.StatusTab;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.configuration.PmsConfiguration;
 import net.pms.util.FormLayoutUtil;
@@ -33,7 +33,7 @@ import javax.imageio.ImageIO;
 //import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Locale;

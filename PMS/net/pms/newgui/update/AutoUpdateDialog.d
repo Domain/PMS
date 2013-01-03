@@ -1,7 +1,7 @@
 module net.pms.newgui.update.AutoUpdateDialog;
 
 import net.pms.update.AutoUpdater;
-import net.pms.update.AutoUpdater.State;
+import net.pms.update.AutoUpdater : State;
 
 ////import javax.swing.*;
 ////import java.awt.*;

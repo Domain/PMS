@@ -18,7 +18,7 @@
  */
 module net.pms.io.BufferedOutputFile;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 /**
