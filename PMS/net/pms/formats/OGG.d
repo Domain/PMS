@@ -40,14 +40,14 @@ public class OGG : MP3 {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
-			if (engine.equals(MPlayerAudio.ID)) {
-				a.add(MPlayerAudio.class);
-			} else if (engine.equals(FFMpegAudio.ID)) {
-				a.add(FFMpegAudio.class);
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+			if (engine.opEquals(MPlayerAudio.ID)) {
+				a.add(MPlayerAudio._class);
+			} else if (engine.opEquals(FFMpegAudio.ID)) {
+				a.add(FFMpegAudio._class);
 			}
 		}
 		return a;
@@ -58,8 +58,8 @@ public class OGG : MP3 {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "dts", "mka", "ape", "ogg", "shn", "mpc", "ra",
-				"mp2", "wv", "oma", "aa3", "at3", "aif", "aiff" };
+		return [ "dts", "mka", "ape", "ogg", "shn", "mpc", "ra",
+		"mp2", "wv", "oma", "aa3", "at3", "aif", "aiff" ];
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class OGG : MP3 {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return false;

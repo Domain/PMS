@@ -1,20 +1,20 @@
 module net.pms.util.ImagesUtil;
 
-import mediautil.gen.Log;
-import mediautil.image.jpeg.LLJTran;
-import mediautil.image.jpeg.LLJTranException;
+//import mediautil.gen.Log;
+//import mediautil.image.jpeg.LLJTran;
+//import mediautil.image.jpeg.LLJTranException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 
 public class ImagesUtil {
-	private static final Logger logger = LoggerFactory.getLogger(ImagesUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ImagesUtil();
 
 	public static InputStream getAutoRotateInputStreamImage(InputStream input, int exifOrientation) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
-			auto(input, baos, exifOrientation);
+			_auto(input, baos, exifOrientation);
 		} catch (Exception e) {
 			logger.error("Error in auto rotate", e);
 			return null;
@@ -22,7 +22,7 @@ public class ImagesUtil {
 		return new ByteArrayInputStream(baos.toByteArray());
 	}
 
-	public static void auto(InputStream input, OutputStream output, int exifOrientation) throws IOException, LLJTranException {
+	public static void _auto(InputStream input, OutputStream output, int exifOrientation) {
 		// convert sanselan exif orientation -> llj operation
 		int op = 0;
 		switch (exifOrientation) {
@@ -73,9 +73,9 @@ public class ImagesUtil {
 
 		// 4. Save the Image which is already transformed as specified by the
 		//    input transformation in Step 2, along with the Exif header.
-		OutputStream out = new BufferedOutputStream(output);
-		llj.save(out, LLJTran.OPT_WRITE_ALL);
-		out.close();
+		OutputStream _out = new BufferedOutputStream(output);
+		llj.save(_out, LLJTran.OPT_WRITE_ALL);
+		_out.close();
 
 		// Cleanup
 		input.close();

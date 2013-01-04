@@ -18,10 +18,10 @@
  */
 module net.pms.encoders.FFMpegDVRMSRemux;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.PMS;
 import net.pms.configuration.PmsConfiguration;
@@ -34,17 +34,17 @@ import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 import org.apache.commons.lang.StringUtils;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FFMpegDVRMSRemux : Player {
 	private JTextField altffpath;
-	public static final String ID = "ffmpegdvrmsremux";
+	public static const String ID = "ffmpegdvrmsremux";
 
 	override
 	public int purpose() {
@@ -66,7 +66,7 @@ public class FFMpegDVRMSRemux : Player {
 		return false;
 	}
 
-	public FFMpegDVRMSRemux() {
+	public this() {
 	}
 
 	override
@@ -79,9 +79,9 @@ public class FFMpegDVRMSRemux : Player {
 		return Format.VIDEO;
 	}
 
-	@Deprecated
+	deprecated
 	protected String[] getDefaultArgs() {
-		return new String[] {
+		return [
 			"-vcodec", "copy",
 			"-acodec", "copy",
 			"-threads", "2",
@@ -90,11 +90,11 @@ public class FFMpegDVRMSRemux : Player {
 			"-qmin", "2",
 			"-f", "vob",
 			"-copyts"
-		};
+		];
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public String[] args() {
 		return getDefaultArgs();
 
@@ -116,21 +116,21 @@ public class FFMpegDVRMSRemux : Player {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		return getFFMpegTranscode(fileName, dlna, media, params);
 	}
 
 	// pointless redirection of launchTranscode
-	@Deprecated
+	deprecated
 	protected ProcessWrapperImpl getFFMpegTranscode(
 		String fileName,
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		PmsConfiguration configuration = PMS.getConfiguration();
 		String ffmpegAlternativePath = configuration.getFfmpegAlternativePath();
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 
 		if (ffmpegAlternativePath !is null && ffmpegAlternativePath.length() > 0) {
 			cmdList.add(ffmpegAlternativePath);
@@ -146,7 +146,7 @@ public class FFMpegDVRMSRemux : Player {
 		cmdList.add("-i");
 		cmdList.add(fileName);
 
-		for (String arg : args()) {
+		foreach (String arg ; args()) {
 			cmdList.add(arg);
 		}
 
@@ -155,7 +155,7 @@ public class FFMpegDVRMSRemux : Player {
 			String[] customSettingsArray = StringUtils.split(customSettingsString);
 
 			if (customSettingsArray !is null) {
-				for (String option : customSettingsArray) {
+				foreach (String option ; customSettingsArray) {
 					cmdList.add(option);
 				}
 			}
@@ -192,12 +192,12 @@ public class FFMpegDVRMSRemux : Player {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator(Messages.getString("FFMpegDVRMSRemux.1"), cc.xyw(1, 1, 5));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.addLabel(Messages.getString("FFMpegDVRMSRemux.0"), cc.xy(1, 3));
 		altffpath = new JTextField(PMS.getConfiguration().getFfmpegAlternativePath());
-		altffpath.addKeyListener(new KeyListener() {
+		altffpath.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -235,7 +235,7 @@ public class FFMpegDVRMSRemux : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.DVRMS)) {
+			if (id.opEquals(Format.Identifier.DVRMS)) {
 				return true;
 			}
 		}

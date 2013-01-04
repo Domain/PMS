@@ -35,16 +35,16 @@ import net.pms.io.ProcessWrapperImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.io.IOException;
+////import javax.swing.*;
+import java.lang.exceptions;
 
 public class FFMpegWebVideo : FFMpegVideo {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FFMpegWebVideo.class);
-	private final PmsConfiguration configuration;
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FFMpegWebVideo();
+	private immutable PmsConfiguration configuration;
 
 	// FIXME we have an id() accessor for this; no need for the field to be public
-	@Deprecated
-	public static final String ID = "ffmpegwebvideo";
+	deprecated
+	public static const String ID = "ffmpegwebvideo";
 
 	override
 	public JComponent config() {
@@ -66,7 +66,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 		return false;
 	}
 
-	public FFMpegWebVideo(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -76,7 +76,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		params.minBufferSize = params.minFileSize;
 		params.secondread_minsize = 100000;
 		RendererConfiguration renderer = params.mediaRenderer;
@@ -101,11 +101,11 @@ public class FFMpegWebVideo : FFMpegVideo {
 
 		// XXX work around an ffmpeg bug: http://ffmpeg.org/trac/ffmpeg/ticket/998
 		if (fileName.startsWith("mms:")) {
-			fileName = "mmsh:" + fileName.substring(4);
+			fileName = "mmsh:" ~ fileName.substring(4);
 		}
 
 		// build the command line
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 
 		cmdList.add(executable());
 
@@ -182,7 +182,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 	}
 
 	// TODO remove this when it's removed from Player
-	@Deprecated
+	deprecated
 	override
 	public String[] args() {
 		return null;
@@ -202,7 +202,7 @@ public class FFMpegWebVideo : FFMpegVideo {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.WEB)) {
+			if (id.opEquals(Format.Identifier.WEB)) {
 				return true;
 			}
 		}

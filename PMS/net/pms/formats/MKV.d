@@ -37,7 +37,7 @@ public class MKV : MPG {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	public bool ps3compatible() {
 		return false;
 	}
@@ -46,10 +46,10 @@ public class MKV : MPG {
 	 * {@inheritDoc}
 	 */
 	public String[] getId() {
-		return new String[] {
+		return [
 			"mkv", "dv", "ty", "mov", "ogm", "ogv", "hdmov",
 			"hdm", "rmv", "rmvb", "rm", "asf", "evo", "asx", "flv", "m2v",
 			"3gp", "3g2", "webm"
-		};
+		];
 	}
 }

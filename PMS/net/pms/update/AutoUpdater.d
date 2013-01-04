@@ -9,28 +9,28 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.Observable;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+//import java.util.concurrent.Executor;
+//import java.util.concurrent.Executors;
 
 /**
  * Checks for and downloads new versions of PMS.
  * 
  * @author Tim Cox (mail@tcox.org)
  */
-public class AutoUpdater : Observable : UriRetrieverCallback {
-	private static final String TARGET_FILENAME = "new-version.exe";
-	private static final Logger logger = LoggerFactory.getLogger(AutoUpdater.class);
+public class AutoUpdater : Observable , UriRetrieverCallback {
+	private static const String TARGET_FILENAME = "new-version.exe";
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AutoUpdater();
 
 	public static enum State {
 		NOTHING_KNOWN, POLLING_SERVER, NO_UPDATE_AVAILABLE, UPDATE_AVAILABLE, DOWNLOAD_IN_PROGRESS, DOWNLOAD_FINISHED, EXECUTING_SETUP, ERROR
 	}
 
-	private final String serverUrl;
-	private final UriRetriever uriRetriever = new UriRetriever();
-	private final AutoUpdaterServerProperties serverProperties = new AutoUpdaterServerProperties();
-	private final Version currentVersion;
+	private String serverUrl;
+	private UriRetriever uriRetriever = new UriRetriever();
+	private AutoUpdaterServerProperties serverProperties = new AutoUpdaterServerProperties();
+	private Version currentVersion;
 	private Executor executor = Executors.newSingleThreadExecutor();
 	private State state = State.NOTHING_KNOWN;
 	private Object stateLock = new Object();
@@ -39,14 +39,14 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 	private int totalBytes = -1;
 	private bool downloadCancelled = false;
 
-	public AutoUpdater(String updateServerUrl, String currentVersion) {
+	public this(String updateServerUrl, String currentVersion) {
 		this.serverUrl = updateServerUrl; // may be null if updating is disabled
 		this.currentVersion = new Version(currentVersion);
 	}
 
 	public void pollServer() {
 		if (serverUrl !is null) { // don't poll if the server URL is null
-			executor.execute(new Runnable() {
+			executor.execute(new class() Runnable {
 				public void run() {
 					try {
 						doPollServer();
@@ -58,7 +58,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void doPollServer() throws UpdateException {
+	private void doPollServer() {
 		assertNotInErrorState();
 
 		try {
@@ -74,7 +74,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 	}
 
 	public void getUpdateFromNetwork() {
-		executor.execute(new Runnable() {
+		executor.execute(new class() Runnable {
 			public void run() {
 				try {
 					doGetUpdateFromNetwork();
@@ -86,7 +86,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 	}
 
 	public void runUpdateAndExit() {
-		executor.execute(new Runnable() {
+		executor.execute(new class() Runnable {
 			public void run() {
 				try {
 					doRunUpdateAndExit();
@@ -104,7 +104,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void doGetUpdateFromNetwork() throws UpdateException {
+	private void doGetUpdateFromNetwork() {
 		assertNotInErrorState();
 		assertUpdateIsAvailable();
 
@@ -113,7 +113,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		setState(State.DOWNLOAD_FINISHED);
 	}
 
-	private void doRunUpdateAndExit() throws UpdateException {
+	private void doRunUpdateAndExit() {
 		synchronized (stateLock) {
 			if (state != State.DOWNLOAD_FINISHED) {
 				throw new UpdateException("Must download before run");
@@ -125,7 +125,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		System.exit(0);
 	}
 
-	private void launchExe() throws UpdateException {
+	private void launchExe() {
 		try {
 			File exe = new File(TARGET_FILENAME);
 			if (!exe.exists()) {
@@ -137,7 +137,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void assertUpdateIsAvailable() throws UpdateException {
+	private void assertUpdateIsAvailable() {
 		synchronized (stateLock) {
 			if (!serverProperties.isStateValid()) {
 				throw new UpdateException("Server error. Try again later.");
@@ -149,7 +149,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void assertNotInErrorState() throws UpdateException {
+	private void assertNotInErrorState() {
 		synchronized (stateLock) {
 			if (state == State.ERROR) {
 				throw new UpdateException("Update system must be reset after an error.");
@@ -182,7 +182,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		return Version.isPmsUpdatable(currentVersion, serverProperties.getLatestVersion());
 	}
 
-	private void downloadUpdate() throws UpdateException {
+	private void downloadUpdate() {
 		String downloadUrl = serverProperties.getDownloadUrl();
 
 		try {
@@ -193,7 +193,7 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 		}
 	}
 
-	private void writeToDisk(byte[] download) throws IOException {
+	private void writeToDisk(byte[] download) {
 		File target = new File(TARGET_FILENAME);
 		InputStream downloadedFromNetwork = new ByteArrayInputStream(download);
 		FileOutputStream fileOnDisk = null;
@@ -210,19 +210,19 @@ public class AutoUpdater : Observable : UriRetrieverCallback {
 			}
 			fileOnDisk = new FileOutputStream(target);
 			int bytesSaved = IOUtils.copy(downloadedFromNetwork, fileOnDisk);
-			logger.info("Wrote " + bytesSaved + " bytes to " + target.getAbsolutePath());
+			logger.info("Wrote " ~ bytesSaved.toString() ~ " bytes to " ~ target.getAbsolutePath());
 		} finally {
 			IOUtils.closeQuietly(downloadedFromNetwork);
 			IOUtils.closeQuietly(fileOnDisk);
 		}
 	}
 
-	private void wrapException(String downloadUrl, String message, Throwable cause) throws UpdateException {
-		throw new UpdateException("Error: " + message, cause);
+	private void wrapException(String downloadUrl, String message, Throwable cause) {
+		throw new UpdateException("Error: " ~ message, cause);
 	}
 
 	override
-	public void progressMade(String uri, int bytesDownloaded, int totalBytes) throws CancelDownloadException {
+	public void progressMade(String uri, int bytesDownloaded, int totalBytes) {
 		synchronized (stateLock) {
 			this.bytesDownloaded = bytesDownloaded;
 			this.totalBytes = totalBytes;

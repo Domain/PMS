@@ -2,8 +2,11 @@ module main;
 
 import std.stdio;
 
+import net.pms.PMS;
+
 int main(string[] argv)
 {
-   writeln("Hello D-World!");
-   return 0;
+	PMS.main(argv);
+
+	return 0;
 }

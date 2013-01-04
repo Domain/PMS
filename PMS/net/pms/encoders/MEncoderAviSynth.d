@@ -18,26 +18,26 @@
  */
 module net.pms.encoders.MEncoderAviSynth;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.PMS;
 import net.pms.configuration.PmsConfiguration;
 import net.pms.dlna.DLNAResource;
 import net.pms.formats.Format;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.event.ItemEvent;
+//import java.awt.event.ItemListener;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
 import java.util.StringTokenizer;
 
 public class MEncoderAviSynth : MEncoderVideo {
-	public MEncoderAviSynth(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		super(configuration);
 	}
 
@@ -57,7 +57,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 
 
 		JComponent cmp = builder.addSeparator(Messages.getString("MEncoderAviSynth.2"), cc.xyw(2, 1, 1));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		convertfps = new JCheckBox(Messages.getString("MEncoderAviSynth.3"));
@@ -65,7 +65,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 		if (PMS.getConfiguration().getAvisynthConvertFps()) {
 			convertfps.setSelected(true);
 		}
-		convertfps.addItemListener(new ItemListener() {
+		convertfps.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				PMS.getConfiguration().setAvisynthConvertFps((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -87,7 +87,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 			i++;
 		}
 		textArea = new JTextArea(sb.toString());
-		textArea.addKeyListener(new KeyListener() {
+		textArea.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -124,7 +124,7 @@ public class MEncoderAviSynth : MEncoderVideo {
 	public int purpose() {
 		return VIDEO_SIMPLEFILE_PLAYER;
 	}
-	public static final String ID = "avsmencoder";
+	public static const String ID = "avsmencoder";
 
 	override
 	public String id() {
@@ -155,8 +155,8 @@ public class MEncoderAviSynth : MEncoderVideo {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.MKV)
-					|| id.equals(Format.Identifier.MPG)) {
+			if (id.opEquals(Format.Identifier.MKV)
+					|| id.opEquals(Format.Identifier.MPG)) {
 				return true;
 			}
 		}

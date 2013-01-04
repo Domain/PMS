@@ -25,13 +25,13 @@ import net.pms.util.PCMAudioOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class PipeIPCProcess : Thread : ProcessWrapper {
-	private static final Logger logger = LoggerFactory.getLogger(PipeIPCProcess.class);
+public class PipeIPCProcess : Thread , ProcessWrapper {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PipeIPCProcess();
 	private PipeProcess mkin;
 	private PipeProcess mkout;
 	private StreamModifier modifier;
@@ -44,7 +44,7 @@ public class PipeIPCProcess : Thread : ProcessWrapper {
 		this.modifier = modifier;
 	}
 
-	public PipeIPCProcess(String pipeName, String pipeNameOut, bool forcereconnect1, bool forcereconnect2) {
+	public this(String pipeName, String pipeNameOut, bool forcereconnect1, bool forcereconnect2) {
 		mkin = new PipeProcess(pipeName, forcereconnect1 ? "reconnect" : "dummy");
 		mkout = new PipeProcess(pipeNameOut, "out", forcereconnect2 ? "reconnect" : "dummy");
 	}
@@ -52,49 +52,49 @@ public class PipeIPCProcess : Thread : ProcessWrapper {
 	public void run() {
 		byte[] b = new byte[512 * 1024];
 		int n = -1;
-		InputStream in = null;
-		OutputStream out = null;
-		OutputStream debug = null;
+		InputStream _in = null;
+		OutputStream _out = null;
+		OutputStream _debug = null;
 
 		try {
-			in = mkin.getInputStream();
-			out = mkout.getOutputStream();
+			_in = mkin.getInputStream();
+			_out = mkout.getOutputStream();
 
 			if (modifier !is null && modifier.isH264AnnexB()) {
-				in = new H264AnnexBInputStream(in, modifier.getHeader());
+				_in = new H264AnnexBInputStream(_in, modifier.getHeader());
 			} else if (modifier !is null && modifier.isDtsEmbed()) {
-				out = new DTSAudioOutputStream(new PCMAudioOutputStream(out, modifier.getNbChannels(), modifier.getSampleFrequency(), modifier.getBitsPerSample()));
+				_out = new DTSAudioOutputStream(new PCMAudioOutputStream(_out, modifier.getNbChannels(), modifier.getSampleFrequency(), modifier.getBitsPerSample()));
 			} else if (modifier !is null && modifier.isPcm()) {
-				out = new PCMAudioOutputStream(out, modifier.getNbChannels(), modifier.getSampleFrequency(), modifier.getBitsPerSample());
+				_out = new PCMAudioOutputStream(_out, modifier.getNbChannels(), modifier.getSampleFrequency(), modifier.getBitsPerSample());
 			}
 
 			if (modifier !is null && modifier.getHeader() !is null && !modifier.isH264AnnexB()) {
-				out.write(modifier.getHeader());
+				_out.write(modifier.getHeader());
 			}
 
-			while ((n = in.read(b)) > -1) {
-				out.write(b, 0, n);
-				if (debug !is null) {
-					debug.write(b, 0, n);
+			while ((n = _in.read(b)) > -1) {
+				_out.write(b, 0, n);
+				if (_debug !is null) {
+					_debug.write(b, 0, n);
 				}
 			}
 		} catch (IOException e) {
-			logger.debug("Error :" + e.getMessage());
+			logger._debug("Error :" ~ e.getMessage());
 		} finally {
 			try {
 				// in and out may not have been initialized:
 				// http://ps3mediaserver.org/forum/viewtopic.php?f=6&t=9885&view=unread#p45142
-				if (in !is null) {
-					in.close();
+				if (_in !is null) {
+					_in.close();
 				}
-				if (out !is null) {
-					out.close();
+				if (_out !is null) {
+					_out.close();
 				}
-				if (debug !is null) {
-					debug.close();
+				if (_debug !is null) {
+					_debug.close();
 				}
 			} catch (IOException e) {
-				logger.debug("Error :" + e.getMessage());
+				logger._debug("Error :" ~ e.getMessage());
 			}
 		}
 	}
@@ -116,21 +116,21 @@ public class PipeIPCProcess : Thread : ProcessWrapper {
 		mkout.deleteLater();
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return mkin.getInputStream();
 	}
 
-	public OutputStream getOutputStream() throws IOException {
+	public OutputStream getOutputStream() {
 		return mkout.getOutputStream();
 	}
 
 	override
-	public InputStream getInputStream(long seek) throws IOException {
+	public InputStream getInputStream(long seek) {
 		return null;
 	}
 
 	override
-	public ArrayList<String> getResults() {
+	public ArrayList/*<String>*/ getResults() {
 		return null;
 	}
 

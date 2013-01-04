@@ -27,7 +27,7 @@ public class AudiosFeed : Feed {
 		addChild(fi);
 	}
 
-	public AudiosFeed(String url) {
-		super("" + System.currentTimeMillis(), url, Format.AUDIO);
+	public this(String url) {
+		super("" ~ System.currentTimeMillis(), url, Format.AUDIO);
 	}
 }

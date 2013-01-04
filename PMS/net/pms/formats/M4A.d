@@ -32,7 +32,7 @@ public class M4A : OGG {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "wma", "m4a", "aac" };
+		return [ "wma", "m4a", "aac" ];
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class M4A : OGG {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return false;

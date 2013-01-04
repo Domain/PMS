@@ -10,16 +10,16 @@ import org.mozilla.universalchardet.UniversalDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.apache.commons.lang.StringUtils.*;
-import static org.mozilla.universalchardet.Constants.*;
+import org.apache.commons.lang.StringUtils;
+import org.mozilla.universalchardet.Constants;
 
 public class FileUtil {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
-	private static Map<File, File[]> cache;
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FileUtil();
+	private static Map/*<File, File[]>*/ cache;
 
 	public static File isFileExists(String f, String ext) {
 		return isFileExists(new File(f), ext);
@@ -54,13 +54,13 @@ public class FileUtil {
 	/**
 	 * @deprecated Use {@link #getFileNameWithNewExtension(File, File, String)}.
 	 */
-	@Deprecated
+	deprecated
 	public static File getFileNameWitNewExtension(File parent, File f, String ext) {
 		return getFileNameWithNewExtension(parent, f, ext);
 	}
 
 	public static File getFileNameWithAddedExtension(File parent, File f, String ext) {
-		File ff = new File(parent, f.getName() + ext);
+		File ff = new File(parent, f.getName() ~ ext);
 
 		if (ff.exists()) {
 			return ff;
@@ -72,7 +72,7 @@ public class FileUtil {
 	/**
 	 * @deprecated Use {@link #getFileNameWithAddedExtension(File, File, String)}.
 	 */
-	@Deprecated
+	deprecated
 	public static File getFileNameWitAddedExtension(File parent, File file, String ext) {
 		return getFileNameWithAddedExtension(parent, file, ext);
 	}
@@ -100,13 +100,13 @@ public class FileUtil {
 	}
 
 	// FIXME rename e.g. isSubtitleExists, isSubtitlesExist...
-	@Deprecated
+	deprecated
 	public static bool doesSubtitlesExists(File file, DLNAMediaInfo media) {
 		return doesSubtitlesExists(file, media, true);
 	}
 
 	// FIXME rename e.g. isSubtitleExists...
-	@Deprecated
+	deprecated
 	public static bool doesSubtitlesExists(File file, DLNAMediaInfo media, bool usecache) {
 		bool found = browseFolderForSubtitles(file.getParentFile(), file, media, usecache);
 		String alternate = PMS.getConfiguration().getAlternateSubsFolder();
@@ -115,12 +115,12 @@ public class FileUtil {
 			File subFolder = new File(alternate);
 
 			if (!subFolder.isAbsolute()) {
-				subFolder = new File(file.getParent() + "/" + alternate);
+				subFolder = new File(file.getParent() ~ "/" ~ alternate);
 
 				try {
 					subFolder = subFolder.getCanonicalFile();
 				} catch (IOException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				}
 			}
 
@@ -140,7 +140,7 @@ public class FileUtil {
 		}
 
 		if (cache is null) {
-			cache = new HashMap<File, File[]>();
+			cache = new HashMap/*<File, File[]>*/();
 		}
 
 		File[] allSubs = cache.get(subFolder);
@@ -156,11 +156,11 @@ public class FileUtil {
 		String fileName = getFileNameWithoutExtension(file.getName()).toLowerCase();
 
 		if (allSubs !is null) {
-			for (File f : allSubs) {
+			foreach (File f ; allSubs) {
 				if (f.isFile() && !f.isHidden()) {
 					String fName = f.getName().toLowerCase();
 
-					for (String ext : SubtitleType.getSupportedFileExtensions()) {
+					foreach (String ext ; SubtitleType.getSupportedFileExtensions()) {
 						if (fName.length() > ext.length() && fName.startsWith(fileName) && endsWithIgnoreCase(fName, "." + ext)) {
 							int a = fileName.length();
 							int b = fName.length() - ext.length() - 1;
@@ -176,8 +176,8 @@ public class FileUtil {
 
 							bool exists = false;
 							if (media !is null) {
-								for (DLNAMediaSubtitle sub : media.getSubtitleTracksList()) {
-									if (f.equals(sub.getExternalFile())) {
+								foreach (DLNAMediaSubtitle sub ; media.getSubtitleTracksList()) {
+									if (f.opEquals(sub.getExternalFile())) {
 										exists = true;
 									} else if (equalsIgnoreCase(ext, "idx") && sub.getType() == SubtitleType.MICRODVD) { // sub+idx => VOBSUB
 										sub.setType(SubtitleType.VOBSUB);
@@ -245,10 +245,10 @@ public class FileUtil {
 	 * if not detected
 	 * @throws IOException
 	 */
-	public static String getFileCharset(File file) throws IOException {
+	public static String getFileCharset(File file) {
 		byte[] buf = new byte[4096];
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-		final UniversalDetector universalDetector = new UniversalDetector(null);
+		immutable UniversalDetector universalDetector = new UniversalDetector(null);
 
 		int numberOfBytesRead;
 		while ((numberOfBytesRead = bufferedInputStream.read(buf)) > 0 && !universalDetector.isDone()) {
@@ -259,9 +259,9 @@ public class FileUtil {
 		String encoding = universalDetector.getDetectedCharset();
 
 		if (encoding !is null) {
-			LOGGER.debug("Detected encoding for {} is {}.", file.getAbsolutePath(), encoding);
+			LOGGER._debug("Detected encoding for %s is %s.", file.getAbsolutePath(), encoding);
 		} else {
-			LOGGER.debug("No encoding detected for {}.", file.getAbsolutePath());
+			LOGGER._debug("No encoding detected for %s.", file.getAbsolutePath());
 		}
 
 		universalDetector.reset();
@@ -275,7 +275,7 @@ public class FileUtil {
 	 * @return true if file is UTF-8 encoded with or without BOM, false otherwise.
 	 * @throws IOException
 	 */
-	public static bool isFileUTF8(File file) throws IOException {
+	public static bool isFileUTF8(File file) {
 		return isCharsetUTF8(getFileCharset(file));
 	}
 
@@ -285,7 +285,7 @@ public class FileUtil {
 	 * @return true if charset is UTF-8 encoded with or without BOM, false otherwise.
 	 */
 	public static bool isCharsetUTF8(String charset) {
-		return equalsIgnoreCase(charset, CHARSET_UTF_8);
+		return equalsIgnoreCase(charset, Constants.CHARSET_UTF_8);
 	}
 
 	/**
@@ -294,7 +294,7 @@ public class FileUtil {
 	 * @return true if file is UTF-16 encoded LE or BE, false otherwise.
 	 * @throws IOException
 	 */
-	public static bool isFileUTF16(File file) throws IOException {
+	public static bool isFileUTF16(File file) {
 		return isCharsetUTF16(getFileCharset(file));
 	}
 
@@ -304,7 +304,7 @@ public class FileUtil {
 	 * @return true if charset is UTF-16 encoded LE or BE, false otherwise.
 	 */
 	public static bool isCharsetUTF16(String charset) {
-		return (equalsIgnoreCase(charset, CHARSET_UTF_16LE) || equalsIgnoreCase(charset, CHARSET_UTF_16BE));
+		return (equalsIgnoreCase(charset, Constants.CHARSET_UTF_16LE) || equalsIgnoreCase(charset, Constants.CHARSET_UTF_16BE));
 	}
 
 	/**
@@ -313,7 +313,7 @@ public class FileUtil {
 	 * @return true if charset is UTF-32 encoded LE or BE, false otherwise.
 	 */
 	public static bool isCharsetUTF32(String charset) {
-		return (equalsIgnoreCase(charset, CHARSET_UTF_32LE) || equalsIgnoreCase(charset, CHARSET_UTF_32BE));
+		return (equalsIgnoreCase(charset, Constants.CHARSET_UTF_32LE) || equalsIgnoreCase(charset, Constants.CHARSET_UTF_32BE));
 	}
 
 	/**
@@ -322,7 +322,7 @@ public class FileUtil {
 	 * @param outputFile UTF-8 file after conversion
 	 * @throws IOException
 	 */
-	public static void convertFileFromUtf16ToUtf8(File inputFile, File outputFile) throws IOException {
+	public static void convertFileFromUtf16ToUtf8(File inputFile, File outputFile) {
 		String charset;
 
 		if (inputFile is null || !inputFile.canRead()) {
@@ -332,7 +332,7 @@ public class FileUtil {
 		try {
 			charset = getFileCharset(inputFile);
 		} catch (IOException ex) {
-			LOGGER.debug("Exception during charset detection.", ex);
+			LOGGER._debug("Exception during charset detection.", ex);
 			throw new IllegalArgumentException("Can't confirm inputFile is UTF-16.");
 		}
 
@@ -385,7 +385,7 @@ public class FileUtil {
 
 		if ((file !is null) && file.isFile()) {
 			try {
-				new FileInputStream(file).close();
+				(new FileInputStream(file)).close();
 				isReadable = true;
 			} catch (IOException ioe) { }
 		}
@@ -418,16 +418,16 @@ public class FileUtil {
 				try {
 					// true: open for append: make sure the open
 					// doesn't clobber the file
-					new FileOutputStream(file, true).close();
+					(new FileOutputStream(file, true)).close();
 					isWritable = true;
 
 					if (!fileAlreadyExists) { // a new file has been "touch"ed; try to remove it
 						try {
-							if (!file.delete()) {;
-								LOGGER.warn("Can't delete temporary test file: {}", file.getAbsolutePath());
+							if (!file._delete()) {;
+								LOGGER.warn("Can't delete temporary test file: %s", file.getAbsolutePath());
 							}
 						} catch (SecurityException se) {
-							LOGGER.error("Error deleting temporary test file: " + file.getAbsolutePath(), se);
+							LOGGER.error("Error deleting temporary test file: " ~ file.getAbsolutePath(), se);
 						}
 					}
 				} catch (IOException ioe) {
@@ -509,8 +509,8 @@ public class FileUtil {
 							isWritable = true;
 						}
 
-						if (!file.delete()) {
-							LOGGER.warn("Can't delete temporary test file: {}", file.getAbsolutePath());
+						if (!file._delete()) {
+							LOGGER.warn("Can't delete temporary test file: %s", file.getAbsolutePath());
 						}
 					}
 				} catch (IOException ioe) {

@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; version 2
+ * as published by the Free Software Foundation; _version 2
  * of the License only.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,26 +24,26 @@ import net.pms.PMS;
 import net.pms.configuration.FormatConfiguration;
 import net.pms.formats.v2.SubtitleType;
 
-import org.h2.engine.Constants;
-import org.h2.jdbcx.JdbcConnectionPool;
-import org.h2.jdbcx.JdbcDataSource;
-import org.h2.store.fs.FileUtils;
-import org.h2.tools.DeleteDbFiles;
-import org.h2.tools.RunScript;
-import org.h2.tools.Script;
+//import org.h2.engine.Constants;
+//import org.h2.jdbcx.JdbcConnectionPool;
+//import org.h2.jdbcx.JdbcDataSource;
+//import org.h2.store.fs.FileUtils;
+//import org.h2.tools.DeleteDbFiles;
+//import org.h2.tools.RunScript;
+//import org.h2.tools.Script;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.Component;
+//import java.awt.Component;
 import java.io.File;
-import java.sql.*;
+//import java.sql.all;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+//import javax.swing.JFrame;
+//import javax.swing.JOptionPane;
+//import javax.swing.SwingUtilities;
 
-import static org.apache.commons.lang.StringUtils.*;
+import org.apache.commons.lang.StringUtils : isBlank;
 
 /**
  * This class provides methods for creating and maintaining the database where
@@ -52,33 +52,33 @@ import static org.apache.commons.lang.StringUtils.*;
  * later.
  */
 public class DLNAMediaDatabase : Runnable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DLNAMediaDatabase.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DLNAMediaDatabase();
 	private String url;
 	private String dbDir;
 	private String dbName;
-	public static final String NONAME = "###";
+	public static const String NONAME = "###";
 	private Thread scanner;
 	private JdbcConnectionPool cp;
 	private int dbCount;
 
 	// Database column sizes
-	private final int SIZE_CODECV = 32;
-	private final int SIZE_FRAMERATE = 32;
-	private final int SIZE_ASPECT = 32;
-	private final int SIZE_CONTAINER = 32;
-	private final int SIZE_MODEL = 128;
-	private final int SIZE_MUXINGMODE = 32;
-	private final int SIZE_FRAMERATE_MODE = 16;
-	private final int SIZE_LANG = 3;
-	private final int SIZE_FLAVOR = 128;
-	private final int SIZE_SAMPLEFREQ = 16;
-	private final int SIZE_CODECA = 32;
-	private final int SIZE_ALBUM = 255;
-	private final int SIZE_ARTIST = 255;
-	private final int SIZE_SONGNAME = 255;
-	private final int SIZE_GENRE = 64;
+	private const int SIZE_CODECV = 32;
+	private const int SIZE_FRAMERATE = 32;
+	private const int SIZE_ASPECT = 32;
+	private const int SIZE_CONTAINER = 32;
+	private const int SIZE_MODEL = 128;
+	private const int SIZE_MUXINGMODE = 32;
+	private const int SIZE_FRAMERATE_MODE = 16;
+	private const int SIZE_LANG = 3;
+	private const int SIZE_FLAVOR = 128;
+	private const int SIZE_SAMPLEFREQ = 16;
+	private const int SIZE_CODECA = 32;
+	private const int SIZE_ALBUM = 255;
+	private const int SIZE_ARTIST = 255;
+	private const int SIZE_SONGNAME = 255;
+	private const int SIZE_GENRE = 64;
 
-	public DLNAMediaDatabase(String name) {
+	public this(String name) {
 		String dir = "database";
 		dbName = name;
 		File fileDir = new File(dir);
@@ -88,11 +88,11 @@ public class DLNAMediaDatabase : Runnable {
 			String to_delete = "to_delete";
 			File checkDir = new File(to_delete);
 			if (checkDir.exists()) {
-				defaultLocation = checkDir.delete();
+				defaultLocation = checkDir._delete();
 			} else {
 				defaultLocation = checkDir.mkdir();
 				if (defaultLocation) {
-					defaultLocation = checkDir.delete();
+					defaultLocation = checkDir._delete();
 				}
 			}
 		}
@@ -101,11 +101,11 @@ public class DLNAMediaDatabase : Runnable {
 			url = String.format("jdbc:h2:%s\\%s/%s", profileDir, dir, dbName);
 			fileDir = new File(profileDir, dir);
 		} else {
-			url = Constants.START_URL + dir + "/" + dbName;
+			url = Constants.START_URL ~ dir ~ "/" ~ dbName;
 		}
 		dbDir = fileDir.getAbsolutePath();
-		LOGGER.debug("Using database URL: " + url);
-		LOGGER.info("Using database located at: " + dbDir);
+		LOGGER._debug("Using database URL: " ~ url);
+		LOGGER.info("Using database located at: " ~ dbDir);
 
 		try {
 			Class.forName("org.h2.Driver");
@@ -120,18 +120,18 @@ public class DLNAMediaDatabase : Runnable {
 		cp = JdbcConnectionPool.create(ds);
 	}
 
-	private Connection getConnection() throws SQLException {
+	private Connection getConnection() {
 		return cp.getConnection();
 	}
 
 	public void init(bool force) {
 		dbCount = -1;
-		String version = null;
+		String _version = null;
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement stmt = null;
 
-		// Check whether the database is not severely damaged, corrupted or wrong version
+		// Check whether the database is not severely damaged, corrupted or wrong _version
 		bool force_delete = false;
 		try {
            	conn = getConnection();
@@ -139,19 +139,19 @@ public class DLNAMediaDatabase : Runnable {
 			force_delete = true;
 		} finally {
 			close(conn);
-			if (FileUtils.exists(dbDir + File.separator + dbName + ".data.db") || force_delete){
+			if (FileUtils.exists(dbDir ~ File.separator ~ dbName ~ ".data.db") || force_delete){
 				FileUtils.deleteRecursive(dbDir, true);
 				if (!FileUtils.exists(dbDir)){
-					LOGGER.debug("The cache has been deleted because it was corrupt or had the wrong version");
+					LOGGER._debug("The cache has been deleted because it was corrupt or had the wrong _version");
 				} else {
 					if (!java.awt.GraphicsEnvironment.isHeadless()) {
 						JOptionPane.showMessageDialog(
-							(JFrame) (SwingUtilities.getWindowAncestor((Component) PMS.get().getFrame())),
+							cast(JFrame) (SwingUtilities.getWindowAncestor(cast(Component) PMS.get().getFrame())),
 							String.format(Messages.getString("DLNAMediaDatabase.5"), dbDir),
 							Messages.getString("Dialog.Error"),
 		                    JOptionPane.ERROR_MESSAGE);
 					}	
-					LOGGER.debug("Damaged cache can't be deleted. Stop the program and delete the folder \"" + dbDir + "\" manually");
+					LOGGER._debug("Damaged cache can't be deleted. Stop the program and delete the folder \"" ~ dbDir ~ "\" manually");
 				}
 			}
 		}
@@ -170,7 +170,7 @@ public class DLNAMediaDatabase : Runnable {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT VALUE FROM METADATA WHERE KEY = 'VERSION'");
 			if (rs.next()) {
-				version = rs.getString(1);
+				_version = rs.getString(1);
 			}
 		} catch (SQLException se) {
 			if (se.getErrorCode() != 42102) { // Don't log exception "Table "FILES" not found" which will be corrected in following step
@@ -181,9 +181,9 @@ public class DLNAMediaDatabase : Runnable {
 			close(stmt);
 			close(conn);
 		}
-		bool force_reinit = !PMS.getVersion().equals(version); // here we can force a deletion for a specific version
+		bool force_reinit = !PMS.getVersion().opEquals(_version); // here we can force a deletion for a specific _version
 		if (force || dbCount == -1 || force_reinit) {
-			LOGGER.debug("Database will be (re)initialized");
+			LOGGER._debug("Database will be (re)initialized");
 			try {
 				conn = getConnection();
 				executeUpdate(conn, "DROP TABLE FILES");
@@ -268,23 +268,23 @@ public class DLNAMediaDatabase : Runnable {
 
 				for (int i = 0; i < chars.length; i++) {
 					// Create regexp rules for characters with a sort order based on the property value
-					executeUpdate(conn, "INSERT INTO REGEXP_RULES VALUES ( '" + chars[i] + "', '(?i)^" + chars[i] + ".+', "
-							+ (i + 2) + " );");
+					executeUpdate(conn, "INSERT INTO REGEXP_RULES VALUES ( '" ~ chars[i] ~ "', '(?i)^" ~ chars[i] ~ ".+', "
+							~ (i + 2).toString() ~ " );");
 				}
 
-				LOGGER.debug("Database initialized");
+				LOGGER._debug("Database initialized");
 			} catch (SQLException se) {
-				LOGGER.info("Error in table creation: " + se.getMessage());
+				LOGGER.info("Error in table creation: " ~ se.getMessage());
 			} finally {
 			    close(conn);
 			}
 		} else {
-			LOGGER.debug("Database file count: " + dbCount);
-			LOGGER.debug("Database version: " + version);
+			LOGGER._debug("Database file count: " ~ dbCount);
+			LOGGER._debug("Database _version: " ~ _version);
 		}
 	}
 
-	private void executeUpdate(Connection conn, String sql) throws SQLException {
+	private void executeUpdate(Connection conn, String sql) {
 		if (conn !is null) {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
@@ -317,8 +317,8 @@ public class DLNAMediaDatabase : Runnable {
 		return found;
 	}
 
-	public ArrayList<DLNAMediaInfo> getData(String name, long modified) {
-		ArrayList<DLNAMediaInfo> list = new ArrayList<DLNAMediaInfo>();
+	public ArrayList/*<DLNAMediaInfo>*/ getData(String name, long modified) {
+		ArrayList/*<DLNAMediaInfo>*/ list = new ArrayList/*<DLNAMediaInfo>*/();
 		Connection conn = null;
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
@@ -343,7 +343,7 @@ public class DLNAMediaDatabase : Runnable {
 				media.setThumb(rs.getBytes("THUMB"));
 				media.setContainer(rs.getString("CONTAINER"));
 				media.setModel(rs.getString("MODEL"));
-				if (media.getModel() !is null && !FormatConfiguration.JPG.equals(media.getContainer())) {
+				if (media.getModel() !is null && !FormatConfiguration.JPG.opEquals(media.getContainer())) {
 					media.setExtrasAsString(media.getModel());
 				}
 				media.setExposure(rs.getInt("EXPOSURE"));
@@ -405,10 +405,10 @@ public class DLNAMediaDatabase : Runnable {
 		return list;
 	}
 	
-	private Double toDouble(ResultSet rs, String column) throws SQLException {
+	private Double toDouble(ResultSet rs, String column) {
 		Object obj = rs.getObject(column);
-		if (obj instanceof Double) {
-			return (Double) obj;
+		if (cast(Double)obj != null) {
+			return cast(Double) obj;
 		}
 		return null;
 	}
@@ -480,7 +480,7 @@ public class DLNAMediaDatabase : Runnable {
 				if (media.getAudioTracksList().size() > 0) {
 					insert = conn.prepareStatement("INSERT INTO AUDIOTRACKS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				}
-				for (DLNAMediaAudio audio : media.getAudioTracksList()) {
+				foreach (DLNAMediaAudio audio ; media.getAudioTracksList()) {
 					insert.clearParameters();
 					insert.setInt(1, id);
 					insert.setInt(2, audio.getId());
@@ -505,7 +505,7 @@ public class DLNAMediaDatabase : Runnable {
 				if (media.getSubtitleTracksList().size() > 0) {
 					insert = conn.prepareStatement("INSERT INTO SUBTRACKS VALUES (?, ?, ?, ?, ?)");
 				}
-				for (DLNAMediaSubtitle sub : media.getSubtitleTracksList()) {
+				foreach (DLNAMediaSubtitle sub ; media.getSubtitleTracksList()) {
 					if (sub.getExternalFile() is null) { // no save of external subtitles
 						insert.clearParameters();
 						insert.setInt(1, id);
@@ -520,7 +520,7 @@ public class DLNAMediaDatabase : Runnable {
 			}
 		} catch (SQLException se) {
 			if (se.getErrorCode() == 23001) {
-				LOGGER.debug("Duplicate key while inserting this entry: " + name + " into the database: " + se.getMessage());
+				LOGGER._debug("Duplicate key while inserting this entry: " ~ name ~ " into the database: " ~ se.getMessage());
 			} else {
 				LOGGER.error(null, se);
 			}
@@ -546,7 +546,7 @@ public class DLNAMediaDatabase : Runnable {
 			ps.executeUpdate();
 		} catch (SQLException se) {
 			if (se.getErrorCode() == 23001) {
-				LOGGER.debug("Duplicate key while inserting this entry: " + name + " into the database: " + se.getMessage());
+				LOGGER._debug("Duplicate key while inserting this entry: " ~ name ~ " into the database: " ~ se.getMessage());
 			} else 
 				LOGGER.error(null, se);;
 		} finally {
@@ -555,8 +555,8 @@ public class DLNAMediaDatabase : Runnable {
 		}
 	}
 
-	public ArrayList<String> getStrings(String sql) {
-		ArrayList<String> list = new ArrayList<String>();
+	public ArrayList/*<String>*/ getStrings(String sql) {
+		ArrayList/*<String>*/ list = new ArrayList/*<String>*/();
 		Connection conn = null;
 		ResultSet rs = null;
 		PreparedStatement ps = null;
@@ -602,7 +602,7 @@ public class DLNAMediaDatabase : Runnable {
 
 			rs.close();
 			ps.close();
-			PMS.get().getFrame().setStatusLine(Messages.getString("DLNAMediaDatabase.2") + " 0%");
+			PMS.get().getFrame().setStatusLine(Messages.getString("DLNAMediaDatabase.2") ~ " 0%");
 			int i = 0;
 			int oldpercent = 0;
 
@@ -619,7 +619,7 @@ public class DLNAMediaDatabase : Runnable {
 					i++;
 					int newpercent = i * 100 / dbCount;
 					if (newpercent > oldpercent) {
-						PMS.get().getFrame().setStatusLine(Messages.getString("DLNAMediaDatabase.2") + newpercent + "%");
+						PMS.get().getFrame().setStatusLine(Messages.getString("DLNAMediaDatabase.2") ~ newpercent ~ "%");
 						oldpercent = newpercent;
 					}
 				}
@@ -633,8 +633,8 @@ public class DLNAMediaDatabase : Runnable {
 		}
 	}
 
-	public ArrayList<File> getFiles(String sql) {
-		ArrayList<File> list = new ArrayList<File>();
+	public ArrayList/*<File>*/ getFiles(String sql) {
+		ArrayList/*<File>*/ list = new ArrayList/*<File>*/();
 		Connection conn = null;
 		ResultSet rs = null;
 		PreparedStatement ps = null;
@@ -667,7 +667,7 @@ public class DLNAMediaDatabase : Runnable {
 				rs.close();
 			}
 		} catch (SQLException e) {
-			LOGGER.error("error during closing:" + e.getMessage(), e);
+			LOGGER.error("error during closing:" ~ e.getMessage(), e);
 		}
 	}
 
@@ -677,7 +677,7 @@ public class DLNAMediaDatabase : Runnable {
 				ps.close();
 			}
 		} catch (SQLException e) {
-			LOGGER.error("error during closing:" + e.getMessage(), e);
+			LOGGER.error("error during closing:" ~ e.getMessage(), e);
 		}
 	}
 
@@ -687,7 +687,7 @@ public class DLNAMediaDatabase : Runnable {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			LOGGER.error("error during closing:" + e.getMessage(), e);
+			LOGGER.error("error during closing:" ~ e.getMessage(), e);
 		}
 	}
 
@@ -729,7 +729,7 @@ public class DLNAMediaDatabase : Runnable {
 			LOGGER.error("Error in compacting database: ", se);
 		} finally {
 			File testsql = new File(filename);
-			if (testsql.exists() && !testsql.delete()) {
+			if (testsql.exists() && !testsql._delete()) {
 				testsql.deleteOnExit();
 			}
 		}

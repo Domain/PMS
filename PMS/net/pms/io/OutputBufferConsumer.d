@@ -21,12 +21,12 @@ module net.pms.io.OutputBufferConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.List;
 
 public class OutputBufferConsumer : OutputConsumer {
-	private static final Logger LOGGER = LoggerFactory.getLogger(OutputBufferConsumer.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!OutputBufferConsumer();
 	private BufferedOutputFile outputBuffer;
 	
 	/**
@@ -40,9 +40,9 @@ public class OutputBufferConsumer : OutputConsumer {
 	 * being copied, with 8192 being most commonly used, probably because that is the default
 	 * size for {@link org.jboss.netty.channel.Channel Channel} packets.
 	 */
-	private static final int PIPE_BUFFER_SIZE = 500000;
+	private static const int PIPE_BUFFER_SIZE = 500000;
 
-	public OutputBufferConsumer(InputStream inputStream, OutputParams params) {
+	public this(InputStream inputStream, OutputParams params) {
 		super(inputStream);
 		outputBuffer = new BufferedOutputFileImpl(params);
 	}
@@ -50,22 +50,22 @@ public class OutputBufferConsumer : OutputConsumer {
 	public void run() {
 		try {
 			// LOGGER.trace("Starting read from pipe");
-			byte buf[] = new byte[PIPE_BUFFER_SIZE];
+			byte[] buf = new byte[PIPE_BUFFER_SIZE];
 			int n = 0;
 			while ((n = inputStream.read(buf)) > 0) {
 				// LOGGER.trace("Fetched " + n + " from pipe");
 				outputBuffer.write(buf, 0, n);
 			}
-			// LOGGER.debug("Finished to read");
+			// LOGGER._debug("Finished to read");
 		} catch (IOException ioe) {
-			LOGGER.debug("Error consuming stream of spawned process: " + ioe.getMessage());
+			LOGGER._debug("Error consuming stream of spawned process: " ~ ioe.getMessage());
 		} finally {
 			// LOGGER.trace("Closing read from pipe");
 			if (inputStream !is null) {
 				try {
 					inputStream.close();
 				} catch (IOException e) {
-					LOGGER.debug("Caught exception", e);
+					LOGGER._debug("Caught exception", e);
 				}
 			}
 		}
@@ -75,7 +75,7 @@ public class OutputBufferConsumer : OutputConsumer {
 		return outputBuffer;
 	}
 
-	public List<String> getResults() {
+	public List/*<String>*/ getResults() {
 		return null;
 	}
 }

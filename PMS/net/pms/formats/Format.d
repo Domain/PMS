@@ -33,7 +33,7 @@ import java.util.StringTokenizer;
  * Abstract class to store known information about a given format.
  */
 public abstract class Format : Cloneable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Format.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!Format();
 
 	public enum Identifier {
 		AUDIO_AS_VIDEO,
@@ -59,12 +59,12 @@ public abstract class Format : Cloneable {
 		return type;
 	}
 
-	public static final int ISO = 32;
-	public static final int PLAYLIST = 16;
-	public static final int UNKNOWN = 8;
-	public static final int VIDEO = 4;
-	public static final int AUDIO = 1;
-	public static final int IMAGE = 2;
+	public static const int ISO = 32;
+	public static const int PLAYLIST = 16;
+	public static const int UNKNOWN = 8;
+	public static const int VIDEO = 4;
+	public static const int AUDIO = 1;
+	public static const int IMAGE = 2;
 
 	/**
 	 * The identifier (filename extension or protocol) that was matched for a
@@ -118,7 +118,7 @@ public abstract class Format : Cloneable {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	public abstract bool ps3compatible();
 	
 	/**
@@ -154,7 +154,7 @@ public abstract class Format : Cloneable {
 	}
 
 	public abstract bool transcodable();
-	public abstract ArrayList<Class<? : Player>> getProfiles();
+	public abstract ArrayList/*<Class<? : Player>>*/ getProfiles();
 
 	public String mimeType() {
 		return HTTPResource.getDefaultMimeType(type);
@@ -166,9 +166,9 @@ public abstract class Format : Cloneable {
 			return match;
 		}
 		filename = filename.toLowerCase();
-		for (String singleid : getId()) {
+		foreach (String singleid ; getId()) {
 			String id = singleid.toLowerCase();
-			match = filename.endsWith("." + id) || filename.startsWith(id + "://");
+			match = filename.endsWith("." ~ id) || filename.startsWith(id ~ "://");
 			if (match) {
 				matchedId = singleid;
 				return true;
@@ -207,7 +207,7 @@ public abstract class Format : Cloneable {
 	}
 
 	public Format duplicate() {
-		return (Format) this.clone();
+		return cast(Format) this.clone();
 	}
 
 	// method which allows us to fine tune parsing with different formats in the future
@@ -223,7 +223,7 @@ public abstract class Format : Cloneable {
 			media.parse(file, this, type, false);
 		}
 
-		LOGGER.trace("Parsing results: " + file + " / " + media);
+		LOGGER.trace("Parsing results: " ~ file ~ " / " ~ media);
 	}
 
 	/**
@@ -244,7 +244,7 @@ public abstract class Format : Cloneable {
 			while (st.hasMoreTokens()) {
 				String id = st.nextToken().toLowerCase();
 
-				if (matchedId !is null && matchedId.toLowerCase().equals(id)) {
+				if (matchedId !is null && matchedId.toLowerCase().opEquals(id)) {
 					return true;
 				}
 			}
@@ -256,7 +256,7 @@ public abstract class Format : Cloneable {
 			while (st.hasMoreTokens()) {
 				String id = st.nextToken().toLowerCase();
 
-				if (matchedId !is null && matchedId.toLowerCase().equals(id)) {
+				if (matchedId !is null && matchedId.toLowerCase().opEquals(id)) {
 					return true;
 				}
 			}

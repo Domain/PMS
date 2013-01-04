@@ -36,7 +36,7 @@ public final class NaturalComparator {
      * <p>A string comparator that does case sensitive comparisons and handles embedded numbers correctly.</p>
      * <p><b>Do not use</b> if your app might ever run on any locale that uses more than 7-bit ascii characters.</p>
      */
-    private static final Comparator<String> NATURAL_COMPARATOR_ASCII = new Comparator<String>() {
+    private static Comparator/*<String>*/ NATURAL_COMPARATOR_ASCII = new class() Comparator/*<String>*/ {
         public int compare(String o1, String o2) {
             return compareNaturalAscii(o1, o2);
         }
@@ -46,7 +46,7 @@ public final class NaturalComparator {
      * <p>A string comparator that does case insensitive comparisons and handles embedded numbers correctly.</p>
      * <p><b>Do not use</b> if your app might ever run on any locale that uses more than 7-bit ascii characters.</p>
      */
-    private static final Comparator<String> IGNORE_CASE_NATURAL_COMPARATOR_ASCII = new Comparator<String>() {
+    private static Comparator/*<String>*/ IGNORE_CASE_NATURAL_COMPARATOR_ASCII = new class() Comparator/*<String>()*/ {
         public int compare(String o1, String o2) {
             return compareNaturalIgnoreCaseAscii(o1, o2);
         }
@@ -55,7 +55,7 @@ public final class NaturalComparator {
     /**
      * This is a utility class (static methods only), don't instantiate.
      */
-    private NaturalComparator() {
+    private this() {
     }
 
     /**
@@ -68,7 +68,7 @@ public final class NaturalComparator {
      *         correctly.</p>
      * @see #getNaturalComparator(java.text.Collator)
      */
-    public static Comparator<String> getNaturalComparator() {
+    public static Comparator/*<String>*/ getNaturalComparator() {
         Collator collator = Collator.getInstance();
         return getNaturalComparator(collator);
     }
@@ -82,13 +82,13 @@ public final class NaturalComparator {
      *         correctly.</p>
      * @see #getNaturalComparator()
      */
-    public static Comparator<String> getNaturalComparator(final Collator collator) {
+    public static Comparator/*<String>*/ getNaturalComparator(immutable Collator collator) {
         if (collator is null) {
             // it's important to explicitly handle this here - else the bug will manifest anytime later in possibly
             // unrelated code that tries to use the comparator
             throw new NullPointerException("collator must not be null");
         }
-        return new Comparator<String>() {
+        return new class() Comparator/*<String>()*/ {
             public int compare(String o1, String o2) {
                 return compareNatural(collator, o1, o2);
             }
@@ -105,7 +105,7 @@ public final class NaturalComparator {
      * @see #getNaturalComparator()
      * @see #getNaturalComparator(java.text.Collator)
      */
-    public static Comparator<String> getNaturalComparatorAscii() {
+    public static Comparator/*<String>*/ getNaturalComparatorAscii() {
         return NATURAL_COMPARATOR_ASCII;
     }
 
@@ -119,7 +119,7 @@ public final class NaturalComparator {
      * @see #getNaturalComparator()
      * @see #getNaturalComparator(java.text.Collator)
      */
-    public static Comparator<String> getNaturalComparatorIgnoreCaseAscii() {
+    public static Comparator/*<String>*/ getNaturalComparatorIgnoreCaseAscii() {
         return IGNORE_CASE_NATURAL_COMPARATOR_ASCII;
     }
 

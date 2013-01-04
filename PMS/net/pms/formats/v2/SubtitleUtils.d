@@ -23,42 +23,40 @@ import net.pms.dlna.DLNAMediaSubtitle;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.mozilla.universalchardet.Constants.*;
+import org.apache.commons.lang.StringUtils : isBlank;
+import org.mozilla.universalchardet.Constants;
 
 public class SubtitleUtils {
-	private final static Map<String, String> fileCharsetToMencoderSubcpOptionMap = new HashMap<String, String>() {
-		{
+	private immutable static String[String] fileCharsetToMencoderSubcpOptionMap = [
 			// Cyrillic / Russian
-			put(CHARSET_IBM855, "enca:ru:cp1251");
-			put(CHARSET_ISO_8859_5, "enca:ru:cp1251");
-			put(CHARSET_KOI8_R, "enca:ru:cp1251");
-			put(CHARSET_MACCYRILLIC, "enca:ru:cp1251");
-			put(CHARSET_WINDOWS_1251, "enca:ru:cp1251");
-			put(CHARSET_IBM866, "enca:ru:cp1251");
+			Constants.CHARSET_IBM855: "enca:ru:cp1251",
+			Constants.CHARSET_ISO_8859_5: "enca:ru:cp1251",
+			Constants.CHARSET_KOI8_R: "enca:ru:cp1251",
+			Constants.CHARSET_MACCYRILLIC: "enca:ru:cp1251",
+			Constants.CHARSET_WINDOWS_1251: "enca:ru:cp1251",
+			Constants.CHARSET_IBM866: "enca:ru:cp1251",
 			// Greek
-			put(CHARSET_WINDOWS_1253, "cp1253");
-			put(CHARSET_ISO_8859_7, "ISO-8859-7");
+			Constants.CHARSET_WINDOWS_1253: "cp1253",
+			Constants.CHARSET_ISO_8859_7: "ISO-8859-7",
 			// Western Europe
-			put(CHARSET_WINDOWS_1252, "cp1252");
+			Constants.CHARSET_WINDOWS_1252: "cp1252",
 			// Hebrew
-			put(CHARSET_WINDOWS_1255, "cp1255");
-			put(CHARSET_ISO_8859_8, "ISO-8859-8");
+			Constants.CHARSET_WINDOWS_1255: "cp1255",
+			Constants.CHARSET_ISO_8859_8: "ISO-8859-8",
 			// Chinese
-			put(CHARSET_ISO_2022_CN, "ISO-2022-CN");
-			put(CHARSET_BIG5, "enca:zh:big5");
-			put(CHARSET_GB18030, "enca:zh:big5");
-			put(CHARSET_EUC_TW, "enca:zh:big5");
-			put(CHARSET_HZ_GB_2312, "enca:zh:big5");
+			Constants.CHARSET_ISO_2022_CN: "ISO-2022-CN",
+			Constants.CHARSET_BIG5: "enca:zh:big5",
+			Constants.CHARSET_GB18030: "enca:zh:big5",
+			Constants.CHARSET_EUC_TW: "enca:zh:big5",
+			Constants.CHARSET_HZ_GB_2312: "enca:zh:big5",
 			// Korean
-			put(CHARSET_ISO_2022_KR, "cp949");
-			put(CHARSET_EUC_KR, "euc-kr");
+			Constants.CHARSET_ISO_2022_KR: "cp949",
+			Constants.CHARSET_EUC_KR: "euc-kr",
 			// Japanese
-			put(CHARSET_ISO_2022_JP, "ISO-2022-JP");
-			put(CHARSET_EUC_JP, "euc-jp");
-			put(CHARSET_SHIFT_JIS, "shift-jis");
-		}
-	};
+			Constants.CHARSET_ISO_2022_JP: "ISO-2022-JP",
+			Constants.CHARSET_EUC_JP: "euc-jp",
+			Constants.CHARSET_SHIFT_JIS: "shift-jis"
+	];
 
 	/**
 	 * Returns value for -subcp option for non UTF-8 external subtitles based on

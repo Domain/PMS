@@ -29,14 +29,13 @@ import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 import net.pms.network.HTTPResource;
 
-import javax.swing.*;
-import java.io.IOException;
+import java.lang.exceptions;
 
 public class MPlayerWebVideoDump : MPlayerAudio {
-	public MPlayerWebVideoDump(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		super(configuration);
 	}
-	public static final String ID = "mplayervideodump";
+	public static const String ID = "mplayervideodump";
 
 	override
 	public JComponent config() {
@@ -55,14 +54,14 @@ public class MPlayerWebVideoDump : MPlayerAudio {
 
 	override
 	public ProcessWrapper launchTranscode(String fileName, DLNAResource dlna, DLNAMediaInfo media,
-		OutputParams params) throws IOException {
+		OutputParams params) {
 		params.minBufferSize = params.minFileSize;
 		params.secondread_minsize = 100000;
 		params.waitbeforestart = 6000;
 		params.maxBufferSize = PMS.getConfiguration().getMaxAudioBuffer();
-		PipeProcess audioP = new PipeProcess("mplayer_webvid" + System.currentTimeMillis());
+		PipeProcess audioP = new PipeProcess("mplayer_webvid" ~ System.currentTimeMillis());
 
-		String mPlayerdefaultAudioArgs[] = new String[]{PMS.getConfiguration().getMplayerPath(), fileName, "-nocache", "-dumpstream", "-quiet", "-dumpfile", audioP.getInputPipe()};
+		String[] mPlayerdefaultAudioArgs = [ PMS.getConfiguration().getMplayerPath(), fileName, "-nocache", "-dumpstream", "-quiet", "-dumpfile", audioP.getInputPipe()];
 		params.input_pipes[0] = audioP;
 
 		ProcessWrapper mkfifo_process = audioP.getPipeProcess();
@@ -126,7 +125,7 @@ public class MPlayerWebVideoDump : MPlayerAudio {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.WEB)) {
+			if (id.opEquals(Format.Identifier.WEB)) {
 				return true;
 			}
 		}

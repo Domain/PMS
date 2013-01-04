@@ -22,7 +22,7 @@ module net.pms.util.Iso639;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Map : Entry;
 
 import net.pms.PMS;
 import net.pms.dlna.DLNAMediaLang;
@@ -35,29 +35,29 @@ import org.slf4j.LoggerFactory;
  * and some methods to verify which language matches which ISO code.
  */
 public class Iso639 {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Iso639.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!Iso639();
 
 	/**
 	 * ISO code alias for the language set in the preferences
 	 */
-	private static final String LOCAL_ALIAS = "loc";
+	private static const String LOCAL_ALIAS = "loc";
 
 	/**
 	 * Hashmap that contains full language names and their ISO codes.
 	 */
-	private static HashMap<String, String[]> links = new HashMap<String, String[]>();
+	private static HashMap/*<String, String[]>*/ links = new HashMap/*<String, String[]>*/();
 
 	/**
 	 * List that contains all known language names.
 	 */
-	private static ArrayList<String> languages = new ArrayList<String>();
+	private static ArrayList/*<String>*/ languages = new ArrayList/*<String>*/();
 
 	/**
 	 * List that contains all known ISO language codes.
 	 */
-	private static ArrayList<String> codes = new ArrayList<String>();
+	private static ArrayList/*<String>*/ codes = new ArrayList/*<String>*/();
 
-	static {
+	static this() {
 		// Make sure everything is initialized before it is retrieved.
 		initLinks();
 		initLanguages();
@@ -78,12 +78,12 @@ public class Iso639 {
 		}
 
 		String lang = null;
-		Iterator<Entry<String, String[]>> iterator = links.entrySet().iterator();
+		Iterator/*<Entry<String, String[]>>*/ iterator = links.entrySet().iterator();
 
 		while (iterator.hasNext()) {
 			Entry<String, String[]> entry = iterator.next();
 
-			for (String c : entry.getValue()) {
+			foreach (String c ; entry.getValue()) {
 				if (code.equalsIgnoreCase(c)) {
 					return entry.getKey();
 				}
@@ -106,11 +106,11 @@ public class Iso639 {
 		}
 
 		String lang = null;
-		Iterator<Entry<String, String[]>> iterator = links.entrySet().iterator();
+		Iterator/*<Entry<String, String[]>>*/ iterator = links.entrySet().iterator();
 
 		while (iterator.hasNext()) {
-			Entry<String, String[]> entry = iterator.next();
-			for (String c : entry.getValue()) {
+			Entry/*<String, String[]>*/ entry = iterator.next();
+			foreach (String c ; entry.getValue()) {
 				if (code.equalsIgnoreCase(c)) {
 					return entry.getValue()[entry.getValue().length - 1].toLowerCase();
 				}
@@ -128,7 +128,7 @@ public class Iso639 {
 	 * @return The code.
 	 */
 	private static String normalize(String isoCode) {
-		if (LOCAL_ALIAS.equals(isoCode)) {
+		if (LOCAL_ALIAS.opEquals(isoCode)) {
 			return PMS.getConfiguration().getLanguage();
 		} else {
 			return isoCode;
@@ -152,9 +152,9 @@ public class Iso639 {
 		}
 
 		String isoCode = normalize(code);
-		String codes[] = links.get(language);
+		String[] codes = links.get(language);
 
-		for (String c : codes) {
+		foreach (String c ; codes) {
 			if (c.equalsIgnoreCase(isoCode)) {
 				return true;
 			}
@@ -181,14 +181,14 @@ public class Iso639 {
 		String isoCode1 = normalize(code1);
 		String isoCode2 = normalize(code2);
 
-		Iterator<Entry<String, String[]>> iterator = links.entrySet().iterator();
+		Iterator/*<Entry<String, String[]>>*/ iterator = links.entrySet().iterator();
 
 		while (iterator.hasNext()) {
-			Entry<String, String[]> entry = iterator.next();
+			Entry/*<String, String[]>*/ entry = iterator.next();
 
-			for (String c : entry.getValue()) {
+			foreach (String c ; entry.getValue()) {
 				if (isoCode1.equalsIgnoreCase(c)) {
-					for (String c2 : entry.getValue()) {
+					foreach (String c2 ; entry.getValue()) {
 						if (isoCode2.equalsIgnoreCase(c2)) {
 							return true;
 						}
@@ -205,7 +205,7 @@ public class Iso639 {
 	 * 
 	 * @return The list of languages.
 	 */
-	public static ArrayList<String> getLanguageList() {
+	public static ArrayList/*<String>*/ getLanguageList() {
 		return languages;
 	}
 
@@ -214,7 +214,7 @@ public class Iso639 {
 	 * 
 	 * @return The list of codes.
 	 */
-	public static ArrayList<String> getCodeList() {
+	public static ArrayList/*<String>*/ getCodeList() {
 		return codes;
 	}
 
@@ -229,7 +229,7 @@ public class Iso639 {
 	 */
 	private static void putCode(String language, String iso6391,
 			String iso6392, String iso6392bis) {
-		ArrayList<String> codeArray = new ArrayList<String>();
+		ArrayList/*<String>*/ codeArray = new ArrayList/*<String>*/();
 
 		if (iso6391 !is null) {
 			codeArray.add(iso6391);
@@ -252,7 +252,7 @@ public class Iso639 {
 	 * Initialize the list of language strings.
 	 */
 	private static void initLanguages() {
-		Iterator<String> iterator = links.keySet().iterator();
+		Iterator/*<String>*/ iterator = links.keySet().iterator();
 		while (iterator.hasNext()) {
 			languages.add(iterator.next());
 		}
@@ -262,11 +262,11 @@ public class Iso639 {
 	 * Initialize the list of language codes.
 	 */
 	private static void initCodes() {
-		codes = new ArrayList<String>();
-		Iterator<String[]> iterator = links.values().iterator();
+		codes = new ArrayList/*<String>*/();
+		Iterator/*<String[]>*/ iterator = links.values().iterator();
 
 		while (iterator.hasNext()) {
-			for (String s : iterator.next()) {
+			foreach (String s ; iterator.next()) {
 				codes.add(s);
 			}
 		}

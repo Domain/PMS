@@ -18,11 +18,11 @@
  */
 module net.pms.util.FormLayoutUtil;
 
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.ColumnSpec;
+//import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
 
-import java.awt.*;
+////import java.awt.*;
 
 /**
  * Provides some convenience behavior for flipping side in column
@@ -102,7 +102,7 @@ public class FormLayoutUtil {
 		String separator = "";
 		ColumnSpec[] flippedSpecs = flipped(ColumnSpec.decodeSpecs(encodedColumnSpecs));
 		
-		for (ColumnSpec spec : flippedSpecs) {
+		foreach (ColumnSpec spec ; flippedSpecs) {
 			result.append(separator);
 			result.append(spec.encode());
 			separator = ", ";

@@ -26,15 +26,15 @@ import net.pms.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+////import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import java.lang.exceptions;
+//import java.net.NetworkInterface;
+//import java.net.SocketException;
 import java.net.URI;
-import java.net.URISyntaxException;
+//import java.net.URISyntaxException;
 
 /**
  * Base implementation for the SystemUtils class for the generic cases.
@@ -42,7 +42,7 @@ import java.net.URISyntaxException;
  *
  */
 public class BasicSystemUtils : SystemUtils {
-	private final static Logger logger = LoggerFactory.getLogger(BasicSystemUtils.class); 
+	private immutable static Logger logger = LoggerFactory.getLogger!BasicSystemUtils(); 
 
 	protected String vlcp;
 	protected String vlcv;
@@ -118,19 +118,19 @@ public class BasicSystemUtils : SystemUtils {
 		try {
 			Desktop.getDesktop().browse(new URI(uri));
 		} catch (IOException e) {
-			logger.trace("Unable to open the given URI: " + uri + ".");
+			logger.trace("Unable to open the given URI: " ~ uri ~ ".");
 		} catch (URISyntaxException e) {
-			logger.trace("Unable to open the given URI: " + uri + ".");
+			logger.trace("Unable to open the given URI: " ~ uri ~ ".");
 		}
 	}
 
 	override
-	public bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException {
+	public bool isNetworkInterfaceLoopback(NetworkInterface ni) {
 		return ni.isLoopback();
 	}
 
 	override
-	public void addSystemTray(final LooksFrame frame) {
+	public void addSystemTray(immutable LooksFrame frame) {
 
 		if (SystemTray.isSupported()) {
 			SystemTray tray = SystemTray.getSystemTray();
@@ -141,13 +141,13 @@ public class BasicSystemUtils : SystemUtils {
 			MenuItem defaultItem = new MenuItem(Messages.getString("LooksFrame.5"));
 			MenuItem traceItem = new MenuItem(Messages.getString("LooksFrame.6"));
 
-			defaultItem.addActionListener(new ActionListener() {
+			defaultItem.addActionListener(new class() ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					frame.quit();
 				}
 			});
 
-			traceItem.addActionListener(new ActionListener() {
+			traceItem.addActionListener(new class() ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(true);
 				}
@@ -156,10 +156,10 @@ public class BasicSystemUtils : SystemUtils {
 			popup.add(traceItem);
 			popup.add(defaultItem);
 
-			final TrayIcon trayIcon = new TrayIcon(trayIconImage, PropertiesUtil.getProjectProperties().get("project.name") + " " + PMS.getVersion(), popup);
+			immutable TrayIcon trayIcon = new TrayIcon(trayIconImage, PropertiesUtil.getProjectProperties().get("project.name") + " " + PMS.getVersion(), popup);
 
 			trayIcon.setImageAutoSize(true);
-			trayIcon.addActionListener(new ActionListener() {
+			trayIcon.addActionListener(new class() ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(true);
 					frame.setFocusable(true);
@@ -168,7 +168,7 @@ public class BasicSystemUtils : SystemUtils {
 			try {
 				tray.add(trayIcon);
 			} catch (AWTException e) {
-				logger.debug("Caught exception", e);
+				logger._debug("Caught exception", e);
 			}
 		}
 	}
@@ -183,7 +183,7 @@ public class BasicSystemUtils : SystemUtils {
 	 *             only used to get a name.
 	 */
 	override
-	public byte[] getHardwareAddress(NetworkInterface ni) throws SocketException {
+	public byte[] getHardwareAddress(NetworkInterface ni) {
 		return ni.getHardwareAddress();
 	}
 
@@ -198,8 +198,9 @@ public class BasicSystemUtils : SystemUtils {
 	 */
 	override
 	public String[] getPingCommand(String hostAddress, int count, int packetSize) {
-		return new String[] { "ping", /* count */"-c", Integer.toString(count), /* size */
-				"-s", Integer.toString(packetSize), hostAddress };
+		return [ "ping", /* count */"-c", Integer.toString(count), /* size */
+			"-s", Integer.toString(packetSize), hostAddress 
+		];
 	}
 
 	/**
@@ -213,6 +214,6 @@ public class BasicSystemUtils : SystemUtils {
 		if (Platform.isMac()) {
 			icon = "icon-22.png";
 		}
-		return Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/images/" + icon));
+		return Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/images/" ~ icon));
 	}
 }

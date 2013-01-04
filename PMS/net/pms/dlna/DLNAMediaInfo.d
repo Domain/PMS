@@ -20,15 +20,15 @@ module net.pms.dlna.DLNAMediaInfo;
 
 import com.sun.jna.Platform;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+//import java.awt.Color;
+//import java.awt.Font;
+//import java.awt.Graphics;
+//import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,14 +36,14 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.NoSuchElementException;
+//import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-import javax.imageio.ImageIO;
-
-import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
-import net.coobird.thumbnailator.Thumbnails.Builder;
-import net.coobird.thumbnailator.Thumbnails;
+//import javax.imageio.ImageIO;
+//
+//import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
+//import net.coobird.thumbnailator.Thumbnails.Builder;
+//import net.coobird.thumbnailator.Thumbnails;
 
 import net.pms.PMS;
 import net.pms.configuration.RendererConfiguration;
@@ -60,18 +60,18 @@ import net.pms.util.MpegUtil;
 import net.pms.util.ProcessUtil;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.sanselan.ImageInfo;
-import org.apache.sanselan.Sanselan;
-import org.apache.sanselan.common.IImageMetadata;
-import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
-import org.apache.sanselan.formats.tiff.TiffField;
-import org.apache.sanselan.formats.tiff.constants.TiffConstants;
+//import org.apache.sanselan.ImageInfo;
+//import org.apache.sanselan.Sanselan;
+//import org.apache.sanselan.common.IImageMetadata;
+//import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
+//import org.apache.sanselan.formats.tiff.TiffField;
+//import org.apache.sanselan.formats.tiff.constants.TiffConstants;
 
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.AudioHeader;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
+//import org.jaudiotagger.audio.AudioFile;
+//import org.jaudiotagger.audio.AudioFileIO;
+//import org.jaudiotagger.audio.AudioHeader;
+//import org.jaudiotagger.tag.FieldKey;
+//import org.jaudiotagger.tag.Tag;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,11 +86,11 @@ import org.slf4j.LoggerFactory;
  * removed.
  */
 public class DLNAMediaInfo : Cloneable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DLNAMediaInfo.class);
-	private static final String THUMBNAIL_DIRECTORY_NAME = "thumbs";
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DLNAMediaInfo();
+	private static const String THUMBNAIL_DIRECTORY_NAME = "thumbs";
 
-	public static final long ENDFILE_POS = 99999475712L;
-	public static final long TRANS_SIZE = 100000000000L;
+	public static const long ENDFILE_POS = 99999475712L;
+	public static const long TRANS_SIZE = 100000000000L;
 
 	private bool h264_parsed;
 
@@ -100,37 +100,37 @@ public class DLNAMediaInfo : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int bitrate;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int width;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int height;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public long size;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String codecV;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String frameRate;
 
 	private String frameRateMode;
@@ -138,83 +138,83 @@ public class DLNAMediaInfo : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String aspect;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public byte thumb[];
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String mimeType;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int bitsPerPixel;
 
-	private List<DLNAMediaAudio> audioTracks = new ArrayList<DLNAMediaAudio>();
-	private List<DLNAMediaSubtitle> subtitleTracks = new ArrayList<DLNAMediaSubtitle>();
+	private List/*<DLNAMediaAudio>*/ audioTracks = new ArrayList/*<DLNAMediaAudio>*/();
+	private List/*<DLNAMediaSubtitle>*/ subtitleTracks = new ArrayList/*<DLNAMediaSubtitle>*/();
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String model;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int exposure;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int orientation;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int iso;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String muxingMode;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String muxingModeAudio;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String container;
 
 	/**
 	 * @deprecated Use {@link #getH264AnnexB()} and {@link #setH264AnnexB(byte[])} to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public byte[] h264_annexB;
 
 	/**
 	 * Not stored in database.
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool mediaparsed;
 
 	/**
@@ -222,36 +222,36 @@ public class DLNAMediaInfo : Cloneable {
 	 * from the main parsing process.
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool thumbready;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int dvdtrack;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool secondaryFormatValid = true;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool parsing = false;
 
 	private bool ffmpeg_failure;
 	private bool ffmpeg_annexb_failure;
 	private bool muxable;
-	private Map<String, String> extras;
+	private Map/*<String, String>*/ extras;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public bool encrypted;
 
 	public bool isMuxable(RendererConfiguration mediaRenderer) {
@@ -269,13 +269,13 @@ public class DLNAMediaInfo : Cloneable {
 		return muxable;
 	}
 
-	public Map<String, String> getExtras() {
+	public Map/*<String, String>*/ getExtras() {
 		return extras;
 	}
 
 	public void putExtra(String key, String value) {
 		if (extras is null) {
-			extras = new HashMap<String, String>();
+			extras = new HashMap/*<String, String>*/();
 		}
 
 		extras.put(key, value);
@@ -288,7 +288,7 @@ public class DLNAMediaInfo : Cloneable {
 
 		StringBuilder sb = new StringBuilder();
 
-		for (Map.Entry<String, String> entry : extras.entrySet()) {
+		foreach (Map.Entry/*<String, String>*/ entry ; extras.entrySet()) {
 			sb.append(entry.getKey());
 			sb.append("|");
 			sb.append(entry.getValue());
@@ -305,13 +305,13 @@ public class DLNAMediaInfo : Cloneable {
 				try {
 					putExtra(st.nextToken(), st.nextToken());
 				} catch (NoSuchElementException nsee) {
-					LOGGER.debug("Caught exception", nsee);
+					LOGGER._debug("Caught exception", nsee);
 				}
 			}
 		}
 	}
 
-	public DLNAMediaInfo() {
+	public this() {
 		setThumbready(true); // this class manages thumbnails by default with the parser_v1 method
 	}
 
@@ -323,7 +323,7 @@ public class DLNAMediaInfo : Cloneable {
 	}
 
 	private ProcessWrapperImpl getFFMpegThumbnail(InputFile media) {
-		String args[] = new String[14];
+		String[] args = new String[14];
 		args[0] = getFfmpegPath();
 		bool dvrms = media.getFile() !is null && media.getFile().getAbsolutePath().toLowerCase().endsWith("dvr-ms");
 
@@ -332,7 +332,7 @@ public class DLNAMediaInfo : Cloneable {
 		}
 
 		args[1] = "-ss";
-		args[2] = "" + PMS.getConfiguration().getThumbnailSeekPos();
+		args[2] = "" ~ PMS.getConfiguration().getThumbnailSeekPos();
 		args[3] = "-i";
 
 		if (media.getFile() !is null) {
@@ -369,16 +369,14 @@ public class DLNAMediaInfo : Cloneable {
 
 		// FAILSAFE
 		setParsing(true);
-		Runnable r = new Runnable() {
-			public void run() {
-				try {
-					Thread.sleep(10000);
-					ffmpeg_failure = true;
-				} catch (InterruptedException e) { }
-				pw.stopProcess();
-				setParsing(false);
-			}
-		};
+		Runnable r = dgRunnable( {
+			try {
+				Thread.sleep(10000);
+				ffmpeg_failure = true;
+			} catch (InterruptedException e) { }
+			pw.stopProcess();
+			setParsing(false);
+		});
 
 		Thread failsafe = new Thread(r, "FFMpeg Thumbnail Failsafe");
 		failsafe.start();
@@ -387,12 +385,12 @@ public class DLNAMediaInfo : Cloneable {
 		return pw;
 	}
 
-	private ProcessWrapperImpl getMplayerThumbnail(InputFile media) throws IOException {
+	private ProcessWrapperImpl getMplayerThumbnail(InputFile media) {
 		String args[] = new String[14];
 		args[0] = PMS.getConfiguration().getMplayerPath();
 		args[1] = "-ss";
 		bool toolong = getDurationInSeconds() < PMS.getConfiguration().getThumbnailSeekPos();
-		args[2] = "" + (toolong ? (getDurationInSeconds() / 2) : PMS.getConfiguration().getThumbnailSeekPos());
+		args[2] = "" ~ (toolong ? (getDurationInSeconds() / 2) : PMS.getConfiguration().getThumbnailSeekPos());
 		args[3] = "-quiet";
 
 		if (media.getFile() !is null) {
@@ -408,10 +406,10 @@ public class DLNAMediaInfo : Cloneable {
 		args[9] = "-frames";
 		args[10] = "1";
 		args[11] = "-vo";
-		String frameName = "" + media.hashCode();
-		frameName = "mplayer_thumbs:subdirs=\"" + frameName + "\"";
+		String frameName = "" ~ media.hashCode();
+		frameName = "mplayer_thumbs:subdirs=\"" ~ frameName ~ "\"";
 		frameName = frameName.replace(',', '_');
-		args[12] = "jpeg:outdir=" + frameName;
+		args[12] = "jpeg:outdir=" ~ frameName;
 		args[13] = "-nosound";
 		OutputParams params = new OutputParams(PMS.getConfiguration());
 		params.workDir = PMS.getConfiguration().getTempFolder();
@@ -419,20 +417,18 @@ public class DLNAMediaInfo : Cloneable {
 		params.stdin = media.getPush();
 		params.log = true;
 		params.noexitcheck = true; // not serious if anything happens during the thumbnailer
-		final ProcessWrapperImpl pw = new ProcessWrapperImpl(args, params);
+		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(args, params);
 
 		// FAILSAFE
 		setParsing(true);
-		Runnable r = new Runnable() {
-			public void run() {
-				try {
-					Thread.sleep(3000);
-					//mplayer_thumb_failure = true;
-				} catch (InterruptedException e) { }
-				pw.stopProcess();
-				setParsing(false);
-			}
-		};
+		Runnable r = dgRunnable( {
+			try {
+				Thread.sleep(3000);
+				//mplayer_thumb_failure = true;
+			} catch (InterruptedException e) { }
+			pw.stopProcess();
+			setParsing(false);
+		});
 
 		Thread failsafe = new Thread(r, "MPlayer Thumbnail Failsafe");
 		failsafe.start();
@@ -482,7 +478,7 @@ public class DLNAMediaInfo : Cloneable {
 			ProcessWrapperImpl pw = null;
 			bool ffmpeg_parsing = true;
 
-			if (type == Format.AUDIO || ext instanceof AudioAsVideo) {
+			if (type == Format.AUDIO || cast(AudioAsVideo)ext !is null) {
 				ffmpeg_parsing = false;
 				DLNAMediaAudio audio = new DLNAMediaAudio();
 
@@ -499,9 +495,9 @@ public class DLNAMediaInfo : Cloneable {
 								audio.setBitsperSample(24);
 							}
 
-							audio.setSampleFrequency("" + rate);
-							setDuration((double) length);
-							setBitrate((int) ah.getBitRateAsNumber());
+							audio.setSampleFrequency(rate.toString());
+							setDuration(cast(double) length);
+							setBitrate(cast(int) ah.getBitRateAsNumber());
 							audio.getAudioProperties().setNumberOfChannels(2);
 
 							if (ah.getChannels() !is null && ah.getChannels().toLowerCase().contains("mono")) {
@@ -552,12 +548,12 @@ public class DLNAMediaInfo : Cloneable {
 									audio.setTrack(Integer.parseInt(((y !is null && y.length() > 0) ? y : "1")));
 									audio.setGenre(t.getFirst(FieldKey.GENRE));
 								} catch (Throwable e) {
-									LOGGER.debug("Error parsing unimportant metadata: " + e.getMessage());
+									LOGGER._debug("Error parsing unimportant metadata: " ~ e.getMessage());
 								}
 							}
 						}
 					} catch (Throwable e) {
-						LOGGER.debug("Error parsing audio file: {} - {}", e.getMessage(), e.getCause() !is null ? e.getCause().getMessage() : "");
+						LOGGER._debug("Error parsing audio file: %s - %s", e.getMessage(), e.getCause() !is null ? e.getCause().getMessage() : "");
 						ffmpeg_parsing = false;
 					}
 
@@ -584,8 +580,8 @@ public class DLNAMediaInfo : Cloneable {
 						setCodecV("jpg");
 						IImageMetadata meta = Sanselan.getMetadata(inputFile.getFile());
 
-						if (meta !is null && meta instanceof JpegImageMetadata) {
-							JpegImageMetadata jpegmeta = (JpegImageMetadata) meta;
+						if (meta !is null && cast(JpegImageMetadata)meta !is null) {
+							JpegImageMetadata jpegmeta = cast(JpegImageMetadata) meta;
 							TiffField tf = jpegmeta.findEXIFValue(TiffConstants.EXIF_TAG_MODEL);
 
 							if (tf !is null) {
@@ -594,7 +590,7 @@ public class DLNAMediaInfo : Cloneable {
 
 							tf = jpegmeta.findEXIFValue(TiffConstants.EXIF_TAG_EXPOSURE_TIME);
 							if (tf !is null) {
-								setExposure((int) (1000 * tf.getDoubleValue()));
+								setExposure(cast(int) (1000 * tf.getDoubleValue()));
 							}
 
 							tf = jpegmeta.findEXIFValue(TiffConstants.EXIF_TAG_ORIENTATION);
@@ -620,7 +616,7 @@ public class DLNAMediaInfo : Cloneable {
 					setContainer(getCodecV());
 				} catch (Throwable e) {
 					// ffmpeg_parsing = true;
-					LOGGER.info("Error parsing image ({}) with Sanselan, switching to FFmpeg", inputFile.getFile().getAbsolutePath(), e);
+					LOGGER.info("Error parsing image (%s) with Sanselan, switching to FFmpeg", inputFile.getFile().getAbsolutePath(), e);
 				}
 			}
 
@@ -628,18 +624,18 @@ public class DLNAMediaInfo : Cloneable {
 				try {
 					File thumbDir = new File(PMS.getConfiguration().getTempFolder(), THUMBNAIL_DIRECTORY_NAME);
 
-					LOGGER.trace("Generating thumbnail for: {}", inputFile.getFile().getAbsolutePath());
+					LOGGER.trace("Generating thumbnail for: %s", inputFile.getFile().getAbsolutePath());
 
 					if (!thumbDir.exists() && !thumbDir.mkdirs()) {
-						LOGGER.warn("Could not create thumbnail directory: {}", thumbDir.getAbsolutePath());
+						LOGGER.warn("Could not create thumbnail directory: %s", thumbDir.getAbsolutePath());
 					} else {
-						File thumbFile = new File(thumbDir, inputFile.getFile().getName() + ".jpg");
+						File thumbFile = new File(thumbDir, inputFile.getFile().getName() ~ ".jpg");
 						String thumbFilename = thumbFile.getAbsolutePath();
 
-						LOGGER.trace("Creating (temporary) thumbnail: {}", thumbFilename);
+						LOGGER.trace("Creating (temporary) thumbnail: %s", thumbFilename);
 
 						// Create the thumbnail image using the Thumbnailator library
-						final Builder<File> thumbnail = Thumbnails.of(inputFile.getFile());
+						final Builder/*<File>*/ thumbnail = Thumbnails.of(inputFile.getFile());
 						thumbnail.size(320, 180);
 						thumbnail.outputFormat("jpg");
 						thumbnail.outputQuality(1.0f);
@@ -648,25 +644,25 @@ public class DLNAMediaInfo : Cloneable {
 						File jpg = new File(thumbFilename);
 
 						if (jpg.exists()) {
-							InputStream is = new FileInputStream(jpg);
-							int sz = is.available();
+							InputStream _is = new FileInputStream(jpg);
+							int sz = _is.available();
 
 							if (sz > 0) {
 								setThumb(new byte[sz]);
-								is.read(getThumb());
+								_is.read(getThumb());
 							}
 
-							is.close();
+							_is.close();
 
-							if (!jpg.delete()) {
+							if (!jpg._delete()) {
 								jpg.deleteOnExit();
 							}
 						}
 					}
 				} catch (UnsupportedFormatException ufe) {
-					LOGGER.warn("Can't create thumbnail for {}: {}", inputFile.getFile().getAbsolutePath(), ufe.getMessage());
+					LOGGER.warn("Can't create thumbnail for %s: %s", inputFile.getFile().getAbsolutePath(), ufe.getMessage());
 				} catch (Exception e) {
-					LOGGER.warn("Error generating thumbnail for: {}", inputFile.getFile().getAbsolutePath(), e);
+					LOGGER.warn("Error generating thumbnail for: %s", inputFile.getFile().getAbsolutePath(), e);
 				}
 			}
 
@@ -684,17 +680,17 @@ public class DLNAMediaInfo : Cloneable {
 				}
 
 				if (!ffmpeg_failure && !thumbOnly) {
-					if (input.equals("-")) {
+					if (input.opEquals("-")) {
 						input = "pipe:";
 					}
 
 					bool matchs = false;
-					ArrayList<String> lines = (ArrayList<String>) pw.getResults();
+					ArrayList/*<String>*/ lines = cast(ArrayList/*<String>*/) pw.getResults();
 					int langId = 0;
 					int subId = 0;
-					ListIterator<String> FFmpegMetaData = lines.listIterator();
+					ListIterator/*<String>*/ FFmpegMetaData = lines.listIterator();
 
-					for (String line : lines) {
+					foreach (String line ; lines) {
 						FFmpegMetaData.next();
 						line = line.trim();
 						if (line.startsWith("Output")) {
@@ -715,7 +711,7 @@ public class DLNAMediaInfo : Cloneable {
 										String durationStr = token.substring(10);
 										int l = durationStr.substring(durationStr.indexOf(".") + 1).length();
 										if (l < 4) {
-											durationStr = durationStr + "00".substring(0, 3 - l);
+											durationStr = durationStr ~ "00".substring(0, 3 - l);
 										}
 										if (durationStr.indexOf("N/A") > -1) {
 											setDuration(null);
@@ -730,10 +726,10 @@ public class DLNAMediaInfo : Cloneable {
 											String value = bitr.substring(0, spacepos);
 											String unit = bitr.substring(spacepos + 1);
 											setBitrate(Integer.parseInt(value));
-											if (unit.equals("kb/s")) {
+											if (unit.opEquals("kb/s")) {
 												setBitrate(1024 * getBitrate());
 											}
-											if (unit.equals("mb/s")) {
+											if (unit.opEquals("mb/s")) {
 												setBitrate(1048576 * getBitrate());
 											}
 										}
@@ -758,7 +754,7 @@ public class DLNAMediaInfo : Cloneable {
 									try {
 										audio.setId(Integer.parseInt(idString, 16));
 									} catch (NumberFormatException nfe) {
-										LOGGER.debug("Error parsing Stream ID: " + idString);
+										LOGGER._debug("Error parsing Stream ID: " ~ idString);
 									}
 								}
 
@@ -769,23 +765,23 @@ public class DLNAMediaInfo : Cloneable {
 
 									} else if (token.endsWith("Hz")) {
 										audio.setSampleFrequency(token.substring(0, token.indexOf("Hz")).trim());
-									} else if (token.equals("mono")) {
+									} else if (token.opEquals("mono")) {
 										audio.getAudioProperties().setNumberOfChannels(1);
-									} else if (token.equals("stereo")) {
+									} else if (token.opEquals("stereo")) {
 										audio.getAudioProperties().setNumberOfChannels(2);
-									} else if (token.equals("5:1") || token.equals("5.1") || token.equals("6 channels")) {
+									} else if (token.opEquals("5:1") || token.opEquals("5.1") || token.opEquals("6 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(6);
-									} else if (token.equals("5 channels")) {
+									} else if (token.opEquals("5 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(5);
-									} else if (token.equals("4 channels")) {
+									} else if (token.opEquals("4 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(4);
-									} else if (token.equals("2 channels")) {
+									} else if (token.opEquals("2 channels")) {
 										audio.getAudioProperties().setNumberOfChannels(2);
-									} else if (token.equals("s32")) {
+									} else if (token.opEquals("s32")) {
 										audio.setBitsperSample(32);
-									} else if (token.equals("s24")) {
+									} else if (token.opEquals("s24")) {
 										audio.setBitsperSample(24);
-									} else if (token.equals("s16")) {
+									} else if (token.opEquals("s16")) {
 										audio.setBitsperSample(16);
 									}
 								}
@@ -820,13 +816,13 @@ public class DLNAMediaInfo : Cloneable {
 										// Priority to tb(c)
 										String frameRateDoubleString = token.substring(0, token.indexOf("tb")).trim();
 										try {
-											if (!frameRateDoubleString.equals(getFrameRate())) {// tbc taken into account only if different than tbr
+											if (!frameRateDoubleString.opEquals(getFrameRate())) {// tbc taken into account only if different than tbr
 												Double frameRateDouble = Double.parseDouble(frameRateDoubleString);
 												setFrameRate(String.format(Locale.ENGLISH, "%.2f", frameRateDouble / 2));
 											}
 										} catch (NumberFormatException nfe) {
 											// Could happen if tbc is "1k" or something like that, no big deal
-											LOGGER.debug("Could not parse frame rate \"" + frameRateDoubleString + "\"");
+											LOGGER._debug("Could not parse frame rate \"" ~ frameRateDoubleString ~ "\"");
 										}
 
 									} else if ((token.indexOf("tbr") > -1 || token.indexOf("tb(r)") > -1) && getFrameRate() is null) {
@@ -841,12 +837,12 @@ public class DLNAMediaInfo : Cloneable {
 										try {
 											setWidth(Integer.parseInt(resolution.substring(0, resolution.indexOf("x"))));
 										} catch (NumberFormatException nfe) {
-											LOGGER.debug("Could not parse width from \"" + resolution.substring(0, resolution.indexOf("x")) + "\"");
+											LOGGER._debug("Could not parse width from \"" ~ resolution.substring(0, resolution.indexOf("x")) ~ "\"");
 										}
 										try {
 											setHeight(Integer.parseInt(resolution.substring(resolution.indexOf("x") + 1)));
 										} catch (NumberFormatException nfe) {
-											LOGGER.debug("Could not parse height from \"" + resolution.substring(resolution.indexOf("x") + 1) + "\"");
+											LOGGER._debug("Could not parse height from \"" ~ resolution.substring(resolution.indexOf("x") + 1) ~ "\"");
 										}
 									}
 								}
@@ -892,61 +888,61 @@ public class DLNAMediaInfo : Cloneable {
 					}
 				}
 
-				if (!thumbOnly && getContainer() !is null && inputFile.getFile() !is null && getContainer().equals("mpegts") && isH264() && getDurationInSeconds() == 0) {
+				if (!thumbOnly && getContainer() !is null && inputFile.getFile() !is null && getContainer().opEquals("mpegts") && isH264() && getDurationInSeconds() == 0) {
 					// let's do the parsing for getting the duration...
 					try {
 						int length = MpegUtil.getDurationFromMpeg(inputFile.getFile());
 						if (length > 0) {
-							setDuration((double) length);
+							setDuration(cast(double) length);
 						}
 					} catch (IOException e) {
-						LOGGER.trace("Error retrieving length: " + e.getMessage());
+						LOGGER.trace("Error retrieving length: " ~ e.getMessage());
 					}
 				}
 
 				if (PMS.getConfiguration().isUseMplayerForVideoThumbs() && type == Format.VIDEO && !dvrms) {
 					try {
 						getMplayerThumbnail(inputFile);
-						String frameName = "" + inputFile.hashCode();
-						frameName = PMS.getConfiguration().getTempFolder() + "/mplayer_thumbs/" + frameName + "00000001/00000001.jpg";
+						String frameName = "" ~ inputFile.hashCode();
+						frameName = PMS.getConfiguration().getTempFolder() ~ "/mplayer_thumbs/" ~ frameName ~ "00000001/00000001.jpg";
 						frameName = frameName.replace(',', '_');
 						File jpg = new File(frameName);
 
 						if (jpg.exists()) {
-							InputStream is = new FileInputStream(jpg);
-							int sz = is.available();
+							InputStream _is = new FileInputStream(jpg);
+							int sz = _is.available();
 
 							if (sz > 0) {
 								setThumb(new byte[sz]);
-								is.read(getThumb());
+								_is.read(getThumb());
 							}
 
-							is.close();
+							_is.close();
 
-							if (!jpg.delete()) {
+							if (!jpg._delete()) {
 								jpg.deleteOnExit();
 							}
 
 							// Try and retry
-							if (!jpg.getParentFile().delete() && !jpg.getParentFile().delete()) {
-								LOGGER.debug("Failed to delete \"" + jpg.getParentFile().getAbsolutePath() + "\"");
+							if (!jpg.getParentFile()._delete() && !jpg.getParentFile()._delete()) {
+								LOGGER._debug("Failed to delete \"" ~ jpg.getParentFile().getAbsolutePath() ~ "\"");
 							}
 						}
 					} catch (IOException e) {
-						LOGGER.debug("Caught exception", e);
+						LOGGER._debug("Caught exception", e);
 					}
 				}
 
 				if (type == Format.VIDEO && pw !is null && getThumb() is null) {
-					InputStream is;
+					InputStream _is;
 					try {
-						is = pw.getInputStream(0);
-						int sz = is.available();
+						_is = pw.getInputStream(0);
+						int sz = _is.available();
 						if (sz > 0) {
 							setThumb(new byte[sz]);
-							is.read(getThumb());
+							_is.read(getThumb());
 						}
-						is.close();
+						_is.close();
 
 						if (sz > 0 && !java.awt.GraphicsEnvironment.isHeadless()) {
 							BufferedImage image = ImageIO.read(new ByteArrayInputStream(getThumb()));
@@ -962,13 +958,13 @@ public class DLNAMediaInfo : Cloneable {
 										g.drawString("720p", 0, low += 18);
 									}
 								}
-								ByteArrayOutputStream out = new ByteArrayOutputStream();
-								ImageIO.write(image, "jpeg", out);
-								setThumb(out.toByteArray());
+								ByteArrayOutputStream _out = new ByteArrayOutputStream();
+								ImageIO.write(image, "jpeg", _out);
+								setThumb(_out.toByteArray());
 							}
 						}
 					} catch (IOException e) {
-						LOGGER.debug("Error while decoding thumbnail: " + e.getMessage());
+						LOGGER._debug("Error while decoding thumbnail: " ~ e.getMessage());
 					}
 				}
 			}
@@ -984,7 +980,7 @@ public class DLNAMediaInfo : Cloneable {
 
 	public int getFrameNumbers() {
 		double fr = Double.parseDouble(getFrameRate());
-		return (int) (getDurationInSeconds() * fr);
+		return cast(int) (getDurationInSeconds() * fr);
 	}
 
 	public void setDuration(Double d) {
@@ -1008,9 +1004,9 @@ public class DLNAMediaInfo : Cloneable {
 	}
 
 	public static String getDurationString(double d) {
-		int s = ((int) d) % 60;
-		int h = (int) (d / 3600);
-		int m = ((int) (d / 60)) % 60;
+		int s = (cast(int) d) % 60;
+		int h = cast(int) (d / 3600);
+		int m = (cast(int) (d / 60)) % 60;
 		return String.format("%02d:%02d:%02d.00", h, m, s);
 	}
 
@@ -1027,7 +1023,7 @@ public class DLNAMediaInfo : Cloneable {
 			double s = Double.parseDouble(st.nextToken());
 			return h * 3600 + m * 60 + s;
 		} catch (NumberFormatException nfe) {
-			LOGGER.debug("Failed to parse duration \"" + duration + "\"");
+			LOGGER._debug("Failed to parse duration \"" ~ duration ~ "\"");
 		}
 
 		return null;
@@ -1040,19 +1036,19 @@ public class DLNAMediaInfo : Cloneable {
 			codecA = getFirstAudioTrack().getCodecA();
 		}
 
-		if (getContainer() !is null && getContainer().equals("avi")) {
+		if (getContainer() !is null && getContainer().opEquals("avi")) {
 			setMimeType(HTTPResource.AVI_TYPEMIME);
-		} else if (getContainer() !is null && (getContainer().equals("asf") || getContainer().equals("wmv"))) {
+		} else if (getContainer() !is null && (getContainer().opEquals("asf") || getContainer().opEquals("wmv"))) {
 			setMimeType(HTTPResource.WMV_TYPEMIME);
-		} else if (getContainer() !is null && (getContainer().equals("matroska") || getContainer().equals("mkv"))) {
+		} else if (getContainer() !is null && (getContainer().opEquals("matroska") || getContainer().opEquals("mkv"))) {
 			setMimeType(HTTPResource.MATROSKA_TYPEMIME);
-		} else if (getCodecV() !is null && getCodecV().equals("mjpeg")) {
+		} else if (getCodecV() !is null && getCodecV().opEquals("mjpeg")) {
 			setMimeType(HTTPResource.JPEG_TYPEMIME);
-		} else if ("png".equals(getCodecV()) || "png".equals(getContainer())) {
+		} else if ("png".opEquals(getCodecV()) || "png".opEquals(getContainer())) {
 			setMimeType(HTTPResource.PNG_TYPEMIME);
-		} else if ("gif".equals(getCodecV()) || "gif".equals(getContainer())) {
+		} else if ("gif".opEquals(getCodecV()) || "gif".opEquals(getContainer())) {
 			setMimeType(HTTPResource.GIF_TYPEMIME);
-		} else if (getCodecV() !is null && (getCodecV().equals("h264") || getCodecV().equals("h263") || getCodecV().toLowerCase().equals("mpeg4") || getCodecV().toLowerCase().equals("mp4"))) {
+		} else if (getCodecV() !is null && (getCodecV().opEquals("h264") || getCodecV().opEquals("h263") || getCodecV().toLowerCase().opEquals("mpeg4") || getCodecV().toLowerCase().opEquals("mp4"))) {
 			setMimeType(HTTPResource.MP4_TYPEMIME);
 		} else if (getCodecV() !is null && (getCodecV().indexOf("mpeg") > -1 || getCodecV().indexOf("mpg") > -1)) {
 			setMimeType(HTTPResource.MPEG_TYPEMIME);
@@ -1084,9 +1080,9 @@ public class DLNAMediaInfo : Cloneable {
 
 	public bool isVideoPS3Compatible(InputFile f) {
 		if (!h264_parsed) {
-			if (getCodecV() !is null && (getCodecV().equals("h264") || getCodecV().startsWith("mpeg2"))) { // what about VC1 ?
+			if (getCodecV() !is null && (getCodecV().opEquals("h264") || getCodecV().startsWith("mpeg2"))) { // what about VC1 ?
 				muxable = true;
-				if (getCodecV().equals("h264") && getContainer() !is null && (getContainer().equals("matroska") || getContainer().equals("mkv") || getContainer().equals("mov") || getContainer().equals("mp4"))) { // containers without h264_annexB
+				if (getCodecV().opEquals("h264") && getContainer() !is null && (getContainer().opEquals("matroska") || getContainer().opEquals("mkv") || getContainer().opEquals("mov") || getContainer().opEquals("mp4"))) { // containers without h264_annexB
 					byte headers[][] = getAnnexBFrameHeader(f);
 					if (ffmpeg_annexb_failure) {
 						LOGGER.info("Fatal error when retrieving AVC informations !");
@@ -1103,18 +1099,18 @@ public class DLNAMediaInfo : Cloneable {
 							System.arraycopy(getH264AnnexB(), skip, header, 0, header.length);
 							AVCHeader avcHeader = new AVCHeader(header);
 							avcHeader.parse();
-							LOGGER.trace("H264 file: " + f.getFilename() + ": Profile: " + avcHeader.getProfile() + " / level: " + avcHeader.getLevel() + " / ref frames: " + avcHeader.getRef_frames());
+							LOGGER.trace("H264 file: " ~ f.getFilename() ~ ": Profile: " ~ avcHeader.getProfile() ~ " / level: " ~ avcHeader.getLevel() ~ " / ref frames: " ~ avcHeader.getRef_frames());
 							muxable = true;
 
 							// Check if file is compliant with Level4.1
 							if (avcHeader.getLevel() >= 41 && getWidth() > 0 && getHeight() > 0) {
-								int maxref = (int) Math.floor(8388608 / (getWidth() * getHeight()));
+								int maxref = cast(int) Math.floor(8388608 / (getWidth() * getHeight()));
 								if (avcHeader.getRef_frames() > maxref) {
 									muxable = false;
 								}
 							}
 							if (!muxable) {
-								LOGGER.debug("H264 file: " + f.getFilename() + " is not ps3 compatible !");
+								LOGGER._debug("H264 file: " ~ f.getFilename() ~ " is not ps3 compatible !");
 							}
 						} else {
 							muxable = false;
@@ -1132,25 +1128,25 @@ public class DLNAMediaInfo : Cloneable {
 	}
 
 	public bool isMuxable(String filename, String codecA) {
-		return codecA !is null && (codecA.startsWith("dts") || codecA.equals("dca"));
+		return codecA !is null && (codecA.startsWith("dts") || codecA.opEquals("dca"));
 	}
 
 	public bool isLossless(String codecA) {
-		return codecA !is null && (codecA.contains("pcm") || codecA.startsWith("dts") || codecA.equals("dca") || codecA.contains("flac")) && !codecA.contains("pcm_u8") && !codecA.contains("pcm_s8");
+		return codecA !is null && (codecA.contains("pcm") || codecA.startsWith("dts") || codecA.opEquals("dca") || codecA.contains("flac")) && !codecA.contains("pcm_u8") && !codecA.contains("pcm_s8");
 	}
 
 	public String toString() {
-		String s = "container: " + getContainer() + " / bitrate: " + getBitrate() + " / size: " + getSize() + " / codecV: " + getCodecV() + " / duration: " + getDurationString() + " / width: " + getWidth() + " / height: " + getHeight() + " / frameRate: " + getFrameRate() + " / thumb size : " + (getThumb() !is null ? getThumb().length : 0) + " / muxingMode: " + getMuxingMode();
+		String s = "container: " ~ getContainer() ~ " / bitrate: " ~ getBitrate() ~ " / size: " ~ getSize() ~ " / codecV: " ~ getCodecV() ~ " / duration: " ~ getDurationString() ~ " / width: " ~ getWidth() ~ " / height: " ~ getHeight() ~ " / frameRate: " ~ getFrameRate() ~ " / thumb size : " ~ (getThumb() !is null ? getThumb().length : 0) ~ " / muxingMode: " ~ getMuxingMode();
 
-		for (DLNAMediaAudio audio : getAudioTracksList()) {
-			s += "\n\taudio: id=" + audio.getId() + " / lang: " + audio.getLang() + " / flavor: " + audio.getFlavor() + " / codec: " + audio.getCodecA() + " / sf:" + audio.getSampleFrequency() + " / na: " + (audio.getAudioProperties() !is null ? audio.getAudioProperties().getNumberOfChannels() : "-") + " / bs: " + audio.getBitsperSample();
+		foreach (DLNAMediaAudio audio ; getAudioTracksList()) {
+			s ~= "\n\taudio: id=" ~ audio.getId() ~ " / lang: " ~ audio.getLang() ~ " / flavor: " ~ audio.getFlavor() ~ " / codec: " ~ audio.getCodecA() ~ " / sf:" ~ audio.getSampleFrequency() ~ " / na: " ~ (audio.getAudioProperties() !is null ? audio.getAudioProperties().getNumberOfChannels() : "-") ~ " / bs: " ~ audio.getBitsperSample();
 			if (audio.getArtist() !is null) {
-				s += " / " + audio.getArtist() + "|" + audio.getAlbum() + "|" + audio.getSongname() + "|" + audio.getYear() + "|" + audio.getTrack();
+				s ~= " / " ~ audio.getArtist() ~ "|" ~ audio.getAlbum() ~ "|" ~ audio.getSongname() ~ "|" ~ audio.getYear() + "|" ~ audio.getTrack();
 			}
 		}
 
-		for (DLNAMediaSubtitle sub : getSubtitleTracksList()) {
-			s += "\n\tsub: id=" + sub.getId() + " / lang: " + sub.getLang() + " / flavor: " + sub.getFlavor() + " / type: " + (sub.getType() !is null ? sub.getType().toString() : "null");
+		foreach (DLNAMediaSubtitle sub ; getSubtitleTracksList()) {
+			s ~= "\n\tsub: id=" ~ sub.getId() ~ " / lang: " ~ sub.getLang() ~ " / flavor: " ~ sub.getFlavor() ~ " / type: " ~ (sub.getType() !is null ? sub.getType().toString() : "null");
 		}
 
 		return s;
@@ -1223,7 +1219,7 @@ public class DLNAMediaInfo : Cloneable {
 
 	public String getResolution() {
 		if (getWidth() > 0 && getHeight() > 0) {
-			return getWidth() + "x" + getHeight();
+			return getWidth() ~ "x" ~ getHeight();
 		}
 
 		return null;
@@ -1237,7 +1233,7 @@ public class DLNAMediaInfo : Cloneable {
 		int realBitrate = 10000000;
 
 		if (getDurationInSeconds() != 0) {
-			realBitrate = (int) (getSize() / getDurationInSeconds());
+			realBitrate = cast(int) (getSize() / getDurationInSeconds());
 		}
 
 		return realBitrate;
@@ -1248,7 +1244,7 @@ public class DLNAMediaInfo : Cloneable {
 	}
 
 	public bool isMpegTS() {
-		return getContainer() !is null && getContainer().equals("mpegts");
+		return getContainer() !is null && getContainer().opEquals("mpegts");
 	}
 
 	public byte[][] getAnnexBFrameHeader(InputFile f) {
@@ -1279,17 +1275,15 @@ public class DLNAMediaInfo : Cloneable {
 		params.maxBufferSize = 1;
 		params.stdin = f.getPush();
 
-		final ProcessWrapperImpl pw = new ProcessWrapperImpl(cmdArray, params);
+		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmdArray, params);
 
-		Runnable r = new Runnable() {
-			public void run() {
-				try {
-					Thread.sleep(3000);
-					ffmpeg_annexb_failure = true;
-				} catch (InterruptedException e) { }
-				pw.stopProcess();
-			}
-		};
+		Runnable r = dgRunnable( {
+			try {
+				Thread.sleep(3000);
+				ffmpeg_annexb_failure = true;
+			} catch (InterruptedException e) { }
+			pw.stopProcess();
+		});
 
 		Thread failsafe = new Thread(r, "FFMpeg AnnexB Frame Header Failsafe");
 		failsafe.start();
@@ -1299,22 +1293,22 @@ public class DLNAMediaInfo : Cloneable {
 			return null;
 		}
 
-		InputStream is = null;
+		InputStream _is = null;
 		ByteArrayOutputStream baot = new ByteArrayOutputStream();
 
 		try {
-			is = pw.getInputStream(0);
+			_is = pw.getInputStream(0);
 			byte b[] = new byte[4096];
 			int n = -1;
 
-			while ((n = is.read(b)) > 0) {
+			while ((n = _is.read(b)) > 0) {
 				baot.write(b, 0, n);
 			}
 
 			byte data[] = baot.toByteArray();
 			baot.close();
 			returnData[0] = data;
-			is.close();
+			_is.close();
 			int kf = 0;
 
 			for (int i = 3; i < data.length; i++) {
@@ -1343,28 +1337,28 @@ public class DLNAMediaInfo : Cloneable {
 				returnData[1] = header;
 			}
 		} catch (IOException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 
 		return returnData;
 	}
 
 	override
-	protected Object clone() throws CloneNotSupportedException {
+	protected Object clone() {
 		Object cloned = super.clone();
 
-		if (cloned instanceof DLNAMediaInfo) {
-			DLNAMediaInfo mediaCloned = ((DLNAMediaInfo) cloned);
-			mediaCloned.setAudioTracksList(new ArrayList<DLNAMediaAudio>());
+		if (cast(DLNAMediaInfo)cloned !is null) {
+			DLNAMediaInfo mediaCloned = (cast(DLNAMediaInfo) cloned);
+			mediaCloned.setAudioTracksList(new ArrayList/*<DLNAMediaAudio>*/());
 
-			for (DLNAMediaAudio audio : getAudioTracksList()) {
-				mediaCloned.getAudioTracksList().add((DLNAMediaAudio) audio.clone());
+			foreach (DLNAMediaAudio audio ; getAudioTracksList()) {
+				mediaCloned.getAudioTracksList().add(cast(DLNAMediaAudio) audio.clone());
 			}
 
-			mediaCloned.setSubtitleTracksList(new ArrayList<DLNAMediaSubtitle>());
+			mediaCloned.setSubtitleTracksList(new ArrayList/*<DLNAMediaSubtitle>*/());
 
-			for (DLNAMediaSubtitle sub : getSubtitleTracksList()) {
-				mediaCloned.getSubtitleTracksList().add((DLNAMediaSubtitle) sub.clone());
+			foreach (DLNAMediaSubtitle sub ; getSubtitleTracksList()) {
+				mediaCloned.getSubtitleTracksList().add(cast(DLNAMediaSubtitle) sub.clone());
 			}
 		}
 
@@ -1551,7 +1545,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @return the audioTracks
 	 * @since 1.60.0
 	 */
-	public List<DLNAMediaAudio> getAudioTracksList() {
+	public List/*<DLNAMediaAudio>*/ getAudioTracksList() {
 		return audioTracks;
 	}
 
@@ -1559,12 +1553,12 @@ public class DLNAMediaInfo : Cloneable {
 	 * @return the audioTracks
 	 * @deprecated use getAudioTracksList() instead
 	 */
-	@Deprecated
-	public ArrayList<DLNAMediaAudio> getAudioCodes() {
-		if (audioTracks instanceof ArrayList) {
-			return (ArrayList<DLNAMediaAudio>) audioTracks;
+	deprecated
+	public ArrayList/*<DLNAMediaAudio>*/ getAudioCodes() {
+		if (cast(ArrayList)audioTracks !is null ) {
+			return cast(ArrayList/*<DLNAMediaAudio>*/) audioTracks;
 		} else {
-			return new ArrayList<DLNAMediaAudio>();
+			return new ArrayList/*<DLNAMediaAudio>*/();
 		}
 	}
 
@@ -1572,7 +1566,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @param audioTracks the audioTracks to set
 	 * @since 1.60.0
 	 */
-	public void setAudioTracksList(List<DLNAMediaAudio> audioTracks) {
+	public void setAudioTracksList(List/*<DLNAMediaAudio>*/ audioTracks) {
 		this.audioTracks = audioTracks;
 	}
 
@@ -1580,8 +1574,8 @@ public class DLNAMediaInfo : Cloneable {
 	 * @param audioTracks the audioTracks to set
 	 * @deprecated use setAudioTracksList(ArrayList<DLNAMediaAudio> audioTracks) instead
 	 */
-	@Deprecated
-	public void setAudioCodes(List<DLNAMediaAudio> audioTracks) {
+	deprecated
+	public void setAudioCodes(List/*<DLNAMediaAudio>*/ audioTracks) {
 		setAudioTracksList(audioTracks);
 	}
 
@@ -1589,7 +1583,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @return the subtitleTracks
 	 * @since 1.60.0
 	 */
-	public List<DLNAMediaSubtitle> getSubtitleTracksList() {
+	public List/*<DLNAMediaSubtitle>*/ getSubtitleTracksList() {
 		return subtitleTracks;
 	}
 
@@ -1597,12 +1591,12 @@ public class DLNAMediaInfo : Cloneable {
 	 * @return the subtitleTracks
 	 * @deprecated use getSubtitleTracksList() instead
 	 */
-	@Deprecated
-	public ArrayList<DLNAMediaSubtitle> getSubtitlesCodes() {
-		if (subtitleTracks instanceof ArrayList) {
-			return (ArrayList<DLNAMediaSubtitle>) subtitleTracks;
+	deprecated
+	public ArrayList/*<DLNAMediaSubtitle>*/ getSubtitlesCodes() {
+		if (cast(ArrayList)subtitleTracks !is null ) {
+			return cast(ArrayList/*<DLNAMediaSubtitle>*/) subtitleTracks;
 		} else {
-			return new ArrayList<DLNAMediaSubtitle>();
+			return new ArrayList/*<DLNAMediaSubtitle>*/();
 		}
 	}
 
@@ -1610,7 +1604,7 @@ public class DLNAMediaInfo : Cloneable {
 	 * @param subtitleTracks the subtitleTracks to set
 	 * @since 1.60.0
 	 */
-	public void setSubtitleTracksList(List<DLNAMediaSubtitle> subtitleTracks) {
+	public void setSubtitleTracksList(List/*<DLNAMediaSubtitle>*/ subtitleTracks) {
 		this.subtitleTracks = subtitleTracks;
 	}
 
@@ -1618,8 +1612,8 @@ public class DLNAMediaInfo : Cloneable {
 	 * @param subtitleTracks the subtitleTracks to set
 	 * @deprecated use setSubtitleTracksList(ArrayList<DLNAMediaSubtitle> subtitleTracks) instead
 	 */
-	@Deprecated
-	public void setSubtitlesCodes(List<DLNAMediaSubtitle> subtitleTracks) {
+	deprecated
+	public void setSubtitlesCodes(List/*<DLNAMediaSubtitle>*/ subtitleTracks) {
 		setSubtitleTracksList(subtitleTracks);
 	}
 

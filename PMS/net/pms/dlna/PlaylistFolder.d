@@ -5,11 +5,11 @@ import net.pms.formats.Format;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.ArrayList;
 
 public class PlaylistFolder : DLNAResource {
-	private static final Logger logger = LoggerFactory.getLogger(PlaylistFolder.class);
+	private static immutable Logger logger = LoggerFactory.getLogger!PlaylistFolder();
 	private File playlistfile;
 	private bool valid = true;
 
@@ -17,13 +17,13 @@ public class PlaylistFolder : DLNAResource {
 		return playlistfile;
 	}
 
-	public PlaylistFolder(File f) {
+	public this(File f) {
 		playlistfile = f;
 		setLastModified(playlistfile.lastModified());
 	}
 
 	override
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 
@@ -55,7 +55,7 @@ public class PlaylistFolder : DLNAResource {
 	override
 	public synchronized void resolve() {
 		if (playlistfile.length() < 10000000) {
-			ArrayList<Entry> entries = new ArrayList<Entry>();
+			ArrayList/*<Entry>*/ entries = new ArrayList/*<Entry>*/();
 			bool m3u = false;
 			bool pls = false;
 			try {
@@ -65,10 +65,10 @@ public class PlaylistFolder : DLNAResource {
 					line = line.trim();
 					if (line.startsWith("#EXTM3U")) {
 						m3u = true;
-						logger.debug("Reading m3u playlist: " + playlistfile.getName());
-					} else if (line.length() > 0 && line.equals("[playlist]")) {
+						logger._debug("Reading m3u playlist: " ~ playlistfile.getName());
+					} else if (line.length() > 0 && line.opEquals("[playlist]")) {
 						pls = true;
-						logger.debug("Reading PLS playlist: " + playlistfile.getName());
+						logger._debug("Reading PLS playlist: " ~ playlistfile.getName());
 					}
 				}
 				String fileName = null;
@@ -134,12 +134,12 @@ public class PlaylistFolder : DLNAResource {
 			} catch (IOException e) {
 				logger.error(null, e);
 			}
-			for (Entry entry : entries) {
+			foreach (Entry entry ; entries) {
 				if (entry is null) {
 					continue;
 				}
 				String fileName = entry.fileName;
-				logger.debug("Adding " + (pls ? "PLS " : (m3u ? "M3U " : "")) + "entry: " + entry);
+				logger._debug("Adding " ~ (pls ? "PLS " : (m3u ? "M3U " : "")) ~ "entry: " ~ entry);
 				if (!fileName.toLowerCase().startsWith("http://") && !fileName.toLowerCase().startsWith("mms://")) {
 					File en1 = new File(playlistfile.getParentFile(), fileName);
 					File en2 = new File(fileName);
@@ -155,7 +155,7 @@ public class PlaylistFolder : DLNAResource {
 				}
 			}
 			PMS.get().storeFileInCache(playlistfile, Format.PLAYLIST);
-			for (DLNAResource r : getChildren()) {
+			foreach (DLNAResource r ; getChildren()) {
 				r.resolve();
 			}
 		}
@@ -167,7 +167,7 @@ public class PlaylistFolder : DLNAResource {
 
 		override
 		public String toString() {
-			return "[" + fileName + "," + title + "]";
+			return "[" ~ fileName ~ "," ~ title ~ "]";
 		}
 	}
 }

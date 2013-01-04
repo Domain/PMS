@@ -10,10 +10,10 @@ import java.net.SocketException;
 import java.util.Arrays;
 
 public class PMSUtil {
-	private static final Logger logger = LoggerFactory.getLogger(PMSUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PMSUtil();
 
-	@Deprecated
-	public static <T> T[] copyOf(T[] original, int newLength) {
+	deprecated
+	public static T[] copyOf(T)(T[] original, int newLength) {
 		logger.info("deprecated PMSUtil.copyOf called");
 		return Arrays.copyOf(original, newLength);
 	}
@@ -23,20 +23,20 @@ public class PMSUtil {
 	 * @param uri URI string to open externally.
 	 * @deprecated call SystemUtils.browseURI
 	 */
-	@Deprecated
+	deprecated
 	public static void browseURI(String uri) {
 		logger.info("deprecated PMSUtil.browseURI called");
 		PMS.get().getRegistry().browseURI(uri);
 	}
 
-	@Deprecated
-	public static void addSystemTray(final LooksFrame frame) {
+	deprecated
+	public static void addSystemTray(immutable LooksFrame frame) {
 		logger.info("deprecated PMSUtil.addSystemTray called");
 		PMS.get().getRegistry().addSystemTray(frame);
 	}
 
-	@Deprecated
-	public static bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException {
+	deprecated
+	public static bool isNetworkInterfaceLoopback(NetworkInterface ni) {
 		logger.info("deprecated PMSUtil.isNetworkInterfaceLoopback called");
 		return PMS.get().getRegistry().isNetworkInterfaceLoopback(ni);
 	}
@@ -50,8 +50,8 @@ public class PMSUtil {
 	 *             This won't happen on Mac OS, since the NetworkInterface is
 	 *             only used to get a name.
 	 */
-	@Deprecated
-	public static byte[] getHardwareAddress(NetworkInterface ni) throws SocketException {
+	deprecated
+	public static byte[] getHardwareAddress(NetworkInterface ni) {
 		logger.info("deprecated PMSUtil.getHardwareAddress called");
 		return PMS.get().getRegistry().getHardwareAddress(ni);
 	}

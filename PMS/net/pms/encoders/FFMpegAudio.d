@@ -18,10 +18,10 @@
  */
 module net.pms.encoders.FFMpegAudio;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+////import com.jgoodies.forms.builder.PanelBuilder;
+////import com.jgoodies.forms.factories.Borders;
+////import com.jgoodies.forms.layout.CellConstraints;
+////import com.jgoodies.forms.layout.FormLayout;
 
 import net.pms.configuration.PmsConfiguration;
 import net.pms.dlna.DLNAMediaInfo;
@@ -34,23 +34,23 @@ import net.pms.Messages;
 import net.pms.network.HTTPResource;
 import net.pms.PMS;
 
-import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.IOException;
+////import java.awt.*;
+//import java.awt.event.ItemEvent;
+//import java.awt.event.ItemListener;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+////import javax.swing.*;
 
 public class FFMpegAudio : FFMpegVideo {
-	public static final String ID = "ffmpegaudio";
-	private final PmsConfiguration configuration;
+	public static const String ID = "ffmpegaudio";
+	private immutable PmsConfiguration configuration;
 
 	// should be private
-	@Deprecated
+	deprecated
 	JCheckBox noresample;
 
-	public FFMpegAudio(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -67,13 +67,13 @@ public class FFMpegAudio : FFMpegVideo {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator("Audio settings", cc.xyw(2, 1, 1));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		noresample = new JCheckBox(Messages.getString("TrTab2.22"));
 		noresample.setContentAreaFilled(false);
 		noresample.setSelected(configuration.isAudioResample());
-		noresample.addItemListener(new ItemListener() {
+		noresample.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setAudioResample(e.getStateChange() == ItemEvent.SELECTED);
 			}
@@ -115,10 +115,10 @@ public class FFMpegAudio : FFMpegVideo {
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public String[] args() {
 		// unused: kept for backwards compatibility
-		return new String[] { "-f", "s16be", "-ar", "48000" };
+		return [ "-f", "s16be", "-ar", "48000" ];
 	}
 
 	override
@@ -132,13 +132,13 @@ public class FFMpegAudio : FFMpegVideo {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		params.maxBufferSize = configuration.getMaxAudioBuffer();
 		params.waitbeforestart = 2000;
 		params.manageFastStart();
 
 		int nThreads = configuration.getNumberOfCpuCores();
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 
 		cmdList.add(executable());
 
@@ -222,10 +222,10 @@ public class FFMpegAudio : FFMpegVideo {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.FLAC)
-					|| id.equals(Format.Identifier.M4A)
-					|| id.equals(Format.Identifier.OGG)
-					|| id.equals(Format.Identifier.WAV)) {
+			if (id.opEquals(Format.Identifier.FLAC)
+					|| id.opEquals(Format.Identifier.M4A)
+					|| id.opEquals(Format.Identifier.OGG)
+					|| id.opEquals(Format.Identifier.WAV)) {
 				return true;
 			}
 		}

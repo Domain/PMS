@@ -2,8 +2,8 @@ module net.pms.newgui.ProfileChooser;
 
 import net.pms.Messages;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
+////import javax.swing.*;
+//import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
 public class ProfileChooser {
@@ -21,7 +21,7 @@ public class ProfileChooser {
 
 	public static void display() {
 		LooksFrame.initializeLookAndFeel();
-		final JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser();
 
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		fc.setDialogTitle(Messages.getString("ProfileChooser.1"));

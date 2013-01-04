@@ -49,35 +49,35 @@ public class WEB : Format {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return type == IMAGE;
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		if (type == AUDIO) {
 			PMS r = PMS.get();
-			for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
-				if (engine.equals(MPlayerWebAudio.ID)) {
-					a.add(MPlayerWebAudio.class);
-				} else if (engine.equals(VideoLanAudioStreaming.ID)) {
-					a.add(VideoLanAudioStreaming.class);
+			foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+				if (engine.opEquals(MPlayerWebAudio.ID)) {
+					a.add(MPlayerWebAudio._class);
+				} else if (engine.opEquals(VideoLanAudioStreaming.ID)) {
+					a.add(VideoLanAudioStreaming._class);
 				}
 			}
 		} else {
 			PMS r = PMS.get();
-			for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
-				if (engine.equals(FFMpegWebVideo.ID)) {
-					a.add(FFMpegWebVideo.class);
-				} else if (engine.equals(MEncoderWebVideo.ID)) {
-					a.add(MEncoderWebVideo.class);
-				} else if (engine.equals(VideoLanVideoStreaming.ID)) {
-					a.add(VideoLanVideoStreaming.class);
-				} else if (engine.equals(MPlayerWebVideoDump.ID)) {
-					a.add(MPlayerWebVideoDump.class);
+			foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+				if (engine.opEquals(FFMpegWebVideo.ID)) {
+					a.add(FFMpegWebVideo._class);
+				} else if (engine.opEquals(MEncoderWebVideo.ID)) {
+					a.add(MEncoderWebVideo._class);
+				} else if (engine.opEquals(VideoLanVideoStreaming.ID)) {
+					a.add(VideoLanVideoStreaming._class);
+				} else if (engine.opEquals(MPlayerWebVideoDump.ID)) {
+					a.add(MPlayerWebVideoDump._class);
 				}
 			}
 		}
@@ -91,7 +91,7 @@ public class WEB : Format {
 	override
 	// TODO remove screen - it's been tried numerous times (see forum) and it doesn't work
 	public String[] getId() {
-		return new String[] { "http", "mms", "mmsh", "mmst", "rtsp", "rtp", "udp", "screen" };
+		return [ "http", "mms", "mmsh", "mmst", "rtsp", "rtp", "udp", "screen" ];
 	}
 
 	override

@@ -11,65 +11,65 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.all;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class FormatConfiguration {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FormatConfiguration.class);
-	private ArrayList<SupportSpec> supportSpecs;
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FormatConfiguration();
+	private ArrayList/*<SupportSpec>*/ supportSpecs;
 	// Use old parser for JPEG files (MediaInfo does not support EXIF)
-	private static final String[] PARSER_V1_EXTENSIONS = new String[] { ".jpg", ".jpe", ".jpeg" };
+	private static const String[3] PARSER_V1_EXTENSIONS = [ ".jpg", ".jpe", ".jpeg" ];
 
-	public static final String AAC = "aac";
-	public static final String AC3 = "ac3";
-	public static final String AIFF = "aiff";
-	public static final String ALAC = "alac";
-	public static final String APE = "ape";
-	public static final String ATRAC = "atrac";
-	public static final String AVI = "avi";
-	public static final String BMP = "bmp";
-	public static final String DIVX = "divx";
-	public static final String DTS = "dts";
-	public static final String DTSHD = "dtshd";
-	public static final String DV = "dv";
-	public static final String EAC3 = "eac3";
-	public static final String FLAC = "flac";
-	public static final String FLV = "flv";
-	public static final String GIF = "gif";
-	public static final String H264 = "h264";
-	public static final String JPG = "jpg";
-	public static final String LPCM = "lpcm";
-	public static final String MATROSKA = "mkv";
-	public static final String MI_GMC = "gmc";
-	public static final String MI_QPEL = "qpel";
-	public static final String MJPEG = "mjpeg";
-	public static final String MLP = "mlp";
-	public static final String MOV = "mov";
-	public static final String MP3 = "mp3";
-	public static final String MP4 = "mp4";
-	public static final String MPA = "mpa";
-	public static final String MPC = "mpc";
-	public static final String MPEG1 = "mpeg1";
-	public static final String MPEG2 = "mpeg2";
-	public static final String MPEGPS = "mpegps";
-	public static final String MPEGTS = "mpegts";
-	public static final String OGG = "ogg";
-	public static final String PNG = "png";
-	public static final String RA = "ra";
-	public static final String RM = "rm";
-	public static final String SHORTEN = "shn";
-	public static final String TIFF = "tiff";
-	public static final String TRUEHD = "truehd";
-	public static final String VC1 = "vc1";
-	public static final String WAVPACK = "wavpack";
-	public static final String WAV = "wav";
-	public static final String WEBM = "WebM";
-	public static final String WMA = "wma";
-	public static final String WMV = "wmv";
+	public static const String AAC = "aac";
+	public static const String AC3 = "ac3";
+	public static const String AIFF = "aiff";
+	public static const String ALAC = "alac";
+	public static const String APE = "ape";
+	public static const String ATRAC = "atrac";
+	public static const String AVI = "avi";
+	public static const String BMP = "bmp";
+	public static const String DIVX = "divx";
+	public static const String DTS = "dts";
+	public static const String DTSHD = "dtshd";
+	public static const String DV = "dv";
+	public static const String EAC3 = "eac3";
+	public static const String FLAC = "flac";
+	public static const String FLV = "flv";
+	public static const String GIF = "gif";
+	public static const String H264 = "h264";
+	public static const String JPG = "jpg";
+	public static const String LPCM = "lpcm";
+	public static const String MATROSKA = "mkv";
+	public static const String MI_GMC = "gmc";
+	public static const String MI_QPEL = "qpel";
+	public static const String MJPEG = "mjpeg";
+	public static const String MLP = "mlp";
+	public static const String MOV = "mov";
+	public static const String MP3 = "mp3";
+	public static const String MP4 = "mp4";
+	public static const String MPA = "mpa";
+	public static const String MPC = "mpc";
+	public static const String MPEG1 = "mpeg1";
+	public static const String MPEG2 = "mpeg2";
+	public static const String MPEGPS = "mpegps";
+	public static const String MPEGTS = "mpegts";
+	public static const String OGG = "ogg";
+	public static const String PNG = "png";
+	public static const String RA = "ra";
+	public static const String RM = "rm";
+	public static const String SHORTEN = "shn";
+	public static const String TIFF = "tiff";
+	public static const String TRUEHD = "truehd";
+	public static const String VC1 = "vc1";
+	public static const String WAVPACK = "wavpack";
+	public static const String WAV = "wav";
+	public static const String WEBM = "WebM";
+	public static const String WMA = "wma";
+	public static const String WMV = "wmv";
 
-	public static final String MIMETYPE_AUTO = "MIMETYPE_AUTO";
-	public static final String und = "und";
+	public static const String MIMETYPE_AUTO = "MIMETYPE_AUTO";
+	public static const String und = "und";
 
 	private class SupportSpec {
 		private int iMaxBitrate = Integer.MAX_VALUE;
@@ -77,7 +77,7 @@ public class FormatConfiguration {
 		private int iMaxNbChannels = Integer.MAX_VALUE;
 		private int iMaxVideoHeight = Integer.MAX_VALUE;
 		private int iMaxVideoWidth = Integer.MAX_VALUE;
-		private Map<String, Pattern> miExtras;
+		private Map/*<String, Pattern>*/ miExtras;
 		private Pattern pAudioCodec;
 		private Pattern pFormat;
 		private Pattern pVideoCodec;
@@ -92,7 +92,7 @@ public class FormatConfiguration {
 		private String mimeType;
 		private String videoCodec;
 
-		SupportSpec() {
+		this() {
 			this.mimeType = MIMETYPE_AUTO;
 		}
 
@@ -104,7 +104,7 @@ public class FormatConfiguration {
 				try {
 					pFormat = Pattern.compile(format);
 				} catch (PatternSyntaxException pse) {
-					LOGGER.error("Error parsing format: " + format, pse);
+					LOGGER.error("Error parsing format: " ~ format, pse);
 					return false;
 				}
 			}
@@ -113,7 +113,7 @@ public class FormatConfiguration {
 				try {
 					pVideoCodec = Pattern.compile(videoCodec);
 				} catch (PatternSyntaxException pse) {
-					LOGGER.error("Error parsing video codec: " + videoCodec, pse);
+					LOGGER.error("Error parsing video codec: " ~ videoCodec, pse);
 					return false;
 				}
 			}
@@ -122,7 +122,7 @@ public class FormatConfiguration {
 				try {
 					pAudioCodec = Pattern.compile(audioCodec);
 				} catch (PatternSyntaxException pse) {
-					LOGGER.error("Error parsing audio codec: " + audioCodec, pse);
+					LOGGER.error("Error parsing audio codec: " ~ audioCodec, pse);
 					return false;
 				}
 			}
@@ -131,7 +131,7 @@ public class FormatConfiguration {
 				try {
 					iMaxNbChannels = Integer.parseInt(maxNbChannels);
 				} catch (NumberFormatException nfe) {
-					LOGGER.error("Error parsing number of channels: " + maxNbChannels, nfe);
+					LOGGER.error("Error parsing number of channels: " ~ maxNbChannels, nfe);
 					return false;
 				}
 			}
@@ -140,7 +140,7 @@ public class FormatConfiguration {
 				try {
 					iMaxFrequency = Integer.parseInt(maxFrequency);
 				} catch (NumberFormatException nfe) {
-					LOGGER.error("Error parsing maximum frequency: " + maxFrequency, nfe);
+					LOGGER.error("Error parsing maximum frequency: " ~ maxFrequency, nfe);
 					return false;
 				}
 			}
@@ -149,7 +149,7 @@ public class FormatConfiguration {
 				try {
 					iMaxBitrate = Integer.parseInt(maxBitrate);
 				} catch (NumberFormatException nfe) {
-					LOGGER.error("Error parsing maximum bitrate: " + maxBitrate, nfe);
+					LOGGER.error("Error parsing maximum bitrate: " ~ maxBitrate, nfe);
 					return false;
 				}
 			}
@@ -158,7 +158,7 @@ public class FormatConfiguration {
 				try {
 					iMaxVideoWidth = Integer.parseInt(maxVideoWidth);
 				} catch (Exception nfe) {
-					LOGGER.error("Error parsing maximum video width: " + maxVideoWidth, nfe);
+					LOGGER.error("Error parsing maximum video width: " ~ maxVideoWidth, nfe);
 					return false;
 				}
 			}
@@ -167,7 +167,7 @@ public class FormatConfiguration {
 				try {
 					iMaxVideoHeight = Integer.parseInt(maxVideoHeight);
 				} catch (NumberFormatException nfe) {
-					LOGGER.error("Error parsing maximum video height: " + maxVideoHeight, nfe);
+					LOGGER.error("Error parsing maximum video height: " ~ maxVideoHeight, nfe);
 					return false;
 				}
 			}
@@ -188,7 +188,7 @@ public class FormatConfiguration {
 			int bitrate,
 			int videoWidth,
 			int videoHeight,
-			Map<String, String> extras
+			Map/*<String, String>*/ extras
 		) {
 			bool matched = false;
 
@@ -225,15 +225,15 @@ public class FormatConfiguration {
 			}
 
 			if (matched && extras !is null && miExtras !is null) {
-				Iterator<String> keyIt = extras.keySet().iterator();
+				Iterator/*<String>*/ keyIt = extras.keySet().iterator();
 
 				while (keyIt.hasNext()) {
 					String key = keyIt.next();
 					String value = extras.get(key);
 
-					if (matched && key.equals(MI_QPEL) && miExtras.get(MI_QPEL) !is null) {
+					if (matched && key.opEquals(MI_QPEL) && miExtras.get(MI_QPEL) !is null) {
 						matched = miExtras.get(MI_QPEL).matcher(value).matches();
-					} else if (matched && key.equals(MI_GMC) && miExtras.get(MI_GMC) !is null) {
+					} else if (matched && key.opEquals(MI_GMC) && miExtras.get(MI_GMC) !is null) {
 						matched = miExtras.get(MI_GMC).matcher(value).matches();
 					}
 				}
@@ -243,17 +243,17 @@ public class FormatConfiguration {
 		}
 	}
 
-	public FormatConfiguration(List<?> lines) {
-		supportSpecs = new ArrayList<SupportSpec>();
+	public this(List/*<?>*/ lines) {
+		supportSpecs = new ArrayList/*<SupportSpec>*/();
 
-		for (Object line : lines) {
+		foreach (Object line ; lines) {
 			if (line !is null) {
 				SupportSpec supportSpec = parseSupportLine(line.toString());
 
 				if (supportSpec.isValid()) {
 					supportSpecs.add(supportSpec);
 				} else {
-					LOGGER.warn("Invalid configuration line: " + line);
+					LOGGER.warn("Invalid configuration line: " ~ line);
 				}
 			}
 		}
@@ -265,7 +265,7 @@ public class FormatConfiguration {
 		if (file.getFile() !is null) {
 			String fName = file.getFile().getName().toLowerCase();
 
-			for (String e : PARSER_V1_EXTENSIONS) {
+			foreach (String e ; PARSER_V1_EXTENSIONS) {
 				if (fName.endsWith(e)) {
 					forceV1 = true;
 					break;
@@ -284,12 +284,6 @@ public class FormatConfiguration {
 		}
 	}
 
-	// XXX Unused
-	@Deprecated
-	public bool isDVDVideoRemuxSupported() {
-		return match(MPEGPS, MPEG2, null) !is null;
-	}
-
 	public bool isFormatSupported(String container) {
 		return match(container, null, null) !is null;
 	}
@@ -306,14 +300,8 @@ public class FormatConfiguration {
 		return match(MPEGPS, MPEG2, null) !is null || match(MPEGTS, MPEG2, null) !is null;
 	}
 
-	// XXX Unused
-	@Deprecated
-	public bool isHiFiMusicFileSupported() {
-		return match(WAV, null, null, 0, 96000, 0, 0, 0, null) !is null || match(MP3, null, null, 0, 96000, 0, 0, 0, null) !is null;
-	}
-
 	public String getPrimaryVideoTranscoder() {
-		for (SupportSpec supportSpec : supportSpecs) {
+		foreach (SupportSpec supportSpec ; supportSpecs) {
 			if (supportSpec.match(MPEGPS, MPEG2, AC3)) {
 				return MPEGPS;
 			}
@@ -325,24 +313,6 @@ public class FormatConfiguration {
 			if (supportSpec.match(WMV, WMV, WMA)) {
 				return WMV;
 			}
-		}
-
-		return null;
-	}
-
-	// XXX Unused
-	@Deprecated
-	public String getPrimaryAudioTranscoder() {
-		for (SupportSpec supportSpec : supportSpecs) {
-			if (supportSpec.match(WAV, null, null)) {
-				return WAV;
-			}
-
-			if (supportSpec.match(MP3, null, null)) {
-				return MP3;
-			}
-
-			// FIXME LPCM?
 		}
 
 		return null;
@@ -373,7 +343,7 @@ public class FormatConfiguration {
 		} else {
 			String finalMimeType = null;
 
-			for (DLNAMediaAudio audio : media.getAudioTracksList()) {
+			foreach (DLNAMediaAudio audio ; media.getAudioTracksList()) {
 				String mimeType = match(
 					media.getContainer(),
 					media.getCodecV(),
@@ -420,12 +390,12 @@ public class FormatConfiguration {
 		int bitrate,
 		int videoWidth,
 		int videoHeight,
-		Map<String,
-		String> extras
+		Map/*<String,
+		String>*/ extras
 	) {
 		String matchedMimeType = null;
 
-		for (SupportSpec supportSpec : supportSpecs) {
+		foreach (SupportSpec supportSpec ; supportSpecs) {
 			if (supportSpec.match(
 				container,
 				videoCodec,
@@ -473,7 +443,7 @@ public class FormatConfiguration {
 			} else if (token.contains(":")) {
 				// extra MediaInfo stuff
 				if (supportSpec.miExtras is null) {
-					supportSpec.miExtras = new HashMap<String, Pattern>();
+					supportSpec.miExtras = new HashMap/*<String, Pattern>*/();
 				}
 
 				String key = token.substring(0, token.indexOf(":"));

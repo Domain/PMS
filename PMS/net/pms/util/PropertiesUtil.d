@@ -21,20 +21,20 @@ module net.pms.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 
 public class PropertiesUtil {
 	/**
 	 * Logs messages to all different channels.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PropertiesUtil();
 
 	/**
 	 * General properties for the PMS project.
 	 */
-	private static final PmsProperties projectProperties = new PmsProperties();
+	private static immutable PmsProperties projectProperties = new PmsProperties();
 
-	static {
+	static this() {
 		try {
 			// Read project properties resource file.
 			projectProperties.loadFromResourceFile("/resources/project.properties");

@@ -31,7 +31,7 @@ public class JPG : Format {
 		return Identifier.JPG;
 	}
 
-	public JPG() {
+	public this() {
 		type = IMAGE;
 	}
 
@@ -40,7 +40,7 @@ public class JPG : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[]{"jpeg", "jpg", "jpe", "mpo"};
+		return ["jpeg", "jpg", "jpe", "mpo"];
 	}
 
 	/**
@@ -52,14 +52,14 @@ public class JPG : Format {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return true;
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		return null;
 	}
 

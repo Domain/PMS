@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 
 /**
  * Handles finding a temporary directory.
@@ -15,19 +15,19 @@ import java.io.IOException;
  * @author Tim Cox (mail@tcox.org)
  */
 class TempFolder {
-	private static final Logger logger = LoggerFactory.getLogger(TempFolder.class);
-	private static final String DEFAULT_TEMP_FOLDER_NAME = "ps3mediaserver";
-	private final String userSpecifiedFolder;
+	private static immutable Logger logger = LoggerFactory.getLogger!TempFolder();
+	private static const String DEFAULT_TEMP_FOLDER_NAME = "ps3mediaserver";
+	private String userSpecifiedFolder;
 	private File tempFolder;
 
 	/**
 	 * userSpecifiedFolder may be null
 	 */
-	public TempFolder(String userSpecifiedFolder) {
+	public this(String userSpecifiedFolder) {
 		this.userSpecifiedFolder = userSpecifiedFolder;
 	}
 
-	public synchronized File getTempFolder() throws IOException {
+	public synchronized File getTempFolder() {
 		if (tempFolder is null) {
 			tempFolder = getTempFolder(userSpecifiedFolder);
 		}
@@ -35,7 +35,7 @@ class TempFolder {
 		return tempFolder;
 	}
 
-	private File getTempFolder(String userSpecifiedFolder) throws IOException {
+	private File getTempFolder(String userSpecifiedFolder) {
 		if (userSpecifiedFolder is null) {
 			return getSystemTempFolder();
 		}
@@ -48,7 +48,7 @@ class TempFolder {
 		}
 	}
 
-	private File getUserSpecifiedTempFolder(String userSpecifiedFolder) throws IOException {
+	private File getUserSpecifiedTempFolder(String userSpecifiedFolder) {
 		if (userSpecifiedFolder !is null && userSpecifiedFolder.length() == 0) {
 			throw new IOException("Temporary directory path must not be empty if specified");
 		}
@@ -59,7 +59,7 @@ class TempFolder {
 		return folderFile;
 	}
 
-	private static File getSystemTempFolder() throws IOException {
+	private static File getSystemTempFolder() {
 		File tmp = new File(System.getProperty("java.io.tmpdir"));
 		File myTMP = new File(tmp, DEFAULT_TEMP_FOLDER_NAME);
 		FileUtils.forceMkdir(myTMP);
@@ -67,13 +67,13 @@ class TempFolder {
 		return myTMP;
 	}
 
-	private static void assertFolderIsValid(File folder) throws IOException {
+	private static void assertFolderIsValid(File folder) {
 		if (!folder.isDirectory()) {
-			throw new IOException("Temp directory must be a directory: " + folder);
+			throw new IOException("Temp directory must be a directory: " ~ folder);
 		}
 
 		if (!FileUtil.isDirectoryWritable(folder)) {
-			throw new IOException("Temp directory is not writable: " + folder);
+			throw new IOException("Temp directory is not writable: " ~ folder);
 		}
 	}
 }

@@ -21,15 +21,15 @@ module net.pms.network.ProxyServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ProxyServer : Thread {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ProxyServer.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ProxyServer();
 	private int port;
 
-	public ProxyServer(int port) {
+	public this(int port) {
 		this.port = port;
 		start();
 	}
@@ -52,7 +52,7 @@ public class ProxyServer : Thread {
 				s.close();
 			}
 		} catch (IOException e1) {
-			LOGGER.debug("Caught exception", e1);
+			LOGGER._debug("Caught exception", e1);
 		}
 	}
 }

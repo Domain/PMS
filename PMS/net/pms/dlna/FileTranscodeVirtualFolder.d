@@ -35,17 +35,17 @@ import org.slf4j.LoggerFactory;
  * This class populates the file-specific transcode folder with content.
  */
 public class FileTranscodeVirtualFolder : VirtualFolder {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileTranscodeVirtualFolder.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FileTranscodeVirtualFolder();
 	private bool resolved;
 
 	/**
 	 * Class to take care of sorting the resources correctly. Resources
 	 * are sorted by player, then by audio track, then by subtitle.
 	 */
-	private class ResourceSort : Comparator<DLNAResource> {
-		private ArrayList<Player> players;
+	private class ResourceSort : Comparator/*<DLNAResource>*/ {
+		private ArrayList/*<Player>*/ players;
 
-		ResourceSort(ArrayList<Player> players) {
+		this(ArrayList/*<Player>*/ players) {
 			this.players = players;
 		}
 
@@ -54,11 +54,11 @@ public class FileTranscodeVirtualFolder : VirtualFolder {
 			Integer playerIndex1 = players.indexOf(resource1.getPlayer());
 			Integer playerIndex2 = players.indexOf(resource2.getPlayer());
 
-			if (playerIndex1.equals(playerIndex2)) {
+			if (playerIndex1.opEquals(playerIndex2)) {
 				String audioLang1 = resource1.getMediaAudio().getLang();
 				String audioLang2 = resource2.getMediaAudio().getLang();
 
-				if (audioLang1.equals(audioLang2)) {
+				if (audioLang1.opEquals(audioLang2)) {
 					String subtitle1 = resource1.getMediaSubtitle().getLang();
 					String subtitle2 = resource2.getMediaSubtitle().getLang();
 
@@ -85,19 +85,19 @@ public class FileTranscodeVirtualFolder : VirtualFolder {
 	}
 
 	// FIXME unused
-	@Deprecated
-	public FileTranscodeVirtualFolder(String name, String thumbnailIcon, bool copy) {
+	deprecated
+	public this(String name, String thumbnailIcon, bool copy) {
 		super(name, thumbnailIcon);
 	}
 
-	public FileTranscodeVirtualFolder(String name, String thumbnailIcon) { // XXX thumbnailIcon is always null
+	public this(String name, String thumbnailIcon) { // XXX thumbnailIcon is always null
 		super(name, thumbnailIcon);
 	}
 
 	private void addChapterFile(DLNAResource source) {
 		if (PMS.getConfiguration().isChapterSupport() && PMS.getConfiguration().getChapterInterval() > 0) {
 			ChapterFileTranscodeVirtualFolder chapterFolder = new ChapterFileTranscodeVirtualFolder(
-				"Chapters:" + source.getDisplayName(),
+				"Chapters:" ~ source.getDisplayName(),
 				null,
 				PMS.getConfiguration().getChapterInterval()
 			);
@@ -140,17 +140,17 @@ public class FileTranscodeVirtualFolder : VirtualFolder {
 				addChapterFile(justStreamed);
 
 				if (renderer !is null) {
-					LOGGER.debug("Duplicate " + child.getName()
-							+ " for direct streaming to renderer: "
-							+ renderer.getRendererName());
+					LOGGER._debug("Duplicate " ~ child.getName()
+							~ " for direct streaming to renderer: "
+							~ renderer.getRendererName());
 				}
 			}
 
 			// List holding all combinations
-			ArrayList<DLNAResource> combos = new ArrayList<DLNAResource>();
+			ArrayList/*<DLNAResource>*/ combos = new ArrayList/*<DLNAResource>*/();
 
-			List<DLNAMediaAudio> audioTracks = child.getMedia().getAudioTracksList();
-			List<DLNAMediaSubtitle> subtitles = child.getMedia().getSubtitleTracksList();
+			List/*<DLNAMediaAudio>*/ audioTracks = child.getMedia().getAudioTracksList();
+			List/*<DLNAMediaSubtitle>*/ subtitles = child.getMedia().getSubtitleTracksList();
 
 			// Make sure a combo with no subtitles will be added
 			DLNAMediaSubtitle noSubtitle = new DLNAMediaSubtitle();
@@ -158,16 +158,16 @@ public class FileTranscodeVirtualFolder : VirtualFolder {
 			subtitles.add(noSubtitle);
 
 			// Create combinations of all audio tracks, subtitles and players.
-			for (DLNAMediaAudio audio : audioTracks) {
-				for (DLNAMediaSubtitle subtitle : subtitles) {
+			foreach (DLNAMediaAudio audio ; audioTracks) {
+				foreach (DLNAMediaSubtitle subtitle ; subtitles) {
 					// Create a temporary copy of the child with the audio and
 					// subtitle modified in order to be able to match players to it.
 					DLNAResource tempModifiedCopy = createModifiedResource(child, audio, subtitle);
 
 					// Determine which players match this audio track and subtitle
-					ArrayList<Player> players = PlayerFactory.getPlayers(tempModifiedCopy);
+					ArrayList/*<Player>*/ players = PlayerFactory.getPlayers(tempModifiedCopy);
 
-					for (Player player : players) {
+					foreach (Player player ; players) {
 						// Create a copy based on this combination
 						DLNAResource combo = createComboResource(child, audio, subtitle, player);
 						combos.add(combo);
@@ -179,11 +179,11 @@ public class FileTranscodeVirtualFolder : VirtualFolder {
 			Collections.sort(combos, new ResourceSort(PlayerFactory.getAllPlayers()));
 
 			// Now add the sorted list of combinations to the folder
-			for (DLNAResource combo : combos) {
-				LOGGER.trace("Adding " + combo.toString() + " - "
-						+ combo.getPlayer().name() + " - "
-						+ combo.getMediaAudio().toString() + " - "
-						+ combo.getMediaSubtitle().toString());
+			foreach (DLNAResource combo ; combos) {
+				LOGGER.trace("Adding " ~ combo.toString() ~ " - "
+						~ combo.getPlayer().name() ~ " - "
+						~ combo.getMediaAudio().toString() ~ " - "
+						~ combo.getMediaSubtitle().toString());
 
 				addChildInternal(combo);
 				addChapterFile(combo);

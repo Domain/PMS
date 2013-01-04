@@ -29,7 +29,7 @@ import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+//import java.util.concurrent.all;
 
 /**
  * Network speed tester class. This can be used in an asynchronous way, as it returns Future objects.
@@ -48,9 +48,9 @@ public class SpeedStats {
 		return instance;
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(SpeedStats.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!SpeedStats();
 
-	private final Map<String, Future<Integer>> speedStats = new HashMap<String, Future<Integer>>();
+	private Map/*<String, Future<Integer>>*/ speedStats = new HashMap/*<String, Future<Integer>>*/();
 
 	/**
 	 * Return the network throughput for the given IP address in MBits. It is calculated in the background, and cached,
@@ -58,9 +58,9 @@ public class SpeedStats {
 	 * @param addr
 	 * @return  The network throughput
 	 */
-	public Future<Integer> getSpeedInMBits(InetAddress addr, String rendererName) {
+	public Future/*<Integer>*/ getSpeedInMBits(InetAddress addr, String rendererName) {
 		synchronized(speedStats) { 
-			Future<Integer> value = speedStats.get(addr.getHostAddress());
+			Future/*<Integer>*/ value = speedStats.get(addr.getHostAddress());
 			if (value !is null) {
 				return value;
 			}
@@ -70,32 +70,32 @@ public class SpeedStats {
 		}
 	}
 
-	class MeasureSpeed : Callable<Integer> {
+	class MeasureSpeed : Callable/*<Integer>*/ {
 		InetAddress addr;
 		String rendererName;
 
-		public MeasureSpeed(InetAddress addr, String rendererName) {
+		public this(InetAddress addr, String rendererName) {
 			this.addr = addr;
 			this.rendererName = rendererName !is null ? rendererName : "Unknown";
 		}
 
 		override
-		public Integer call() throws Exception {
+		public Integer call() {
 			try {
 				return doCall();
 			} catch (Exception e) {
-				logger.warn("Error measuring network throughput : " + e.getMessage(), e);
+				logger.warn("Error measuring network throughput : " ~ e.getMessage(), e);
 				throw e;
 			}
 		}
 
-		private Integer doCall() throws Exception {
+		private Integer doCall() {
 			String ip = addr.getHostAddress();
-			logger.info("Checking IP: " + ip + " for " + rendererName);
+			logger.info("Checking IP: " ~ ip ~ " for " ~ rendererName);
 			// calling the canonical host name the first time is slow, so we call it in a separate thread
 			String hostname = addr.getCanonicalHostName();
 			synchronized(speedStats) {
-				Future<Integer> otherTask = speedStats.get(hostname);
+				Future/*<Integer>*/ otherTask = speedStats.get(hostname);
 				if (otherTask !is null) {
 					// wait a little bit
 					try {
@@ -113,10 +113,10 @@ public class SpeedStats {
 			}
 
 			
-			if (!ip.equals(hostname)) {
-				logger.info("Renderer " + rendererName + " found on this address: " + hostname + " (" + ip + ")");
+			if (!ip.opEquals(hostname)) {
+				logger.info("Renderer " ~ rendererName ~ " found on this address: " ~ hostname ~ " (" ~ ip ~ ")");
 			} else {
-				logger.info("Renderer " + rendererName + " found on this address: " + ip);
+				logger.info("Renderer " ~ rendererName ~ " found on this address: " ~ ip);
 			}
 
 			// let's get that speed
@@ -124,26 +124,24 @@ public class SpeedStats {
 			op.log = true;
 			op.maxBufferSize = 1;
 			SystemUtils sysUtil = PMS.get().getRegistry();
-			final ProcessWrapperImpl pw = new ProcessWrapperImpl(sysUtil.getPingCommand(addr.getHostAddress(), 3, 64000), op,
+			immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(sysUtil.getPingCommand(addr.getHostAddress(), 3, 64000), op,
 					true, false);
-			Runnable r = new Runnable() {
-				public void run() {
+			Runnable r = dgRunnable( {
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
 					}
 					pw.stopProcess();
-				}
-			};
+			});
 
 			Thread failsafe = new Thread(r, "SpeedStats Failsafe");
 			failsafe.start();
 			pw.runInSameThread();
-			List<String> ls = pw.getOtherResults();
+			List/*<String>*/ ls = pw.getOtherResults();
 			int time = 0;
 			int c = 0;
 
-			for (String line : ls) {
+			foreach (String line ; ls) {
 				int msPos = line.indexOf("ms");
 
 				if (msPos > -1) {
@@ -153,7 +151,7 @@ public class SpeedStats {
 						c++;
 					} catch (NumberFormatException e) {
 						// no big deal
-						logger.debug("Could not parse time from \"" + timeString + "\"");
+						logger._debug("Could not parse time from \"" ~ timeString ~ "\"");
 					}
 				}
 			}
@@ -163,9 +161,9 @@ public class SpeedStats {
 
 			if (time > 0) {
 				int speedInMbits = 1024 / time;
-				logger.info("Address " + addr + " has an estimated network speed of: " + speedInMbits + " Mb/s");
+				logger.info("Address " ~ addr ~ " has an estimated network speed of: " ~ speedInMbits.toString() ~ " Mb/s");
 				synchronized(speedStats) {
-					CompletedFuture<Integer> result = new CompletedFuture<Integer>(speedInMbits);
+					CompletedFuture/*<Integer>*/ result = new CompletedFuture/*<Integer>*/(speedInMbits);
 					// update the statistics with a computed future value
 					speedStats.put(ip, result);
 					speedStats.put(hostname, result);
@@ -176,10 +174,10 @@ public class SpeedStats {
 		}
 	}
 
-	static class CompletedFuture<X> : Future<X> {
+	static class CompletedFuture(X) : Future/*<X>*/ {
 		X value;
 		
-		public CompletedFuture(X value) {
+		public this(X value) {
 			this.value = value;
 		}
 
@@ -199,12 +197,12 @@ public class SpeedStats {
 		}
 
 		override
-		public X get() throws InterruptedException, ExecutionException {
+		public X get() {
 			return value;
 		}
 
 		override
-		public X get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+		public X get(long timeout, TimeUnit unit) {
 			return value;
 		}
 	}

@@ -21,60 +21,58 @@ module net.pms.io.UnusedInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 public abstract class UnusedInputStream : InputStream {
-	private static final Logger logger = LoggerFactory.getLogger(UnusedInputStream.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!UnusedInputStream();
 	private InputStream inputStream;
 	private UnusedProcess processToTerminate;
 	private int timeout;
 
-	public UnusedInputStream(InputStream inputStream, UnusedProcess processToTerminate, int timeout) {
+	public this(InputStream inputStream, UnusedProcess processToTerminate, int timeout) {
 		this.inputStream = inputStream;
 		this.processToTerminate = processToTerminate;
 		this.timeout = timeout;
 		processToTerminate.setReadyToStop(false);
 	}
 
-	public int available() throws IOException {
+	public int available() {
 		return inputStream.available();
 	}
 
-	public void close() throws IOException {
+	public void close() {
 		inputStream.close();
 		if (processToTerminate !is null) {
 			processToTerminate.setReadyToStop(true);
 		}
-		Runnable checkEnd = new Runnable() {
-			public void run() {
-				try {
-					Thread.sleep(timeout);
-				} catch (InterruptedException e) {
-					logger.error(null, e);
-				}
-				if (processToTerminate !is null && processToTerminate.isReadyToStop()) {
-					logger.debug("Destroying / Stopping attached process: " + processToTerminate);
-					if (processToTerminate !is null) {
-						processToTerminate.stopProcess();
-					}
-					processToTerminate = null;
-					unusedStreamSignal();
-				}
+		Runnable checkEnd = dgRunnable( {
+			try {
+				Thread.sleep(timeout);
+			} catch (InterruptedException e) {
+				logger.error(null, e);
 			}
-		};
-		new Thread(checkEnd, "Process Reaper").start();
+			if (processToTerminate !is null && processToTerminate.isReadyToStop()) {
+				logger._debug("Destroying / Stopping attached process: " ~ processToTerminate);
+				if (processToTerminate !is null) {
+					processToTerminate.stopProcess();
+				}
+				processToTerminate = null;
+				unusedStreamSignal();
+			}
+		});
+		(new Thread(checkEnd, "Process Reaper")).start();
 	}
 
-	public int read() throws IOException {
+	public int read() {
 		return inputStream.read();
 	}
 
-	public int read(byte[] b, int off, int len) throws IOException {
+	public int read(byte[] b, int off, int len) {
 		return inputStream.read(b, off, len);
 	}
 
-	public long skip(long n) throws IOException {
+	public long skip(long n) {
 		return inputStream.skip(n);
 	}
 

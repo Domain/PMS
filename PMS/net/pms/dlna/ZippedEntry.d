@@ -24,14 +24,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class ZippedEntry : DLNAResource : IPushOutput {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ZippedEntry.class);
+public class ZippedEntry : DLNAResource , IPushOutput {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ZippedEntry();
 	private File file;
 	private String zeName;
 	private long length;
@@ -47,7 +47,7 @@ public class ZippedEntry : DLNAResource : IPushOutput {
 		return super.getThumbnailURL();
 	}
 
-	public ZippedEntry(File file, String zeName, long length) {
+	public this(File file, String zeName, long length) {
 		this.zeName = zeName;
 		this.file = file;
 		this.length = length;
@@ -74,14 +74,14 @@ public class ZippedEntry : DLNAResource : IPushOutput {
 	}
 
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}
 
 	override
 	public String getSystemName() {
-		return FileUtil.getFileNameWithoutExtension(file.getAbsolutePath()) + "." + FileUtil.getExtension(zeName);
+		return FileUtil.getFileNameWithoutExtension(file.getAbsolutePath()) ~ "." ~ FileUtil.getExtension(zeName);
 	}
 
 	override
@@ -97,41 +97,38 @@ public class ZippedEntry : DLNAResource : IPushOutput {
 	}
 
 	override
-	public void push(final OutputStream out) throws IOException {
-		Runnable r = new Runnable() {
-			InputStream in = null;
+	public void push(OutputStream _out) {
+		Runnable r = dgRunnable( {
+			InputStream _in = null;
+			try {
+				int n = -1;
+				byte[] data = new byte[65536];
+				zipFile = new ZipFile(file);
+				ZipEntry ze = zipFile.getEntry(zeName);
+				_in = zipFile.getInputStream(ze);
 
-			public void run() {
+				while ((n = _in.read(data)) > -1) {
+					_out.write(data, 0, n);
+				}
+
+				_in.close();
+				_in = null;
+			} catch (Exception e) {
+				LOGGER.error("Unpack error. Possibly harmless.", e);
+			} finally {
 				try {
-					int n = -1;
-					byte[] data = new byte[65536];
-					zipFile = new ZipFile(file);
-					ZipEntry ze = zipFile.getEntry(zeName);
-					in = zipFile.getInputStream(ze);
-
-					while ((n = in.read(data)) > -1) {
-						out.write(data, 0, n);
+					if (_in !is null) {
+						_in.close();
 					}
-
-					in.close();
-					in = null;
-				} catch (Exception e) {
-					LOGGER.error("Unpack error. Possibly harmless.", e);
-				} finally {
-					try {
-						if (in !is null) {
-							in.close();
-						}
-						zipFile.close();
-						out.close();
-					} catch (IOException e) {
-						LOGGER.debug("Caught exception", e);
-					}
+					zipFile.close();
+					_out.close();
+				} catch (IOException e) {
+					LOGGER._debug("Caught exception", e);
 				}
 			}
-		};
+		});
 
-		new Thread(r, "Zip Extractor").start();
+		(new Thread(r, "Zip Extractor")).start();
 	}
 
 	override
@@ -161,7 +158,7 @@ public class ZippedEntry : DLNAResource : IPushOutput {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		if (getMedia() !is null && getMedia().getThumb() !is null) {
 			return getMedia().getThumbnailInputStream();
 		} else {

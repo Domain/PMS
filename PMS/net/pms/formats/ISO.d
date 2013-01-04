@@ -24,7 +24,7 @@ import net.pms.encoders.Player;
 import java.util.ArrayList;
 
 public class ISO : MPG {
-	public static final String[] ISO_EXTENSIONS = new String[] { "iso", "img", /*"bin", "mdf", "nrg", "bwt", "cif","ccd", "vcd", "fcd"*/ };
+	public static String[] ISO_EXTENSIONS = [ "iso", "img", /*"bin", "mdf", "nrg", "bwt", "cif","ccd", "vcd", "fcd"*/ ];
 
 	/**
 	 * {@inheritDoc} 
@@ -36,9 +36,9 @@ public class ISO : MPG {
 
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> list = new ArrayList<Class<? : Player>>();
-		list.add(MEncoderVideo.class);
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ list = new ArrayList/*<Class<? : Player>>*/();
+		list.add(MEncoderVideo._class);
 		return list;
 	}
 
@@ -51,7 +51,7 @@ public class ISO : MPG {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	public bool ps3compatible() {
 		return false;
 	}

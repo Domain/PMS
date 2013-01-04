@@ -21,7 +21,7 @@ module net.pms.dlna.WebAudioStream;
 import net.pms.formats.Format;
 
 public class WebAudioStream : WebStream {
-	public WebAudioStream(String fluxName, String URL, String thumbURL) {
+	public this(String fluxName, String URL, String thumbURL) {
 		super(fluxName, URL, thumbURL, Format.AUDIO);
 	}
 }

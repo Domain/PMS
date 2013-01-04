@@ -1,23 +1,24 @@
 module net.pms.io.InternalJavaProcessImpl;
 
-import java.io.IOException;
+//import java.lang.exceptions;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.List;
 
 public class InternalJavaProcessImpl : ProcessWrapper {
 	private InputStream input;
 
-	public InternalJavaProcessImpl(InputStream input) {
+	public this(InputStream input) {
 		this.input = input;
 	}
 
 	override
-	public InputStream getInputStream(long seek) throws IOException {
+	public InputStream getInputStream(long seek) {
 		return input;
 	}
 
 	override
-	public List<String> getResults() {
+	public List/*<String>*/ getResults() {
 		return null;
 	}
 

@@ -9,17 +9,16 @@ import net.pms.io.OutputParams;
 import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 
-import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 public class RAWThumbnailer : Player {
-	public final static String ID = "rawthumbs";
+	public const static String ID = "rawthumbs";
 
 	protected String[] getDefaultArgs() {
-		return new String[]{"-e", "-c"};
+		return ["-e", "-c"];
 	}
 
 	override
@@ -45,7 +44,7 @@ public class RAWThumbnailer : Player {
 
 	override
 	public ProcessWrapper launchTranscode(String fileName, DLNAResource dlna, DLNAMediaInfo media,
-		OutputParams params) throws IOException {
+		OutputParams params) {
 
 		params.waitbeforestart = 1;
 		params.minBufferSize = 1;
@@ -92,7 +91,7 @@ public class RAWThumbnailer : Player {
 		return Format.IMAGE;
 	}
 
-	public static byte[] getThumbnail(OutputParams params, String fileName) throws Exception {
+	public static byte[] getThumbnail(OutputParams params, String fileName) {
 		params.log = false;
 
 		String cmdArray[] = new String[4];
@@ -104,14 +103,14 @@ public class RAWThumbnailer : Player {
 		pw.runInSameThread();
 
 
-		InputStream is = pw.getInputStream(0);
+		InputStream _is = pw.getInputStream(0);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		int n = -1;
 		byte buffer[] = new byte[4096];
-		while ((n = is.read(buffer)) > -1) {
+		while ((n = _is.read(buffer)) > -1) {
 			baos.write(buffer, 0, n);
 		}
-		is.close();
+		_is.close();
 		byte b[] = baos.toByteArray();
 		baos.close();
 		return b;
@@ -136,7 +135,7 @@ public class RAWThumbnailer : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.RAW)) {
+			if (id.opEquals(Format.Identifier.RAW)) {
 				return true;
 			}
 		}

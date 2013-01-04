@@ -20,7 +20,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #isH264AnnexB()}.
 	 */
-	@Deprecated
+	deprecated
 	public bool isH264_annexb() {
 		return isH264AnnexB();
 	}
@@ -32,7 +32,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #setH264AnnexB(bool)}.
 	 */
-	@Deprecated
+	deprecated
 	public void setH264_annexb(bool h264AnnexB) {
 		setH264AnnexB(h264AnnexB);
 	}
@@ -44,7 +44,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #isDtsEmbed()}.
 	 */
-	@Deprecated
+	deprecated
 	public bool isDtsembed() {
 		return isDtsEmbed();
 	}
@@ -56,7 +56,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #setDtsEmbed(bool)}.
 	 */
-	@Deprecated
+	deprecated
 	public void setDtsembed(bool dtsEmbed) {
 		setDtsEmbed(dtsEmbed);
 	}
@@ -76,7 +76,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #getNbChannels()}.
 	 */
-	@Deprecated
+	deprecated
 	public int getNbchannels() {
 		return getNbChannels();
 	}
@@ -88,7 +88,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #setNbChannels(int)}.
 	 */
-	@Deprecated
+	deprecated
 	public void setNbchannels(int nbChannels) {
 		setNbChannels(nbChannels);
 	}
@@ -108,7 +108,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #getBitsPerSample()}.
 	 */
-	@Deprecated
+	deprecated
 	public int getBitspersample() {
 		return getBitsPerSample();
 	}
@@ -120,7 +120,7 @@ public class StreamModifier {
 	/**
 	 * @deprecated Use {@link #setBitsPerSample(int)}.
 	 */
-	@Deprecated
+	deprecated
 	public void setBitspersample(int bitsPerSample) {
 		setBitsPerSample(bitsPerSample);
 	}

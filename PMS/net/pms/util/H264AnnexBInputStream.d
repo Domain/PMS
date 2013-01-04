@@ -3,18 +3,18 @@ module net.pms.util.H264AnnexBInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 public class H264AnnexBInputStream : InputStream {
-	private static final Logger logger = LoggerFactory.getLogger(H264AnnexBInputStream.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!H264AnnexBInputStream();
 	private InputStream source;
 	private int nextTarget;
 	private bool firstHeader;
-	private byte header[];
+	private byte[] header;
 	//private int remaining;
 
-	public H264AnnexBInputStream(InputStream source, byte header[]) {
+	public this(InputStream source, byte[] header) {
 		this.source = source;
 		this.header = header;
 		firstHeader = true;
@@ -22,13 +22,13 @@ public class H264AnnexBInputStream : InputStream {
 	}
 
 	override
-	public int read() throws IOException {
+	public int read() {
 		return -1;
 	}
 
 	override
-	public int read(byte[] b, int off, int len) throws IOException {
-		byte h[] = null;
+	public int read(byte[] b, int off, int len) {
+		byte[] h = null;
 		bool insertHeader = false;
 
 		if (nextTarget == -1) {
@@ -43,7 +43,7 @@ public class H264AnnexBInputStream : InputStream {
 			}
 			insertHeader = ((h[0] & 37) == 37 && (h[1] & -120) == -120);
 			if (!insertHeader) {
-				System.arraycopy(new byte[]{0, 0, 0, 1}, 0, b, off, 4);
+				System.arraycopy(cast(byte[])[0, 0, 0, 1], 0, b, off, 4);
 				off += 4;
 
 			}
@@ -55,7 +55,7 @@ public class H264AnnexBInputStream : InputStream {
 		}
 
 		if (insertHeader) {
-			byte defHeader[] = header;
+			byte[] defHeader = header;
 			if (!firstHeader) {
 				defHeader = new byte[header.length + 1];
 				System.arraycopy(header, 0, defHeader, 0, header.length);
@@ -107,12 +107,12 @@ public class H264AnnexBInputStream : InputStream {
 		return off;
 	}
 
-	private byte[] getArray(int length) throws IOException {
+	private byte[] getArray(int length) {
 		if (length < 0) {
 			logger.trace("Negative array ?");
 			return null;
 		}
-		byte bb[] = new byte[length];
+		byte[] bb = new byte[length];
 		int n = source.read(bb);
 		if (n == -1) {
 			return null;
@@ -128,7 +128,7 @@ public class H264AnnexBInputStream : InputStream {
 	}
 
 	override
-	public void close() throws IOException {
+	public void close() {
 		super.close();
 		if (source !is null) {
 			source.close();

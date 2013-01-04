@@ -5,17 +5,17 @@ import net.pms.io.Gob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.lang.reflect.Field;
 
 // see https://code.google.com/p/ps3mediaserver/issues/detail?id=680
 // for background/issues/discussion related to this class
 public class ProcessUtil {
-	private static final Logger logger = LoggerFactory.getLogger(ProcessUtil.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ProcessUtil();
 	// how long to wait in milliseconds until a kill -TERM on Unix has been deemed to fail
-	private static final int TERM_TIMEOUT = 10000;
+	private static const int TERM_TIMEOUT = 10000;
 	// how long to wait in milliseconds until a kill -ALRM on Unix has been deemed to fail
-	private static final int ALRM_TIMEOUT = 2000;
+	private static const int ALRM_TIMEOUT = 2000;
 
 	// work around a Java bug
 	// see: http://kylecartmell.com/?p=9
@@ -35,13 +35,13 @@ public class ProcessUtil {
 	public static Integer getProcessID(Process p) {
 		Integer pid = null;
 
-		if (p !is null && p.getClass().getName().equals("java.lang.UNIXProcess")) {
+		if (p !is null && p.getClass().getName().opEquals("java.lang.UNIXProcess")) {
 			try {
 				Field f = p.getClass().getDeclaredField("pid");
 				f.setAccessible(true);
 				pid = f.getInt(p);
 			} catch (Throwable e) {
-				logger.debug("Can't determine the Unix process ID: " + e.getMessage());
+				logger._debug("Can't determine the Unix process ID: " ~ e.getMessage());
 			}
 		}
 
@@ -80,20 +80,20 @@ public class ProcessUtil {
 	// send a Unix process the specified signal
 	public static bool kill(Integer pid, int signal) {
 		bool killed = false;
-		logger.warn("Sending kill -" + signal + " to the Unix process: " + pid);
+		logger.warn("Sending kill -" ~ signal.toString() ~ " to the Unix process: " ~ pid.toString());
 		try {
-			Process process = Runtime.getRuntime().exec("kill -" + signal + " " + pid);
+			Process process = Runtime.getRuntime().exec("kill -" ~ signal.toString() ~ " " ~ pid.toString());
 			// "Gob": a cryptic name for (e.g.) StreamGobbler - i.e. a stream
 			// consumer that reads and discards the stream
-			new Gob(process.getErrorStream()).start();
-			new Gob(process.getInputStream()).start();
+			(new Gob(process.getErrorStream())).start();
+			(new Gob(process.getInputStream())).start();
 			int exit = waitFor(process);
 			if (exit == 0) {
 				killed = true;
-				logger.debug("Successfully sent kill -" + signal + " to the Unix process: " + pid);
+				logger._debug("Successfully sent kill -" ~ signal.toString() ~ " to the Unix process: " ~ pid.toString());
 			}
 		} catch (IOException e) {
-			logger.error("Error calling: kill -" + signal + " " + pid, e);
+			logger.error("Error calling: kill -" ~ signal.toString() ~ " " ~ pid.toString(), e);
 		}
 
 		return killed;
@@ -102,12 +102,11 @@ public class ProcessUtil {
 	// destroy a process safely (kill -TERM on Unix)
 	public static void destroy(final Process p) {
 		if (p !is null) {
-			final Integer pid = getProcessID(p);
+			Integer pid = getProcessID(p);
 
 			if (pid !is null) { // Unix only
-				logger.trace("Killing the Unix process: " + pid);
-				Runnable r = new Runnable() {
-					public void run() {
+				logger.trace("Killing the Unix process: " ~ pid.toString());
+				Runnable r = dgRunnable( {
 						try {
 							Thread.sleep(TERM_TIMEOUT);
 						} catch (InterruptedException e) {
@@ -128,8 +127,7 @@ public class ProcessUtil {
 								kill(pid, 9);
 							}
 						}
-					}
-				};
+				});
 
 				Thread failsafe = new Thread(r, "Process Destroyer");
 				failsafe.start();

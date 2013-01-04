@@ -32,7 +32,7 @@ public class TIF : JPG {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "tif", "tiff" };
+		return [ "tif", "tiff" ];
 	}
 
 	override

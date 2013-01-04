@@ -39,7 +39,7 @@ public class SolarisUtils : BasicSystemUtils {
 	 */
 	override
 	public String[] getPingCommand(String hostAddress, int numberOfPackets, int packetSize) {
-		return new String[] { "ping", "-s",  hostAddress,  /* size */  Integer.toString(packetSize), /* count */  Integer.toString(numberOfPackets) };
+		return [ "ping", "-s",  hostAddress,  /* size */  Integer.toString(packetSize), /* count */  Integer.toString(numberOfPackets) ];
 	}
 
 }

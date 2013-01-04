@@ -23,27 +23,27 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 
-@Deprecated
+deprecated
 // no longer used
 public class BlockerFileInputStream : UnusedInputStream {
-	private static final Logger logger = LoggerFactory.getLogger(BlockerFileInputStream.class);
-	private static final int CHECK_INTERVAL = 1000;
+	private static immutable Logger logger = LoggerFactory.getLogger!BlockerFileInputStream();
+	private static const int CHECK_INTERVAL = 1000;
 	private long readCount;
 	private long waitSize;
 	private File file;
 	private bool firstRead;
 
-	public BlockerFileInputStream(ProcessWrapper pw, File file, double waitSize) throws IOException {
+	public this(ProcessWrapper pw, File file, double waitSize) {
 		super(new FileInputStream(file), pw, 2000);
 		this.file = file;
-		this.waitSize = (long) (waitSize * 1048576);
+		this.waitSize = cast(long) (waitSize * 1048576);
 		firstRead = true;
 	}
 
 	override
-	public int read() throws IOException {
+	public int read() {
 		if (checkAvailability()) {
 			readCount++;
 			int r = super.read();
@@ -54,9 +54,9 @@ public class BlockerFileInputStream : UnusedInputStream {
 		}
 	}
 
-	private bool checkAvailability() throws IOException {
+	private bool checkAvailability() {
 		if (readCount > file.length()) {
-			logger.debug("File " + file.getAbsolutePath() + " is not that long!: " + readCount);
+			logger._debug("File " ~ file.getAbsolutePath() ~ " is not that long!: " ~ readCount.toString());
 			return false;
 		}
 		int c = 0;
@@ -64,7 +64,7 @@ public class BlockerFileInputStream : UnusedInputStream {
 		long wait = firstRead ? waitSize : 100000;
 		while (writeCount - readCount <= wait && c < 15) {
 			if (c == 0) {
-				logger.trace("Suspend File Read: readCount=" + readCount + " / writeCount=" + writeCount);
+				logger.trace("Suspend File Read: readCount=" ~ readCount.toString() ~ " / writeCount=" ~ writeCount.toString());
 			}
 			c++;
 			try {
@@ -75,27 +75,27 @@ public class BlockerFileInputStream : UnusedInputStream {
 		}
 
 		if (c > 0) {
-			logger.trace("Resume Read: readCount=" + readCount + " / writeCount=" + file.length());
+			logger.trace("Resume Read: readCount=" ~ readCount.toString() ~ " / writeCount=" ~ file.length().toString());
 		}
 		return true;
 	}
 
-	public int available() throws IOException {
+	public int available() {
 		return super.available();
 	}
 
-	public void close() throws IOException {
+	public void close() {
 		super.close();
 	}
 
-	public long skip(long n) throws IOException {
+	public long skip(long n) {
 		long l = super.skip(n);
 		readCount += l;
 		return l;
 	}
 
 	override
-	public int read(byte[] b, int off, int len) throws IOException {
+	public int read(byte[] b, int off, int len) {
 		if (checkAvailability()) {
 			int r = super.read(b, off, len);
 			firstRead = false;
@@ -108,8 +108,8 @@ public class BlockerFileInputStream : UnusedInputStream {
 
 	override
 	public void unusedStreamSignal() {
-		if (!file.delete()) {
-			logger.debug("Failed to delete \"" + file.getAbsolutePath() + "\"");
+		if (!file._delete()) {
+			logger._debug("Failed to delete \"" ~ file.getAbsolutePath() ~ "\"");
 		}
 	}
 }

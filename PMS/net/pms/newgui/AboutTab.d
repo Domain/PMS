@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.AboutTab;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.PMS;
 import net.pms.util.PropertiesUtil;
@@ -28,15 +28,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.event.MouseEvent;
+//import java.awt.event.MouseListener;
+//import java.awt.image.BufferedImage;
+import java.lang.exceptions;
 
 public class AboutTab {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AboutTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AboutTab();
 
 	private ImagePanel imagePanel;
 	private JLabel jl;
@@ -66,7 +66,7 @@ public class AboutTab {
 
 		String projectName = PropertiesUtil.getProjectProperties().get("project.name");
 
-		final LinkMouseListener pms3Link = new LinkMouseListener(projectName + " " + PMS.getVersion(),
+		LinkMouseListener pms3Link = new LinkMouseListener(projectName + " " + PMS.getVersion(),
 			"http://www.ps3mediaserver.org/");
 		JLabel lPms3Link = builder.addLabel(pms3Link.getLabel(), cc.xy(2, 1, "center, fill"));
 		lPms3Link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -79,7 +79,7 @@ public class AboutTab {
 		String commitUrl = "https://github.com/ps3mediaserver/ps3mediaserver/commit/" + commitId;
 		String buildLabel = Messages.getString("LinksTab.6") + " " + shortCommitId + " (" + commitTime + ")";
 
-		final LinkMouseListener commitLink = new LinkMouseListener(buildLabel, commitUrl);
+		LinkMouseListener commitLink = new LinkMouseListener(buildLabel, commitUrl);
 		JLabel lCommitLink = builder.addLabel(commitLink.getLabel(), cc.xy(2, 3, "center, fill"));
 		lCommitLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lCommitLink.addMouseListener(commitLink);
@@ -90,25 +90,25 @@ public class AboutTab {
 
 		builder.addLabel(Messages.getString("LinksTab.5"), cc.xy(2, 7, "center, fill"));
 
-		final LinkMouseListener ffmpegLink = new LinkMouseListener("FFmpeg",
+		LinkMouseListener ffmpegLink = new LinkMouseListener("FFmpeg",
 			"http://ffmpeg.mplayerhq.hu");
 		JLabel lFfmpegLink = builder.addLabel(ffmpegLink.getLabel(), cc.xy(2, 9, "center, fill"));
 		lFfmpegLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lFfmpegLink.addMouseListener(ffmpegLink);
 
-		final LinkMouseListener mplayerLink = new LinkMouseListener("MPlayer",
+		LinkMouseListener mplayerLink = new LinkMouseListener("MPlayer",
 			"http://www.mplayerhq.hu");
 		JLabel lMplayerLink = builder.addLabel(mplayerLink.getLabel(), cc.xy(2, 11, "center, fill"));
 		lMplayerLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lMplayerLink.addMouseListener(mplayerLink);
 
-		final LinkMouseListener mplayerSubJunkBuildsLink = new LinkMouseListener("SubJunk's MPlayer builds",
+		LinkMouseListener mplayerSubJunkBuildsLink = new LinkMouseListener("SubJunk's MPlayer builds",
 			"http://www.spirton.com/mplayer-mencoder-subjunk-build/");
 		JLabel lMplayerSubJunkBuildsLink = builder.addLabel(mplayerSubJunkBuildsLink.getLabel(), cc.xy(2, 13, "center, fill"));
 		lMplayerSubJunkBuildsLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lMplayerSubJunkBuildsLink.addMouseListener(mplayerSubJunkBuildsLink);
 
-		final LinkMouseListener mediaInfoLink = new LinkMouseListener("MediaInfo",
+		LinkMouseListener mediaInfoLink = new LinkMouseListener("MediaInfo",
 			"http://mediainfo.sourceforge.net/en");
 		JLabel lMediaInfoLink = builder.addLabel(mediaInfoLink.getLabel(), cc.xy(2, 15, "center, fill"));
 		lMediaInfoLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -123,13 +123,13 @@ public class AboutTab {
 		private final String name;
 		private final String link;
 
-		public LinkMouseListener(String n, String l) {
+		public this(String n, String l) {
 			name = n;
 			link = l;
 		}
 
 		public String getLabel() {
-			final StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			sb.append("<html>");
 			sb.append("<a href=\"");
 			sb.append(link);
@@ -145,7 +145,7 @@ public class AboutTab {
 			try {
 				PMS.get().getRegistry().browseURI(link);
 			} catch (Exception e1) {
-				LOGGER.debug("Caught exception", e1);
+				LOGGER._debug("Caught exception", e1);
 			}
 		}
 
@@ -169,9 +169,9 @@ public class AboutTab {
 	public ImagePanel buildImagePanel() {
 		BufferedImage bi = null;
 		try {
-			bi = ImageIO.read(LooksFrame.class.getResourceAsStream("/resources/images/logo.png"));
+			bi = ImageIO.read(LooksFrame._class.getResourceAsStream("/resources/images/logo.png"));
 		} catch (IOException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 		return new ImagePanel(bi);
 	}

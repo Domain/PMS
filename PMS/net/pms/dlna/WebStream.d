@@ -20,7 +20,7 @@ module net.pms.dlna.WebStream;
 
 import net.pms.network.HTTPResourceAuthenticator;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -42,22 +42,22 @@ public class WebStream : DLNAResource {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String url;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String fluxName;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String thumbURL;
 
-	public WebStream(String fluxName, String url, String thumbURL, int type) {
+	public this(String fluxName, String url, String thumbURL, int type) {
 		super(type);
 
 		try {
@@ -80,7 +80,7 @@ public class WebStream : DLNAResource {
 	}
 
 	override
-	public InputStream getThumbnailInputStream() throws IOException {
+	public InputStream getThumbnailInputStream() {
 		if (getThumbURL() !is null) {
 			return downloadAndSend(getThumbURL(), true);
 		} else {
@@ -105,7 +105,7 @@ public class WebStream : DLNAResource {
 	}
 
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}

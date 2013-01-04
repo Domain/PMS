@@ -21,7 +21,7 @@ module net.pms.io.UnbufferedOutputFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
@@ -48,18 +48,18 @@ import java.io.PipedOutputStream;
  */
 public class UnbufferedOutputFile : BufferedOutputFile {
 
-	private static final Logger logger = LoggerFactory.getLogger(UnbufferedOutputFile.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!UnbufferedOutputFile();
 	
 	private PipedOutputStream pipedOutputStream;
 	private PipedInputStream pipedInputStream;
 	
-	public UnbufferedOutputFile(OutputParams params) {
+	public this(OutputParams params) {
 		pipedOutputStream = new PipedOutputStream();
 		
 		try {
 			pipedInputStream = new PipedInputStream(pipedOutputStream);
 		} catch (IOException e) {
-			logger.debug("Error creating piped input stream: " + e);
+			logger._debug("Error creating piped input stream: " ~ e.toString());
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * them. This object may no longer be used for writing bytes.
 	 */
 	override
-	public void close() throws IOException {
+	public void close() {
 		pipedInputStream.close();
 		pipedOutputStream.close();
 	}
@@ -93,7 +93,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @param len The number of bytes to write
 	 */
 	override
-	public void write(byte[] b, int off, int len) throws IOException {
+	public void write(byte[] b, int off, int len) {
 		pipedOutputStream.write(b, off, len);
 	}
 	
@@ -103,7 +103,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @param b The byte to write
 	 */
 	override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 		pipedOutputStream.write(b);
 	}
 
@@ -114,7 +114,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @param byteArray
 	 */
 	override
-	public void write(byte[] byteArray) throws IOException {
+	public void write(byte[] byteArray) {
 		pipedOutputStream.write(byteArray);
 	}
 	
@@ -122,7 +122,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @deprecated Unused method from interface.
 	 * @return null
 	 */
-	@Deprecated
+	deprecated
 	public WaitBufferedInputStream getCurrentInputStream() {
 		return null;
 	}
@@ -131,7 +131,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @deprecated Unused method from interface.
 	 * @return 0
 	 */
-	@Deprecated
+	deprecated
 	public long getWriteCount() {
 		return 0;
 	}
@@ -140,7 +140,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @deprecated Unused method from interface.
 	 * @return 0
 	 */
-	@Deprecated
+	deprecated
 	public int read(bool firstRead, long readCount) {
 		return 0;
 	}
@@ -149,7 +149,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	 * @deprecated Unused method from interface.
 	 * @return 0
 	 */
-	@Deprecated
+	deprecated
 	public int read(bool firstRead, long readCount, byte[] b, int off, int len) {
 		return 0;
 	}
@@ -157,21 +157,21 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	/**
 	 * @deprecated Unused method from interface.
 	 */
-	@Deprecated
+	deprecated
 	public void attachThread(ProcessWrapper thread) {
 	}
 	
 	/**
 	 * @deprecated Unused method from interface.
 	 */
-	@Deprecated
+	deprecated
 	public void reset() {
 	}
 	
 	/**
 	 * @deprecated Unused method from interface.
 	 */
-	@Deprecated
+	deprecated
 	public void removeInputStream(WaitBufferedInputStream waitBufferedInputStream) {
 	}
 
@@ -179,7 +179,7 @@ public class UnbufferedOutputFile : BufferedOutputFile {
 	/**
 	 * @deprecated Unused method from interface.
 	 */
-	@Deprecated
+	deprecated
 	public void detachInputStream() {
 	}
 }

@@ -47,18 +47,18 @@ public final class PlayerFactory {
 	/**
 	 * Logger used for all logging.
 	 */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(FormatFactory.class);
+	private static immutable Logger LOGGER = LoggerFactory
+			.getLogger!FormatFactory();
 
 	/**
 	 * List of registered and approved {@link Player} objects.
 	 */
-	private static ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList/*<Player>*/ players = new ArrayList/*<Player>*/();
 
 	/**
 	 * List of registered {@link Player} objects.
 	 */
-	private static ArrayList<Player> allPlayers = new ArrayList<Player>();
+	private static ArrayList/*<Player>*/ allPlayers = new ArrayList/*<Player>*/();
 
 	/**
 	 * Interface to Windows specific functions, like Windows Registry. The
@@ -69,16 +69,16 @@ public final class PlayerFactory {
 	/**
 	 * This takes care of sorting the players by the given PMS configuration.
 	 */
-	private static class PlayerSort : Comparator<Player> {
+	private static class PlayerSort : Comparator/*<Player>*/ {
 		private PmsConfiguration configuration;
 
-		PlayerSort(PmsConfiguration configuration) {
+		this(PmsConfiguration configuration) {
 			this.configuration = configuration;
 		}
 
 		override
 		public int compare(Player player1, Player player2) {
-			List<String> prefs = configuration.getEnginesAsList(PMS.get().getRegistry());
+			List/*<String>*/ prefs = configuration.getEnginesAsList(PMS.get().getRegistry());
 			Integer index1 = prefs.indexOf(player1.id());
 			Integer index2 = prefs.indexOf(player2.id());
 
@@ -98,7 +98,7 @@ public final class PlayerFactory {
 	/**
 	 * This class is not meant to be instantiated.
 	 */
-	private PlayerFactory() {
+	private this() {
 	}
 
 	/**
@@ -107,7 +107,7 @@ public final class PlayerFactory {
 	 * 
 	 * @param configuration The PMS configuration.
 	 */
-	public static void initialize(final PmsConfiguration configuration) {
+	public static void initialize(const PmsConfiguration configuration) {
 		utils = PMS.get().getRegistry();
 		registerPlayers(configuration);
 	}
@@ -118,7 +118,7 @@ public final class PlayerFactory {
 	 * @param configuration
 	 *            PMS configuration settings.
 	 */
-	private static void registerPlayers(final PmsConfiguration configuration) {
+	private static void registerPlayers(const PmsConfiguration configuration) {
 		// TODO make these constructors consistent: pass configuration to all or to none
 		if (Platform.isWindows()) {
 			registerPlayer(new FFMpegAviSynthVideo());
@@ -159,28 +159,28 @@ public final class PlayerFactory {
 	 * 
 	 * @param player Player to be added to the list.
 	 */
-	public static synchronized void registerPlayer(final Player player) {
+	public static synchronized void registerPlayer(const Player player) {
 		bool ok = false;
 		allPlayers.add(player);
 
-		if (Player.NATIVE.equals(player.executable())) {
+		if (Player.NATIVE.opEquals(player.executable())) {
 			ok = true;
 		} else {
 			if (Platform.isWindows()) {
 				if (player.executable() is null) {
-					LOGGER.info("Executable of transcoder profile " + player
-							+ " not defined");
+					LOGGER.info("Executable of transcoder profile " ~ player
+							~ " not defined");
 					return;
 				}
 
 				File executable = new File(player.executable());
-				File executable2 = new File(player.executable() + ".exe");
+				File executable2 = new File(player.executable() ~ ".exe");
 
 				if (executable.exists() || executable2.exists()) {
 					ok = true;
 				} else {
-					LOGGER.info("Executable of transcoder profile " + player
-							+ " not found");
+					LOGGER.info("Executable of transcoder profile " ~ player
+							~ " not found");
 					return;
 				}
 
@@ -190,8 +190,8 @@ public final class PlayerFactory {
 					if (utils.isAvis()) {
 						ok = true;
 					} else {
-						LOGGER.info("Transcoder profile " + player
-								+ " will not be used because AviSynth was not found");
+						LOGGER.info("Transcoder profile " ~ player
+								~ " will not be used because AviSynth was not found");
 					}
 				}
 			} else if (!player.avisynth()) {
@@ -200,7 +200,7 @@ public final class PlayerFactory {
 		}
 
 		if (ok) {
-			LOGGER.info("Registering transcoding engine: " + player);
+			LOGGER.info("Registering transcoding engine: " ~ player);
 			players.add(player);
 		}
 	}
@@ -211,7 +211,7 @@ public final class PlayerFactory {
 	 * 
 	 * @return The list of players.
 	 */
-	public static ArrayList<Player> getAllPlayers() {
+	public static ArrayList/*<Player>*/ getAllPlayers() {
 		return allPlayers;
 	}
 
@@ -220,7 +220,7 @@ public final class PlayerFactory {
 	 * 
 	 * @return The list of players.
 	 */
-	public static ArrayList<Player> getPlayers() {
+	public static ArrayList/*<Player>*/ getPlayers() {
 		return players;
 	}
 
@@ -236,12 +236,12 @@ public final class PlayerFactory {
 	 * @return The player if a match could be found, <code>null</code>
 	 *         otherwise.
 	 */
-	@Deprecated
-	public static Player getPlayer(final Class<? : Player> profileClass,
-			final Format ext) {
+	deprecated
+	public static Player getPlayer(immutable Class/*<? : Player>*/ profileClass,
+			immutable Format ext) {
 
-		for (Player player : players) {
-			if (player.getClass().equals(profileClass)
+		foreach (Player player ; players) {
+			if (player.getClass().opEquals(profileClass)
 					&& player.type() == ext.getType()
 					&& !player.excludeFormat(ext)) {
 				return player;
@@ -262,17 +262,17 @@ public final class PlayerFactory {
 	 *         otherwise.
 	 * @since 1.60.0
 	 */
-	public static Player getPlayer(final DLNAResource resource) {
+	public static Player getPlayer(immutable DLNAResource resource) {
 		if (resource is null) {
 			return null;
 		}
 
-		List<String> enabledEngines = PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry());
+		List/*<String>*/ enabledEngines = PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry());
 
-		for (Player player : players) {
+		foreach (Player player ; players) {
 			if (enabledEngines.contains(player.id()) && player.isCompatible(resource)) {
 				// Player is enabled and compatible
-				LOGGER.trace("Selecting player " + player.name() + " for resource " + resource.getName());
+				LOGGER.trace("Selecting player " ~ player.name() ~ " for resource " ~ resource.getName());
 				return player;
 			} 
 		}
@@ -292,14 +292,14 @@ public final class PlayerFactory {
 	 * @return The list of players that match. If no players match, an empty
 	 *         list is returned.
 	 */
-	@Deprecated
-	public static ArrayList<Player> getPlayers(
-			final ArrayList<Class<? : Player>> profileClasses,
-			final int type) {
+	deprecated
+	public static ArrayList/*<Player>*/ getPlayers(
+			immutable ArrayList/*<Class<? : Player>>*/ profileClasses,
+			immutable int type) {
 
-		ArrayList<Player> compatiblePlayers = new ArrayList<Player>();
+		ArrayList/*<Player>*/ compatiblePlayers = new ArrayList/*<Player>*/();
 
-		for (Player player : players) {
+		foreach (Player player ; players) {
 			if (profileClasses.contains(player.getClass())
 					&& player.type() == type) {
 				compatiblePlayers.add(player);
@@ -320,18 +320,18 @@ public final class PlayerFactory {
 	 *				<code>null</code> otherwise.
 	 * @since 1.60.0
 	 */
-	public static ArrayList<Player> getPlayers(final DLNAResource resource) {
+	public static ArrayList/*<Player>*/ getPlayers(immutable DLNAResource resource) {
 		if (resource is null) {
 			return null;
 		}
 
-		List<String> enabledEngines = PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry());
-		ArrayList<Player> compatiblePlayers = new ArrayList<Player>();
+		List/*<String>*/ enabledEngines = PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry());
+		ArrayList/*<Player>*/ compatiblePlayers = new ArrayList/*<Player>*/();
 		
-		for (Player player : players) {
+		foreach (Player player ; players) {
 			if (enabledEngines.contains(player.id()) && player.isCompatible(resource)) {
 				// Player is enabled and compatible
-				LOGGER.trace("Player " + player.name() + " is compatible with resource " + resource.getName());
+				LOGGER.trace("Player " ~ player.name() ~ " is compatible with resource " ~ resource.getName());
 				compatiblePlayers.add(player);
 			}
 		}
@@ -345,8 +345,8 @@ public final class PlayerFactory {
 	 * @param resource The resource to match
 	 * @return The list of players if a match could be found, null otherwise.
 	 */
-	@Deprecated
-	public static ArrayList<Player> getEnabledPlayers(final DLNAResource resource) {
+	deprecated
+	public static ArrayList/*<Player>*/ getEnabledPlayers(immutable DLNAResource resource) {
 		return getPlayers(resource);
 	}
 }

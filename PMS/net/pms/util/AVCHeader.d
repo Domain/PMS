@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * Derived from the mpeg4ip project and the ToNMT tool
  */
 public class AVCHeader {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AVCHeader.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AVCHeader();
 
 	private byte[] buffer;
 	private int currentBit;
@@ -48,7 +48,7 @@ public class AVCHeader {
 	 *
 	 * @param buffer The byte buffer to parse.
 	 */
-	public AVCHeader(byte buffer[]) {
+	public this(byte buffer[]) {
 		this.buffer = buffer;
 		currentBit = 0;
 	}
@@ -118,7 +118,7 @@ public class AVCHeader {
 			return (buffer[pos] & (1 << (7 - modulo))) >> (7 - modulo);
 		} else {
 			if (!parseFailed) {
-				LOGGER.error("Cannot parse AVC header, buffer length is " + buffer.length);
+				LOGGER.error("Cannot parse AVC header, buffer length is " ~ buffer.length.toString());
 
 				// Do not log consecutive errors.
 				parseFailed = true;

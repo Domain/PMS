@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.TreeNodeSettings;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.encoders.Player;
 import net.pms.encoders.PlayerFactory;
@@ -28,15 +28,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+////import javax.swing.*;
+//import javax.swing.tree.DefaultMutableTreeNode;
+////import java.awt.*;
+//import java.awt.image.BufferedImage;
+import java.lang.exceptions;
 
 public class TreeNodeSettings : DefaultMutableTreeNode {
-	private static final Logger LOGGER = LoggerFactory.getLogger(TreeNodeSettings.class);
-	private static final long serialVersionUID = -337606760204027449L;
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!TreeNodeSettings();
+	private static const long serialVersionUID = -337606760204027449L;
 	private Player p;
 	private JComponent otherConfigPanel;
 	private bool enable = true;
@@ -55,7 +55,7 @@ public class TreeNodeSettings : DefaultMutableTreeNode {
 		return p;
 	}
 
-	public TreeNodeSettings(String name, Player p, JComponent otherConfigPanel) {
+	public this(String name, Player p, JComponent otherConfigPanel) {
 		super(name);
 		this.p = p;
 		this.otherConfigPanel = otherConfigPanel;
@@ -66,7 +66,7 @@ public class TreeNodeSettings : DefaultMutableTreeNode {
 		if (p !is null) {
 			return p.id();
 		} else if (otherConfigPanel !is null) {
-			return "" + otherConfigPanel.hashCode();
+			return otherConfigPanel.hashCode().toString();
 		} else {
 			return null;
 		}
@@ -90,9 +90,9 @@ public class TreeNodeSettings : DefaultMutableTreeNode {
 		if (warningPanel is null) {
 			BufferedImage bi = null;
 			try {
-				bi = ImageIO.read(LooksFrame.class.getResourceAsStream("/resources/images/messagebox_warning-220.png"));
+				bi = ImageIO.read(LooksFrame._class.getResourceAsStream("/resources/images/messagebox_warning-220.png"));
 			} catch (IOException e) {
-				LOGGER.debug("Caught exception", e);
+				LOGGER._debug("Caught exception", e);
 			}
 			ImagePanel ip = new ImagePanel(bi);
 

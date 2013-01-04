@@ -26,12 +26,12 @@ import net.pms.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.net.Authenticator;
 import java.net.URL;
 import java.net.URLConnection;
 
-import static net.pms.util.StringUtil.convertURLToFileName;
+import net.pms.util.StringUtil : convertURLToFileName;
 
 /**
  * Implements any item that can be transfered through the HTTP pipes.
@@ -39,32 +39,32 @@ import static net.pms.util.StringUtil.convertURLToFileName;
  * @see DLNAResource
  */
 public class HTTPResource {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HTTPResource.class);
-	public static final String UNKNOWN_VIDEO_TYPEMIME = "video/mpeg";
-	public static final String UNKNOWN_IMAGE_TYPEMIME = "image/jpeg";
-	public static final String UNKNOWN_AUDIO_TYPEMIME = "audio/mpeg";
-	public static final String AUDIO_MP3_TYPEMIME = "audio/mpeg";
-	public static final String AUDIO_MP4_TYPEMIME = "audio/x-m4a";
-	public static final String AUDIO_WAV_TYPEMIME = "audio/wav";
-	public static final String AUDIO_WMA_TYPEMIME = "audio/x-ms-wma";
-	public static final String AUDIO_FLAC_TYPEMIME = "audio/x-flac";
-	public static final String AUDIO_OGG_TYPEMIME = "audio/x-ogg";
-	public static final String AUDIO_LPCM_TYPEMIME = "audio/L16";
-	public static final String MPEG_TYPEMIME = "video/mpeg";
-	public static final String MP4_TYPEMIME = "video/mp4";
-	public static final String AVI_TYPEMIME = "video/avi";
-	public static final String WMV_TYPEMIME = "video/x-ms-wmv";
-	public static final String ASF_TYPEMIME = "video/x-ms-asf";
-	public static final String MATROSKA_TYPEMIME = "video/x-matroska";
-	public static final String VIDEO_TRANSCODE = "video/transcode";
-	public static final String AUDIO_TRANSCODE = "audio/transcode";
-	public static final String PNG_TYPEMIME = "image/png";
-	public static final String JPEG_TYPEMIME = "image/jpeg";
-	public static final String TIFF_TYPEMIME = "image/tiff";
-	public static final String GIF_TYPEMIME = "image/gif";
-	public static final String BMP_TYPEMIME = "image/bmp";
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!HTTPResource();
+	public static const String UNKNOWN_VIDEO_TYPEMIME = "video/mpeg";
+	public static const String UNKNOWN_IMAGE_TYPEMIME = "image/jpeg";
+	public static const String UNKNOWN_AUDIO_TYPEMIME = "audio/mpeg";
+	public static const String AUDIO_MP3_TYPEMIME = "audio/mpeg";
+	public static const String AUDIO_MP4_TYPEMIME = "audio/x-m4a";
+	public static const String AUDIO_WAV_TYPEMIME = "audio/wav";
+	public static const String AUDIO_WMA_TYPEMIME = "audio/x-ms-wma";
+	public static const String AUDIO_FLAC_TYPEMIME = "audio/x-flac";
+	public static const String AUDIO_OGG_TYPEMIME = "audio/x-ogg";
+	public static const String AUDIO_LPCM_TYPEMIME = "audio/L16";
+	public static const String MPEG_TYPEMIME = "video/mpeg";
+	public static const String MP4_TYPEMIME = "video/mp4";
+	public static const String AVI_TYPEMIME = "video/avi";
+	public static const String WMV_TYPEMIME = "video/x-ms-wmv";
+	public static const String ASF_TYPEMIME = "video/x-ms-asf";
+	public static const String MATROSKA_TYPEMIME = "video/x-matroska";
+	public static const String VIDEO_TRANSCODE = "video/transcode";
+	public static const String AUDIO_TRANSCODE = "audio/transcode";
+	public static const String PNG_TYPEMIME = "image/png";
+	public static const String JPEG_TYPEMIME = "image/jpeg";
+	public static const String TIFF_TYPEMIME = "image/tiff";
+	public static const String GIF_TYPEMIME = "image/gif";
+	public static const String BMP_TYPEMIME = "image/bmp";
 
-	public HTTPResource() { }
+	public this() { }
 
 	/**
 	 * Returns for a given item type the default MIME type associated. This is used in the HTTP transfers
@@ -92,16 +92,16 @@ public class HTTPResource {
 	 * @return If found, an InputStream associated with the fileName. null otherwise.
 	 */
 	protected InputStream getResourceInputStream(String fileName) {
-		fileName = "/resources/" + fileName;
+		fileName = "/resources/" ~ fileName;
 		ClassLoader cll = this.getClass().getClassLoader();
-		InputStream is = cll.getResourceAsStream(fileName.substring(1));
+		InputStream _is = cll.getResourceAsStream(fileName.substring(1));
 
-		while (is is null && cll.getParent() !is null) {
+		while (_is is null && cll.getParent() !is null) {
 			cll = cll.getParent();
-			is = cll.getResourceAsStream(fileName.substring(1));
+			_is = cll.getResourceAsStream(fileName.substring(1));
 		}
 
-		return is;
+		return _is;
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class HTTPResource {
 	 * @throws IOException
 	 * @see #downloadAndSendBinary(String)
 	 */
-	protected static InputStream downloadAndSend(String u, bool saveOnDisk) throws IOException {
+	protected static InputStream downloadAndSend(String u, bool saveOnDisk) {
 		URL url = new URL(u);
 		File f = null;
 
@@ -126,7 +126,7 @@ public class HTTPResource {
 
 			if (!hostDir.isDirectory()) {
 				if (!hostDir.mkdir()) {
-					LOGGER.debug("Cannot create directory: {}", hostDir.getAbsolutePath());
+					LOGGER._debug("Cannot create directory: %s", hostDir.getAbsolutePath());
 				}
 			}
 
@@ -147,7 +147,7 @@ public class HTTPResource {
 	 * @return byte array.
 	 * @throws IOException
 	 */
-	protected static byte[] downloadAndSendBinary(String u) throws IOException {
+	protected static byte[] downloadAndSendBinary(String u) {
 		return downloadAndSendBinary(u, false, null);
 	}
 
@@ -160,19 +160,19 @@ public class HTTPResource {
 	 * @return The byte array
 	 * @throws IOException
 	 */
-	protected static byte[] downloadAndSendBinary(String u, bool saveOnDisk, File f) throws IOException {
+	protected static byte[] downloadAndSendBinary(String u, bool saveOnDisk, File f) {
 		URL url = new URL(u);
 		
 		// The URL may contain user authentication information
 		Authenticator.setDefault(new HTTPResourceAuthenticator());
 		HTTPResourceAuthenticator.addURL(url);
 		
-		LOGGER.debug("Retrieving " + url.toString());
+		LOGGER._debug("Retrieving " ~ url.toString());
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		URLConnection conn = url.openConnection();
 		// GameTrailers blocks user-agents that identify themselves as "Java"
-		conn.setRequestProperty("User-agent", PropertiesUtil.getProjectProperties().get("project.name") + " " + PMS.getVersion());
-		InputStream in = conn.getInputStream();
+		conn.setRequestProperty("User-agent", PropertiesUtil.getProjectProperties().get("project.name") ~ " " ~ PMS.getVersion());
+		InputStream _in = conn.getInputStream();
 		FileOutputStream fOUT = null;
 
 		if (saveOnDisk && f !is null) {
@@ -183,7 +183,7 @@ public class HTTPResource {
 		byte[] buf = new byte[4096];
 		int n = -1;
 
-		while ((n = in.read(buf)) > -1) {
+		while ((n = _in.read(buf)) > -1) {
 			bytes.write(buf, 0, n);
 
 			if (fOUT !is null) {
@@ -191,7 +191,7 @@ public class HTTPResource {
 			}
 		}
 
-		in.close();
+		_in.close();
 
 		if (fOUT !is null) {
 			fOUT.close();
@@ -214,7 +214,7 @@ public class HTTPResource {
 		return 3;
 	}
 
-	public final String getMPEG_PS_PALLocalizedValue(int index) {
+	public const String getMPEG_PS_PALLocalizedValue(int index) {
 		if (index == 1 || index == 2) {
 			return "MPEG_PS_NTSC";
 		}
@@ -222,7 +222,7 @@ public class HTTPResource {
 		return "MPEG_PS_PAL";
 	}
 
-	public final String getMPEG_TS_SD_EU_ISOLocalizedValue(int index) {
+	public const String getMPEG_TS_SD_EU_ISOLocalizedValue(int index) {
 		if (index == 1) {
 			return "MPEG_TS_SD_NA_ISO";
 		}
@@ -234,7 +234,7 @@ public class HTTPResource {
 		return "MPEG_TS_SD_EU_ISO";
 	}
 
-	public final String getMPEG_TS_SD_EULocalizedValue(int index) {
+	public const String getMPEG_TS_SD_EULocalizedValue(int index) {
 		if (index == 1) {
 			return "MPEG_TS_SD_NA";
 		}

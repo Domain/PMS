@@ -1,10 +1,10 @@
 module net.pms.util.UriRetriever;
 
-import org.apache.commons.httpclient.*;
-import org.apache.commons.httpclient.methods.GetMethod;
+//import org.apache.commons.httpclient.*;
+//import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 /**
@@ -13,11 +13,11 @@ import java.io.InputStream;
  * @author Tim Cox (mail@tcox.org)
  */
 public class UriRetriever {
-	private static final String HTTP_HEADER_CONTENT_LENGTH = "Content-Length";
-	private static final int BUFFER_SIZE = 1024;
+	private static const String HTTP_HEADER_CONTENT_LENGTH = "Content-Length";
+	private static const int BUFFER_SIZE = 1024;
 	private HttpClient client = new HttpClient();
 
-	public byte[] get(String uri) throws IOException {
+	public byte[] get(String uri) {
 		HttpMethod method = new GetMethod(uri);
 		try {
 			int statusCode = client.executeMethod(method);
@@ -26,13 +26,13 @@ public class UriRetriever {
 			}
 			return method.getResponseBody();
 		} catch (HttpException e) {
-			throw new IOException("Unable to download by HTTP" + e.getMessage());
+			throw new IOException("Unable to download by HTTP" ~ e.getMessage());
 		} finally {
 			method.releaseConnection();
 		}
 	}
 
-	public byte[] getWithCallback(String uri, UriRetrieverCallback callback) throws IOException {
+	public byte[] getWithCallback(String uri, UriRetrieverCallback callback) {
 		HttpMethod getMethod = null;
 
 		try {
@@ -41,9 +41,9 @@ public class UriRetriever {
 			byte[] data = pullData(uri, getMethod, callback, totalBytes);
 			return data;
 		} catch (HttpException e) {
-			throw new IOException("Unable to download via HTTP: " + uri + ": " + e.getMessage());
+			throw new IOException("Unable to download via HTTP: " ~ uri ~ ": " ~ e.getMessage());
 		} catch (IOException e) {
-			throw new IOException("Unable to download via HTTP: " + uri + ": " + e.getMessage());
+			throw new IOException("Unable to download via HTTP: " ~ uri ~ ": " ~ e.getMessage());
 		} finally {
 			if (getMethod !is null) {
 				getMethod.releaseConnection();
@@ -51,7 +51,7 @@ public class UriRetriever {
 		}
 	}
 
-	private HttpMethod startGetRequest(String uri, UriRetrieverCallback callback) throws HttpException, IOException {
+	private HttpMethod startGetRequest(String uri, UriRetrieverCallback callback) {
 		int statusCode = -1;
 		HttpMethod method = new GetMethod(uri);
 		configureMethod(method);
@@ -67,7 +67,7 @@ public class UriRetriever {
 		method.setFollowRedirects(true);
 	}
 
-	private static byte[] pullData(String uri, HttpMethod method, UriRetrieverCallback callback, int totalBytes) throws IOException {
+	private static byte[] pullData(String uri, HttpMethod method, UriRetrieverCallback callback, int totalBytes) {
 		int bytesWritten = 0;
 		InputStream input = method.getResponseBodyAsStream();
 		ByteArrayOutputStream output = new ByteArrayOutputStream(totalBytes);
@@ -83,7 +83,7 @@ public class UriRetriever {
 		return output.toByteArray();
 	}
 
-	private static void invokeCallback(String uri, UriRetrieverCallback callback, int totalBytes, int bytesWritten) throws IOException {
+	private static void invokeCallback(String uri, UriRetrieverCallback callback, int totalBytes, int bytesWritten) {
 		try {
 			callback.progressMade(uri, bytesWritten, totalBytes);
 		} catch (UriRetrieverCallback.CancelDownloadException e) {
@@ -94,7 +94,7 @@ public class UriRetriever {
 	private int getContentSize(String uri, HttpMethod method) {
 		Header header = method.getResponseHeader(HTTP_HEADER_CONTENT_LENGTH);
 		if (header !is null) {
-			String value = "" + header.getValue();
+			String value = header.getValue().toString();
 			int totalBytes = -1;
 			try {
 				totalBytes = Integer.parseInt(value);

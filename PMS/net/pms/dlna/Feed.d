@@ -18,20 +18,20 @@
  */
 module net.pms.dlna.Feed;
 
-import com.sun.syndication.feed.synd.SyndCategory;
-import com.sun.syndication.feed.synd.SyndEnclosure;
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
+//import com.sun.syndication.feed.synd.SyndCategory;
+//import com.sun.syndication.feed.synd.SyndEnclosure;
+//import com.sun.syndication.feed.synd.SyndEntry;
+//import com.sun.syndication.feed.synd.SyndFeed;
+//import com.sun.syndication.io.SyndFeedInput;
+//import com.sun.syndication.io.XmlReader;
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Content;
-import org.jdom.Element;
+//import org.jdom.Content;
+//import org.jdom.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,48 +44,48 @@ import java.util.List;
  * removed.
  */
 public class Feed : DLNAResource {
-	private static final Logger logger = LoggerFactory.getLogger(Feed.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!Feed();
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String name;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String url;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String tempItemTitle;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String tempItemLink;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String tempFeedLink;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String tempCategory;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	protected String tempItemThumbURL;
 
 	override
@@ -94,48 +94,47 @@ public class Feed : DLNAResource {
 		try {
 			parse();
 		} catch (Exception e) {
-			logger.error("Error in parsing stream: " + url, e);
+			logger.error("Error in parsing stream: " ~ url, e);
 		}
 	}
 
-	public Feed(String name, String url, int type) {
+	public this(String name, String url, int type) {
 		super(type);
 		setUrl(url);
 		setName(name);
 	}
 
-	@SuppressWarnings("unchecked")
-	public void parse() throws Exception {
+	public void parse() {
 		SyndFeedInput input = new SyndFeedInput();
 		byte b[] = downloadAndSendBinary(url);
 		if (b !is null) {
 			SyndFeed feed = input.build(new XmlReader(new ByteArrayInputStream(b)));
 			setName(feed.getTitle());
 			if (feed.getCategories() !is null && feed.getCategories().size() > 0) {
-				SyndCategory category = (SyndCategory) feed.getCategories().get(0);
+				SyndCategory category = cast(SyndCategory) feed.getCategories().get(0);
 				setTempCategory(category.getName());
 			}
-			List<SyndEntry> entries = feed.getEntries();
-			for (SyndEntry entry : entries) {
+			List/*<SyndEntry>*/ entries = feed.getEntries();
+			foreach (SyndEntry entry ; entries) {
 				setTempItemTitle(entry.getTitle());
 				setTempItemLink(entry.getLink());
 				setTempFeedLink(entry.getUri());
 				setTempItemThumbURL(null);
 
-				ArrayList<Element> elements = (ArrayList<Element>) entry.getForeignMarkup();
-				for (Element elt : elements) {
-					if ("group".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())) {
-						List<Content> subElts = elt.getContent();
-						for (Content subelt : subElts) {
-							if (subelt instanceof Element) {
-								parseElement((Element) subelt, false);
+				ArrayList/*<Element>*/ elements = cast(ArrayList/*<Element>*/) entry.getForeignMarkup();
+				foreach (Element elt ; elements) {
+					if ("group".opEquals(elt.getName()) && "media".opEquals(elt.getNamespacePrefix())) {
+						List/*<Content>*/ subElts = elt.getContent();
+						foreach (Content subelt ; subElts) {
+							if (cast(Element)subelt !is null ) {
+								parseElement(cast(Element) subelt, false);
 							}
 						}
 					}
 					parseElement(elt, true);
 				}
-				List<SyndEnclosure> enclosures = entry.getEnclosures();
-				for (SyndEnclosure enc : enclosures) {
+				List/*<SyndEnclosure>*/ enclosures = entry.getEnclosures();
+				foreach (SyndEnclosure enc ; enclosures) {
 					if (StringUtils.isNotBlank(enc.getUrl())) {
 						setTempItemLink(enc.getUrl());
 					}
@@ -146,30 +145,29 @@ public class Feed : DLNAResource {
 		setLastModified(System.currentTimeMillis());
 	}
 
-	@SuppressWarnings("unchecked")
 	private void parseElement(Element elt, bool parseLink) {
-		if ("content".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())) {
+		if ("content".opEquals(elt.getName()) && "media".opEquals(elt.getNamespacePrefix())) {
 			if (parseLink) {
 				setTempItemLink(elt.getAttribute("url").getValue());
 			}
-			List<Content> subElts = elt.getContent();
-			for (Content subelt : subElts) {
-				if (subelt instanceof Element) {
-					parseElement((Element) subelt, false);
+			List/*<Content>*/ subElts = elt.getContent();
+			foreach (Content subelt ; subElts) {
+				if (cast(Element)subelt !is null) {
+					parseElement(cast(Element) subelt, false);
 				}
 			}
 		}
-		if ("thumbnail".equals(elt.getName()) && "media".equals(elt.getNamespacePrefix())
+		if ("thumbnail".opEquals(elt.getName()) && "media".opEquals(elt.getNamespacePrefix())
 				&& getTempItemThumbURL() is null) {
 			setTempItemThumbURL(elt.getAttribute("url").getValue());
 		}
-		if ("image".equals(elt.getName()) && "exInfo".equals(elt.getNamespacePrefix())
+		if ("image".opEquals(elt.getName()) && "exInfo".opEquals(elt.getNamespacePrefix())
 				&& getTempItemThumbURL() is null) {
 			setTempItemThumbURL(elt.getValue());
 		}
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		return null;
 	}
 
@@ -186,7 +184,7 @@ public class Feed : DLNAResource {
 	}
 
 	// XXX unused
-	@Deprecated
+	deprecated
 	public long lastModified() {
 		return 0;
 	}
@@ -217,7 +215,7 @@ public class Feed : DLNAResource {
 			getChildren().clear();
 			parse();
 		} catch (Exception e) {
-			logger.error("Error in parsing stream: " + url, e);
+			logger.error("Error in parsing stream: " ~ url, e);
 		}
 	}
 

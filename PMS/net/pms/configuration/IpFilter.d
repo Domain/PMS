@@ -39,9 +39,9 @@ import java.util.regex.Pattern;
  */
 public class IpFilter {
 
-	private final static String IP_FILTER_RULE_CHAR = "0123456789-.* ";
-	private final static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
-	private static final Logger LOGGER = LoggerFactory.getLogger(IpFilter.class);
+	private const static String IP_FILTER_RULE_CHAR = "0123456789-.* ";
+	private immutable static Pattern PATTERN = Pattern.compile("(([0-9]*)(-([0-9]*))?)");
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!IpFilter();
 
 	interface Predicate {
 		bool match(InetAddress addr);
@@ -51,7 +51,7 @@ public class IpFilter {
 
 		String name;
 
-		public HostNamePredicate(String n) {
+		public this(String n) {
 			this.name = n.toLowerCase().trim();
 		}
 
@@ -72,7 +72,7 @@ public class IpFilter {
 			int min;
 			int max;
 
-			public ByteRule(int a, int b) {
+			public this(int a, int b) {
 				this.min = a;
 				this.max = b;
 
@@ -121,18 +121,18 @@ public class IpFilter {
 
 		}
 
-		List<ByteRule> rules;
+		List/*<ByteRule>*/ rules;
 
-		public IpPredicate(String[] tags) {
-			this.rules = new ArrayList<ByteRule>(tags.length);
-			for (String s : tags) {
+		public this(String[] tags) {
+			this.rules = new ArrayList/*<ByteRule>*/(tags.length);
+			foreach (String s ; tags) {
 				s = s.trim();
 				rules.add(parseTag(s));
 			}
 		}
 
 		ByteRule parseTag(String s) {
-			if ("*".equals(s)) {
+			if ("*".opEquals(s)) {
 				return new ByteRule(-1, -1);
 			} else {
 				Matcher matcher = PATTERN.matcher(s);
@@ -164,7 +164,7 @@ public class IpFilter {
 				}
 			}
 
-			throw new IllegalArgumentException("Tag is not understood:" + s);
+			throw new IllegalArgumentException("Tag is not understood:" ~ s);
 
 		}
 
@@ -176,7 +176,7 @@ public class IpFilter {
 		public bool match(InetAddress addr) {
 			byte[] b = addr.getAddress();
 			for (int i = 0; i < rules.size() && i < b.length; i++) {
-				int value = b[i] < 0 ? (int) b[i] + 256 : b[i];
+				int value = b[i] < 0 ? cast(int) b[i] + 256 : b[i];
 				if (!rules.get(i).match(value)) {
 					return false;
 				}
@@ -187,7 +187,7 @@ public class IpFilter {
 		override
 		public String toString() {
 			StringBuilder b = new StringBuilder();
-			for (ByteRule r : rules) {
+			foreach (ByteRule r ; rules) {
 				if (b.length() > 0) {
 					b.append('.');
 				}
@@ -199,13 +199,13 @@ public class IpFilter {
 	}
 
 	String rawFilter;
-	List<Predicate> matchers = new ArrayList<Predicate>();
-	Set<String> logged = new HashSet<String>();
+	List/*<Predicate>*/ matchers = new ArrayList/*<Predicate>*/();
+	Set/*<String>*/ logged = new HashSet/*<String>*/();
 
-	public IpFilter() {
+	public this() {
 	}
 
-	public IpFilter(String f) {
+	public this(String f) {
 		setRawFilter(f);
 	}
 
@@ -214,7 +214,7 @@ public class IpFilter {
 	}
 
 	public synchronized void setRawFilter(String rawFilter) {
-		if (this.rawFilter !is null && this.rawFilter.equals(rawFilter)) {
+		if (this.rawFilter !is null && this.rawFilter.opEquals(rawFilter)) {
 			return;
 		}
 		this.matchers.clear();
@@ -222,7 +222,7 @@ public class IpFilter {
 		this.rawFilter = rawFilter;
 		if (rawFilter !is null) {
 			String[] rules = rawFilter.split("[,;]");
-			for (String r : rules) {
+			foreach (String r ; rules) {
 				Predicate p = parse(r);
 				if (p !is null) {
 					matchers.add(p);
@@ -233,12 +233,12 @@ public class IpFilter {
 
 	override
 	public String toString() {
-		return "IpFilter:" + getNormalizedFilter();
+		return "IpFilter:" ~ getNormalizedFilter();
 	}
 
 	public String getNormalizedFilter() {
 		StringBuilder b = new StringBuilder();
-		for (Predicate r : matchers) {
+		foreach (Predicate r ; matchers) {
 			if (b.length() > 0) {
 				b.append(',');
 			}
@@ -252,20 +252,20 @@ public class IpFilter {
 		bool log = isFirstDecision(addr);
 		if (matchers.size() == 0) {
 			if (log) {
-				LOGGER.info("No IP filter specified, access granted to " + addr);
+				LOGGER.info("No IP filter specified, access granted to " ~ addr);
 			}
 			return true;
 		}
-		for (Predicate p : matchers) {
+		foreach (Predicate p ; matchers) {
 			if (p.match(addr)) {
 				if (log) {
-					LOGGER.info("Access granted to " + addr + " by rule: " + p);
+					LOGGER.info("Access granted to " ~ addr ~ " by rule: " ~ p);
 				}
 				return true;
 			}
 		}
 		if (log) {
-			LOGGER.info("Access denied to " + addr);
+			LOGGER.info("Access denied to " ~ addr);
 		}
 		return false;
 	}
@@ -294,17 +294,17 @@ public class IpFilter {
 	}
 
 	private static void eq(String name, Object obj, Object obj2) {
-		if (obj !is null && obj.equals(obj2)) {
-			LOGGER.debug("EQ: " + name + '=' + obj);
+		if (obj !is null && obj.opEquals(obj2)) {
+			LOGGER._debug("EQ: " ~ name ~ '=' ~ obj);
 		} else {
-			throw new RuntimeException(name + " expected : '" + obj + "' <> actual : '" + obj2 + "'");
+			throw new RuntimeException(name ~ " expected : '" ~ obj ~ "' <> actual : '" ~ obj2 ~ "'");
 		}
 	}
 
 	public static void main(String[] args) {
-		eq("f1", "192.168.0.1,192.168.0.5", new IpFilter(" 192.168.0.1, 192.168.0.5").getNormalizedFilter());
-		eq("f2", "192.168.0.*,192.1-6.3-.5", new IpFilter(" 192.168.0.*, 192.1-6.3-.5").getNormalizedFilter());
-		eq("f3", "2-3.5,myhost", new IpFilter(" 3-2. 5;myhost").getNormalizedFilter());
+		eq("f1", "192.168.0.1,192.168.0.5", (new IpFilter(" 192.168.0.1, 192.168.0.5")).getNormalizedFilter());
+		eq("f2", "192.168.0.*,192.1-6.3-.5", (new IpFilter(" 192.168.0.*, 192.1-6.3-.5")).getNormalizedFilter());
+		eq("f3", "2-3.5,myhost", (new IpFilter(" 3-2. 5;myhost")).getNormalizedFilter());
 	}
 
 }

@@ -36,7 +36,7 @@ public class WAV : Format {
 		return Identifier.WAV;
 	}
 
-	public WAV() {
+	public this() {
 		type = AUDIO;
 	}
 	
@@ -46,14 +46,14 @@ public class WAV : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
-			if (engine.equals(MPlayerAudio.ID)) {
-				a.add(MPlayerAudio.class);
-			} else if (engine.equals(FFMpegAudio.ID)) {
-				a.add(FFMpegAudio.class);
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+			if (engine.opEquals(MPlayerAudio.ID)) {
+				a.add(MPlayerAudio._class);
+			} else if (engine.opEquals(FFMpegAudio.ID)) {
+				a.add(FFMpegAudio._class);
 			}
 		}
 		return a;
@@ -64,7 +64,7 @@ public class WAV : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "wav" };
+		return [ "wav" ];
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class WAV : Format {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return true;

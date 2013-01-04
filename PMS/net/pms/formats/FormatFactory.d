@@ -32,25 +32,25 @@ public final class FormatFactory {
 	/**
 	 * Logger used for all logging.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(FormatFactory.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FormatFactory();
 
 	/**
 	 * Initial list of known formats.
 	 */
-	private static final Format[] FORMATS = new Format[] { new WEB(),
+	private static immutable Format[] FORMATS = [ new WEB(),
 			new MKV(), new M4A(), new MP3(), new ISO(), new MPG(), new WAV(),
 			new JPG(), new OGG(), new PNG(), new GIF(), new TIF(), new FLAC(),
-			new DVRMS(), new RAW() };
+			new DVRMS(), new RAW() ];
 
 	/**
 	 * The list of registered formats.
 	 */
-	private static ArrayList<Format> formats = new ArrayList<Format>(Arrays.asList(FORMATS));
+	private static ArrayList/*<Format>*/ formats = new ArrayList/*<Format>*/(Arrays.asList(FORMATS));
 	
 	/**
 	 * This class is not meant to be instantiated.
 	 */
-	private FormatFactory() {
+	private this() {
 	}
 
 	/**
@@ -64,16 +64,16 @@ public final class FormatFactory {
 	 * @see Format#match(String)
 	 */
 	public static Format getAssociatedExtension(final String filename) {
-		for (Format ext : formats) {
+		foreach (Format ext ; formats) {
 			if (ext.match(filename)) {
-				LOGGER.trace("Matched format " + ext + " to \"" + filename + "\"");
+				LOGGER.trace("Matched format " ~ ext ~ " to \"" ~ filename ~ "\"");
 
 				// Return a fresh instance
 				return ext.duplicate();
 			}
 		}
 
-		LOGGER.trace("Could not match any format to \"" + filename + "\"");
+		LOGGER.trace("Could not match any format to \"" ~ filename ~ "\"");
 		return null;
 	}
 
@@ -82,7 +82,7 @@ public final class FormatFactory {
 	 *
 	 * @return The list of known formats.
 	 */
-	public static ArrayList<Format> getExtensions() {
+	public static ArrayList/*<Format>*/ getExtensions() {
 		return formats;
 	}
 
@@ -91,7 +91,7 @@ public final class FormatFactory {
 	 *
 	 * @param formatList The list of known formats.
 	 */
-	public static void setExtensions(ArrayList<Format> formatList) {
+	public static void setExtensions(ArrayList/*<Format>*/ formatList) {
 		formats = formatList;
 	}
 }

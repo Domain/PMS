@@ -18,22 +18,22 @@
  */
 module net.pms.newgui.MyComboBoxModel;
 
-import javax.swing.*;
+////import javax.swing.*;
 
 public class MyComboBoxModel : DefaultComboBoxModel {
-	private static final long serialVersionUID = -9094365556516842551L;
+	private static const long serialVersionUID = -9094365556516842551L;
 
-	public MyComboBoxModel() {
+	public this() {
 		super();
 	}
 
-	public MyComboBoxModel(Object[] items) {
+	public this(Object[] items) {
 		super(items);
 	}
 
 	override
 	public Object getElementAt(int index) {
-		String s = (String) super.getElementAt(index);
+		String s = cast(String) super.getElementAt(index);
 		return s;
 	}
 }

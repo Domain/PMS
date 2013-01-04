@@ -6,31 +6,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.io.IOException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import java.lang.exceptions;
+//import java.net.NetworkInterface;
+//import java.net.SocketException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MacSystemUtils : BasicSystemUtils {
-	private final static Logger LOGGER = LoggerFactory.getLogger(MacSystemUtils.class);
+	private immutable static Logger LOGGER = LoggerFactory.getLogger!MacSystemUtils();
 
-	public MacSystemUtils() { }
+	public this() { }
 
 	override
 	public void browseURI(String uri) {
 		try {
 			// On OS X, open the given URI with the "open" command.
 			// This will open HTTP URLs in the default browser.
-			Runtime.getRuntime().exec(new String[] { "open", uri });
+			Runtime.getRuntime().exec([ "open", uri ]);
 		} catch (IOException e) {
-			LOGGER.trace("Unable to open the given URI: {}", uri);
+			LOGGER.trace("Unable to open the given URI: %s", uri);
 		}
 	}
 
 	override
-	public bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException {
+	public bool isNetworkInterfaceLoopback(NetworkInterface ni) {
 		return false;
 	}
 
@@ -44,19 +44,19 @@ public class MacSystemUtils : BasicSystemUtils {
 	 *             only used to get a name.
 	 */
 	override
-	public byte[] getHardwareAddress(NetworkInterface ni) throws SocketException {
+	public byte[] getHardwareAddress(NetworkInterface ni) {
 		// On Mac OS X, fetch the hardware address from the command line tool "ifconfig".
 		byte[] aHardwareAddress = null;
 		InputStream inputStream = null;
 
 		try {
-			Process process = Runtime.getRuntime().exec(new String[] { "ifconfig", ni.getName(), "ether" });
+			Process process = Runtime.getRuntime().exec([ "ifconfig", ni.getName(), "ether" ]);
 			inputStream = process.getInputStream();
-			List<String> lines = IOUtils.readLines(inputStream);
+			List/*<String>*/ lines = IOUtils.readLines(inputStream);
 			String aMacStr = null;
 			Pattern aMacPattern = Pattern.compile("\\s*ether\\s*([a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2}:[a-d0-9]{2})");
 
-			for (String line : lines) {
+			foreach (String line ; lines) {
 				Matcher aMacMatcher = aMacPattern.matcher(line);
 
 				if (aMacMatcher.find()) {
@@ -71,7 +71,7 @@ public class MacSystemUtils : BasicSystemUtils {
 
 				for (int i = 0; i < aComps.length; i++) {
 					String aComp = aComps[i];
-					aHardwareAddress[i] = (byte) Short.valueOf(aComp, 16).shortValue();
+					aHardwareAddress[i] = cast(byte) Short.valueOf(aComp, 16).shortValue();
 				}
 			}
 		} catch (IOException e) {

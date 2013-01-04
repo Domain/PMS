@@ -18,10 +18,10 @@
  */
 module net.pms.encoders.MPlayerAudio;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.PMS;
 import net.pms.configuration.PmsConfiguration;
@@ -34,25 +34,25 @@ import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 import net.pms.network.HTTPResource;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.IOException;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.event.ItemEvent;
+//import java.awt.event.ItemListener;
+import java.lang.exceptions;
 import java.util.Arrays;
 
 // this does nothing that isn't done by the ffmpeg audio engine
 // and, indeed, it delegates to ffmpeg for MP3 transcodes
-@Deprecated
+deprecated
 public class MPlayerAudio : Player {
-	public static final String ID = "mplayeraudio";
-	private final PmsConfiguration configuration;
+	public static const String ID = "mplayeraudio";
+	private immutable PmsConfiguration configuration;
 
 	// XXX should be private
-	@Deprecated
+	deprecated
 	JCheckBox noresample;
 
-	public MPlayerAudio(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -68,7 +68,7 @@ public class MPlayerAudio : Player {
 
 	override
 	public String[] args() {
-		return new String[]{};
+		return [];
 	}
 
 	override
@@ -82,8 +82,8 @@ public class MPlayerAudio : Player {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
-		if (!(this instanceof MPlayerWebAudio) && !(this instanceof MPlayerWebVideoDump)) {
+	) {
+		if (!(cast(MPlayerWebAudio)this !is null) && !(cast(MPlayerWebVideoDump)this !is null)) {
 			params.waitbeforestart = 2000;
 		}
 
@@ -95,9 +95,9 @@ public class MPlayerAudio : Player {
 		}
 
 		params.maxBufferSize = PMS.getConfiguration().getMaxAudioBuffer();
-		PipeProcess audioP = new PipeProcess("mplayer_aud" + System.currentTimeMillis());
+		PipeProcess audioP = new PipeProcess("mplayer_aud" ~ System.currentTimeMillis().toString());
 
-		String mPlayerdefaultAudioArgs[] = new String[] {
+		String mPlayerdefaultAudioArgs[] = [
 			PMS.getConfiguration().getMplayerPath(),
 			fileName,
 			"-prefer-ipv4",
@@ -109,14 +109,14 @@ public class MPlayerAudio : Player {
 			"-vo",
 			"null",
 			"-ao",
-			"pcm:nowaveheader:fast:file=" + audioP.getInputPipe(),
+			"pcm:nowaveheader:fast:file=" ~ audioP.getInputPipe(),
 			"-quiet",
 			"-format",
 			"s16be"
-		};
+		];
 
 		if (params.mediaRenderer.isTranscodeToWAV()) {
-			mPlayerdefaultAudioArgs[11] = "pcm:waveheader:fast:file=" + audioP.getInputPipe();
+			mPlayerdefaultAudioArgs[11] = "pcm:waveheader:fast:file=" ~ audioP.getInputPipe();
 			mPlayerdefaultAudioArgs[13] = "-quiet";
 			mPlayerdefaultAudioArgs[14] = "-quiet";
 		}
@@ -135,11 +135,11 @@ public class MPlayerAudio : Player {
 		if (params.timeseek > 0 || params.timeend > 0) {
 			mPlayerdefaultAudioArgs = Arrays.copyOf(mPlayerdefaultAudioArgs, mPlayerdefaultAudioArgs.length + 4);
 			mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 4] = "-ss";
-			mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 3] = "" + params.timeseek;
+			mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 3] = "" ~ params.timeseek;
 
 			if (params.timeend > 0) {
 				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 2] = "-endpos";
-				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 1] = "" + params.timeend;
+				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 1] = "" ~ params.timeend;
 			} else {
 				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 2] = "-quiet";
 				mPlayerdefaultAudioArgs[mPlayerdefaultAudioArgs.length - 1] = "-quiet";
@@ -202,13 +202,13 @@ public class MPlayerAudio : Player {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator("Audio settings", cc.xyw(2, 1, 1));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		noresample = new JCheckBox(Messages.getString("TrTab2.22"));
 		noresample.setContentAreaFilled(false);
 		noresample.setSelected(configuration.isAudioResample());
-		noresample.addItemListener(new ItemListener() {
+		noresample.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setAudioResample(e.getStateChange() == ItemEvent.SELECTED);
 			}
@@ -233,10 +233,10 @@ public class MPlayerAudio : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.FLAC)
-					|| id.equals(Format.Identifier.M4A)
-					|| id.equals(Format.Identifier.OGG)
-					|| id.equals(Format.Identifier.WAV)) {
+			if (id.opEquals(Format.Identifier.FLAC)
+					|| id.opEquals(Format.Identifier.M4A)
+					|| id.opEquals(Format.Identifier.OGG)
+					|| id.opEquals(Format.Identifier.WAV)) {
 				return true;
 			}
 		}

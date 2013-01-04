@@ -1,9 +1,9 @@
 module net.pms.util.UriRetrieverCallback;
 
 public interface UriRetrieverCallback {
-	void progressMade(String uri, int bytesDownloaded, int totalBytes) throws CancelDownloadException;
+	void progressMade(String uri, int bytesDownloaded, int totalBytes);
 
 	public class CancelDownloadException : Exception {
-		private static final long serialVersionUID = 1L;
+		private static const long serialVersionUID = 1L;
 	}
 }

@@ -28,16 +28,15 @@ import net.pms.io.PipeProcess;
 import net.pms.io.ProcessWrapper;
 import net.pms.io.ProcessWrapperImpl;
 
-import javax.swing.*;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VideoLanVideoStreaming : Player {
-	private final PmsConfiguration configuration;
-	public static final String ID = "vlcvideo";
+	private immutable PmsConfiguration configuration;
+	public static const String ID = "vlcvideo";
 
-	public VideoLanVideoStreaming(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -53,7 +52,7 @@ public class VideoLanVideoStreaming : Player {
 
 	override
 	public String[] args() {
-		return new String[]{};
+		return [];
 	}
 
 	override
@@ -109,9 +108,9 @@ public class VideoLanVideoStreaming : Player {
 		String fileName,
 		DLNAResource dlna,
 		DLNAMediaInfo media,
-		OutputParams params) throws IOException {
+		OutputParams params) {
 		bool isWindows = Platform.isWindows();
-		PipeProcess tsPipe = new PipeProcess("VLC" + System.currentTimeMillis() + "." + getMux());
+		PipeProcess tsPipe = new PipeProcess("VLC" ~ System.currentTimeMillis().toString() ~ "." +~ getMux());
 		ProcessWrapper pipe_process = tsPipe.getPipeProcess();
 
 		// XXX it can take a long time for Windows to create a named pipe
@@ -123,7 +122,7 @@ public class VideoLanVideoStreaming : Player {
 		params.minBufferSize = params.minFileSize;
 		params.secondread_minsize = 100000;
 
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 		cmdList.add(executable());
 		cmdList.add("-I");
 		cmdList.add("dummy");
@@ -209,7 +208,7 @@ public class VideoLanVideoStreaming : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.WEB)) {
+			if (id.opEquals(Format.Identifier.WEB)) {
 				return true;
 			}
 		}

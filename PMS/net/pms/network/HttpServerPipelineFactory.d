@@ -31,21 +31,21 @@ import org.jboss.netty.handler.stream.ChunkedWriteHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.jboss.netty.channel.Channels.pipeline;
+import org.jboss.netty.channel.Channels : pipeline;
 
 /**
  * @author The Netty Project (netty-dev@lists.jboss.org)
  * @author Andy Taylor (andy.taylor@jboss.org)
  */
 public class HttpServerPipelineFactory : ChannelPipelineFactory {
-	private static final Logger logger = LoggerFactory.getLogger(HttpServerPipelineFactory.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!HttpServerPipelineFactory();
 	private ChannelGroup group;
 	
-	public HttpServerPipelineFactory(ChannelGroup group) {
+	public this(ChannelGroup group) {
 	    this.group = group;
 	}
 
-    public ChannelPipeline getPipeline() throws Exception {
+    public ChannelPipeline getPipeline() {
 		logger.trace("Creating new pipeline");
 		// Create a default pipeline implementation.
 		ChannelPipeline pipeline = pipeline();

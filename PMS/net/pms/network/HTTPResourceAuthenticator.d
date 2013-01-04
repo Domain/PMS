@@ -34,7 +34,7 @@ import java.util.StringTokenizer;
 public class HTTPResourceAuthenticator : Authenticator {
 
 	// Lookup table for user and password information per hostname
-	static HashMap<String, String> siteinfo = new HashMap<String, String>();
+	static HashMap/*<String, String>*/ siteinfo = new HashMap/*<String, String>*/();
 
 	/**
 	 * Called when password authentication is needed.
@@ -83,10 +83,10 @@ public class HTTPResourceAuthenticator : Authenticator {
 		if (url.getUserInfo() is null && siteinfo.get(url.getHost()) !is null) {
 			String userinfo = siteinfo.get(url.getHost());
 			String urlStr = url.toString();
-			String protocol = url.getProtocol() + "://";
+			String protocol = url.getProtocol() ~ "://";
 
 			// Insert the username and password into the URL.
-			urlStr = urlStr.replace(protocol, protocol + userinfo + "@");
+			urlStr = urlStr.replace(protocol, protocol ~ userinfo ~ "@");
 
 			try {
 				return new URL(urlStr);

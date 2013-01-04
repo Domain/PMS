@@ -23,24 +23,24 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.List;
 
 public abstract class OutputConsumer : Thread {
-	private static final Logger LOGGER = LoggerFactory.getLogger(OutputConsumer.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!OutputConsumer();
 	protected InputStream inputStream;
 
-	public OutputConsumer(InputStream inputStream) {
+	public this(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
 
-	@Deprecated
+	deprecated
 	public void destroy() {
 		IOUtils.closeQuietly(inputStream);
 	}
 
 	public abstract BufferedOutputFile getBuffer();
 
-	public abstract List<String> getResults();
+	public abstract List/*<String>*/ getResults();
 }

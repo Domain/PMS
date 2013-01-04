@@ -3,20 +3,20 @@ module net.pms.configuration.ConfigurationProgramPaths;
 import org.apache.commons.configuration.Configuration;
 
 class ConfigurationProgramPaths : ProgramPaths {
-	private static final String KEY_VLC_PATH                 = "vlc_path";
-	private static final String KEY_EAC3TO_PATH              = "eac3to_path";
-	private static final String KEY_MENCODER_PATH            = "mencoder_path";
-	private static final String KEY_FFMPEG_PATH              = "ffmpeg_path";
-	private static final String KEY_MPLAYER_PATH             = "mplayer_path";
-	private static final String KEY_TSMUXER_PATH             = "tsmuxer_path";
-	private static final String KEY_FLAC_PATH                = "flac_path";
-	private static final String KEY_DCRAW                    = "dcraw_path";
-	private static final String KEY_IMCONVERT_PATH           = "imconvert_path";
+	private static const String KEY_VLC_PATH                 = "vlc_path";
+	private static const String KEY_EAC3TO_PATH              = "eac3to_path";
+	private static const String KEY_MENCODER_PATH            = "mencoder_path";
+	private static const String KEY_FFMPEG_PATH              = "ffmpeg_path";
+	private static const String KEY_MPLAYER_PATH             = "mplayer_path";
+	private static const String KEY_TSMUXER_PATH             = "tsmuxer_path";
+	private static const String KEY_FLAC_PATH                = "flac_path";
+	private static const String KEY_DCRAW                    = "dcraw_path";
+	private static const String KEY_IMCONVERT_PATH           = "imconvert_path";
 
-	private final Configuration configuration;
-	private final ProgramPaths defaults;
+	private Configuration configuration;
+	private ProgramPaths defaults;
 
-	public ConfigurationProgramPaths(Configuration configuration, ProgramPaths defaults) {
+	public this(Configuration configuration, ProgramPaths defaults) {
 		this.configuration = configuration;
 		this.defaults = defaults;
 	}

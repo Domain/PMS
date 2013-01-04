@@ -6,12 +6,11 @@ import org.slf4j.LoggerFactory;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.all;
 
-@SuppressWarnings("unchecked")
 /**
  * @deprecated This package is a copy of a third-party library (xmlwise). Future releases will use the original library.
  *
@@ -49,14 +48,14 @@ import java.util.*;
  *
  * @author Christoffer Lerno
  */
-@Deprecated
+deprecated
 public final class Plist {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Plist.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!Plist();
 
 	/**
 	 * Singleton instance.
 	 */
-	private final static Plist PLIST = new Plist();
+	private static Plist PLIST = new Plist();
 
 	/**
 	 * All element types possible for a plist.
@@ -71,10 +70,10 @@ public final class Plist {
 		ARRAY,
 		TRUE,
 		FALSE,}
-	private static final String BASE64_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-	private static final char[] BASE64_CHARS = BASE64_STRING.toCharArray();
-	private final DateFormat m_dateFormat;
-	private final Map<Class<?>, ElementType> m_simpleTypes;
+	private static const String BASE64_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+	private static immutable char[] BASE64_CHARS = BASE64_STRING.toCharArray();
+	private DateFormat m_dateFormat;
+	private Map/*<Class<?>, ElementType>*/ m_simpleTypes;
 
 	/**
 	 * Convert a nested {@code map<String, Object>} as a plist xml string
@@ -83,12 +82,12 @@ public final class Plist {
 	 * @param data the nested data to store as a plist.
 	 * @return the resulting xml as a string.
 	 */
-	public static String toXml(Map<String, Object> data) {
+	public static String toXml(Map/*<String, Object>*/ data) {
 		StringBuilder builder = new StringBuilder(
 			"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-			+ "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" "
-			+ "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n"
-			+ "<plist version=\"1.0\">");
+			~ "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" "
+			~ "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n"
+			~ "<plist version=\"1.0\">");
 		builder.append(PLIST.objectToXml(data).toXml());
 		return builder.append("</plist>").toString();
 	}
@@ -100,7 +99,7 @@ public final class Plist {
 	 * @param filename the destination file to store the data to.
 	 * @throws IOException if there was an IO error saving the file.
 	 */
-	public static void store(Map<String, Object> data, String filename) throws IOException {
+	public static void store(Map/*<String, Object>*/ data, String filename) {
 		store(data, new File(filename));
 	}
 
@@ -111,7 +110,7 @@ public final class Plist {
 	 * @param file the destination File to store the data to.
 	 * @throws IOException if there was an IO error saving the file.
 	 */
-	public static void store(Map<String, Object> data, File file) throws IOException {
+	public static void store(Map/*<String, Object>*/ data, File file) {
 		FileOutputStream stream = null;
 		try {
 			stream = new FileOutputStream(file);
@@ -132,7 +131,7 @@ public final class Plist {
 				closeable.close();
 			}
 		} catch (IOException e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 	}
 
@@ -143,7 +142,7 @@ public final class Plist {
 	 * @return the resulting map as read from the plist data.
 	 * @throws XmlParseException if the plist could not be properly parsed.
 	 */
-	public static Map<String, Object> fromXml(String xml) throws XmlParseException {
+	public static Map/*<String, Object>*/ fromXml(String xml) {
 		return PLIST.parse(Xmlwise.createXml(xml));
 	}
 
@@ -155,7 +154,7 @@ public final class Plist {
 	 * @throws XmlParseException if the plist could not be properly parsed.
 	 * @throws IOException if there was an issue reading the plist file.
 	 */
-	public static Map<String, Object> load(File file) throws XmlParseException, IOException {
+	public static Map/*<String, Object>*/ load(File file) {
 		return PLIST.parse(Xmlwise.loadXml(file));
 	}
 
@@ -167,28 +166,29 @@ public final class Plist {
 	 * @throws XmlParseException if the plist could not be properly parsed.
 	 * @throws IOException if there was an issue reading the plist file.
 	 */
-	public static Map<String, Object> load(String filename) throws XmlParseException, IOException {
+	public static Map/*<String, Object>*/ load(String filename) {
 		return load(new File(filename));
 	}
 
 	/**
 	 * Create a plist handler.
 	 */
-	Plist() {
+	this() {
 		m_dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		m_dateFormat.setTimeZone(TimeZone.getTimeZone("Z"));
-		m_simpleTypes = new HashMap<Class<?>, ElementType>();
-		m_simpleTypes.put(Integer.class, ElementType.INTEGER);
-		m_simpleTypes.put(Byte.class, ElementType.INTEGER);
-		m_simpleTypes.put(Short.class, ElementType.INTEGER);
-		m_simpleTypes.put(Short.class, ElementType.INTEGER);
-		m_simpleTypes.put(Long.class, ElementType.INTEGER);
-		m_simpleTypes.put(String.class, ElementType.STRING);
-		m_simpleTypes.put(Float.class, ElementType.REAL);
-		m_simpleTypes.put(Double.class, ElementType.REAL);
-		m_simpleTypes.put(byte[].class, ElementType.DATA);
-		m_simpleTypes.put(Boolean.class, ElementType.TRUE);
-		m_simpleTypes.put(Date.class, ElementType.DATE);
+		m_simpleTypes = new HashMap/*<Class<?>, ElementType>*/();
+		/// FIXME:
+		//m_simpleTypes.put(Integer.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Byte.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Short.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Short.class, ElementType.INTEGER);
+		//m_simpleTypes.put(Long.class, ElementType.INTEGER);
+		//m_simpleTypes.put(String.class, ElementType.STRING);
+		//m_simpleTypes.put(Float.class, ElementType.REAL);
+		//m_simpleTypes.put(Double.class, ElementType.REAL);
+		//m_simpleTypes.put(byte[].class, ElementType.DATA);
+		//m_simpleTypes.put(Boolean.class, ElementType.TRUE);
+		//m_simpleTypes.put(Date.class, ElementType.DATE);
 	}
 
 	/**
@@ -207,21 +207,21 @@ public final class Plist {
 				case INTEGER:
 					return new XmlElement("integer", o.toString());
 				case TRUE:
-					return new XmlElement(((Boolean) o) ? "true" : "false");
+					return new XmlElement((cast(bool) o) ? "true" : "false");
 				case DATE:
-					return new XmlElement("date", m_dateFormat.format((Date) o));
+					return new XmlElement("date", m_dateFormat.format(cast(Date) o));
 				case STRING:
-					return new XmlElement("string", (String) o);
+					return new XmlElement("string", cast(String) o);
 				case DATA:
-					return new XmlElement("data", base64encode((byte[]) o));
+					return new XmlElement("data", base64encode(cast(byte[]) o));
 			}
 		}
-		if (o instanceof Map) {
-			return toXmlDict((Map<String, Object>) o);
-		} else if (o instanceof List) {
-			return toXmlArray((List<?>) o);
+		if (cast(Map)o !is null) {
+			return toXmlDict(cast(Map/*<String, Object>*/) o);
+		} else if (cast(List)o !is null) {
+			return toXmlArray(cast(List/*<?>*/) o);
 		} else {
-			throw new RuntimeException("Cannot use " + o.getClass() + " in plist.");
+			throw new RuntimeException("Cannot use " ~ o.getClass() ~ " in plist.");
 		}
 	}
 
@@ -231,9 +231,9 @@ public final class Plist {
 	 * @param list the list to convert.
 	 * @return an <tt>XmlElement</tt> representing the list.
 	 */
-	private XmlElement toXmlArray(List<?> list) {
+	private XmlElement toXmlArray(List/*<?>*/ list) {
 		XmlElement array = new XmlElement("array");
-		for (Object o : list) {
+		foreach (Object o ; list) {
 			array.add(objectToXml(o));
 		}
 		return array;
@@ -245,9 +245,9 @@ public final class Plist {
 	 * @param map the map to convert, assumed to have string keys.
 	 * @return an <tt>XmlElement</tt> representing the map.
 	 */
-	private XmlElement toXmlDict(Map<String, Object> map) {
+	private XmlElement toXmlDict(Map/*<String, Object>*/ map) {
 		XmlElement dict = new XmlElement("dict");
-		for (Map.Entry<String, Object> entry : map.entrySet()) {
+		foreach (Map.Entry/*<String, Object>*/ entry ; map.entrySet()) {
 			dict.add(new XmlElement("key", entry.getKey()));
 			dict.add(objectToXml(entry.getValue()));
 		}
@@ -262,9 +262,9 @@ public final class Plist {
 	 * @return the resulting data tree structure.
 	 * @throws XmlParseException if there was any error parsing the xml.
 	 */
-	Map<String, Object> parse(XmlElement element) throws XmlParseException {
+	Map/*<String, Object>*/ parse(XmlElement element) {
 		if (!"plist".equalsIgnoreCase(element.getName())) {
-			throw new XmlParseException("Expected plist top element, was: " + element.getName());
+			throw new XmlParseException("Expected plist top element, was: " ~ element.getName());
 		}
 
 		// Assure that the top element is a dict and the single child element.
@@ -273,7 +273,7 @@ public final class Plist {
 		}
 		element.getUnique("dict");
 
-		return (Map<String, Object>) parseElement(element.getUnique("dict"));
+		return cast(Map/*<String, Object>*/) parseElement(element.getUnique("dict"));
 	}
 
 	/**
@@ -283,11 +283,11 @@ public final class Plist {
 	 * @return the resulting object.
 	 * @throws XmlParseException if there was some error in the xml.
 	 */
-	private Object parseElement(XmlElement element) throws XmlParseException {
+	private Object parseElement(XmlElement element) {
 		try {
 			return parseElementRaw(element);
 		} catch (Exception e) {
-			throw new XmlParseException("Failed to parse: " + element.toXml(), e);
+			throw new XmlParseException("Failed to parse: " ~ element.toXml(), e);
 		}
 	}
 
@@ -298,7 +298,7 @@ public final class Plist {
 	 * @return the resulting object.
 	 * @throws Exception if there was some error parsing the xml.
 	 */
-	private Object parseElementRaw(XmlElement element) throws Exception {
+	private Object parseElementRaw(XmlElement element) {
 		ElementType type = ElementType.valueOf(element.getName().toUpperCase());
 		switch (type) {
 			case INTEGER:
@@ -320,7 +320,7 @@ public final class Plist {
 			case DICT:
 				return parseDict(element);
 			default:
-				throw new RuntimeException("Unexpected type: " + element.getName());
+				throw new RuntimeException("Unexpected type: " ~ element.getName());
 		}
 	}
 
@@ -346,15 +346,15 @@ public final class Plist {
 	 * @return the Double value of this string.
 	 */
 	private Number parseDouble(String value) {
-		if (value.equals("NaN"))
+		if (value.opEquals("NaN"))
 		{
 			return Double.NaN;
 		}
-		if (value.equals("-inf"))
+		if (value.opEquals("-inf"))
 		{
 			return Double.NEGATIVE_INFINITY;
 		}
-		if (value.equals("inf"))
+		if (value.opEquals("inf"))
 		{
 			return Double.POSITIVE_INFINITY;
 		}
@@ -368,13 +368,13 @@ public final class Plist {
 	 * @return the dict deserialized as a map.
 	 * @throws Exception if there are any problems deserializing the map.
 	 */
-	private Map<String, Object> parseDict(List<XmlElement> elements) throws Exception {
-		Iterator<XmlElement> element = elements.iterator();
-		HashMap<String, Object> dict = new HashMap<String, Object>();
+	private Map/*<String, Object>*/ parseDict(List/*<XmlElement>*/ elements) {
+		Iterator/*<XmlElement>*/ element = elements.iterator();
+		HashMap/*<String, Object>*/ dict = new HashMap/*<String, Object>*/();
 		while (element.hasNext()) {
 			XmlElement key = element.next();
-			if (!"key".equals(key.getName())) {
-				throw new Exception("Expected key but was " + key.getName());
+			if (!"key".opEquals(key.getName())) {
+				throw new Exception("Expected key but was " ~ key.getName());
 			}
 			Object o = parseElementRaw(element.next());
 			dict.put(key.getValue(), o);
@@ -389,9 +389,9 @@ public final class Plist {
 	 * @return the array deserialized as a list.
 	 * @throws Exception if there are any problems deserializing the list.
 	 */
-	private List<Object> parseArray(List<XmlElement> elements) throws Exception {
-		ArrayList<Object> list = new ArrayList<Object>(elements.size());
-		for (XmlElement element : elements) {
+	private List/*<Object>*/ parseArray(List/*<XmlElement>*/ elements) {
+		ArrayList/*<Object>*/ list = new ArrayList/*<Object>*/(elements.size());
+		foreach (XmlElement element ; elements) {
 			list.add(parseElementRaw(element));
 		}
 		return list;
@@ -436,9 +436,9 @@ public final class Plist {
 			int i1 = BASE64_STRING.indexOf(base64.charAt(i + 1));
 			int i2 = BASE64_STRING.indexOf(base64.charAt(i + 2));
 			int i3 = BASE64_STRING.indexOf(base64.charAt(i + 3));
-			byte b0 = (byte) ((i0 << 2) | (i1 >> 4));
-			byte b1 = (byte) ((i1 << 4) | (i2 >> 2));
-			byte b2 = (byte) ((i2 << 6) | i3);
+			byte b0 = cast(byte) ((i0 << 2) | (i1 >> 4));
+			byte b1 = cast(byte) ((i1 << 4) | (i2 >> 2));
+			byte b2 = cast(byte) ((i2 << 6) | i3);
 			result[index++] = b0;
 			if (index < length) {
 				result[index++] = b1;

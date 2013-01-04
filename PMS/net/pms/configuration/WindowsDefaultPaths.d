@@ -2,52 +2,52 @@ module net.pms.configuration.WindowsDefaultPaths;
 
 import net.pms.util.PropertiesUtil;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
+import org.apache.commons.lang.StringUtils : isNotBlank;
 
 class WindowsDefaultPaths : ProgramPaths {
 	override
 	public String getEac3toPath() {
-		return getBinariesPath() + "win32/eac3to/eac3to.exe";
+		return getBinariesPath() ~ "win32/eac3to/eac3to.exe";
 	}
 
 	override
 	public String getFfmpegPath() {
-		return getBinariesPath() + "win32/ffmpeg.exe";
+		return getBinariesPath() ~ "win32/ffmpeg.exe";
 	}
 
 	override
 	public String getFlacPath() {
-		return getBinariesPath() + "win32/flac.exe";
+		return getBinariesPath() ~ "win32/flac.exe";
 	}
 
 	override
 	public String getMencoderPath() {
-		return getBinariesPath() + "win32/mencoder.exe";
+		return getBinariesPath() ~ "win32/mencoder.exe";
 	}
 
 	override
 	public String getMplayerPath() {
-		return getBinariesPath() + "win32/mplayer.exe";
+		return getBinariesPath() ~ "win32/mplayer.exe";
 	}
 
 	override
 	public String getTsmuxerPath() {
-		return getBinariesPath() + "win32/tsMuxeR.exe";
+		return getBinariesPath() ~ "win32/tsMuxeR.exe";
 	}
 
 	override
 	public String getVlcPath() {
-		return getBinariesPath() +  "videolan/vlc.exe";
+		return getBinariesPath() ~  "videolan/vlc.exe";
 	}
 
 	override
 	public String getDCRaw() {
-		return getBinariesPath() + "win32/dcrawMS.exe";
+		return getBinariesPath() ~ "win32/dcrawMS.exe";
 	}
 	
 	override
 	public String getIMConvertPath() {
-		return getBinariesPath() + "win32/convert.exe";
+		return getBinariesPath() ~ "win32/convert.exe";
 	}
 
 	/**

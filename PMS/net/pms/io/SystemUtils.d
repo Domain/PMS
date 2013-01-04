@@ -3,8 +3,8 @@ module net.pms.io.SystemUtils;
 import net.pms.newgui.LooksFrame;
 
 import java.io.File;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+//import java.net.NetworkInterface;
+//import java.net.SocketException;
 
 public interface SystemUtils {
 
@@ -34,9 +34,9 @@ public interface SystemUtils {
 	 */
 	public void browseURI(String uri);
 
-	public bool isNetworkInterfaceLoopback(NetworkInterface ni) throws SocketException;
+	public bool isNetworkInterfaceLoopback(NetworkInterface ni);
 
-	public void addSystemTray(final LooksFrame frame);
+	public void addSystemTray(immutable LooksFrame frame);
 
 	/**
 	 * Fetch the hardware address for a network interface.
@@ -47,7 +47,7 @@ public interface SystemUtils {
 	 *             This won't happen on Mac OS, since the NetworkInterface is
 	 *             only used to get a name.
 	 */
-	public byte[] getHardwareAddress(NetworkInterface ni) throws SocketException;
+	public byte[] getHardwareAddress(NetworkInterface ni);
 
 	/**
 	 * Return the platform specific ping command for the given host address,

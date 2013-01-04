@@ -1,13 +1,13 @@
 module net.pms.util.FlowParserOutputStream;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public abstract class FlowParserOutputStream : OutputStream {
 	private ByteBuffer buffer;
-	private OutputStream out;
+	private OutputStream _out;
 	protected int neededByteNumber;
 	protected int streamableByteNumber;
 	protected bool discard;
@@ -15,20 +15,20 @@ public abstract class FlowParserOutputStream : OutputStream {
 	protected int swapOrderBits;
 	protected byte[] swapRemainingByte;
 
-	public FlowParserOutputStream(OutputStream out, int maxbuffersize) {
-		this.out = out;
+	public this(OutputStream _out, int maxbuffersize) {
+		this._out = _out;
 		buffer = ByteBuffer.allocate(maxbuffersize);
 		zerobuffer = new byte[15000];
-		Arrays.fill(zerobuffer, (byte) 0);
+		Arrays.fill(zerobuffer, cast(byte) 0);
 	}
 
 	override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 	}
 	public int count;
 
 	override
-	public void write(byte[] b, int off, int len) throws IOException {
+	public void write(byte[] b, int off, int len) {
 		if (swapOrderBits == 2) {
 			if (swapRemainingByte !is null && swapRemainingByte.length == 1) {
 				buffer.put(b[off]);
@@ -79,7 +79,7 @@ public abstract class FlowParserOutputStream : OutputStream {
 				if (remains >= streamableByteNumber) {
 					// we can send the whole bunch
 					if (!discard) {
-						out.write(buffer.array(), internalMark, streamableByteNumber);
+						_out.write(buffer.array(), internalMark, streamableByteNumber);
 					}
 					internalMark += streamableByteNumber;
 					remains = remains - streamableByteNumber;
@@ -96,7 +96,7 @@ public abstract class FlowParserOutputStream : OutputStream {
 				} else {
 
 					if (!discard) {
-						out.write(buffer.array(), internalMark, remains);
+						_out.write(buffer.array(), internalMark, remains);
 					}
 					streamableByteNumber = streamableByteNumber - remains;
 					buffer.position(0);
@@ -107,30 +107,30 @@ public abstract class FlowParserOutputStream : OutputStream {
 		}
 	}
 
-	protected void writePayload(byte payload[]) throws IOException {
-		out.write(payload, 0, payload.length);
+	protected void writePayload(byte payload[]) {
+		_out.write(payload, 0, payload.length);
 	}
-	private byte zerobuffer[];
+	private byte[] zerobuffer;
 
-	protected void padWithZeros(int numberOfZeros) throws IOException {
+	protected void padWithZeros(int numberOfZeros) {
 		if (numberOfZeros > 0) {
-			out.write(zerobuffer, 0, numberOfZeros);
+			_out.write(zerobuffer, 0, numberOfZeros);
 		}
 	}
 
 	protected abstract void analyzeBuffer(byte data[], int off, int len);
 
-	protected abstract void beforeChunkSend() throws IOException;
+	protected abstract void beforeChunkSend();
 
-	protected abstract void afterChunkSend() throws IOException;
+	protected abstract void afterChunkSend();
 
 	override
-	public void close() throws IOException {
+	public void close() {
 		int finalPos = buffer.position();
 		if (finalPos > 0 && streamableByteNumber > finalPos) {
-			out.write(buffer.array(), 0, finalPos);
+			_out.write(buffer.array(), 0, finalPos);
 			padWithZeros(streamableByteNumber - finalPos);
 		}
-		out.close();
+		_out.close();
 	}
 }

@@ -27,7 +27,7 @@ public class VideosFeed : Feed {
 		addChild(fi);
 	}
 
-	public VideosFeed(String url) {
-		super("" + System.currentTimeMillis(), url, Format.VIDEO);
+	public this(String url) {
+		super(System.currentTimeMillis().toString(), url, Format.VIDEO);
 	}
 }

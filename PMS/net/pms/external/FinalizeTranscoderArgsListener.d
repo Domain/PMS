@@ -32,7 +32,7 @@ public interface FinalizeTranscoderArgsListener : ExternalListener {
 	 * @return the exhaustive list of all commands. It will replace the ones
 	 *         received as cmdList
 	 */
-	public List<String> finalizeTranscoderArgs(Player player, String filename,
+	public List/*<String>*/ finalizeTranscoderArgs(Player player, String filename,
 			DLNAResource dlna, DLNAMediaInfo media, OutputParams params,
-			List<String> cmdList);
+			List/*<String>*/ cmdList);
 }

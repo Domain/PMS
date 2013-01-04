@@ -20,24 +20,24 @@ module net.pms.io.ProcessWrapperLiteImpl;
 
 import net.pms.util.ProcessUtil;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ProcessWrapperLiteImpl : ProcessWrapper {
 	private Process p;
 
-	public ProcessWrapperLiteImpl(Process p) {
+	public this(Process p) {
 		this.p = p;
 	}
 
 	override
-	public InputStream getInputStream(long seek) throws IOException {
+	public InputStream getInputStream(long seek) {
 		return null;
 	}
 
 	override
-	public ArrayList<String> getResults() {
+	public ArrayList/*<String>*/ getResults() {
 		return null;
 	}
 

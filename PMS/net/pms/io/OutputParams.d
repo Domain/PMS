@@ -29,11 +29,11 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class OutputParams {
-	@Deprecated
+	deprecated
 	public File outputFile; // XXX no longer used
 
 	public File workDir;
-	public Map<String,String> env;
+	public Map/*<String,String>*/ env;
 	public double minFileSize;
 	public double minBufferSize;
 	public double maxBufferSize;
@@ -56,12 +56,12 @@ public class OutputParams {
 	public String forceType;
 	public RendererConfiguration mediaRenderer;
 	public bool hidebuffer;
-	public byte header[];
+	public byte[] header;
 	public IPushOutput stdin;
 	public bool avidemux;
 	public bool shift_scr;
 
-	public OutputParams(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		if (configuration !is null) {
 			waitbeforestart = configuration.getVideoTranscodeStartDelay() * 1000;
 		} else {
@@ -98,15 +98,15 @@ public class OutputParams {
 
 	override
 	public String toString() {
-		return "OutputParams [aid=" + aid + ", avidemux=" + avidemux + ", forceFps=" + forceFps + ", forceType="
-			+ forceType + ", fromFrame=" + fromFrame + ", header=" + Arrays.toString(header) + ", hidebuffer="
-			+ hidebuffer + ", input_pipes=" + Arrays.toString(input_pipes) + ", log=" + log + ", losslessaudio="
-			+ losslessaudio + ", lossyaudio=" + lossyaudio + ", maxBufferSize=" + maxBufferSize
-			+ ", mediaRenderer=" + mediaRenderer + ", minBufferSize=" + minBufferSize + ", minFileSize="
-			+ minFileSize + ", no_videoencode=" + no_videoencode + ", noexitcheck=" + noexitcheck
-			+ ", output_pipes=" + Arrays.toString(output_pipes)
-			+ ", secondread_minsize=" + secondread_minsize + ", shift_scr=" + shift_scr + ", sid=" + sid
-			+ ", stdin=" + stdin + ", timeend=" + timeend + ", timeseek=" + timeseek + ", toFrame=" + toFrame
-			+ ", waitbeforestart=" + waitbeforestart + ", workDir=" + workDir + ", env=" + env + "]";
+		return "OutputParams [aid=" ~ aid ~ ", avidemux=" ~ avidemux ~ ", forceFps=" ~ forceFps ~ ", forceType="
+			~ forceType ~ ", fromFrame=" ~ fromFrame ~ ", header=" ~ Arrays.toString(header) ~ ", hidebuffer="
+			~ hidebuffer ~ ", input_pipes=" ~ Arrays.toString(input_pipes) ~ ", log=" ~ log ~ ", losslessaudio="
+			~ losslessaudio ~ ", lossyaudio=" ~ lossyaudio ~ ", maxBufferSize=" ~ maxBufferSize
+			~ ", mediaRenderer=" ~ mediaRenderer ~ ", minBufferSize=" ~ minBufferSize ~ ", minFileSize="
+			~ minFileSize ~ ", no_videoencode=" ~ no_videoencode ~ ", noexitcheck=" ~ noexitcheck
+			~ ", output_pipes=" ~ Arrays.toString(output_pipes)
+			~ ", secondread_minsize=" ~ secondread_minsize ~ ", shift_scr=" ~ shift_scr ~ ", sid=" ~ sid
+			~ ", stdin=" ~ stdin ~ ", timeend=" ~ timeend ~ ", timeseek=" ~ timeseek ~ ", toFrame=" ~ toFrame
+			~ ", waitbeforestart=" ~ waitbeforestart ~ ", workDir=" ~ workDir ~ ", env=" ~ env ~ "]";
 	}
 }

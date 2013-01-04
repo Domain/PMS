@@ -22,29 +22,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+//import java.io.InputStreamReader;
 
 // "Gob": a cryptic name for (e.g.) StreamGobbler - i.e. a stream
 // consumer that reads and discards the stream
 public class Gob : Thread {
-	private static final Logger logger = LoggerFactory.getLogger(Gob.class);
-	BufferedReader in;
+	private static immutable Logger logger = LoggerFactory.getLogger!Gob();
+	BufferedReader _in;
 
-	public Gob(InputStream in) {
-		this.in = new BufferedReader(new InputStreamReader(in));
+	public this(InputStream _in) {
+		this._in = new BufferedReader(new InputStreamReader(_in));
 	}
 
 	public void run() {
 		String line = null;
 		try {
-			while ((line = in.readLine()) !is null) {
+			while ((line = _in.readLine()) !is null) {
 				if (!line.startsWith("100")) {
 					logger.trace(line);
 				}
 			}
-			in.close();
+			_in.close();
 		} catch (IOException e) {
 			logger.trace("Caught exception", e);
 		}

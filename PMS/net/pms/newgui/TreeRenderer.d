@@ -21,14 +21,14 @@ module net.pms.newgui.TreeRenderer;
 import net.pms.encoders.Player;
 import net.pms.encoders.PlayerFactory;
 
-import javax.swing.*;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import java.awt.*;
+////import javax.swing.*;
+//import javax.swing.tree.DefaultTreeCellRenderer;
+////import java.awt.*;
 
 public class TreeRenderer : DefaultTreeCellRenderer {
-	private static final long serialVersionUID = 8830634234336247114L;
+	private static const long serialVersionUID = 8830634234336247114L;
 
-	public TreeRenderer() {
+	public this() {
 	}
 
 	public Component getTreeCellRendererComponent(
@@ -45,12 +45,12 @@ public class TreeRenderer : DefaultTreeCellRenderer {
 			tree, value, sel,
 			expanded, leaf, row,
 			hasFocus);
-		if (leaf && value instanceof TreeNodeSettings) {
-			if (((TreeNodeSettings) value).getPlayer() is null) {
+		if (leaf && cast(TreeNodeSettings)value !is null) {
+			if ((cast(TreeNodeSettings) value).getPlayer() is null) {
 				setIcon(LooksFrame.readImageIcon("icon_tree_parent-16.png"));
 			} else {
-				if (((TreeNodeSettings) value).isEnable()) {
-					Player p = ((TreeNodeSettings) value).getPlayer();
+				if ((cast(TreeNodeSettings) value).isEnable()) {
+					Player p = (cast(TreeNodeSettings) value).getPlayer();
 					if (PlayerFactory.getPlayers().contains(p)) {
 						setIcon(LooksFrame.readImageIcon("icon_tree_node-16.png"));
 					} else {
@@ -61,7 +61,7 @@ public class TreeRenderer : DefaultTreeCellRenderer {
 				}
 			}
 
-			if (((TreeNodeSettings) value).getPlayer() !is null && ((TreeNodeSettings) value).getParent().getIndex((TreeNodeSettings) value) == 0) {
+			if ((cast(TreeNodeSettings) value).getPlayer() !is null && (cast(TreeNodeSettings) value).getParent().getIndex(cast(TreeNodeSettings) value) == 0) {
 				setFont(getFont().deriveFont(Font.BOLD));
 			} else {
 				setFont(getFont().deriveFont(Font.PLAIN));

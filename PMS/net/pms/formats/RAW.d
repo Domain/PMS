@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class RAW : JPG {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RAW.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!RAW();
 
 	/**
 	 * {@inheritDoc} 
@@ -31,8 +31,8 @@ public class RAW : JPG {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "arw", "cr2", "crw", "dng", "raf", "mrw", "nef",
-				"pef", "srf", "orf" };
+		return [ "arw", "cr2", "crw", "dng", "raf", "mrw", "nef",
+		"pef", "srf", "orf" ];
 	}
 
 	/**
@@ -44,18 +44,18 @@ public class RAW : JPG {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return false;
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> profiles = new ArrayList<Class<? : Player>>();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry())) {
-			if (engine.equals(RAWThumbnailer.ID)) {
-				profiles.add(RAWThumbnailer.class);
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ profiles = new ArrayList/*<Class<? : Player>>*/();
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(PMS.get().getRegistry())) {
+			if (engine.opEquals(RAWThumbnailer.ID)) {
+				profiles.add(RAWThumbnailer._class);
 			}
 		}
 		return profiles;
@@ -88,8 +88,8 @@ public class RAW : JPG {
 			ProcessWrapperImpl pw = new ProcessWrapperImpl(cmdArray, params, true, false);
 			pw.runInSameThread();
 
-			List<String> list = pw.getOtherResults();
-			for (String s : list) {
+			List/*<String>*/ list = pw.getOtherResults();
+			foreach (String s ; list) {
 				if (s.startsWith("Thumb size:  ")) {
 					String sz = s.substring(13);
 					media.setWidth(Integer.parseInt(sz.substring(0, sz.indexOf("x")).trim()));
@@ -111,7 +111,7 @@ public class RAW : JPG {
 			media.finalize(type, file);
 			media.setMediaparsed(true);
 		} catch (Exception e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 	}
 }

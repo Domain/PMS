@@ -20,12 +20,12 @@ module net.pms.encoders.FFMpegAviSynthVideo;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import javax.swing.JComponent;
+//import javax.swing.JComponent;
 
 import net.pms.PMS;
 import net.pms.dlna.DLNAMediaSubtitle;
@@ -41,8 +41,8 @@ import org.slf4j.LoggerFactory;
  * This class handles the Windows specific AviSynth/FFmpeg player combination. 
  */
 public class FFMpegAviSynthVideo : FFMpegVideo {
-	private static final Logger logger = LoggerFactory.getLogger(FFMpegAviSynthVideo.class);
-	public static final String ID      = "avsffmpeg";
+	private static immutable Logger logger = LoggerFactory.getLogger!FFMpegAviSynthVideo();
+	public static const String ID      = "avsffmpeg";
 
 	override
 	public String id() {
@@ -64,13 +64,13 @@ public class FFMpegAviSynthVideo : FFMpegVideo {
 		return config("FFMpegVideo.0");
 	}
 
-	public static File getAVSScript(String fileName, DLNAMediaSubtitle subTrack) throws IOException {
+	public static File getAVSScript(String fileName, DLNAMediaSubtitle subTrack) {
 		return getAVSScript(fileName, subTrack, -1, -1);
 	}
 
-	public static File getAVSScript(String fileName, DLNAMediaSubtitle subTrack, int fromFrame, int toFrame) throws IOException {
+	public static File getAVSScript(String fileName, DLNAMediaSubtitle subTrack, int fromFrame, int toFrame) {
 		String onlyFileName = fileName.substring(1 + fileName.lastIndexOf("\\"));
-		File file = new File(PMS.getConfiguration().getTempFolder(), "pms-avs-" + onlyFileName + ".avs");
+		File file = new File(PMS.getConfiguration().getTempFolder(), "pms-avs-" ~ onlyFileName ~ ".avs");
 		PrintWriter pw = new PrintWriter(new FileOutputStream(file));
 
 		String convertfps = "";
@@ -81,20 +81,20 @@ public class FFMpegAviSynthVideo : FFMpegVideo {
 		if (f.exists()) {
 			fileName = ProcessUtil.getShortFileNameIfWideChars(fileName);
 		}
-		String movieLine = "clip=DirectShowSource(\"" + fileName + "\"" + convertfps + ")";
+		String movieLine = "clip=DirectShowSource(\"" ~ fileName ~ "\"" ~ convertfps ~ ")";
 		String subLine = null;
 		if (subTrack !is null && PMS.getConfiguration().isAutoloadSubtitles() && !PMS.getConfiguration().isMencoderDisableSubs()) {
-			logger.trace("Avisynth script: Using sub track: " + subTrack);
+			logger.trace("Avisynth script: Using sub track: " ~ subTrack);
 			if (subTrack.getExternalFile() !is null) {
-				String function = "TextSub";
+				String _function = "TextSub";
 				if (subTrack.getType() == SubtitleType.VOBSUB) {
-					function = "VobSub";
+					_function = "VobSub";
 				}
-				subLine = "clip=" + function + "(clip, \"" + ProcessUtil.getShortFileNameIfWideChars(subTrack.getExternalFile().getAbsolutePath()) + "\")";
+				subLine = "clip=" ~ _function ~ "(clip, \"" ~ ProcessUtil.getShortFileNameIfWideChars(subTrack.getExternalFile().getAbsolutePath()) ~ "\")";
 			}
 		}
 
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList/*<String>*/ lines = new ArrayList/*<String>*/();
 
 		bool fullyManaged = false;
 		String script = PMS.getConfiguration().getAvisynthScript();
@@ -109,7 +109,7 @@ public class FFMpegAviSynthVideo : FFMpegVideo {
 		}
 
 		if (fullyManaged) {
-			for (String s : lines) {
+			foreach (String s ; lines) {
 				s = s.replace("<moviefilename>", fileName);
 				if (movieLine !is null) {
 					s = s.replace("<movie>", movieLine);
@@ -145,8 +145,8 @@ public class FFMpegAviSynthVideo : FFMpegVideo {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.MKV)
-					|| id.equals(Format.Identifier.MPG)) {
+			if (id.opEquals(Format.Identifier.MKV)
+					|| id.opEquals(Format.Identifier.MPG)) {
 				return true;
 			}
 		}

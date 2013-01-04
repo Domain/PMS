@@ -18,10 +18,10 @@
  */
 module net.pms.newgui.NavigationShareTab;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import com.sun.jna.Platform;
 import net.pms.Messages;
 import net.pms.PMS;
@@ -32,20 +32,20 @@ import net.pms.util.KeyedComboBoxModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+////import javax.swing.*;
+////import java.awt.*;
+////import java.awt.event.*;
 import java.io.File;
 import java.util.Locale;
 
 public class NavigationShareTab {
-	private static final Logger LOGGER = LoggerFactory.getLogger(NavigationShareTab.class);
-	public static final String ALL_DRIVES = Messages.getString("FoldTab.0");
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!NavigationShareTab();
+	public static String ALL_DRIVES = Messages.getString("FoldTab.0");
 
-	private static final String PANEL_COL_SPEC = "left:pref, 50dlu, pref, 150dlu, pref, 25dlu, pref, 25dlu, pref, default:grow";
-	private static final String PANEL_ROW_SPEC = "p, 3dlu,  p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 10dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 10dlu, fill:default:grow";
-	private static final String SHARED_FOLDER_COL_SPEC = "left:pref, left:pref, pref, pref, pref, 0:grow";
-	private static final String SHARED_FOLDER_ROW_SPEC = "p, 3dlu, p, 3dlu, fill:default:grow";
+	private static const String PANEL_COL_SPEC = "left:pref, 50dlu, pref, 150dlu, pref, 25dlu, pref, 25dlu, pref, default:grow";
+	private static const String PANEL_ROW_SPEC = "p, 3dlu,  p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 10dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 10dlu, fill:default:grow";
+	private static const String SHARED_FOLDER_COL_SPEC = "left:pref, left:pref, pref, pref, pref, 0:grow";
+	private static const String SHARED_FOLDER_ROW_SPEC = "p, 3dlu, p, 3dlu, fill:default:grow";
 	
 	private JList FList;
 	private DefaultListModel df;
@@ -77,12 +77,12 @@ public class NavigationShareTab {
 	}
 	private final PmsConfiguration configuration;
 
-	NavigationShareTab(PmsConfiguration configuration) {
+	this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
 	private void updateModel() {
-		if (df.size() == 1 && df.getElementAt(0).equals(ALL_DRIVES)) {
+		if (df.size() == 1 && df.getElementAt(0).opEquals(ALL_DRIVES)) {
 			configuration.setFolders("");
 		} else {
 			StringBuilder sb = new StringBuilder();
@@ -90,7 +90,7 @@ public class NavigationShareTab {
 				if (i > 0) {
 					sb.append(",");
 				}
-				String entry = (String) df.getElementAt(i);
+				String entry = cast(String) df.getElementAt(i);
 				// escape embedded commas. note: backslashing isn't safe as it conflicts with
 				// Windows path separators:
 				// http://ps3mediaserver.org/forum/viewtopic.php?f=14&t=8883&start=250#p43520
@@ -121,7 +121,7 @@ public class NavigationShareTab {
 		// Build gui with initialized components
 		JComponent cmp = builder.addSeparator(Messages.getString("FoldTab.13"),
 				FormLayoutUtil.flip(cc.xyw(1, 1, 10), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.add(thumbgenCheckBox, FormLayoutUtil.flip(cc.xyw(1, 3, 3), colSpec, orientation));
@@ -141,7 +141,7 @@ public class NavigationShareTab {
 		builder.add(select, FormLayoutUtil.flip(cc.xyw(7, 11, 1), colSpec, orientation));
 
 		cmp = builder.addSeparator(Messages.getString("NetworkTab.15"), FormLayoutUtil.flip(cc.xyw(1, 13, 10), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		builder.add(archive, FormLayoutUtil.flip(cc.xyw(1, 15, 3), colSpec, orientation));
@@ -181,7 +181,7 @@ public class NavigationShareTab {
 		// Generate thumbnails
 		thumbgenCheckBox = new JCheckBox(Messages.getString("NetworkTab.2"));
 		thumbgenCheckBox.setContentAreaFilled(false);
-		thumbgenCheckBox.addItemListener(new ItemListener() {
+		thumbgenCheckBox.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setThumbnailGenerationEnabled((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -192,7 +192,7 @@ public class NavigationShareTab {
 
 		//ThumbnailSeekPos
 		seekpos = new JTextField("" + configuration.getThumbnailSeekPos());
-		seekpos.addKeyListener(new KeyListener() {
+		seekpos.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -207,7 +207,7 @@ public class NavigationShareTab {
 					int ab = Integer.parseInt(seekpos.getText());
 					configuration.setThumbnailSeekPos(ab);
 				} catch (NumberFormatException nfe) {
-					LOGGER.debug("Could not parse thumbnail seek position from \"" + seekpos.getText() + "\"");
+					LOGGER._debug("Could not parse thumbnail seek position from \"" ~ seekpos.getText() ~ "\"");
 				}
 
 			}
@@ -216,7 +216,7 @@ public class NavigationShareTab {
 		// UseMplayerForVideoThumbs
 		mplayer_thumb = new JCheckBox(Messages.getString("FoldTab.14"));
 		mplayer_thumb.setContentAreaFilled(false);
-		mplayer_thumb.addItemListener(new ItemListener() {
+		mplayer_thumb.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setUseMplayerForVideoThumbs((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -228,7 +228,7 @@ public class NavigationShareTab {
 		// DvdIsoThumbnails
 		dvdiso_thumb = new JCheckBox(Messages.getString("FoldTab.19"));
 		dvdiso_thumb.setContentAreaFilled(false);
-		dvdiso_thumb.addItemListener(new ItemListener() {
+		dvdiso_thumb.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setDvdIsoThumbnails((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -240,7 +240,7 @@ public class NavigationShareTab {
 		// ImageThumbnailsEnabled
 		image_thumb = new JCheckBox(Messages.getString("FoldTab.21"));
 		image_thumb.setContentAreaFilled(false);
-		image_thumb.addItemListener(new ItemListener() {
+		image_thumb.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setImageThumbnailsEnabled((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -250,20 +250,20 @@ public class NavigationShareTab {
 		}
 
 		// AudioThumbnailMethod
-		final KeyedComboBoxModel thumbKCBM = new KeyedComboBoxModel(new Object[]{"0", "1", "2"}, new Object[]{Messages.getString("FoldTab.35"), Messages.getString("FoldTab.23"), Messages.getString("FoldTab.24")});
+		KeyedComboBoxModel thumbKCBM = new KeyedComboBoxModel(["0", "1", "2"], [Messages.getString("FoldTab.35"), Messages.getString("FoldTab.23"), Messages.getString("FoldTab.24")]);
 		audiothumbnail = new JComboBox(thumbKCBM);
 		audiothumbnail.setEditable(false);
 
 		thumbKCBM.setSelectedKey("" + configuration.getAudioThumbnailMethod());
 
-		audiothumbnail.addItemListener(new ItemListener() {
+		audiothumbnail.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 
 					try {
-						configuration.setAudioThumbnailMethod(Integer.parseInt((String) thumbKCBM.getSelectedKey()));
+						configuration.setAudioThumbnailMethod(Integer.parseInt(cast(String) thumbKCBM.getSelectedKey()));
 					} catch (NumberFormatException nfe) {
-						LOGGER.debug("Could not parse audio thumbnail method from \"" + thumbKCBM.getSelectedKey() + "\"");
+						LOGGER._debug("Could not parse audio thumbnail method from \"" ~ thumbKCBM.getSelectedKey() ~ "\"");
 					}
 
 				}
@@ -272,7 +272,7 @@ public class NavigationShareTab {
 
 		// AlternateThumbFolder
 		defaultThumbFolder = new JTextField(configuration.getAlternateThumbFolder());
-		defaultThumbFolder.addKeyListener(new KeyListener() {
+		defaultThumbFolder.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -290,7 +290,7 @@ public class NavigationShareTab {
 
 		// AlternateThumbFolder: select
 		select = new JButton("...");
-		select.addActionListener(new ActionListener() {
+		select.addActionListener(new class() ActionListener {
 			override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = null;
@@ -300,7 +300,7 @@ public class NavigationShareTab {
 					chooser = new JFileChooser(new RestrictedFileSystemView());
 				}
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int returnVal = chooser.showDialog((Component) e.getSource(), Messages.getString("FoldTab.28"));
+				int returnVal = chooser.showDialog(cast(Component) e.getSource(), Messages.getString("FoldTab.28"));
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					defaultThumbFolder.setText(chooser.getSelectedFile().getAbsolutePath());
 					configuration.setAlternateThumbFolder(chooser.getSelectedFile().getAbsolutePath());
@@ -314,7 +314,7 @@ public class NavigationShareTab {
 		if (configuration.getHideVideoSettings()) {
 			hidevideosettings.setSelected(true);
 		}
-		hidevideosettings.addItemListener(new ItemListener() {
+		hidevideosettings.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setHideVideoSettings((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -325,7 +325,7 @@ public class NavigationShareTab {
 		if (configuration.getHideTranscodeEnabled()) {
 			hidetranscode.setSelected(true);
 		}
-		hidetranscode.addItemListener(new ItemListener() {
+		hidetranscode.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setHideTranscodeEnabled((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -336,7 +336,7 @@ public class NavigationShareTab {
 		if (configuration.isHideMediaLibraryFolder()) {
 			hidemedialibraryfolder.setSelected(true);
 		}
-		hidemedialibraryfolder.addItemListener(new ItemListener() {
+		hidemedialibraryfolder.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setHideMediaLibraryFolder((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -344,7 +344,7 @@ public class NavigationShareTab {
 
 		archive = new JCheckBox(Messages.getString("NetworkTab.1"));
 		archive.setContentAreaFilled(false);
-		archive.addItemListener(new ItemListener() {
+		archive.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setArchiveBrowsing(e.getStateChange() == ItemEvent.SELECTED);
 			}
@@ -358,22 +358,22 @@ public class NavigationShareTab {
 		cacheenable = new JCheckBox(Messages.getString("NetworkTab.17"));
 		cacheenable.setContentAreaFilled(false);
 		cacheenable.setSelected(configuration.getUseCache());
-		cacheenable.addItemListener(new ItemListener() {
+		cacheenable.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setUseCache((e.getStateChange() == ItemEvent.SELECTED));
 				cachereset.setEnabled(configuration.getUseCache());
-				if ((LooksFrame) PMS.get().getFrame() !is null) {
-					((LooksFrame) PMS.get().getFrame()).getFt().setScanLibraryEnabled(configuration.getUseCache());
+				if (cast(LooksFrame) PMS.get().getFrame() !is null) {
+					(cast(LooksFrame) PMS.get().getFrame()).getFt().setScanLibraryEnabled(configuration.getUseCache());
 				}
 			}
 		});
 
-		cachereset.addActionListener(new ActionListener() {
+		cachereset.addActionListener(new class() ActionListener {
 			override
 			public void actionPerformed(ActionEvent e) {
 				int option = JOptionPane.showConfirmDialog(
-					(Component) PMS.get().getFrame(),
-					Messages.getString("NetworkTab.13") + Messages.getString("NetworkTab.19"),
+					cast(Component) PMS.get().getFrame(),
+					Messages.getString("NetworkTab.13") ~ Messages.getString("NetworkTab.19"),
 					Messages.getString("Dialog.Question"),
 					JOptionPane.YES_NO_OPTION);
 				if (option == JOptionPane.YES_OPTION) {
@@ -390,7 +390,7 @@ public class NavigationShareTab {
 		if (configuration.isHideExtensions()) {
 			hideextensions.setSelected(true);
 		}
-		hideextensions.addItemListener(new ItemListener() {
+		hideextensions.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setHideExtensions((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -402,7 +402,7 @@ public class NavigationShareTab {
 		if (configuration.isHideEngineNames()) {
 			hideengines.setSelected(true);
 		}
-		hideengines.addItemListener(new ItemListener() {
+		hideengines.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setHideEngineNames((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -414,7 +414,7 @@ public class NavigationShareTab {
 		if (configuration.isHideEmptyFolders()) {
 			hideemptyfolders.setSelected(true);
 		}
-		hideemptyfolders.addItemListener(new ItemListener() {
+		hideemptyfolders.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setHideEmptyFolders((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -429,7 +429,7 @@ public class NavigationShareTab {
 		if (!(Platform.isMac() || Platform.isWindows())) {
 			itunes.setEnabled(false);
 		}
-		itunes.addItemListener(new ItemListener() {
+		itunes.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setItunesEnabled((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -444,7 +444,7 @@ public class NavigationShareTab {
 		if (!Platform.isMac()) {
 			iphoto.setEnabled(false);
 		}
-		iphoto.addItemListener(new ItemListener() {
+		iphoto.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setIphotoEnabled((e.getStateChange() == ItemEvent.SELECTED));
 			}
@@ -459,41 +459,41 @@ public class NavigationShareTab {
 		if (!Platform.isMac()) {
 			aperture.setEnabled(false);
 		}
-		aperture.addItemListener(new ItemListener() {
+		aperture.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				configuration.setApertureEnabled((e.getStateChange() == ItemEvent.SELECTED));
 			}
 		});
 
 		// sort method
-		final KeyedComboBoxModel kcbm = new KeyedComboBoxModel(
-			new Object[]{
+		KeyedComboBoxModel kcbm = new KeyedComboBoxModel(
+														 [
 				"0", // alphabetical
 				"4", // natural sort
 				"3", // ASCIIbetical
 				"1", // newest first
 				"2"  // oldest first
-			},
-			new Object[]{
+														 ],
+														 [
 				Messages.getString("FoldTab.15"),
 				Messages.getString("FoldTab.22"),
 				Messages.getString("FoldTab.20"),
 				Messages.getString("FoldTab.16"),
 				Messages.getString("FoldTab.17")
-			}
+														 ]
 		);
 		sortmethod = new JComboBox(kcbm);
 		sortmethod.setEditable(false);
-		kcbm.setSelectedKey("" + configuration.getSortMethod());
+		kcbm.setSelectedKey("" ~ configuration.getSortMethod());
 
-		sortmethod.addItemListener(new ItemListener() {
+		sortmethod.addItemListener(new class() ItemListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 
 					try {
-						configuration.setSortMethod(Integer.parseInt((String) kcbm.getSelectedKey()));
+						configuration.setSortMethod(Integer.parseInt(cast(String) kcbm.getSelectedKey()));
 					} catch (NumberFormatException nfe) {
-						LOGGER.debug("Could not parse sort method from \"" + kcbm.getSelectedKey() + "\"");
+						LOGGER._debug("Could not parse sort method from \"" ~ kcbm.getSelectedKey() ~ "\"");
 					}
 
 				}
@@ -512,11 +512,11 @@ public class NavigationShareTab {
 		builderFolder.setOpaque(true);
 
 		JComponent cmp = builderFolder.addSeparator(Messages.getString("FoldTab.7"), FormLayoutUtil.flip(cc.xyw(1, 1, 6), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		JButton but = new JButton(LooksFrame.readImageIcon("folder_new-32.png"));
-		but.addActionListener(new java.awt.event.ActionListener() {
+		but.addActionListener(new class() java.awt.event.ActionListener {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFileChooser chooser = null;
 				try {
@@ -526,11 +526,11 @@ public class NavigationShareTab {
 				}
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				//int returnVal = chooser.showDialog((Component) e.getSource(), Messages.getString("FoldTab.9"));
-				int returnVal = chooser.showOpenDialog((Component) e.getSource());
+				int returnVal = chooser.showOpenDialog(cast(Component) e.getSource());
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					((DefaultListModel) FList.getModel()).add(FList.getModel().getSize(), chooser.getSelectedFile().getAbsolutePath());
-					if (FList.getModel().getElementAt(0).equals(ALL_DRIVES)) {
-						((DefaultListModel) FList.getModel()).remove(0);
+					(cast(DefaultListModel) FList.getModel()).add(FList.getModel().getSize(), chooser.getSelectedFile().getAbsolutePath());
+					if (FList.getModel().getElementAt(0).opEquals(ALL_DRIVES)) {
+						(cast(DefaultListModel) FList.getModel()).remove(0);
 					}
 					updateModel();
 				}
@@ -539,12 +539,12 @@ public class NavigationShareTab {
 		builderFolder.add(but, FormLayoutUtil.flip(cc.xy(1, 3), colSpec, orientation));
 		JButton but2 = new JButton(LooksFrame.readImageIcon("button_cancel-32.png"));
 		//but2.setBorder(BorderFactory.createEtchedBorder());
-		but2.addActionListener(new java.awt.event.ActionListener() {
+		but2.addActionListener(new class() java.awt.event.ActionListener {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				if (FList.getSelectedIndex() > -1) {
-					((DefaultListModel) FList.getModel()).remove(FList.getSelectedIndex());
+					(cast(DefaultListModel) FList.getModel()).remove(FList.getSelectedIndex());
 					if (FList.getModel().getSize() == 0) {
-						((DefaultListModel) FList.getModel()).add(0, ALL_DRIVES);
+						(cast(DefaultListModel) FList.getModel()).add(0, ALL_DRIVES);
 					}
 					updateModel();
 				}
@@ -555,9 +555,9 @@ public class NavigationShareTab {
 		JButton but3 = new JButton(LooksFrame.readImageIcon("kdevelop_down-32.png"));
 		but3.setToolTipText(Messages.getString("FoldTab.12"));
 		// but3.setBorder(BorderFactory.createEmptyBorder());
-		but3.addActionListener(new ActionListener() {
+		but3.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel model = ((DefaultListModel) FList.getModel());
+				DefaultListModel model = (cast(DefaultListModel) FList.getModel());
 				for (int i = 0; i < model.size() - 1; i++) {
 					if (FList.isSelectedIndex(i)) {
 						String value = model.get(i).toString();
@@ -575,9 +575,9 @@ public class NavigationShareTab {
 		JButton but4 = new JButton(LooksFrame.readImageIcon("up-32.png"));
 		but4.setToolTipText(Messages.getString("FoldTab.12"));
 		//  but4.setBorder(BorderFactory.createEmptyBorder());
-		but4.addActionListener(new ActionListener() {
+		but4.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel model = ((DefaultListModel) FList.getModel());
+				DefaultListModel model = (cast(DefaultListModel) FList.getModel());
 				for (int i = 1; i < model.size(); i++) {
 					if (FList.isSelectedIndex(i)) {
 						String value = model.get(i).toString();
@@ -597,7 +597,7 @@ public class NavigationShareTab {
 		but5 = new JButton(LooksFrame.readImageIcon("search-32.png"));
 		but5.setToolTipText(Messages.getString("FoldTab.2"));
 		//but5.setBorder(BorderFactory.createEmptyBorder());
-		but5.addActionListener(new ActionListener() {
+		but5.addActionListener(new class() ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (configuration.getUseCache()) {
 					DLNAMediaDatabase database = PMS.get().getDatabase();
@@ -605,7 +605,7 @@ public class NavigationShareTab {
 					if (database !is null) {
 						if (!database.isScanLibraryRunning()) {
 							int option = JOptionPane.showConfirmDialog(
-								(Component) PMS.get().getFrame(),
+								cast(Component) PMS.get().getFrame(),
 								Messages.getString("FoldTab.3") + Messages.getString("FoldTab.4"),
 								Messages.getString("Dialog.Question"),
 								JOptionPane.YES_NO_OPTION);
@@ -615,7 +615,7 @@ public class NavigationShareTab {
 							}
 						} else {
 							int option = JOptionPane.showConfirmDialog(
-								(Component) PMS.get().getFrame(),
+								cast(Component) PMS.get().getFrame(),
 								Messages.getString("FoldTab.10"),
 								Messages.getString("Dialog.Question"),
 								JOptionPane.YES_NO_OPTION);
@@ -636,7 +636,7 @@ public class NavigationShareTab {
 		df = new DefaultListModel();
 		File[] folders = PMS.get().getFoldersConf(false);
 		if (folders !is null && folders.length > 0) {
-			for (File file : folders) {
+			foreach (File file ; folders) {
 				df.addElement(file.getAbsolutePath());
 			}
 		} else {

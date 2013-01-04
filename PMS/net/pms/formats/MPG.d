@@ -19,7 +19,7 @@
 module net.pms.formats.MPG;
 
 import net.pms.PMS;
-import net.pms.encoders.*;
+import net.pms.encoders.all;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class MPG : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		PMS r = PMS.get();
 		PMS r1 = PMS.get();
 		PMS r2 = PMS.get();
@@ -41,19 +41,19 @@ public class MPG : Format {
 		{
 			return null;
 		}
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r3 = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r3.getRegistry())) {
-			if (engine.equals(MEncoderVideo.ID)) {
-				a.add(MEncoderVideo.class);
-			} else if (engine.equals(MEncoderAviSynth.ID) && PMS.get().getRegistry().isAvis()) {
-				a.add(MEncoderAviSynth.class);
-			} else if (engine.equals(FFMpegVideo.ID)) {
-				a.add(FFMpegVideo.class);
-			} else if (engine.equals(FFMpegAviSynthVideo.ID) && PMS.get().getRegistry().isAvis()) {
-				a.add(FFMpegAviSynthVideo.class);
-			} else if (engine.equals(TSMuxerVideo.ID)/* && PMS.get().isWindows()*/) {
-				a.add(TSMuxerVideo.class);
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r3.getRegistry())) {
+			if (engine.opEquals(MEncoderVideo.ID)) {
+				a.add(MEncoderVideo._class);
+			} else if (engine.opEquals(MEncoderAviSynth.ID) && PMS.get().getRegistry().isAvis()) {
+				a.add(MEncoderAviSynth._class);
+			} else if (engine.opEquals(FFMpegVideo.ID)) {
+				a.add(FFMpegVideo._class);
+			} else if (engine.opEquals(FFMpegAviSynthVideo.ID) && PMS.get().getRegistry().isAvis()) {
+				a.add(FFMpegAviSynthVideo._class);
+			} else if (engine.opEquals(TSMuxerVideo.ID)/* && PMS.get().isWindows()*/) {
+				a.add(TSMuxerVideo._class);
 			}
 		}
 		return a;
@@ -64,7 +64,7 @@ public class MPG : Format {
 		return true;
 	}
 
-	public MPG() {
+	public this() {
 		type = VIDEO;
 	}
 
@@ -73,9 +73,10 @@ public class MPG : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "mpg", "mpeg", "mpe", "mod", "tivo", "ty", "tmf",
-				"ts", "tp", "m2t", "m2ts", "m2p", "mts", "mp4", "m4v", "avi",
-				"wmv", "wm", "vob", "divx", "div", "vdr" };
+		return [ "mpg", "mpeg", "mpe", "mod", "tivo", "ty", "tmf",
+			"ts", "tp", "m2t", "m2ts", "m2p", "mts", "mp4", "m4v", "avi",
+			"wmv", "wm", "vob", "divx", "div", "vdr" 
+		];
 	}
 
 	/**
@@ -87,7 +88,7 @@ public class MPG : Format {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return true;

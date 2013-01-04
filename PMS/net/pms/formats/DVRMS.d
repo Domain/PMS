@@ -34,14 +34,14 @@ public class DVRMS : Format {
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
-		ArrayList<Class<? : Player>> a = new ArrayList<Class<? : Player>>();
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
+		ArrayList/*<Class<? : Player>>*/ a = new ArrayList/*<Class<? : Player>>*/();
 		PMS r = PMS.get();
-		for (String engine : PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
-			/*if (engine.equals(MEncoderVideo.ID))
-			a.add(MEncoderVideo.class);*/
-			if (engine.equals(FFMpegDVRMSRemux.ID)) {
-				a.add(FFMpegDVRMSRemux.class);
+		foreach (String engine ; PMS.getConfiguration().getEnginesAsList(r.getRegistry())) {
+			/*if (engine.opEquals(MEncoderVideo.ID))
+			a.add(MEncoderVideo._class);*/
+			if (engine.opEquals(FFMpegDVRMSRemux.ID)) {
+				a.add(FFMpegDVRMSRemux._class);
 			}
 		}
 		return a;
@@ -52,7 +52,7 @@ public class DVRMS : Format {
 		return true;
 	}
 
-	public DVRMS() {
+	public this() {
 		type = VIDEO;
 	}
 
@@ -61,7 +61,7 @@ public class DVRMS : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "dvr-ms", "dvr" };
+		return [ "dvr-ms", "dvr" ];
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class DVRMS : Format {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return false;

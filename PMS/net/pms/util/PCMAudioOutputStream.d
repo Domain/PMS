@@ -1,6 +1,6 @@
 module net.pms.util.PCMAudioOutputStream;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.OutputStream;
 
 public class PCMAudioOutputStream : FlowParserOutputStream {
@@ -8,9 +8,9 @@ public class PCMAudioOutputStream : FlowParserOutputStream {
 	protected int sampleFrequency;
 	protected int bitsperSample;
 	protected int blocksize;
-	protected byte payload[];
+	protected byte[] payload;
 
-	public PCMAudioOutputStream(OutputStream source, int nbchannels, int sampleFrequency, int bitsperSample) {
+	public this(OutputStream source, int nbchannels, int sampleFrequency, int bitsperSample) {
 		super(source, 600000);
 		this.nbchannels = nbchannels;
 		this.sampleFrequency = sampleFrequency;
@@ -48,19 +48,19 @@ public class PCMAudioOutputStream : FlowParserOutputStream {
 				payload[2] = -79;
 				break;
 		}
-		payload[0] = (byte) ((blocksize >> 8) & 0xff);
-		payload[1] = (byte) ((blocksize + 256) % 256);
+		payload[0] = cast(byte) ((blocksize >> 8) & 0xff);
+		payload[1] = cast(byte) ((blocksize + 256) % 256);
 		if (sampleFrequency == 96000) {
-			payload[2] = (byte) (payload[2] + 3);
+			payload[2] = cast(byte) (payload[2] + 3);
 		}
 		if (sampleFrequency == 192000) {
-			payload[2] = (byte) (payload[2] + 4);
+			payload[2] = cast(byte) (payload[2] + 4);
 		}
-		payload[3] = (byte) (16 * (bitsperSample - 12));
+		payload[3] = cast(byte) (16 * (bitsperSample - 12));
 	}
 
 	override
-	protected void afterChunkSend() throws IOException {
+	protected void afterChunkSend() {
 	}
 
 	override
@@ -69,7 +69,7 @@ public class PCMAudioOutputStream : FlowParserOutputStream {
 	}
 
 	override
-	protected void beforeChunkSend() throws IOException {
+	protected void beforeChunkSend() {
 		writePayload(payload);
 	}
 }

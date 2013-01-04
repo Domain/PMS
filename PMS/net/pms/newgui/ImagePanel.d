@@ -21,23 +21,23 @@ module net.pms.newgui.ImagePanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.RenderedImage;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.geom.AffineTransform;
+//import java.awt.image.RenderedImage;
 
 class ImagePanel : JPanel {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ImagePanel.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!ImagePanel();
 	private static final long serialVersionUID = -6709086531128513425L;
 	protected RenderedImage source;
 	protected int originX;
 	protected int originY;
 
-	public ImagePanel() {
+	public this() {
 		this(null);
 	}
 
-	public ImagePanel(RenderedImage renderedimage) {
+	public this(RenderedImage renderedimage) {
 		source = null;
 		originX = 0;
 		originY = 0;
@@ -99,7 +99,7 @@ class ImagePanel : JPanel {
 	}
 
 	public synchronized void paintComponent(Graphics g) {
-		Graphics2D graphics2d = (Graphics2D) g;
+		Graphics2D graphics2d = cast(Graphics2D) g;
 		if (source is null) {
 			graphics2d.setColor(getBackground());
 			graphics2d.fillRect(0, 0, getWidth(), getHeight());
@@ -120,7 +120,7 @@ class ImagePanel : JPanel {
 				source,
 				AffineTransform.getTranslateInstance(i, j));
 		} catch (OutOfMemoryError e) {
-			LOGGER.debug("Caught exception", e);
+			LOGGER._debug("Caught exception", e);
 		}
 	}
 }

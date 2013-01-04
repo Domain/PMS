@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.all;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -34,7 +34,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  */
 public class TaskRunner {
-	final static Logger LOGGER = LoggerFactory.getLogger(TaskRunner.class);
+	final static Logger LOGGER = LoggerFactory.getLogger!TaskRunner();
 	
 	private static TaskRunner instance;
 	
@@ -45,25 +45,25 @@ public class TaskRunner {
 		return instance;
 	}
 	
-	private final ExecutorService executors = Executors.newCachedThreadPool(new ThreadFactory() {
+	private immutable ExecutorService executors = Executors.newCachedThreadPool(new class() ThreadFactory {
 		
 		int counter = 0;
 		override
 		public Thread newThread(Runnable r) {
-			Thread t = new Thread(r, "background-task-" + (counter++));
+			Thread t = new Thread(r, "background-task-" ~ (counter++).toString());
 			t.setDaemon(true);
 			return t;
 		}
 	});
 	
-	private final Map<String, Integer> counters = new HashMap<String, Integer>();
-	private final Map<String, Lock> uniquenessLock = new HashMap<String, Lock> ();
+	private Map/*<String, Integer>*/ counters = new HashMap/*<String, Integer>*/();
+	private Map/*<String, Lock>*/ uniquenessLock = new HashMap/*<String, Lock>*/ ();
 	
 	public void submit(Runnable runnable) {
 		executors.execute(runnable);
 	}
 	
-	public <X> Future<X> submit(Callable<X> call) {
+	public Future!X submit(X)(Callable!X call) {
 		return executors.submit(call);
 	}
 	
@@ -73,7 +73,7 @@ public class TaskRunner {
 	 * @param name
 	 * @param runnable
 	 */
-	public void submitNamed(final String name, final Runnable runnable) {
+	public void submitNamed(immutable String name, immutable Runnable runnable) {
 		submitNamed(name, false, runnable);
 	}
 	
@@ -83,35 +83,32 @@ public class TaskRunner {
 	 * @param runnable
 	 * @param singletonTask
 	 */
-	public void submitNamed(final String name, final bool singletonTask, final Runnable runnable) {
-		submit(new Runnable() {
-			override
-			public void run() {
+	public void submitNamed(immutable String name, immutable bool singletonTask, immutable Runnable runnable) {
+		submit(dgRunnable( {
 				String prevName = Thread.currentThread().getName();
 				bool locked = false;
 				try {
 					if (singletonTask) {
 						if (getLock(name).tryLock()) {
 							locked = true;
-							LOGGER.debug("singleton task " + name + " started");
+							LOGGER._debug("singleton task " ~ name ~ " started");
 						} else {
 							locked = false;
-							LOGGER.debug("singleton task '" + name + "' already running, exiting");
+							LOGGER._debug("singleton task '" ~ name ~ "' already running, exiting");
 							return;
 						}
 					}
-					Thread.currentThread().setName(prevName + '-' + name + '(' + getAndIncr(name) + ')');
-					LOGGER.debug("task started");
+					Thread.currentThread().setName(prevName ~ '-' ~ name ~ '(' ~ getAndIncr(name) ~ ')');
+					LOGGER._debug("task started");
 					runnable.run();
-					LOGGER.debug("task ended");
+					LOGGER._debug("task ended");
 				} finally {
 					if (locked) {
 						getLock(name).unlock();
 					}
 					Thread.currentThread().setName(prevName);
 				}
-			}
-		});
+		}));
 		
 	}
 	
@@ -154,7 +151,7 @@ public class TaskRunner {
 	 * @throws InterruptedException
 	 * @see java.util.concurrent.ExecutorService#awaitTermination(long, java.util.concurrent.TimeUnit)
 	 */
-	public bool awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+	public bool awaitTermination(long timeout, TimeUnit unit) {
 		return executors.awaitTermination(timeout, unit);
 	}
 }

@@ -1,7 +1,7 @@
 module net.pms.update.OperatingSystem;
 
 public class OperatingSystem {
-	private static final String platformName = detectPlatform();
+	private static immutable String platformName = detectPlatform();
 
 	private static String detectPlatform() {
 		String fullPlatform = System.getProperty("os.name", "unknown");
@@ -10,7 +10,7 @@ public class OperatingSystem {
 	}
 
 	public String getPlatformName() {
-		assert platformName !is null;
+		assert(platformName !is null);
 		return platformName;
 	}
 
@@ -20,6 +20,6 @@ public class OperatingSystem {
 	}
 
 	public bool isWindows() {
-		return getPlatformName().equals("windows");
+		return getPlatformName().opEquals("windows");
 	}
 }

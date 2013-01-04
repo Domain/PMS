@@ -17,13 +17,12 @@ import java.util.Map;
  *
  * @author Christoffer Lerno
  */
-@SuppressWarnings({"serial"})
-@Deprecated
-public class XmlElementAttributes : HashMap<String, String> {
+deprecated
+public class XmlElementAttributes : HashMap/*<String, String>*/ {
 	/**
 	 * Creates an empty element attribute map.
 	 */
-	XmlElementAttributes() {
+	this() {
 	}
 
 	/**
@@ -31,7 +30,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 *
 	 * @param element the element to read from.
 	 */
-	public XmlElementAttributes(Element element) {
+	public this(Element element) {
 		super(element.getAttributes().getLength());
 		NamedNodeMap map = element.getAttributes();
 		int attributesLength = map.getLength();
@@ -47,15 +46,15 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 * @return the integer value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an int, or the attribute is missing.
 	 */
-	public int getInt(String attribute) throws XmlParseException {
+	public int getInt(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
-			throw new XmlParseException("Could not find attribute " + attribute);
+			throw new XmlParseException("Could not find attribute " ~ attribute);
 		}
 		try {
 			return Integer.parseInt(value);
 		} catch (NumberFormatException e) {
-			throw new XmlParseException("Failed to parse int attribute " + attribute, e);
+			throw new XmlParseException("Failed to parse int attribute " ~ attribute, e);
 		}
 	}
 
@@ -66,15 +65,15 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 * @return the double value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an double, or the attribute is missing.
 	 */
-	public double getDouble(String attribute) throws XmlParseException {
+	public double getDouble(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
-			throw new XmlParseException("Could not find attribute " + attribute);
+			throw new XmlParseException("Could not find attribute " ~ attribute);
 		}
 		try {
 			return Double.parseDouble(value);
 		} catch (NumberFormatException e) {
-			throw new XmlParseException("Failed to parse double attribute " + attribute, e);
+			throw new XmlParseException("Failed to parse double attribute " ~ attribute, e);
 		}
 	}
 
@@ -89,19 +88,19 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 * @return the bool value of the attribute.
 	 * @throws XmlParseException if the attribute value does match true or false as defined, or the attribute is missing.
 	 */
-	public bool getBoolean(String attribute) throws XmlParseException {
+	public bool getBoolean(String attribute) {
 		String value = get(attribute);
 		if (value is null) {
-			throw new XmlParseException("Could not find attribute " + attribute);
+			throw new XmlParseException("Could not find attribute " ~ attribute);
 		}
 		value = value.toLowerCase();
-		if ("true".equals(value) || "yes".equals(value) || "y".equals(value)) {
+		if ("true".opEquals(value) || "yes".opEquals(value) || "y".opEquals(value)) {
 			return true;
 		}
-		if ("false".equals(value) || "no".equals(value) || "n".equals(value)) {
+		if ("false".opEquals(value) || "no".opEquals(value) || "n".opEquals(value)) {
 			return false;
 		}
-		throw new XmlParseException("Attribute " + attribute + " did not have bool value (was: " + value + ')');
+		throw new XmlParseException("Attribute " ~ attribute ~ " did not have bool value (was: " ~ value ~ ')');
 	}
 
 	/**
@@ -111,7 +110,7 @@ public class XmlElementAttributes : HashMap<String, String> {
 	 */
 	public String toXml() {
 		StringBuilder builder = new StringBuilder(10 * size());
-		for (Map.Entry<String, String> entry : entrySet()) {
+		foreach (Map.Entry/*<String, String>*/ entry ; entrySet()) {
 			builder.append(' ').append(entry.getKey()).append("=").append("'");
 			builder.append(Xmlwise.escapeXML(entry.getValue())).append("'");
 		}

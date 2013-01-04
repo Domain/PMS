@@ -31,14 +31,14 @@ import org.slf4j.LoggerFactory;
  * When everything has been changed to private, the deprecated note can be
  * removed.
  */
-public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DLNAMediaAudio.class);
+public class DLNAMediaAudio : DLNAMediaLang , Cloneable {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DLNAMediaAudio();
 	private AudioProperties audioProperties = new AudioProperties();
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int bitsperSample;
 
 
@@ -47,79 +47,79 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String sampleFrequency;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int nrAudioChannels;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String codecA;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String album;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String artist;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String songname;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String genre;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int year;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int track;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public int delay;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String flavor;
 
 	/**
 	 * @deprecated Use standard getter and setter to access this variable.
 	 */
-	@Deprecated
+	deprecated
 	public String muxingModeAudio;
 
 	/**
 	 * Constructor
 	 */
-	public DLNAMediaAudio() {
+	public this() {
 		setBitsperSample(16);
 	}
 
@@ -134,7 +134,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 			try {
 				sr = Integer.parseInt(getSampleFrequency());
 			} catch (NumberFormatException e) {
-				LOGGER.debug("Could not parse sample rate from \"" + getSampleFrequency() + "\"");
+				LOGGER._debug("Could not parse sample rate from \"" ~ getSampleFrequency() ~ "\"");
 			}
 		}
 		return sr;
@@ -227,7 +227,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @return True if the audio is PCM encoded.
 	 */
 	public bool isPCM() {
-		return getCodecA() !is null && (getCodecA().startsWith("pcm") || getCodecA().equals("LPCM"));
+		return getCodecA() !is null && (getCodecA().startsWith("pcm") || getCodecA().opEquals("LPCM"));
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @return True if the audio is lossless compressed.
 	 */
 	public bool isLossless() {
-		return getCodecA() !is null && (isPCM() || getCodecA().startsWith("fla") || getCodecA().equals("mlp") || getCodecA().equals("wv"));
+		return getCodecA() !is null && (isPCM() || getCodecA().startsWith("fla") || getCodecA().opEquals("mlp") || getCodecA().opEquals("wv"));
 	}
 
 	/**
@@ -253,15 +253,15 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 			return "TrueHD";
 		} else if (isPCM()) {
 			return "LPCM";
-		} else if (getCodecA() !is null && getCodecA().equals("vorbis")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("vorbis")) {
 			return "OGG";
-		} else if (getCodecA() !is null && getCodecA().equals("aac")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("aac")) {
 			return "AAC";
-		} else if (getCodecA() !is null && getCodecA().equals("mp3")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("mp3")) {
 			return "MP3";
 		} else if (getCodecA() !is null && getCodecA().startsWith("wm")) {
 			return "WMA";
-		} else if (getCodecA() !is null && getCodecA().equals("mp2")) {
+		} else if (getCodecA() !is null && getCodecA().opEquals("mp2")) {
 			return "Mpeg Audio";
 		}
 		return getCodecA() !is null ? getCodecA() : "-";
@@ -273,11 +273,11 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @return The name.
 	 */
 	public String toString() {
-		return "Audio: " + getAudioCodec() + " / lang: " + getLang() + " / flavor: " + getFlavor() + " / ID: " + getId();
+		return "Audio: " ~ getAudioCodec() ~ " / lang: " ~ getLang() ~ " / flavor: " ~ getFlavor() ~ " / ID: " ~ getId();
 	}
 
 	override
-	protected Object clone() throws CloneNotSupportedException {
+	protected Object clone() {
 		return super.clone();
 	}
 
@@ -348,7 +348,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated Use getAudioProperties().getNumberOfChannels() instead
 	 */
-	@Deprecated
+	deprecated
 	public int getNrAudioChannels() {
 		return audioProperties.getNumberOfChannels();
 	}
@@ -360,7 +360,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated Use getAudioProperties().setNumberOfChannels(int numberOfChannels) instead
 	 */
-	@Deprecated
+	deprecated
 	public void setNrAudioChannels(int numberOfChannels) {
 		this.nrAudioChannels = numberOfChannels;
 		audioProperties.setNumberOfChannels(numberOfChannels);
@@ -513,7 +513,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated Use getAudioProperties().getAudioDelay() instead
 	 */
-	@Deprecated
+	deprecated
 	public int getDelay() {
 		return audioProperties.getAudioDelay();
 	}
@@ -525,7 +525,7 @@ public class DLNAMediaAudio : DLNAMediaLang : Cloneable {
 	 * @since 1.50.0
 	 * @deprecated  Use getAudioProperties().setAudioDelay(int audioDelay) instead
 	 */
-	@Deprecated
+	deprecated
 	public void setDelay(int audioDelay) {
 		this.delay = audioDelay;
 		audioProperties.setAudioDelay(audioDelay);

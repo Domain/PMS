@@ -17,5 +17,5 @@ public interface AdditionalFoldersAtRoot : ExternalListener {
 	 * @return an iterator containing DLNAResources that will be added to the
 	 *         root folder
 	 */
-	public Iterator<DLNAResource> getChildren();
+	public Iterator/*<DLNAResource>*/ getChildren();
 }

@@ -31,7 +31,7 @@ public class MP3 : Format {
 		return Identifier.MP3;
 	}
 
-	public MP3() {
+	public this() {
 		type = AUDIO;
 	}
 
@@ -40,7 +40,7 @@ public class MP3 : Format {
 	 */
 	override
 	public String[] getId() {
-		return new String[] { "mp3" };
+		return [ "mp3" ];
 	}
 
 	/**
@@ -52,14 +52,14 @@ public class MP3 : Format {
 	 * 
 	 * @return True if the format can be handled by PS3, false otherwise.
 	 */
-	@Deprecated
+	deprecated
 	override
 	public bool ps3compatible() {
 		return true;
 	}
 
 	override
-	public ArrayList<Class<? : Player>> getProfiles() {
+	public ArrayList/*<Class<? : Player>>*/ getProfiles() {
 		return null;
 	}
 

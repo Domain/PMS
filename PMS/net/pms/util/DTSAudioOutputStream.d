@@ -3,30 +3,30 @@ module net.pms.util.DTSAudioOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.OutputStream;
 
 public class DTSAudioOutputStream : FlowParserOutputStream {
-	private static final Logger logger = LoggerFactory.getLogger(DTSAudioOutputStream.class);
-	private static int bits[] = new int[]{16, 16, 20, 20, 0, 24, 24};
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DTSAudioOutputStream();
+	private static int[] bits = [16, 16, 20, 20, 0, 24, 24];
 	private bool dts = false;
 	private bool dtsHD = false;
 	private int framesize;
-	private OutputStream out;
+	private OutputStream _out;
 	private int padding;
 
-	public DTSAudioOutputStream(OutputStream out) {
-		super(out, 600000);
-		if (out instanceof PCMAudioOutputStream) {
-			PCMAudioOutputStream pout = (PCMAudioOutputStream) out;
+	public this(OutputStream _out) {
+		super(_out, 600000);
+		if (cast(PCMAudioOutputStream)_out !is null) {
+			PCMAudioOutputStream pout = cast(PCMAudioOutputStream) _out;
 			pout.swapOrderBits = 0;
 		}
-		this.out = out;
+		this._out = _out;
 		neededByteNumber = 15;
 	}
 
 	override
-	protected void afterChunkSend() throws IOException {
+	protected void afterChunkSend() {
 		padWithZeros(padding);
 	}
 
@@ -46,8 +46,8 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 				streamableByteNumber = framesize;
 				//reset of default values
 				int pcm_wrapped_frame_size = 2048;
-				if (out instanceof PCMAudioOutputStream) {
-					PCMAudioOutputStream pout = (PCMAudioOutputStream) out;
+				if (cast(PCMAudioOutputStream)_out !is null) {
+					PCMAudioOutputStream pout = cast(PCMAudioOutputStream) _out;
 					pout.nbchannels = 2;
 					pout.sampleFrequency = 48000;
 					pout.bitsperSample = 16;
@@ -55,9 +55,9 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 				}
 				padding = pcm_wrapped_frame_size - framesize;
 				if (bitspersample < 7) {
-					logger.trace("DTS bits per sample: " + bits[bitspersample]);
+					logger.trace("DTS bits per sample: " ~ bits[bitspersample].toString());
 				}
-				logger.trace("DTS framesize: " + framesize);
+				logger.trace("DTS framesize: " ~ framesize.toString());
 			}
 		} else {
 			// DTS wrongly extracted ?... searching for start of the frame
@@ -78,7 +78,7 @@ public class DTSAudioOutputStream : FlowParserOutputStream {
 	}
 
 	override
-	protected void beforeChunkSend() throws IOException {
+	protected void beforeChunkSend() {
 	}
 
 	public bool isDts() {

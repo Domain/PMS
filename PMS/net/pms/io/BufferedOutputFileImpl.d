@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
@@ -44,31 +44,31 @@ import java.util.TimerTask;
  * @see net.pms.network.Request Request
  * @see net.pms.network.RequestV2 RequestV2
  */
-public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BufferedOutputFileImpl.class);
+public class BufferedOutputFileImpl : OutputStream , BufferedOutputFile {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!BufferedOutputFileImpl();
 	
 	/**
 	 * Initial size for the buffer in bytes.
 	 */
-	private static final int INITIAL_BUFFER_SIZE = 50000000;
+	private static const int INITIAL_BUFFER_SIZE = 50000000;
 	
 	/**
 	 * Amount of extra bytes to increase the initial buffer with when memory allocation fails.
 	 */
-	private static final int MARGIN_LARGE = 20000000;
-	private static final int MARGIN_MEDIUM = 2000000;
-	private static final int MARGIN_SMALL = 600000;
+	private static const int MARGIN_LARGE = 20000000;
+	private static const int MARGIN_MEDIUM = 2000000;
+	private static const int MARGIN_SMALL = 600000;
 	
-	private static final int CHECK_INTERVAL = 500;
-	private static final int CHECK_END_OF_PROCESS = 2500; // must be superior to CHECK_INTERVAL
+	private static const int CHECK_INTERVAL = 500;
+	private static const int CHECK_END_OF_PROCESS = 2500; // must be superior to CHECK_INTERVAL
 	private int minMemorySize;
 	private int maxMemorySize;
 	private int bufferOverflowWarning;
 	private bool eof;
 	private long writeCount;
-	private byte buffer[];
+	private byte[] buffer;
 	private bool forcefirst = (PMS.getConfiguration().getTrancodeBlocksMultipleConnections() && PMS.getConfiguration().getTrancodeKeepFirstConnections());
-	private ArrayList<WaitBufferedInputStream> inputStreams;
+	private ArrayList/*<WaitBufferedInputStream>*/ inputStreams;
 	private ProcessWrapper attachedThread;
 	private int secondread_minsize;
 	private Timer timer;
@@ -112,9 +112,9 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			copy = new byte[newSize];
 		} catch (OutOfMemoryError e) {
 			if (buffer.length == 0) {
-				LOGGER.trace("Cannot initialize buffer to " + formatter.format(newSize) + " bytes.");
+				LOGGER.trace("Cannot initialize buffer to " ~ formatter.format(newSize) ~ " bytes.");
 			} else {
-				LOGGER.debug("Cannot grow buffer size from " + formatter.format(buffer.length) + " bytes to " + formatter.format(newSize) + " bytes.");
+				LOGGER._debug("Cannot grow buffer size from " ~ formatter.format(buffer.length) ~ " bytes to " + formatter.format(newSize) ~ " bytes.");
 				
 			}
 
@@ -133,13 +133,13 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			} else {
 				try {
 					// Try to allocate the realistic alternative size
-					copy = new byte[(int) realisticSize];
+					copy = new byte[cast(int) realisticSize];
 				} catch (OutOfMemoryError e2) {
-					LOGGER.debug("Cannot grow buffer size from " + formatter.format(buffer.length) + " bytes to "
-							+ formatter.format(realisticSize) + " bytes either.");
-					LOGGER.trace("freeMemory: " + formatter.format(Runtime.getRuntime().freeMemory()));
-					LOGGER.trace("totalMemory: " + formatter.format(Runtime.getRuntime().totalMemory()));
-					LOGGER.trace("maxMemory: " + formatter.format(Runtime.getRuntime().maxMemory()));
+					LOGGER._debug("Cannot grow buffer size from " ~ formatter.format(buffer.length) ~ " bytes to "
+							~ formatter.format(realisticSize) ~ " bytes either.");
+					LOGGER.trace("freeMemory: " ~ formatter.format(Runtime.getRuntime().freeMemory()));
+					LOGGER.trace("totalMemory: " ~ formatter.format(Runtime.getRuntime().totalMemory()));
+					LOGGER.trace("maxMemory: " ~ formatter.format(Runtime.getRuntime().maxMemory()));
 
 					// Cannot allocate memory, no other option than to return the original.
 					return buffer;
@@ -148,12 +148,12 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		}
 
 		if (buffer.length == 0) {
-			LOGGER.trace("Successfully initialized buffer to " + formatter.format(copy.length) + " bytes.");
+			LOGGER.trace("Successfully initialized buffer to " ~ formatter.format(copy.length) ~ " bytes.");
 		} else {
 			try {
 				System.arraycopy(buffer, 0, copy, 0, buffer.length);
-				LOGGER.trace("Successfully grown buffer from " + formatter.format(buffer.length) + " bytes to "
-						+ formatter.format(copy.length) + " bytes."); 
+				LOGGER.trace("Successfully grown buffer from " ~ formatter.format(buffer.length) ~ " bytes to "
+						~ formatter.format(copy.length) ~ " bytes."); 
 			} catch (NullPointerException npe) {
 				LOGGER.trace("Cannot grow buffer size, error copying buffer contents.");
 			}
@@ -169,9 +169,9 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 	 * @param params {@link net.pms.io.OutputParams} object that contains preferences for the buffers
 	 * 				dimensions and behavior.
 	 */
-	public BufferedOutputFileImpl(OutputParams params) {
-		this.minMemorySize = (int) (1048576 * params.minBufferSize);
-		this.maxMemorySize = (int) (1048576 * params.maxBufferSize);
+	public this(OutputParams params) {
+		this.minMemorySize = cast(int) (1048576 * params.minBufferSize);
+		this.maxMemorySize = cast(int) (1048576 * params.maxBufferSize);
 
 		// FIXME: Better to relate margin directly to maxMemorySize instead of using arbitrary fixed values
 
@@ -201,16 +201,16 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		if (buffer.length == 0) {
 			// Cannot transcode without a buffer
 			LOGGER.info("FATAL ERROR: OutOfMemory / dumping stats");
-			LOGGER.trace("freeMemory: " + Runtime.getRuntime().freeMemory());
-			LOGGER.trace("totalMemory: " + Runtime.getRuntime().totalMemory());
-			LOGGER.trace("maxMemory: " + Runtime.getRuntime().maxMemory());
+			LOGGER.trace("freeMemory: " ~ Runtime.getRuntime().freeMemory());
+			LOGGER.trace("totalMemory: " ~ Runtime.getRuntime().totalMemory());
+			LOGGER.trace("maxMemory: " ~ Runtime.getRuntime().maxMemory());
 			System.exit(1);			
 		}
 		
-		inputStreams = new ArrayList<WaitBufferedInputStream>();
+		inputStreams = new ArrayList/*<WaitBufferedInputStream>*/();
 		timer = new Timer();
 		if (params.maxBufferSize > 15 && !params.hidebuffer) {
-			timer.schedule(new TimerTask() {
+			timer.schedule(new class() TimerTask {
 				public void run() {
 					long rc = 0;
 					if (getCurrentInputStream() !is null) {
@@ -218,19 +218,19 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 						PMS.get().getFrame().setReadValue(rc, "");
 					}
 					long space = (writeCount - rc);
-					LOGGER.trace("buffered: " + formatter.format(space) + " bytes / inputs: " + inputStreams.size());
+					LOGGER.trace("buffered: " ~ formatter.format(space) ~ " bytes / inputs: " ~ inputStreams.size());
 					
 					// There are 1048576 bytes in a megabyte
 					long bufferInMBs = space / 1048576;
 
-					PMS.get().getFrame().setValue((int) (100 * space / maxMemorySize), formatter.format(bufferInMBs) + " " + Messages.getString("StatusTab.12"));
+					PMS.get().getFrame().setValue(cast(int) (100 * space / maxMemorySize), formatter.format(bufferInMBs) ~ " " ~ Messages.getString("StatusTab.12"));
 				}
 			}, 0, 2000);
 		}
 	}
 
 	override
-	public void close() throws IOException {
+	public void close() {
 		LOGGER.trace("EOF");
 		eof = true;
 	}
@@ -263,7 +263,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			inputStreams.add(atominputStream);
 		} else {
 			if (PMS.getConfiguration().getTrancodeKeepFirstConnections()) {
-				LOGGER.debug("BufferedOutputFile is already attached to an InputStream: " + getCurrentInputStream());
+				LOGGER._debug("BufferedOutputFile is already attached to an InputStream: " ~ getCurrentInputStream());
 			} else {
 				// Ditlew - fixes the above (the above iterator breaks on items getting close, cause they will remove them self from the arraylist)
 				while (inputStreams.size() > 0) {
@@ -277,12 +277,12 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 				inputStreams.clear();
 				atominputStream = new WaitBufferedInputStream(this);
 				inputStreams.add(atominputStream);
-				LOGGER.debug("Reassign inputstream: " + getCurrentInputStream());
+				LOGGER._debug("Reassign inputstream: " ~ getCurrentInputStream());
 			}
 			return null;
 		}
 		if (newReadPosition > 0) {
-			LOGGER.debug("Setting InputStream new position to: " + formatter.format(newReadPosition));
+			LOGGER._debug("Setting InputStream new position to: " ~ formatter.format(newReadPosition));
 			atominputStream.setReadCount(newReadPosition);
 		}
 		return atominputStream;
@@ -294,7 +294,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 	}
 
 	override
-	public void write(byte b[], int off, int len) throws IOException {
+	public void write(byte[] b, int off, int len) {
 		if (debugOutput !is null) {
 			debugOutput.write(b, off, len);
 			debugOutput.flush();
@@ -314,7 +314,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		
 		
 		if (buffer !is null) {
-			int mb = (int) (writeCount % maxMemorySize);
+			int mb = cast(int) (writeCount % maxMemorySize);
 
 			if (mb >= buffer.length - (len - off)) {
 				if (buffer.length == INITIAL_BUFFER_SIZE) {
@@ -338,7 +338,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			if (timeseek > 0 && writeCount > 10) {
 				for (int i = 0; i < len; i++) {
 					if (buffer !is null && shiftScr) {
-						shiftSCRByTimeSeek(mb + i, (int) timeseek); // Ditlew - update any SCR headers
+						shiftSCRByTimeSeek(mb + i, cast(int) timeseek); // Ditlew - update any SCR headers
 					}					//shiftGOPByTimeSeek(mb+i, (int)timeseek); // Ditlew - update any GOP headers - Not needed for WDTV Live
 				}
 			}
@@ -347,7 +347,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			if (timeseek > 0 && timeend == 0) {
 				int packetLength = 6; // minimum to get packet size
 				while (packetpos + packetLength < writeCount && buffer !is null) {
-					int packetposMB = (int) (packetpos % maxMemorySize);
+					int packetposMB = cast(int) (packetpos % maxMemorySize);
 					int streamPos = 0;
 					if (buffer[modulo(packetposMB, buffer.length)] == 71) {// TS
 						packetLength = 188;
@@ -399,7 +399,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 
 	
 	override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 		bool bb = b % 100000 == 0;
 		WaitBufferedInputStream input = getCurrentInputStream();
 		while (bb && ((input !is null && (writeCount - input.getReadCount() > bufferOverflowWarning)) || (input is null && writeCount == bufferOverflowWarning))) {
@@ -410,9 +410,9 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			}
 			input = getCurrentInputStream();
 		}
-		int mb = (int) (writeCount++ % maxMemorySize);
+		int mb = cast(int) (writeCount++ % maxMemorySize);
 		if (buffer !is null) {
-			buffer[mb] = (byte) b;
+			buffer[mb] = cast(byte) b;
 			buffered = true;
 			if (writeCount == INITIAL_BUFFER_SIZE) {
 				buffer = growBuffer(buffer, maxMemorySize);
@@ -424,7 +424,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 
 			// Ditlew - WDTV Live - update any SCR headers
 			if (timeseek > 0 && writeCount > 10) {
-				shiftSCRByTimeSeek(mb, (int) timeseek);
+				shiftSCRByTimeSeek(mb, cast(int) timeseek);
 			}
 		}
 	}
@@ -466,17 +466,17 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			long scr_14_00_new = (scr_new & 32767L);             // 000000000000000000111111111111111
 
 			// scr_32_30_new
-			buffer[m5] = (byte) ((buffer[m5] & 199) + ((scr_32_30_new << 3) & 56)); // 11000111
+			buffer[m5] = cast(byte) ((buffer[m5] & 199) + ((scr_32_30_new << 3) & 56)); // 11000111
 
 			// scr_29_15_new
-			buffer[m5] = (byte) ((buffer[m5] & 252) + ((scr_29_15_new >> 13) & 3)); // 00000011
-			buffer[m4] = (byte) (scr_29_15_new >> 5);                               // 11111111
-			buffer[m3] = (byte) ((buffer[m3] & 7) + ((scr_29_15_new << 3) & 248));  // 11111000
+			buffer[m5] = cast(byte) ((buffer[m5] & 252) + ((scr_29_15_new >> 13) & 3)); // 00000011
+			buffer[m4] = cast(byte) (scr_29_15_new >> 5);                               // 11111111
+			buffer[m3] = cast(byte) ((buffer[m3] & 7) + ((scr_29_15_new << 3) & 248));  // 11111000
 
 			// scr_14_00_new
-			buffer[m3] = (byte) ((buffer[m3] & 252) + ((scr_14_00_new >> 13) & 3)); // 00000011
-			buffer[m2] = (byte) (scr_14_00_new >> 5);                               // 11111111
-			buffer[m1] = (byte) ((buffer[m1] & 7) + ((scr_14_00_new << 3) & 248));  // 11111000
+			buffer[m3] = cast(byte) ((buffer[m3] & 252) + ((scr_14_00_new >> 13) & 3)); // 00000011
+			buffer[m2] = cast(byte) (scr_14_00_new >> 5);                               // 11111111
+			buffer[m1] = cast(byte) ((buffer[m1] & 7) + ((scr_14_00_new << 3) & 248));  // 11111000
 
 			// Debug
 			//LOGGER.trace("Ditlew - SCR "+scr+" ("+(int)(scr/90000)+") -> "+scr_new+" ("+(int)(scr_new/90000)+")  "+offset_sec+" secs");
@@ -484,7 +484,6 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 	}
 
 	// Ditlew - Modify GOP
-	@SuppressWarnings("unused")
 	private void shiftGOPByTimeSeek(int buffer_index, int offset_sec) {
 		int m7 = modulo(buffer_index - 7, buffer.length);
 		int m6 = modulo(buffer_index - 6, buffer.length);
@@ -508,27 +507,27 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			!((buffer[m0] & 16) == 16) // not broken
 			) {
 			// org timecode
-			byte h = (byte) ((buffer[m3] & 124) >> 2);
-			byte m = (byte) (((buffer[m3] & 3) << 4) + ((buffer[m2] & 240) >> 4));
-			byte s = (byte) (((buffer[m2] & 7) << 3) + ((buffer[m1] & 224) >> 5));
+			byte h = cast(byte) ((buffer[m3] & 124) >> 2);
+			byte m = cast(byte) (((buffer[m3] & 3) << 4) + ((buffer[m2] & 240) >> 4));
+			byte s = cast(byte) (((buffer[m2] & 7) << 3) + ((buffer[m1] & 224) >> 5));
 
 			// updated offset
 			int _offset = s + m * 60 + h * 60 + offset_sec;
 
 			// new timecode
-			byte _h = (byte) ((_offset / 3600) % 24);
-			byte _m = (byte) ((_offset / 60) % 60);
-			byte _s = (byte) (_offset % 60);
+			byte _h = cast(byte) ((_offset / 3600) % 24);
+			byte _m = cast(byte) ((_offset / 60) % 60);
+			byte _s = cast(byte) (_offset % 60);
 
 			// update gop
 			// h - ok
-			buffer[m3] = (byte) ((buffer[m3] & 131) + (_h << 2)); // 10000011
+			buffer[m3] = cast(byte) ((buffer[m3] & 131) + (_h << 2)); // 10000011
 			// m - ok
-			buffer[m3] = (byte) ((buffer[m3] & 252) + (_m >> 4)); // 11111100
-			buffer[m2] = (byte) ((buffer[m2] & 15) + (_m << 4)); // 00001111
+			buffer[m3] = cast(byte) ((buffer[m3] & 252) + (_m >> 4)); // 11111100
+			buffer[m2] = cast(byte) ((buffer[m2] & 15) + (_m << 4)); // 00001111
 			// s - ok
-			buffer[m2] = (byte) ((buffer[m2] & 248) + (_s >> 3)); // 11111000
-			buffer[m1] = (byte) ((buffer[m1] & 31) + (_s << 5)); // 00011111
+			buffer[m2] = cast(byte) ((buffer[m2] & 248) + (_s >> 3)); // 11111000
+			buffer[m1] = cast(byte) ((buffer[m1] & 31) + (_s << 5)); // 00011111
 
 			// Debug
 			//LOGGER.trace("Ditlew - GOP "+h+":"+m+":"+s+" -> "+_h+":"+_m+":"+_s+"  "+offset_sec+" secs");
@@ -545,7 +544,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			|| (mod && (buffer[modulo(mb - 10, buffer.length)] == -67 || buffer[modulo(mb - 10, buffer.length)] == -64) && buffer[modulo(mb - 11, buffer.length)] == 1 && buffer[modulo(mb - 12, buffer.length)] == 0 && buffer[modulo(mb - 13, buffer.length)] == 0 && /*(buffer[modulo(mb-7)]&128)==128 && */ (buffer[modulo(mb - 6, buffer.length)] & 128) == 128/*buffer[modulo(mb-6, buffer.length)] == -128*/);
 		if (bb) {
 			int pts = (((((buffer[modulo(mb - 3, buffer.length)] & 0xff) << 8) + (buffer[modulo(mb - 2, buffer.length)] & 0xff)) >> 1) << 15) + ((((buffer[modulo(mb - 1, buffer.length)] & 0xff) << 8) + (buffer[modulo(mb, buffer.length)] & 0xff)) >> 1);
-			pts += (int) (timeseek * 90000);
+			pts += cast(int) (timeseek * 90000);
 
 			setTS(pts, mb, mod);
 			return true;
@@ -581,7 +580,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 				}
 			}
 
-			int ts = (int) (timeseek * 90000);
+			int ts = cast(int) (timeseek * 90000);
 			if (mb == 50 && writeCount < maxMemorySize) {
 				dts--;
 			}
@@ -631,10 +630,10 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		int pts_high = (ts >> 15) & 32767;
 		int pts_left_low = 1 + (pts_low << 1);
 		int pts_left_high = 1 + (pts_high << 1);
-		buffer[m3] = (byte) ((pts_left_high & 65280) >> 8);
-		buffer[m2] = (byte) (pts_left_high & 255);
-		buffer[m1] = (byte) ((pts_left_low & 65280) >> 8);
-		buffer[m0] = (byte) (pts_left_low & 255);
+		buffer[m3] = cast(byte) ((pts_left_high & 65280) >> 8);
+		buffer[m2] = cast(byte) (pts_left_high & 255);
+		buffer[m1] = cast(byte) ((pts_left_low & 65280) >> 8);
+		buffer[m0] = cast(byte) (pts_left_low & 255);
 	}
 
 	override
@@ -642,7 +641,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		if (readCount > INITIAL_BUFFER_SIZE && readCount < maxMemorySize) {
 			int newMargin = maxMemorySize - MARGIN_MEDIUM;
 			if (bufferOverflowWarning != newMargin) {
-				LOGGER.debug("Setting margin to 2Mb");
+				LOGGER._debug("Setting margin to 2Mb");
 			}
 			this.bufferOverflowWarning = newMargin;
 		}
@@ -653,7 +652,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		int minBufferS = firstRead ? minMemorySize : secondread_minsize;
 		while (writeCount - readCount <= minBufferS && !eof && c < 15) {
 			if (c == 0) {
-				LOGGER.trace("Suspend Read: readCount=" + readCount + " / writeCount=" + writeCount);
+				LOGGER.trace("Suspend Read: readCount=" ~ readCount ~ " / writeCount=" ~ writeCount);
 			}
 			c++;
 			try {
@@ -665,18 +664,18 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			attachedThread.setReadyToStop(false);
 		}
 		if (c > 0) {
-			LOGGER.trace("Resume Read: readCount=" + readCount + " / writeCount=" + writeCount);
+			LOGGER.trace("Resume Read: readCount=" ~ readCount ~ " / writeCount=" ~ writeCount);
 		}
 
 		if (buffer is null || !buffered) {
 			return -1;
 		}
 
-		int mb = (int) (readCount % maxMemorySize);
+		int mb = cast(int) (readCount % maxMemorySize);
 		int endOF = buffer.length;
 		int cut = 0;
 		if (eof && (writeCount - readCount) < len) {
-			cut = (int) (len - (writeCount - readCount));
+			cut = cast(int) (len - (writeCount - readCount));
 		}
 
 		if (mb >= endOF - len) {
@@ -693,7 +692,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		if (readCount > INITIAL_BUFFER_SIZE && readCount < maxMemorySize) {
 			int newMargin = maxMemorySize - MARGIN_MEDIUM;
 			if (bufferOverflowWarning != newMargin) {
-				LOGGER.debug("Setting margin to 2Mb");
+				LOGGER._debug("Setting margin to 2Mb");
 			}
 			this.bufferOverflowWarning = newMargin;
 		}
@@ -704,7 +703,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		int minBufferS = firstRead ? minMemorySize : secondread_minsize;
 		while (writeCount - readCount <= minBufferS && !eof && c < 15) {
 			if (c == 0) {
-				LOGGER.trace("Suspend Read: readCount=" + readCount + " / writeCount=" + writeCount);
+				LOGGER.trace("Suspend Read: readCount=" ~ readCount ~ " / writeCount=" ~ writeCount);
 			}
 			c++;
 			try {
@@ -717,21 +716,21 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		}
 
 		if (c > 0) {
-			LOGGER.trace("Resume Read: readCount=" + readCount + " / writeCount=" + writeCount);
+			LOGGER.trace("Resume Read: readCount=" ~ readCount ~ " / writeCount=" ~ writeCount);
 		}
 
 		if (buffer is null || !buffered) {
 			return -1;
 		}
-		return 0xff & buffer[(int) (readCount % maxMemorySize)];
+		return 0xff & buffer[cast(int) (readCount % maxMemorySize)];
 	}
 
 	override
 	public void attachThread(ProcessWrapper thread) {
 		if (attachedThread !is null) {
-			throw new RuntimeException("BufferedOutputFile is already attached to a Thread: " + attachedThread);
+			throw new RuntimeException("BufferedOutputFile is already attached to a Thread: " ~ attachedThread);
 		}
-		LOGGER.debug("Attaching thread: " + thread);
+		LOGGER._debug("Attaching thread: " ~ thread);
 		attachedThread = thread;
 	}
 
@@ -746,8 +745,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 		if (attachedThread !is null) {
 			attachedThread.setReadyToStop(true);
 		}
-		Runnable checkEnd = new Runnable() {
-			public void run() {
+		Runnable checkEnd = dgRunnable( {
 				try {
 					Thread.sleep(CHECK_END_OF_PROCESS);
 				} catch (InterruptedException e) {
@@ -759,9 +757,8 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 					}
 					reset();
 				}
-			}
-		};
-		new Thread(checkEnd, "Buffered IO End Checker").start();
+		});
+		(new Thread(checkEnd, "Buffered IO End Checker")).start();
 	}
 
 	override
@@ -770,7 +767,7 @@ public class BufferedOutputFileImpl : OutputStream : BufferedOutputFile {
 			try {
 				debugOutput.close();
 			} catch (IOException e) {
-				LOGGER.debug("Caught exception", e);
+				LOGGER._debug("Caught exception", e);
 			}
 		}
 		timer.cancel();

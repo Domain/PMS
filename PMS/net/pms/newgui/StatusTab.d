@@ -18,9 +18,9 @@
  */
 module net.pms.newgui.StatusTab;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 import net.pms.Messages;
 import net.pms.configuration.PmsConfiguration;
 import net.pms.util.FormLayoutUtil;
@@ -28,24 +28,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+////import javax.swing.*;
+////import java.awt.*;
+//import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class StatusTab {
-	private static final Logger LOGGER = LoggerFactory.getLogger(StatusTab.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!StatusTab();
 
-	private static final int MAX_RENDERERS = 10;
+	private static const int MAX_RENDERERS = 10;
 	private ImagePanel imagePanel;
 	private PmsConfiguration configuration;
-	private ImagePanel renderers[] = new ImagePanel[MAX_RENDERERS];
-	private JLabel rendererLabels[] = new JLabel[MAX_RENDERERS];
+	private ImagePanel[] renderers = new ImagePanel[MAX_RENDERERS];
+	private JLabel[] rendererLabels = new JLabel[MAX_RENDERERS];
 	private int numRenderers;
 	private JLabel jl;
 	private JProgressBar jpb;
@@ -54,7 +54,7 @@ public class StatusTab {
 	private long peak;
 	private DecimalFormat formatter = new DecimalFormat("#,###");
 
-	StatusTab(PmsConfiguration configuration) {
+	this(PmsConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
@@ -86,7 +86,7 @@ public class StatusTab {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator(Messages.getString("StatusTab.2"), FormLayoutUtil.flip(cc.xy(2, 1), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		jl = new JLabel(Messages.getString("StatusTab.3"));
@@ -106,7 +106,7 @@ public class StatusTab {
 		builder.add(jio, FormLayoutUtil.flip(cc.xy(2, 13), colSpec, orientation));
 
 		cmp = builder.addSeparator(Messages.getString("StatusTab.9"), FormLayoutUtil.flip(cc.xy(2, 15), colSpec, orientation));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		FormLayout layoutRenderer = new FormLayout(
@@ -139,11 +139,11 @@ public class StatusTab {
 		if (v < rc) {
 			rc = v;
 		} else {
-			int sizeinMb = (int) ((v - rc) / 125) / 1024;
+			int sizeinMb = cast(int) ((v - rc) / 125) / 1024;
 			if (sizeinMb > peak) {
 				peak = sizeinMb;
 			}
-			jio.setText(Messages.getString("StatusTab.8") + formatter.format(sizeinMb) + " " + Messages.getString("StatusTab.11") + "    |    " + Messages.getString("StatusTab.10") + formatter.format(peak) + " " + Messages.getString("StatusTab.11"));
+			jio.setText(Messages.getString("StatusTab.8") ~ formatter.format(sizeinMb) ~ " " ~ Messages.getString("StatusTab.11") ~ "    |    " ~ Messages.getString("StatusTab.10") ~ formatter.format(peak) ~ " " ~ Messages.getString("StatusTab.11"));
 			rc = v;
 		}
 	}
@@ -152,9 +152,9 @@ public class StatusTab {
 		BufferedImage bi = null;
 		if (url !is null) {
 			try {
-				bi = ImageIO.read(LooksFrame.class.getResourceAsStream(url));
+				bi = ImageIO.read(LooksFrame._class.getResourceAsStream(url));
 			} catch (IOException e) {
-				LOGGER.debug("Caught exception", e);
+				LOGGER._debug("Caught exception", e);
 			}
 		}
 		return new ImagePanel(bi);
@@ -165,7 +165,7 @@ public class StatusTab {
 
 		if (icon !is null) {
 			try {
-				InputStream is = null;
+				InputStream _is = null;
 
 				/*
 				check for a custom icon file first
@@ -189,22 +189,22 @@ public class StatusTab {
 				}
 
 				if (f.isFile()) {
-					is = new FileInputStream(f);
+					_is = new FileInputStream(f);
 				}
 
-				if (is is null) {
-					is = LooksFrame.class.getResourceAsStream("/resources/images/clients/" + icon);
+				if (_is is null) {
+					_is = LooksFrame._class.getResourceAsStream("/resources/images/clients/" ~ icon);
 				}
 
-				if (is is null) {
-					is = LooksFrame.class.getResourceAsStream("/renderers/" + icon);
+				if (_is is null) {
+					_is = LooksFrame._class.getResourceAsStream("/renderers/" ~ icon);
 				}
 
-				if (is !is null) {
-					bi = ImageIO.read(is);
+				if (_is !is null) {
+					bi = ImageIO.read(_is);
 				}
 			} catch (IOException e) {
-				LOGGER.debug("Caught exception", e);
+				LOGGER._debug("Caught exception", e);
 			}
 		}
 

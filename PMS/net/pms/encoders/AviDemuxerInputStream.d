@@ -18,10 +18,10 @@
  */
 module net.pms.encoders.AviDemuxerInputStream;
 
-import java.io.*;
+import java.io.all;
 import java.util.ArrayList;
 
-import net.pms.io.*;
+import net.pms.io.all;
 import net.pms.PMS;
 import net.pms.util.H264AnnexBInputStream;
 import net.pms.util.PCMAudioOutputStream;
@@ -31,10 +31,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AviDemuxerInputStream : InputStream {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AviDemuxerInputStream.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!AviDemuxerInputStream();
 	private Process process;
 	private InputStream stream;
-	private ArrayList<ProcessWrapper> attachedProcesses;
+	private ArrayList/*<ProcessWrapper>*/ attachedProcesses;
 	private long readCount = -1;
 	private String streamVideoTag;
 	private Track[] track = new Track[2];
@@ -48,7 +48,7 @@ public class AviDemuxerInputStream : InputStream {
 	private OutputParams params;
 
 	override
-	public void close() throws IOException {
+	public void close() {
 		if (process !is null) {
 			ProcessUtil.destroy(process);
 		}
@@ -56,112 +56,106 @@ public class AviDemuxerInputStream : InputStream {
 		super.close();
 	}
 
-	public AviDemuxerInputStream(InputStream fin, final OutputParams params, ArrayList<ProcessWrapper> at) throws IOException {
+	public this(InputStream fin, OutputParams params, ArrayList/*<ProcessWrapper>*/ at) {
 		stream = fin;
 		LOGGER.trace("Opening AVI Stream");
 		this.attachedProcesses = at;
 		this.params = params;
 
 		aOut = params.output_pipes[1].getOutputStream();
-		if (params.no_videoencode && params.forceType !is null && params.forceType.equals("V_MPEG4/ISO/AVC") && params.header !is null) {
+		if (params.no_videoencode && params.forceType !is null && params.forceType.opEquals("V_MPEG4/ISO/AVC") && params.header !is null) {
 			// NOT USED RIGHT NOW
 			PipedOutputStream pout = new PipedOutputStream();
-			final InputStream pin = new H264AnnexBInputStream(new PipedInputStream(pout), params.header);
-			final OutputStream out = params.output_pipes[0].getOutputStream();
-			Runnable r = new Runnable() {
-				public void run() {
-					try {
-						byte[] b = new byte[512 * 1024];
-						int n = -1;
-						while ((n = pin.read(b)) > -1) {
-							out.write(b, 0, n);
-						}
-					} catch (Exception e) {
-						LOGGER.error(null, e);
+			InputStream pin = new H264AnnexBInputStream(new PipedInputStream(pout), params.header);
+			OutputStream _out = params.output_pipes[0].getOutputStream();
+			Runnable r = dgRunnable({
+				try {
+					byte[] b = new byte[512 * 1024];
+					int n = -1;
+					while ((n = pin.read(b)) > -1) {
+						_out.write(b, 0, n);
 					}
+				} catch (Exception e) {
+					LOGGER.error(null, e);
 				}
-			};
+			});
 
 			vOut = pout;
-			new Thread(r, "Avi Demuxer").start();
+			(new Thread(r, "Avi Demuxer")).start();
 		} else {
 			vOut = params.output_pipes[0].getOutputStream();
 		}
 
-		Runnable r = new Runnable() {
-			public void run() {
-				try {
-					// TODO(tcox): Is this used anymore?
-					TSMuxerVideo ts = new TSMuxerVideo(PMS.getConfiguration());
-					File f = new File(PMS.getConfiguration().getTempFolder(), "pms-tsmuxer.meta");
-					PrintWriter pw = new PrintWriter(f);
-					pw.println("MUXOPT --no-pcr-on-video-pid --no-asyncio --new-audio-pes --vbr --vbv-len=500");
-					String videoType = "V_MPEG-2";
+		Runnable r = dgRunnable({
+			try {
+				// TODO(tcox): Is this used anymore?
+				TSMuxerVideo ts = new TSMuxerVideo(PMS.getConfiguration());
+				File f = new File(PMS.getConfiguration().getTempFolder(), "pms-tsmuxer.meta");
+				PrintWriter pw = new PrintWriter(f);
+				pw.println("MUXOPT --no-pcr-on-video-pid --no-asyncio --new-audio-pes --vbr --vbv-len=500");
+				String videoType = "V_MPEG-2";
 
-					if (params.no_videoencode && params.forceType !is null) {
-						videoType = params.forceType;
-					}
-
-					String fps = "";
-
-					if (params.forceFps !is null) {
-						fps = "fps=" + params.forceFps + ", ";
-					}
-
-					String audioType = "A_LPCM";
-
-					if (params.lossyaudio) {
-						audioType = "A_AC3";
-					}
-
-					pw.println(videoType + ", \"" + params.output_pipes[0].getOutputPipe() + "\", " + fps + "level=4.1, insertSEI, contSPS, track=1");
-					pw.println(audioType + ", \"" + params.output_pipes[1].getOutputPipe() + "\", track=2");
-					pw.close();
-
-					PipeProcess tsPipe = new PipeProcess(System.currentTimeMillis() + "tsmuxerout.ts");
-					ProcessWrapper pipe_process = tsPipe.getPipeProcess();
-					attachedProcesses.add(pipe_process);
-					pipe_process.runInNewThread();
-					tsPipe.deleteLater();
-
-					String[] cmd = new String[]{ts.executable(), f.getAbsolutePath(), tsPipe.getInputPipe()};
-					ProcessBuilder pb = new ProcessBuilder(cmd);
-					process = pb.start();
-					ProcessWrapper pwi = new ProcessWrapperLiteImpl(process);
-					attachedProcesses.add(pwi);
-
-					// "Gob": a cryptic name for (e.g.) StreamGobbler - i.e. a stream
-					// consumer that reads and discards the stream
-					new Gob(process.getErrorStream()).start();
-					new Gob(process.getInputStream()).start();
-
-					realIS = tsPipe.getInputStream();
-					ProcessUtil.waitFor(process);
-					LOGGER.trace("tsMuxeR muxing finished");
-				} catch (IOException e) {
-					LOGGER.error(null, e);
+				if (params.no_videoencode && params.forceType !is null) {
+					videoType = params.forceType;
 				}
-			}
-		};
 
-		Runnable r2 = new Runnable() {
-			public void run() {
-				try {
-					//Thread.sleep(500);
-					parseHeader();
-				} catch (IOException e) {
-					LOGGER.debug("Parsing error", e);
+				String fps = "";
+
+				if (params.forceFps !is null) {
+					fps = "fps=" ~ params.forceFps ~ ", ";
 				}
+
+				String audioType = "A_LPCM";
+
+				if (params.lossyaudio) {
+					audioType = "A_AC3";
+				}
+
+				pw.println(videoType ~ ", \"" ~ params.output_pipes[0].getOutputPipe() ~ "\", " ~ fps ~ "level=4.1, insertSEI, contSPS, track=1");
+				pw.println(audioType ~ ", \"" ~ params.output_pipes[1].getOutputPipe() ~ "\", track=2");
+				pw.close();
+
+				PipeProcess tsPipe = new PipeProcess(System.currentTimeMillis() ~ "tsmuxerout.ts");
+				ProcessWrapper pipe_process = tsPipe.getPipeProcess();
+				attachedProcesses.add(pipe_process);
+				pipe_process.runInNewThread();
+				tsPipe.deleteLater();
+
+				String[] cmd = [ts.executable(), f.getAbsolutePath(), tsPipe.getInputPipe()];
+				ProcessBuilder pb = new ProcessBuilder(cmd);
+				process = pb.start();
+				ProcessWrapper pwi = new ProcessWrapperLiteImpl(process);
+				attachedProcesses.add(pwi);
+
+				// "Gob": a cryptic name for (e.g.) StreamGobbler - i.e. a stream
+				// consumer that reads and discards the stream
+				(new Gob(process.getErrorStream())).start();
+				(new Gob(process.getInputStream())).start();
+
+				realIS = tsPipe.getInputStream();
+				ProcessUtil.waitFor(process);
+				LOGGER.trace("tsMuxeR muxing finished");
+			} catch (IOException e) {
+				LOGGER.error(null, e);
 			}
-		};
+		});
+
+		Runnable r2 = dgRunnable({
+			try {
+				//Thread.sleep(500);
+				parseHeader();
+			} catch (IOException e) {
+				LOGGER._debug("Parsing error", e);
+			}
+		});
 
 		LOGGER.trace("Launching tsMuxeR muxing");
-		new Thread(r, "Avi Demuxer tsMuxeR").start();
+		(new Thread(r, "Avi Demuxer tsMuxeR")).start();
 		parsing = new Thread(r2, "Avi Demuxer Header Parser");
 		LOGGER.trace("Ready to mux");
 	}
 
-	private void parseHeader() throws IOException {
+	private void parseHeader() {
 		LOGGER.trace("Parsing AVI stream");
 		String id = getString(stream, 4);
 		getBytes(stream, 4);
@@ -225,9 +219,9 @@ public class AviDemuxerInputStream : InputStream {
 					int scale = str2ulong(hdrl, i + 28);
 					int rate = str2ulong(hdrl, i + 32);
 					track[0] = new Track(compressor, scale, rate, -1);
-					streamVideoTag = new String(new char[]{
-							(char) ((streamNumber / 10) + '0'),
-							(char) ((streamNumber % 10) + '0'), 'd', 'b'});
+					streamVideoTag = new String(cast(char[])[
+							cast(char) ((streamNumber / 10) + '0'),
+							cast(char) ((streamNumber % 10) + '0'), 'd', 'b']);
 					streamNumber++;
 					lastTagID = 1;
 				}
@@ -279,7 +273,7 @@ public class AviDemuxerInputStream : InputStream {
 			i += size + 8;
 		}
 
-		LOGGER.trace("Found " + streamNumber + " stream(s)");
+		LOGGER.trace("Found " ~ streamNumber.toString() ~ " stream(s)");
 		bool init = false;
 
 		while (true) {
@@ -288,7 +282,7 @@ public class AviDemuxerInputStream : InputStream {
 			try {
 				command = getString(stream, 4);
 			} catch (Exception e) {
-				LOGGER.trace("Error reading stream: " + e.getMessage());
+				LOGGER.trace("Error reading stream: " ~ e.getMessage());
 				break;
 			}
 
@@ -300,19 +294,19 @@ public class AviDemuxerInputStream : InputStream {
 			int size = readBytes(stream, 4);
 			bool framed = false;
 
-			while ("LIST".equals(command)
-				|| "RIFF".equals(command)
-				|| "JUNK".equals(command)) {
+			while ("LIST".opEquals(command)
+				|| "RIFF".opEquals(command)
+				|| "JUNK".opEquals(command)) {
 
 				if (size < 0) {
 					size = 4;
 				}
 
-				getBytes(stream, "RIFF".equals(command) ? 4 : size);
+				getBytes(stream, "RIFF".opEquals(command) ? 4 : size);
 				command = getString(stream, 4).toUpperCase();
 				size = readBytes(stream, 4);
 
-				if (("LIST".equals(command) || "RIFF".equals(command) || "JUNK".equals(command)) && (size % 2 != 0)) {
+				if (("LIST".opEquals(command) || "RIFF".opEquals(command) || "JUNK".opEquals(command)) && (size % 2 != 0)) {
 					readByte(stream);
 				}
 			}
@@ -345,7 +339,7 @@ public class AviDemuxerInputStream : InputStream {
 			}
 
 			if (!framed) {
-				throw new IOException("Not header: " + command);
+				throw new IOException("Not header: " ~ command);
 			}
 
 			if (size % 2 != 0) {
@@ -358,12 +352,12 @@ public class AviDemuxerInputStream : InputStream {
 		vOut.close();
 	}
 
-	private String getString(InputStream input, int sz) throws IOException {
+	private String getString(InputStream input, int sz) {
 		byte[] bb = getBytes(input, sz);
 		return new String(bb);
 	}
 
-	private byte[] getBytes(InputStream input, int sz) throws IOException {
+	private byte[] getBytes(InputStream input, int sz) {
 		byte[] bb = new byte[sz];
 		int n = input.read(bb);
 
@@ -380,7 +374,7 @@ public class AviDemuxerInputStream : InputStream {
 		return bb;
 	}
 
-	private final int readBytes(InputStream input, int number) throws IOException {
+	private final int readBytes(InputStream input, int number) {
 		byte[] buffer = new byte[number];
 		int read = input.read(buffer);
 
@@ -390,7 +384,7 @@ public class AviDemuxerInputStream : InputStream {
 			}
 
 			for (int i = read; i < number; i++) {
-				buffer[i] = (byte) readByte(input);
+				buffer[i] = cast(byte) readByte(input);
 			}
 		}
 
@@ -413,7 +407,7 @@ public class AviDemuxerInputStream : InputStream {
 		}
 	}
 
-	private final int readByte(InputStream input) throws IOException {
+	private final int readByte(InputStream input) {
 		return input.read();
 	}
 
@@ -428,24 +422,24 @@ public class AviDemuxerInputStream : InputStream {
 
 	public static final byte[] getLe32(long value) {
 		byte[] buffer = new byte[4];
-		buffer[0] = (byte) (value & 0xff);
-		buffer[1] = (byte) ((value >> 8) & 0xff);
-		buffer[2] = (byte) ((value >> 16) & 0xff);
-		buffer[3] = (byte) ((value >> 24) & 0xff);
+		buffer[0] = cast(byte) (value & 0xff);
+		buffer[1] = cast(byte) ((value >> 8) & 0xff);
+		buffer[2] = cast(byte) ((value >> 16) & 0xff);
+		buffer[3] = cast(byte) ((value >> 24) & 0xff);
 
 		return buffer;
 	}
 
 	public static final byte[] getLe16(int value) {
 		byte[] buffer = new byte[2];
-		buffer[0] = (byte) (value & 0xff);
-		buffer[1] = (byte) ((value >> 8) & 0xff);
+		buffer[0] = cast(byte) (value & 0xff);
+		buffer[1] = cast(byte) ((value >> 8) & 0xff);
 
 		return buffer;
 	}
 
 	override
-	public int read() throws IOException {
+	public int read() {
 		if (readCount == -1) {
 			parsing.start();
 			readCount = 0;
@@ -472,7 +466,7 @@ public class AviDemuxerInputStream : InputStream {
 	}
 
 	override
-	public int read(byte[] b) throws IOException {
+	public int read(byte[] b) {
 		if (readCount == -1) {
 			parsing.start();
 			readCount = 0;
@@ -499,5 +493,5 @@ public class AviDemuxerInputStream : InputStream {
 		}
 	}
 
-	public static void writePCMHeader(OutputStream aOut, long fileLength, int nbAudio, int rate, int sampleSize, int bitsPerSample) throws IOException { }
+	public static void writePCMHeader(OutputStream aOut, long fileLength, int nbAudio, int rate, int sampleSize, int bitsPerSample) { }
 }

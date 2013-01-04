@@ -41,12 +41,12 @@
   <pic>0</pic>
   <cov>0</cov>
   <nofloat>0</nofloat>
-  <Dversion>2.043</Dversion>
+  <Dversion>2</Dversion>
   <ignoreUnsupportedPragmas>0</ignoreUnsupportedPragmas>
   <compiler>0</compiler>
   <otherDMD>0</otherDMD>
   <program>$(DMDInstallDir)windows\bin\dmd.exe</program>
-  <imppath />
+  <imppath>$(SolutionDir)\java $(SolutionDir)\apache $(SolutionDir)\mozilla $(SolutionDir)\sun $(SolutionDir)\slf4j</imppath>
   <fileImppath />
   <outdir>$(ConfigurationName)</outdir>
   <objdir>$(OutDir)</objdir>
@@ -187,153 +187,10 @@
   <filesToClean>*.obj;*.cmd;*.build;*.json;*.dep</filesToClean>
  </Config>
  <Folder name="PMS">
-  <Folder name="java">
-   <Folder name="beans">
-    <File path="java\beans\BeanDescriptor.d" />
-    <File path="java\beans\BeanInfo.d" />
-    <File path="java\beans\FeatureDescriptor.d" />
-    <File path="java\beans\IntrospectionException.d" />
-    <File path="java\beans\Introspector.d" />
-    <File path="java\beans\PropertyChangeEvent.d" />
-    <File path="java\beans\PropertyChangeListener.d" />
-    <File path="java\beans\PropertyChangeSupport.d" />
-    <File path="java\beans\PropertyDescriptor.d" />
-   </Folder>
-   <Folder name="io">
-    <File path="java\io\BufferedInputStream.d" />
-    <File path="java\io\BufferedReader.d" />
-    <File path="java\io\ByteArrayInputStream.d" />
-    <File path="java\io\ByteArrayOutputStream.d" />
-    <File path="java\io\File.d" />
-    <File path="java\io\FileInputStream.d" />
-    <File path="java\io\FileOutputStream.d" />
-    <File path="java\io\InputStream.d" />
-    <File path="java\io\OutputStream.d" />
-    <File path="java\io\PrintStream.d" />
-    <File path="java\io\PrintWriter.d" />
-    <File path="java\io\PushbackReader.d" />
-    <File path="java\io\Reader.d" />
-    <File path="java\io\StringReader.d" />
-    <File path="java\io\StringWriter.d" />
-    <File path="java\io\Writer.d" />
-   </Folder>
-   <Folder name="lang">
-    <Folder name="reflect">
-     <File path="java\lang\reflect\AccessibleObject.d" />
-     <File path="java\lang\reflect\Array.d" />
-     <File path="java\lang\reflect\Constructor.d" />
-     <File path="java\lang\reflect\Field.d" />
-     <File path="java\lang\reflect\InvocationTargetException.d" />
-     <File path="java\lang\reflect\Method.d" />
-     <File path="java\lang\reflect\Package.d" />
-    </Folder>
-    <File path="java\lang\all.d" />
-    <File path="java\lang\Boolean.d" />
-    <File path="java\lang\Byte.d" />
-    <File path="java\lang\Character.d" />
-    <File path="java\lang\Class.d" />
-    <File path="java\lang\Double.d" />
-    <File path="java\lang\exceptions.d" />
-    <File path="java\lang\Float.d" />
-    <File path="java\lang\Integer.d" />
-    <File path="java\lang\interfaces.d" />
-    <File path="java\lang\Long.d" />
-    <File path="java\lang\Math.d" />
-    <File path="java\lang\Number.d" />
-    <File path="java\lang\Runnable.d" />
-    <File path="java\lang\Short.d" />
-    <File path="java\lang\String.d" />
-    <File path="java\lang\StringBuffer.d" />
-    <File path="java\lang\System.d" />
-    <File path="java\lang\Thread.d" />
-    <File path="java\lang\ThreadLocal.d" />
-    <File path="java\lang\util.d" />
-    <File path="java\lang\wrappers.d" />
-   </Folder>
-   <Folder name="math">
-    <File path="java\math\BigDecimal.d" />
-    <File path="java\math\BigInteger.d" />
-   </Folder>
-   <Folder name="net">
-    <File path="java\net\MalformedURLException.d" />
-    <File path="java\net\URL.d" />
-   </Folder>
-   <Folder name="nonstandard">
-    <File path="java\nonstandard\Locale.d" />
-    <File path="java\nonstandard\RuntimeTraits.d" />
-    <File path="java\nonstandard\SafeUtf.d" />
-    <File path="java\nonstandard\SharedLib.d" />
-    <File path="java\nonstandard\UnsafeUtf.d" />
-    <File path="java\nonstandard\UtfBase.d" />
-    <File path="java\nonstandard\WeakRef.d" />
-    <File path="java\nonstandard\XmlTranscode.d" />
-   </Folder>
-   <Folder name="text">
-    <File path="java\text\AttributedCharacterIterator.d" />
-    <File path="java\text\CharacterIterator.d" />
-    <File path="java\text\Collator.d" />
-    <File path="java\text\FieldPosition.d" />
-    <File path="java\text\Format.d" />
-    <File path="java\text\MessageFormat.d" />
-    <File path="java\text\NumberFormat.d" />
-    <File path="java\text\ParseException.d" />
-    <File path="java\text\ParsePosition.d" />
-   </Folder>
-   <Folder name="util">
-    <Folder name="regex">
-     <File path="java\util\regex\Matcher.d" />
-     <File path="java\util\regex\Pattern.d" />
-     <File path="java\util\regex\PatternSyntaxException.d" />
-    </Folder>
-    <Folder name="zip">
-     <File path="java\util\zip\DeflaterOutputStream.d" />
-     <File path="java\util\zip\InflaterInputStream.d" />
-    </Folder>
-    <File path="java\util\AbstractCollection.d" />
-    <File path="java\util\AbstractList.d" />
-    <File path="java\util\AbstractMap.d" />
-    <File path="java\util\AbstractSet.d" />
-    <File path="java\util\ArrayList.d" />
-    <File path="java\util\Arrays.d" />
-    <File path="java\util\Collection.d" />
-    <File path="java\util\Collections.d" />
-    <File path="java\util\Comparator.d" />
-    <File path="java\util\Currency.d" />
-    <File path="java\util\Date.d" />
-    <File path="java\util\Dictionary.d" />
-    <File path="java\util\Enumeration.d" />
-    <File path="java\util\EventListener.d" />
-    <File path="java\util\EventObject.d" />
-    <File path="java\util\HashMap.d" />
-    <File path="java\util\HashSet.d" />
-    <File path="java\util\Hashtable.d" />
-    <File path="java\util\IdentityHashMap.d" />
-    <File path="java\util\Iterator.d" />
-    <File path="java\util\LinkedHashMap.d" />
-    <File path="java\util\LinkedList.d" />
-    <File path="java\util\List.d" />
-    <File path="java\util\ListIterator.d" />
-    <File path="java\util\Locale.d" />
-    <File path="java\util\Map.d" />
-    <File path="java\util\MissingResourceException.d" />
-    <File path="java\util\Random.d" />
-    <File path="java\util\ResourceBundle.d" />
-    <File path="java\util\Set.d" />
-    <File path="java\util\SortedMap.d" />
-    <File path="java\util\SortedSet.d" />
-    <File path="java\util\Stack.d" />
-    <File path="java\util\StringTokenizer.d" />
-    <File path="java\util\Timer.d" />
-    <File path="java\util\TimerTask.d" />
-    <File path="java\util\TreeMap.d" />
-    <File path="java\util\TreeSet.d" />
-    <File path="java\util\Vector.d" />
-    <File path="java\util\WeakHashMap.d" />
-   </Folder>
-  </Folder>
   <Folder name="net">
    <Folder name="pms">
     <Folder name="configuration">
+     <File path="net\pms\configuration\all.d" />
      <File path="net\pms\configuration\Build.d" />
      <File path="net\pms\configuration\ConfigurationProgramPaths.d" />
      <File path="net\pms\configuration\ConfigurationUtil.d" />
@@ -353,12 +210,14 @@
     </Folder>
     <Folder name="dlna">
      <Folder name="virtual">
+      <File path="net\pms\dlna\virtual\all.d" />
       <File path="net\pms\dlna\virtual\MediaLibrary.d" />
       <File path="net\pms\dlna\virtual\MediaLibraryFolder.d" />
       <File path="net\pms\dlna\virtual\TranscodeVirtualFolder.d" />
       <File path="net\pms\dlna\virtual\VirtualFolder.d" />
       <File path="net\pms\dlna\virtual\VirtualVideoAction.d" />
      </Folder>
+     <File path="net\pms\dlna\all.d" />
      <File path="net\pms\dlna\AudiosFeed.d" />
      <File path="net\pms\dlna\ChapterFileTranscodeVirtualFolder.d" />
      <File path="net\pms\dlna\CueFolder.d" />
@@ -393,6 +252,7 @@
      <File path="net\pms\dlna\ZippedFile.d" />
     </Folder>
     <Folder name="encoders">
+     <File path="net\pms\encoders\all.d" />
      <File path="net\pms\encoders\AviDemuxerInputStream.d" />
      <File path="net\pms\encoders\FFMpegAudio.d" />
      <File path="net\pms\encoders\FFMpegAviSynthVideo.d" />
@@ -418,6 +278,7 @@
      <File path="net\pms\external\AdditionalFolderAtRoot.d" />
      <File path="net\pms\external\AdditionalFoldersAtRoot.d" />
      <File path="net\pms\external\AdditionalResourceFolderListener.d" />
+     <File path="net\pms\external\all.d" />
      <File path="net\pms\external\ExternalFactory.d" />
      <File path="net\pms\external\ExternalListener.d" />
      <File path="net\pms\external\FinalizeTranscoderArgsListener.d" />
@@ -426,12 +287,14 @@
     </Folder>
     <Folder name="formats">
      <Folder name="v2">
+      <File path="net\pms\formats\v2\all.d" />
       <File path="net\pms\formats\v2\AudioAttribute.d" />
       <File path="net\pms\formats\v2\AudioProperties.d" />
       <File path="net\pms\formats\v2\AudioUtils.d" />
       <File path="net\pms\formats\v2\SubtitleType.d" />
       <File path="net\pms\formats\v2\SubtitleUtils.d" />
      </Folder>
+     <File path="net\pms\formats\all.d" />
      <File path="net\pms\formats\AudioAsVideo.d" />
      <File path="net\pms\formats\DVRMS.d" />
      <File path="net\pms\formats\FLAC.d" />
@@ -452,10 +315,12 @@
      <File path="net\pms\formats\WEB.d" />
     </Folder>
     <Folder name="gui">
+     <File path="net\pms\gui\all.d" />
      <File path="net\pms\gui\DummyFrame.d" />
      <File path="net\pms\gui\IFrame.d" />
     </Folder>
     <Folder name="io">
+     <File path="net\pms\io\all.d" />
      <File path="net\pms\io\BasicSystemUtils.d" />
      <File path="net\pms\io\BlockerFileInputStream.d" />
      <File path="net\pms\io\BufferedOutputFile.d" />
@@ -485,11 +350,13 @@
      <File path="net\pms\io\WinUtils.d" />
     </Folder>
     <Folder name="logging">
+     <File path="net\pms\logging\all.d" />
      <File path="net\pms\logging\DebugLogPathDefiner.d" />
      <File path="net\pms\logging\FrameAppender.d" />
      <File path="net\pms\logging\LoggingConfigFileLoader.d" />
     </Folder>
     <Folder name="network">
+     <File path="net\pms\network\all.d" />
      <File path="net\pms\network\HTMLConsole.d" />
      <File path="net\pms\network\HTTPResource.d" />
      <File path="net\pms\network\HTTPResourceAuthenticator.d" />
@@ -508,9 +375,11 @@
     </Folder>
     <Folder name="newgui">
      <Folder name="update">
+      <File path="net\pms\newgui\update\all.d" />
       <File path="net\pms\newgui\update\AutoUpdateDialog.d" />
      </Folder>
      <File path="net\pms\newgui\AboutTab.d" />
+     <File path="net\pms\newgui\all.d" />
      <File path="net\pms\newgui\FontFileFilter.d" />
      <File path="net\pms\newgui\GeneralTab.d" />
      <File path="net\pms\newgui\HelpTab.d" />
@@ -527,12 +396,14 @@
      <File path="net\pms\newgui\TreeRenderer.d" />
     </Folder>
     <Folder name="update">
+     <File path="net\pms\update\all.d" />
      <File path="net\pms\update\AutoUpdater.d" />
      <File path="net\pms\update\AutoUpdaterServerProperties.d" />
      <File path="net\pms\update\OperatingSystem.d" />
      <File path="net\pms\update\UpdateException.d" />
     </Folder>
     <Folder name="util">
+     <File path="net\pms\util\all.d" />
      <File path="net\pms\util\AVCHeader.d" />
      <File path="net\pms\util\CodecUtil.d" />
      <File path="net\pms\util\CoverUtil.d" />
@@ -559,6 +430,7 @@
      <File path="net\pms\util\Version.d" />
     </Folder>
     <Folder name="xmlwise">
+     <File path="net\pms\xmlwise\all.d" />
      <File path="net\pms\xmlwise\Plist.d" />
      <File path="net\pms\xmlwise\XmlElement.d" />
      <File path="net\pms\xmlwise\XmlElementAttributes.d" />

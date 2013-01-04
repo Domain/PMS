@@ -29,31 +29,29 @@ import java.io.File;
 import java.util.List;
 
 public class DVDISOFile : VirtualFolder {
-	public static final String PREFIX = "[DVD ISO] ";
+	public static const String PREFIX = "[DVD ISO] ";
 
 	override
 	public void resolve() {
-		double titles[] = new double[100];
-		String cmd[] = new String[]{PMS.getConfiguration().getMplayerPath(), "-identify", "-endpos", "0", "-v", "-ao", "null", "-vc", "null", "-vo", "null", "-dvd-device", ProcessUtil.getShortFileNameIfWideChars(f.getAbsolutePath()), "dvd://1"};
+		double[] titles = new double[100];
+		String[] cmd = [PMS.getConfiguration().getMplayerPath(), "-identify", "-endpos", "0", "-v", "-ao", "null", "-vc", "null", "-vo", "null", "-dvd-device", ProcessUtil.getShortFileNameIfWideChars(f.getAbsolutePath()), "dvd://1"];
 		OutputParams params = new OutputParams(PMS.getConfiguration());
 		params.maxBufferSize = 1;
 		params.log = true;
-		final ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
-		Runnable r = new Runnable() {
-			public void run() {
+		immutable ProcessWrapperImpl pw = new ProcessWrapperImpl(cmd, params, true, false);
+		Runnable r = dgRunnable( {
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 				}
 				pw.stopProcess();
-			}
-		};
+		});
 		Thread failsafe = new Thread(r, "DVDISO Failsafe");
 		failsafe.start();
 		pw.runInSameThread();
-		List<String> lines = pw.getOtherResults();
+		List/*<String>*/ lines = pw.getOtherResults();
 		if (lines !is null) {
-			for (String line : lines) {
+			foreach (String line ; lines) {
 				if (line.startsWith("ID_DVD_TITLE_") && line.contains("_LENGTH")) {
 					int rank = Integer.parseInt(line.substring(13, line.indexOf("_LENGT")));
 					double duration = Double.parseDouble(line.substring(line.lastIndexOf("LENGTH=") + 7));
@@ -83,7 +81,7 @@ public class DVDISOFile : VirtualFolder {
 	}
 	private File f;
 
-	public DVDISOFile(File f) {
+	public this(File f) {
 		super(PREFIX + (f.isFile() ? f.getName() : "VIDEO_TS"), null);
 		this.f = f;
 		setLastModified(f.lastModified());
@@ -92,8 +90,8 @@ public class DVDISOFile : VirtualFolder {
 	override
 	public String getDisplayName() {
 		String s = super.getDisplayName();
-		if (f.getName().toUpperCase().equals("VIDEO_TS")) {
-			s += " {" + f.getParentFile().getName() + "}";
+		if (f.getName().toUpperCase().opEquals("VIDEO_TS")) {
+			s ~= " {" ~ f.getParentFile().getName() ~ "}";
 		}
 		return s;
 	}

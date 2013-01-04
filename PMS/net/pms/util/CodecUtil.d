@@ -26,14 +26,14 @@ import net.pms.dlna.DLNAMediaAudio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 import java.util.ArrayList;
 
 public class CodecUtil {
-	private static final Logger logger = LoggerFactory.getLogger(CodecUtil.class);
-	private static final ArrayList<String> codecs = new ArrayList<String>();
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!CodecUtil();
+	private static ArrayList/*<String>*/ codecs = new ArrayList/*<String>*/();
 
-	static {
+	static this() {
 		// Make sure the list of codecs is initialized before other threads start retrieving it
 		initCodecs();
 	}
@@ -43,8 +43,8 @@ public class CodecUtil {
 	 * parsing the "ffmpeg_formats.txt" resource. 
 	 */
 	private static void initCodecs() {
-		InputStream is = CodecUtil.class.getClassLoader().getResourceAsStream("resources/ffmpeg_formats.txt");
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		InputStream _is = CodecUtil._class.getClassLoader().getResourceAsStream("resources/ffmpeg_formats.txt");
+		BufferedReader br = new BufferedReader(new InputStreamReader(_is));
 		String line = null;
 
 		try {
@@ -68,7 +68,7 @@ public class CodecUtil {
 	 * Return the list of codec formats that will be recognized.
 	 * @return The list of codecs.
 	 */
-	public static ArrayList<String> getPossibleCodecs() {
+	public static ArrayList/*<String>*/ getPossibleCodecs() {
 		return codecs;
 	}
 

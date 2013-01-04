@@ -18,7 +18,7 @@
  */
 module net.pms.io.BufferedOutputFile;
 
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 
 /**
@@ -28,7 +28,7 @@ import java.io.InputStream;
  */
 public interface BufferedOutputFile {
 
-	public abstract void close() throws IOException;
+	public abstract void close();
 
 	public abstract WaitBufferedInputStream getCurrentInputStream();
 
@@ -36,9 +36,9 @@ public interface BufferedOutputFile {
 
 	public abstract long getWriteCount();
 
-	public abstract void write(byte b[], int off, int len) throws IOException;
+	public abstract void write(byte[] b, int off, int len);
 
-	public abstract void write(int b) throws IOException;
+	public abstract void write(int b);
 
 	public abstract void attachThread(ProcessWrapper thread);
 
@@ -54,6 +54,6 @@ public interface BufferedOutputFile {
 
 	public abstract void detachInputStream();
 
-	public abstract void write(byte[] byteArray) throws IOException;
+	public abstract void write(byte[] byteArray);
 
 }

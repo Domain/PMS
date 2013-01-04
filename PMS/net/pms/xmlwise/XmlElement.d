@@ -14,18 +14,17 @@ import java.util.LinkedList;
  *
  * @author Christoffer Lerno
  */
-@SuppressWarnings({"serial"})
-public class XmlElement : LinkedList<XmlElement> {
-	private final XmlElementAttributes m_attributes;
-	private final String m_value;
-	private final String m_name;
+public class XmlElement : LinkedList/*<XmlElement>*/ {
+	private XmlElementAttributes m_attributes;
+	private String m_value;
+	private String m_name;
 
 	/**
 	 * Creates a new XmlElement given an Element object.
 	 *
 	 * @param element the document element to construct this object from.
 	 */
-	public XmlElement(Element element) {
+	public this(Element element) {
 		m_attributes = new XmlElementAttributes(element);
 		NodeList children = element.getChildNodes();
 		m_name = element.getNodeName();
@@ -33,7 +32,7 @@ public class XmlElement : LinkedList<XmlElement> {
 		for (int i = 0; i < children.getLength(); i++) {
 			Node node = children.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				add(new XmlElement((Element) node));
+				add(new XmlElement(cast(Element) node));
 			}
 			if (node.getNodeType() == Node.TEXT_NODE) {
 				textValue.append(node.getNodeValue());
@@ -48,7 +47,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @param name the name of the node.
 	 * @param value the inner text value of the node.
 	 */
-	public XmlElement(String name, String value) {
+	public this(String name, String value) {
 		m_attributes = new XmlElementAttributes();
 		m_name = name;
 		m_value = value;
@@ -59,7 +58,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 *
 	 * @param name the name of the node.
 	 */
-	public XmlElement(String name) {
+	public this(String name) {
 		m_attributes = new XmlElementAttributes();
 		m_name = name;
 		m_value = "";
@@ -72,10 +71,10 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the sub element.
 	 * @throws XmlParseException if there are more than one of the sub element, or if no such element was found.
 	 */
-	public XmlElement getUnique(final String name) throws XmlParseException {
-		LinkedList<XmlElement> matches = get(name);
+	public XmlElement getUnique(final String name) {
+		LinkedList/*<XmlElement>*/ matches = get(name);
 		if (matches.size() != 1) {
-			throw new XmlParseException("Unexpected number of elements of type " + name + " in element <" + getName() + ">");
+			throw new XmlParseException("Unexpected number of elements of type " ~ name ~ " in element <" ~ getName() ~ ">");
 		}
 		return matches.getFirst();
 	}
@@ -87,7 +86,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the integer value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an int, or the attribute is missing.
 	 */
-	public int getIntAttribute(String attribute) throws XmlParseException {
+	public int getIntAttribute(String attribute) {
 		return getAttributes().getInt(attribute);
 	}
 
@@ -99,7 +98,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the integer value of the attribute or the default value if the attribute is missing.
 	 * @throws XmlParseException if we fail to parse this attribute as an int.
 	 */
-	public int getIntAttribute(String attribute, int defaultValue) throws XmlParseException {
+	public int getIntAttribute(String attribute, int defaultValue) {
 		return containsAttribute(attribute) ? getIntAttribute(attribute) : defaultValue;
 	}
 
@@ -110,7 +109,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the double value of the attribute.
 	 * @throws XmlParseException if we fail to parse this attribute as an double, or the attribute is missing.
 	 */
-	public double getDoubleAttribute(String attribute) throws XmlParseException {
+	public double getDoubleAttribute(String attribute) {
 		return getAttributes().getDouble(attribute);
 	}
 
@@ -122,7 +121,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the double value of the attribute or the default value if the attribute is missing.
 	 * @throws XmlParseException if we fail to parse this attribute as an double.
 	 */
-	public double getDoubleAttribute(String attribute, double defaultValue) throws XmlParseException {
+	public double getDoubleAttribute(String attribute, double defaultValue) {
 		return containsAttribute(attribute) ? getDoubleAttribute(attribute) : defaultValue;
 	}
 
@@ -159,7 +158,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the bool value of the attribute.
 	 * @throws XmlParseException if the attribute value does match true or false as defined, or the attribute is missing.
 	 */
-	public bool getBoolAttribute(String attribute) throws XmlParseException {
+	public bool getBoolAttribute(String attribute) {
 		return getAttributes().getBoolean(attribute);
 	}
 
@@ -175,7 +174,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return the bool value of the attribute or the default value if the attribute is missing.
 	 * @throws XmlParseException if the attribute value does match true or false as defined
 	 */
-	public bool getBoolAttribute(String attribute, bool defaultValue) throws XmlParseException {
+	public bool getBoolAttribute(String attribute, bool defaultValue) {
 		return containsAttribute(attribute) ? getBoolAttribute(attribute) : defaultValue;
 	}
 
@@ -185,10 +184,10 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @param name the key to match.
 	 * @return a linked list of matching xml elements
 	 */
-	public LinkedList<XmlElement> get(String name) {
-		LinkedList<XmlElement> list = new LinkedList<XmlElement>();
-		for (XmlElement element : this) {
-			if (element.getName().equals(name)) {
+	public LinkedList/*<XmlElement>*/ get(String name) {
+		LinkedList/*<XmlElement>*/ list = new LinkedList/*<XmlElement>*/();
+		foreach (XmlElement element ; this) {
+			if (element.getName().opEquals(name)) {
 				list.add(element);
 			}
 		}
@@ -224,8 +223,8 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return true if the element exists, false otherwise.
 	 */
 	public bool contains(String key) {
-		for (XmlElement element : this) {
-			if (element.getName().equals(key)) {
+		foreach (XmlElement element ; this) {
+			if (element.getName().opEquals(key)) {
 				return true;
 			}
 		}
@@ -238,7 +237,7 @@ public class XmlElement : LinkedList<XmlElement> {
 	 * @return an xml string based on this element and its sub-elements.
 	 */
 	public String toXml() {
-		StringBuilder builder = new StringBuilder("<").append(m_name);
+		StringBuilder builder = (new StringBuilder("<")).append(m_name);
 		if (m_attributes.size() > 0) {
 			builder.append(m_attributes.toXml());
 		}
@@ -247,7 +246,7 @@ public class XmlElement : LinkedList<XmlElement> {
 		} else {
 			builder.append('>');
 			builder.append(Xmlwise.escapeXML(m_value));
-			for (XmlElement element : this) {
+			foreach (XmlElement element ; this) {
 				builder.append(element.toXml());
 			}
 			builder.append("</").append(m_name).append('>');

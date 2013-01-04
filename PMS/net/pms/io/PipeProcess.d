@@ -18,49 +18,51 @@
  */
 module net.pms.io.PipeProcess;
 
+import core.vararg;
+
 import com.sun.jna.Platform;
 import net.pms.PMS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.all;
 
 public class PipeProcess {
-	private static final Logger logger = LoggerFactory.getLogger(PipeProcess.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!PipeProcess();
 	private String linuxPipeName;
 	private WindowsNamedPipe mk;
 	private bool forcereconnect;
 
-	public PipeProcess(String pipeName, OutputParams params, String... extras) {
+	public this(String pipeName, OutputParams params, String[] extras...) {
 		forcereconnect = false;
-		bool in = true;
+		bool _in = true;
 
-		if (extras !is null && extras.length > 0 && extras[0].equals("out")) {
-			in = false;
+		if (extras.length > 0 && extras[0] == "out") {
+			_in = false;
 		}
 
-		if (extras !is null) {
+		if (extras.length > 0) {
 			for (int i = 0; i < extras.length; i++) {
-				if (extras[i].equals("reconnect")) {
+				if (extras[i].opEquals("reconnect")) {
 					forcereconnect = true;
 				}
 			}
 		}
 
 		if (PMS.get().isWindows()) {
-			mk = new WindowsNamedPipe(pipeName, forcereconnect, in, params);
+			mk = new WindowsNamedPipe(pipeName, forcereconnect, _in, params);
 		} else {
 			linuxPipeName = getPipeName(pipeName);
 		}
 	}
 
-	public PipeProcess(String pipeName, String... extras) {
+	public this(String pipeName, String[] extras...) {
 		this(pipeName, null, extras);
 	}
 
 	private static String getPipeName(String pipeName) {
 		try {
-			return PMS.getConfiguration().getTempFolder() + "/" + pipeName;
+			return PMS.getConfiguration().getTempFolder() ~ "/" ~ pipeName;
 		} catch (IOException e) {
 			logger.error("Pipe may not be in temporary directory", e);
 			return pipeName;
@@ -89,9 +91,9 @@ public class PipeProcess {
 			String cmdArray[];
 
 			if (Platform.isMac() || Platform.isFreeBSD() || Platform.isSolaris()) {
-				cmdArray = new String[] {"mkfifo", "-m", "777", linuxPipeName};
+				cmdArray = ["mkfifo", "-m", "777", linuxPipeName];
 			} else {
-				cmdArray = new String[] {"mkfifo", "--mode=777", linuxPipeName};
+				cmdArray = ["mkfifo", "--mode=777", linuxPipeName];
 			}
 
 			ProcessWrapperImpl mkfifo_vid_process = new ProcessWrapperImpl(cmdArray, mkfifo_vid_params);
@@ -107,25 +109,25 @@ public class PipeProcess {
 		}
 	}
 
-	public BufferedOutputFile getDirectBuffer() throws IOException {
+	public BufferedOutputFile getDirectBuffer() {
 		if (!PMS.get().isWindows()) {
 			return null;
 		}
 		return mk.getDirectBuffer();
 	}
 
-	public InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() {
 		if (!PMS.get().isWindows()) {
-			logger.trace("Opening file " + linuxPipeName + " for reading...");
+			logger.trace("Opening file " ~ linuxPipeName ~ " for reading...");
 			RandomAccessFile raf = new RandomAccessFile(linuxPipeName, "r");
 			return new FileInputStream(raf.getFD());
 		}
 		return mk.getReadable();
 	}
 
-	public OutputStream getOutputStream() throws IOException {
+	public OutputStream getOutputStream() {
 		if (!PMS.get().isWindows()) {
-			logger.trace("Opening file " + linuxPipeName + " for writing...");
+			logger.trace("Opening file " ~ linuxPipeName ~ " for writing...");
 			RandomAccessFile raf = new RandomAccessFile(linuxPipeName, "rw");
 			FileOutputStream fout = new FileOutputStream(raf.getFD());
 			return fout;

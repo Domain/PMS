@@ -25,17 +25,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+//import java.io.FileNotFoundException;
+import java.lang.exceptions;
 
-import static net.pms.formats.v2.SubtitleType.*;
+import net.pms.formats.v2.SubtitleType;
 
 /**
  * This class keeps track of the subtitle information for media.
  */
-public class DLNAMediaSubtitle : DLNAMediaLang : Cloneable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DLNAMediaSubtitle.class);
-	private SubtitleType type = UNKNOWN;
+public class DLNAMediaSubtitle : DLNAMediaLang , Cloneable {
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!DLNAMediaSubtitle();
+	private SubtitleType type = SubtitleType.UNKNOWN;
 	private String flavor; // subtrack title / language ?
 	private File externalFile;
 	private String externalFileCharacterSet;
@@ -63,25 +63,25 @@ public class DLNAMediaSubtitle : DLNAMediaLang : Cloneable {
 
 	override
 	public String toString() {
-		return "DLNAMediaSubtitle{" +
-				"id=" + getId() +
-				", type=" + type +
-				", flavor='" + flavor + '\'' +
-				", lang='" + getLang() + '\'' +
-				", externalFile=" + externalFile +
-				", externalFileCharacterSet='" + externalFileCharacterSet + '\'' +
+		return "DLNAMediaSubtitle{" ~
+				"id=" ~ getId() ~
+				", type=" ~ type ~
+				", flavor='" ~ flavor ~ '\'' ~
+				", lang='" ~ getLang() ~ '\'' ~
+				", externalFile=" ~ externalFile ~
+				", externalFileCharacterSet='" ~ externalFileCharacterSet ~ '\'' ~
 				'}';
 	}
 
 	/**
 	 * @deprecated charset is autodetected for text subtitles after setExternalFile()
 	 */
-	@Deprecated
+	deprecated
 	public void checkUnicode() {
 	}
 
 	override
-	protected Object clone() throws CloneNotSupportedException {
+	protected Object clone() {
 		return super.clone();
 	}
 
@@ -119,7 +119,7 @@ public class DLNAMediaSubtitle : DLNAMediaLang : Cloneable {
 	/**
 	 * @deprecated use FileUtil.convertFileFromUtf16ToUtf8() for UTF-16 -> UTF-8 conversion.
 	 */
-	@Deprecated
+	deprecated
 	public File getPlayableExternalFile() {
 		return getExternalFile();
 	}
@@ -134,11 +134,11 @@ public class DLNAMediaSubtitle : DLNAMediaLang : Cloneable {
 	/**
 	 * @param externalFile the externalFile to set
 	 */
-	public void setExternalFile(File externalFile) throws FileNotFoundException {
+	public void setExternalFile(File externalFile) {
 		if (externalFile is null) {
 			throw new FileNotFoundException("Can't read file: no file supplied");
 		} else if (!FileUtil.isFileReadable(externalFile)) {
-			throw new FileNotFoundException("Can't read file: " + externalFile.getAbsolutePath());
+			throw new FileNotFoundException("Can't read file: " ~ externalFile.getAbsolutePath());
 		}
 
 		this.externalFile = externalFile;

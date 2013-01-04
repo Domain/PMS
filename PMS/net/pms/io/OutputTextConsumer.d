@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.lang.exceptions;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -35,12 +35,12 @@ import java.util.List;
  *  An input stream consumer that stores the consumed lines in a list and optionally logs each line.
  */
 public class OutputTextConsumer : OutputConsumer {
-	private static final Logger LOGGER = LoggerFactory.getLogger(OutputTextConsumer.class);
-	private List<String> lines = new ArrayList<String>();
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!OutputTextConsumer();
+	private List/*<String>*/ lines = new ArrayList/*<String>*/();
 	private Object linesLock = new Object();
 	private bool log;
 
-	public OutputTextConsumer(InputStream inputStream, bool log) {
+	public this(InputStream inputStream, bool log) {
 		super(inputStream);
 		linesLock = new Object();
 		this.log = log;
@@ -60,13 +60,13 @@ public class OutputTextConsumer : OutputConsumer {
 				}
 
 				if (log) {
-					LOGGER.debug(line);
+					LOGGER._debug(line);
 				}
 			}
 		} catch (IOException ioe) {
-			LOGGER.debug("Error consuming input stream: {}", ioe.getMessage());
+			LOGGER._debug("Error consuming input stream: %s", ioe.getMessage());
 		} catch (IllegalStateException ise) {
-			LOGGER.debug("Error reading from closed input stream: {}", ise.getMessage());
+			LOGGER._debug("Error reading from closed input stream: %s", ise.getMessage());
 		} finally {
 			LineIterator.closeQuietly(it); // clean up all associated resources
 		}
@@ -82,8 +82,8 @@ public class OutputTextConsumer : OutputConsumer {
 		return null;
 	}
 
-	public List<String> getResults() {
-		List<String> clonedResults = new ArrayList<String>();
+	public List/*<String>*/ getResults() {
+		List/*<String>*/ clonedResults = new ArrayList/*<String>*/();
 
 		synchronized (linesLock) {
 			clonedResults.addAll(lines);

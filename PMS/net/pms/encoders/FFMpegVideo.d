@@ -19,17 +19,17 @@
 module net.pms.encoders.FFMpegVideo;
 
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.Font;
-import java.io.IOException;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
+//import java.awt.Font;
+import java.lang.exceptions;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.JComponent;
-import javax.swing.JTextField;
+//import javax.swing.JComponent;
+//import javax.swing.JTextField;
 
 import net.pms.configuration.RendererConfiguration;
 import net.pms.dlna.DLNAMediaInfo;
@@ -48,10 +48,10 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.builder.PanelBuilder;
+//import com.jgoodies.forms.factories.Borders;
+//import com.jgoodies.forms.layout.CellConstraints;
+//import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Pure FFmpeg video player.
@@ -67,13 +67,13 @@ import com.jgoodies.forms.layout.FormLayout;
  * both of these parameters are unused.
  */
 public class FFMpegVideo : Player {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FFMpegVideo.class);
+	private static immutable Logger LOGGER = LoggerFactory.getLogger!FFMpegVideo();
 	private JTextField ffmpeg;
-	private static final String DEFAULT_QSCALE = "3";
+	private static const String DEFAULT_QSCALE = "3";
 
 	// FIXME we have an id() accessor for this; no need for the field to be public
-	@Deprecated
-	public static final String ID = "ffmpegvideo";
+	deprecated
+	public static const String ID = "ffmpegvideo";
 
 	/**
 	 * Returns a list of strings representing the rescale options for this transcode i.e. the ffmpeg -vf
@@ -86,8 +86,8 @@ public class FFMpegVideo : Player {
 	 * @return a {@link List} of <code>String</code>s representing the rescale options for this video,
 	 * or an empty list if the video doesn't need to be resized.
 	 */
-	public List<String> getRescaleOptions(RendererConfiguration renderer, DLNAMediaInfo media) {
-		List<String> rescaleOptions = new ArrayList<String>();
+	public List/*<String>*/ getRescaleOptions(RendererConfiguration renderer, DLNAMediaInfo media) {
+		List/*<String>*/ rescaleOptions = new ArrayList/*<String>*/();
 
 		bool isResolutionTooHighForRenderer = renderer.isVideoRescale() // renderer defines a max width/height
 			&& (media !is null)
@@ -122,8 +122,8 @@ public class FFMpegVideo : Player {
 	 * @return a {@link List} of <code>String</code>s representing the ffmpeg output parameters for the renderer according
 	 * to its <code>TranscodeVideo</code> profile.
 	 */
-	public List<String> getTranscodeVideoOptions(RendererConfiguration renderer, DLNAMediaInfo media) {
-		List<String> transcodeOptions = new ArrayList<String>();
+	public List/*<String>*/ getTranscodeVideoOptions(RendererConfiguration renderer, DLNAMediaInfo media) {
+		List/*<String>*/ transcodeOptions = new ArrayList/*<String>*/();
 
 		if (renderer.isTranscodeToWMV()) { // WMV
 			transcodeOptions.add("-c:v");
@@ -161,8 +161,8 @@ public class FFMpegVideo : Player {
 	 * @param media the media metadata for the video being streamed. May contain unset/null values (e.g. for web videos).
 	 * @return a {@link List} of <code>String</code>s representing the video bitrate options for this transcode
 	 */
-	public List<String> getVideoBitrateOptions(RendererConfiguration renderer, DLNAMediaInfo media) { // media is currently unused
-		List<String> videoBitrateOptions = new ArrayList<String>();
+	public List/*<String>*/ getVideoBitrateOptions(RendererConfiguration renderer, DLNAMediaInfo media) { // media is currently unused
+		List/*<String>*/ videoBitrateOptions = new ArrayList/*<String>*/();
 		String sMaxVideoBitrate = renderer.getMaxVideoBitrate(); // currently Mbit/s
 		int iMaxVideoBitrate = 0;
 
@@ -196,8 +196,8 @@ public class FFMpegVideo : Player {
 	 * @param media the media metadata for the video being streamed. May contain unset/null values (e.g. for web videos).
 	 * @return a {@link List} of <code>String</code>s representing the audio bitrate options for this transcode
 	 */
-	public List<String> getAudioBitrateOptions(RendererConfiguration renderer, DLNAMediaInfo media) {
-		List<String> audioBitrateOptions = new ArrayList<String>();
+	public List/*<String>*/ getAudioBitrateOptions(RendererConfiguration renderer, DLNAMediaInfo media) {
+		List/*<String>*/ audioBitrateOptions = new ArrayList/*<String>*/();
 
 		audioBitrateOptions.add("-q:a");
 		audioBitrateOptions.add(DEFAULT_QSCALE);
@@ -222,7 +222,7 @@ public class FFMpegVideo : Player {
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public bool avisynth() {
 		return false;
 	}
@@ -238,30 +238,30 @@ public class FFMpegVideo : Player {
 	}
 
 	// unused; return this array for backwards-compatibility
-	@Deprecated
+	deprecated
 	protected String[] getDefaultArgs() {
-		return new String[] {
+		return [
 			"-vcodec",
 			"mpeg2video",
 			"-f",
 			"vob",
 			"-acodec",
 			"ac3"
-		};
+		];
 	}
 
 	override
-	@Deprecated
+	deprecated
 	public String[] args() {
 		return getDefaultArgs(); // unused; return this array for for backwards compatibility
 	}
 
-	private List<String> getCustomArgs() {
-		List<String> customOptions = new ArrayList<String>();
+	private List/*<String>*/ getCustomArgs() {
+		List/*<String>*/ customOptions = new ArrayList/*<String>*/();
 		String customOptionsString = PMS.getConfiguration().getFfmpegSettings();
 
 		if (StringUtils.isNotBlank(customOptionsString)) {
-			LOGGER.debug("Custom ffmpeg output options: {}", customOptionsString);
+			LOGGER._debug("Custom ffmpeg output options: %s", customOptionsString);
 		}
 
 		Collections.addAll(customOptions, StringUtils.split(customOptionsString));
@@ -269,7 +269,7 @@ public class FFMpegVideo : Player {
 	}
 
 	// XXX hardwired to false and not referenced anywhere else in the codebase
-	@Deprecated
+	deprecated
 	public bool mplayer() {
 		return false;
 	}
@@ -290,23 +290,23 @@ public class FFMpegVideo : Player {
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params
-	) throws IOException {
+	) {
 		return getFFMpegTranscode(fileName, dlna, media, params, null);
 	}
 
 	// XXX pointless redirection of launchTranscode
 	// TODO remove this method and move its body into launchTranscode
 	// TODO call setAudioAndSubs to populate params with audio track/subtitles metadata
-	@Deprecated
+	deprecated
 	protected ProcessWrapperImpl getFFMpegTranscode(
 		String fileName,
 		DLNAResource dlna,
 		DLNAMediaInfo media,
 		OutputParams params,
 		String args[]
-	) throws IOException {
+	) {
 		int nThreads = PMS.getConfiguration().getNumberOfCpuCores();
-		List<String> cmdList = new ArrayList<String>();
+		List/*<String>*/ cmdList = new ArrayList/*<String>*/();
 		RendererConfiguration renderer = params.mediaRenderer;
 
 		cmdList.add(executable());
@@ -386,11 +386,11 @@ public class FFMpegVideo : Player {
 		CellConstraints cc = new CellConstraints();
 
 		JComponent cmp = builder.addSeparator(Messages.getString(languageLabel), cc.xyw(2, 1, 1));
-		cmp = (JComponent) cmp.getComponent(0);
+		cmp = cast(JComponent) cmp.getComponent(0);
 		cmp.setFont(cmp.getFont().deriveFont(Font.BOLD));
 
 		ffmpeg = new JTextField(PMS.getConfiguration().getFfmpegSettings());
-		ffmpeg.addKeyListener(new KeyListener() {
+		ffmpeg.addKeyListener(new class() KeyListener {
 			override
 			public void keyPressed(KeyEvent e) {
 			}
@@ -432,16 +432,16 @@ public class FFMpegVideo : Player {
 			String audioTrackName = resource.getMediaAudio().toString();
 			String defaultAudioTrackName = resource.getMedia().getAudioTracksList().get(0).toString();
 
-			if (!audioTrackName.equals(defaultAudioTrackName)) {
+			if (!audioTrackName.opEquals(defaultAudioTrackName)) {
 				// PMS only supports playback of the default audio track for FFmpeg
 				return false;
 			}
 		} catch (NullPointerException e) {
 			LOGGER.trace("FFmpeg cannot determine compatibility based on audio track for "
-					+ resource.getSystemName());
+					~ resource.getSystemName());
 		} catch (IndexOutOfBoundsException e) {
 			LOGGER.trace("FFmpeg cannot determine compatibility based on default audio track for "
-					+ resource.getSystemName());
+					~ resource.getSystemName());
 		}
 
 		Format format = resource.getFormat();
@@ -449,7 +449,7 @@ public class FFMpegVideo : Player {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.MKV) || id.equals(Format.Identifier.MPG)) {
+			if (id.opEquals(Format.Identifier.MKV) || id.opEquals(Format.Identifier.MPG)) {
 				return true;
 			}
 		}

@@ -25,13 +25,12 @@ import net.pms.formats.Format;
 import net.pms.io.OutputParams;
 import net.pms.io.ProcessWrapper;
 
-import javax.swing.*;
-import java.io.IOException;
+import java.lang.exceptions;
 
 public class TsMuxerAudio : TSMuxerVideo {
-	public static final String ID = "tsmuxeraudio";
+	public static const String ID = "tsmuxeraudio";
 
-	public TsMuxerAudio(PmsConfiguration configuration) {
+	public this(PmsConfiguration configuration) {
 		super(configuration);
 	}
 
@@ -55,7 +54,7 @@ public class TsMuxerAudio : TSMuxerVideo {
 		String fileName,
 		DLNAResource dlna,
 		DLNAMediaInfo media,
-		OutputParams params) throws IOException {
+		OutputParams params) {
 		params.timeend = media.getDurationInSeconds();
 		params.waitbeforestart = 2500;
 		return super.launchTranscode(fileName, dlna, media, params);
@@ -90,7 +89,7 @@ public class TsMuxerAudio : TSMuxerVideo {
 		if (format !is null) {
 			Format.Identifier id = format.getIdentifier();
 
-			if (id.equals(Format.Identifier.AUDIO_AS_VIDEO)) {
+			if (id.opEquals(Format.Identifier.AUDIO_AS_VIDEO)) {
 				return true;
 			}
 		}
