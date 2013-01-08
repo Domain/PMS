@@ -54,7 +54,7 @@ import java.io.PrintStream;
 import java.net.BindException;
 import java.text.SimpleDateFormat;
 import java.util.all;
-import java.util.Map.Entry;
+import java.util.Map : Entry;
 import java.util.logging.LogManager;
 
 import org.slf4j.Logger;
